@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace csvReaderClass {
-
-	class makeObjectfromDataElements {
+public class makeObjectfromDataElements {
 
 		int[][] dataElement;
 		mapObject[,] dataObject;
@@ -32,24 +29,5 @@ namespace csvReaderClass {
 				}
 			}
 		}
-	}
-	class mapObject {
-		state mystate = state.road;
 
-		//ステイトをチェンジさせるクラス、値を入れると、それに対応したenumに設定される
-		public void changeState(int statenum) {
-			mystate = (state)Enum.ToObject(typeof(state), statenum);
-		}
-
-		public int returnThisState() {
-			return (int)mystate;
-		}
-		public enum state {
-			road,
-			block,
-			enemy,
-			wall
-
-		}
-	}
 }

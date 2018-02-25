@@ -63,15 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\Class1.cs" />
-    <Compile Include="Assets\script\Class2.cs" />
-    <Compile Include="Assets\script\Class3.cs" />
+    <Compile Include="Assets\script\Asterrogram.cs" />
+    <Compile Include="Assets\script\Dycstraprogram.cs" />
     <Compile Include="Assets\script\MoveTo.cs" />
-    <Compile Include="Assets\script\Program.cs" />
-    <Compile Include="Assets\script\Program1.cs" />
-    <Compile Include="Assets\script\Program2.cs" />
-    <Compile Include="Assets\script\Program3.cs" />
+    <Compile Include="Assets\script\makeCSV.cs" />
+    <Compile Include="Assets\script\makeDataElement.cs" />
     <Compile Include="Assets\script\makeObjectfromcsv.cs" />
+    <Compile Include="Assets\script\tatchManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

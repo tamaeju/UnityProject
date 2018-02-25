@@ -4,26 +4,6 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 
-
-class Program {
-	static void Main(string[] args) {
-		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-		sw.Start();
-		Asterprogram AP = new Asterprogram();
-		AP.createDefaltPointList();
-		AP.makeStartPoint(0, 0);
-		AP.makeGoalPoint(2, 0);
-		AP.makeDefaultRoot();
-		AP.changeRootCost(1, 0, 20);
-		AP.changeRootCost(1, 1, 20);
-		AP.changeRootCost(1, 2, 20);
-		AP.CalculateGoalDistance();
-		AP.startRouteSearch();
-		sw.Stop();
-		Console.WriteLine(sw.Elapsed);
-		Console.ReadLine();
-	}
-}
 class Asterprogram {
 	private int listlength = 10;
 	private PointObject[,] pointlist;

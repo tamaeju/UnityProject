@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace csvReaderClass {
-	class Program {
-		static void Main(string[] args) {
-		}
-	}
 	class makeDataElement {
 
 		int[][] dataElement(string datapassANDname) {
@@ -38,7 +32,6 @@ namespace csvReaderClass {
 			//lines[]はテキストの情報を一行ずつ入れた文の配列。RowStringsはlines[n]を,で分けた文の配列。dateElements[x,y]は、lines[x+y]のRowStrings[3]を格納した配列
 			//これの使い方としては、csvReaderClassを生成し、dataElementメソッドを引数に使いたいパスを入れて実行すればよい。
 		}
-	}
 }
 
 

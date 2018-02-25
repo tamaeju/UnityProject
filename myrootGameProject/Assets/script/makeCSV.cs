@@ -4,17 +4,13 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Collections;
-using System.Threading.Tasks;
 
-namespace makeCSVclass {
-
-
-	class makeCSV {
+public class makeCSV  {
 		public int MaxtileCount = 30;
-		public mapObject[,] maptileobject;
+		//public mapObject[,] maptileobject;
 
 		void preUseScript() {
-			maptileobject = new mapObject[MaxtileCount, MaxtileCount];
+			//maptileobject = new mapObject[MaxtileCount, MaxtileCount];
 
 		}
 		void pushMakeCsvButton() {
@@ -30,13 +26,12 @@ namespace makeCSVclass {
 
 			for (int j = 0; j < MaxtileCount; j++) {
 				for (int i = 0; i < MaxtileCount; i++) {
-					sw.WriteLine("{0},{1},{2}", i, j, maptileobject[i, j].returnThisState());
+					//sw.WriteLine("{0},{1},{2}", i, j, maptileobject[i, j].returnThisState());
 				}
 			}
 			sw.Flush();
 			sw.Close();
 		}
-
 
 	}
 	class mapObject {
@@ -57,6 +52,5 @@ namespace makeCSVclass {
 			wall
 
 		}
-	}
 }
 

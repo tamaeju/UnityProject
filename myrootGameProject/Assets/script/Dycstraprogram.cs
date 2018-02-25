@@ -2,30 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApplication15
-{
-	class Program
-	{
-		static void Main(string[] args)
-		{
 
-			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-			sw.Start();
-			Dycstraprogram DP = new Dycstraprogram();
-			DP.setDefaltRootCost();
-			DP.setgoalpoint(9, 9);
-			DP.setRootCost(0, 0, 0, 1, 12);
-			DP.setRootCost(0, 0, 1, 0, 12);
-			DP.setstartpoint(0, 0);
-			sw.Stop();
-
-			Console.WriteLine(sw.Elapsed);
-			Console.ReadLine();
-		}
-	}
-	class Dycstraprogram
+public class Dycstraprogram 
 	{
 		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 		int[,] costlist;
@@ -192,15 +171,11 @@ namespace ConsoleApplication15
 				sw.Stop();
 				Console.WriteLine("■処理Aにかかった時間");
 				TimeSpan ts = sw.Elapsed;
-				Console.WriteLine($"　{ts}");
-				Console.WriteLine($"　{ts.Hours}時間 {ts.Minutes}分 {ts.Seconds}秒 {ts.Milliseconds}ミリ秒");
-				Console.WriteLine($"　{sw.ElapsedMilliseconds}ミリ秒");
+				//Console.WriteLine($"　{ts}");
+				//Console.WriteLine($"　{ts.Hours}時間 {ts.Minutes}分 {ts.Seconds}秒 {ts.Milliseconds}ミリ秒");
+				//Console.WriteLine($"　{sw.ElapsedMilliseconds}ミリ秒");
 				Console.ReadLine();
 			}
 			cornerOverRideCost(checkX, checkY);
 		}
-
-
-
-	}
 }
