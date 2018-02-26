@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using UnityEngine;
+using System.Collections;
 
-public class makeObjectfromDataElements {
+public class makeObjectFromCSV : MonoBehaviour {
 
+	public GameObject[] settingprefab;
 		int[][] dataElement;
 		mapObject[,] dataObject;
 
@@ -28,6 +27,14 @@ public class makeObjectfromDataElements {
 					dataObject[i, j].changeState(dataElement[j][stateFactornum]);
 				}
 			}
-		}
+			for (int j = 0; j < dataElement.GetLength(1); ++j) {
+				for (int i = 0; i < dataElement.GetLength(0); ++i) {
+				makeObject(1);//まだバグってるはず
+				}
+			}
 
-}
+		}
+		void makeObject(Vector3 pos ,int i) {
+		Instantiate(settingprefab[i], pos, Quaternion.identity);
+		}
+	}
