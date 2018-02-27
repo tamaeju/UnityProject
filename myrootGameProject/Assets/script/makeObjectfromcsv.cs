@@ -3,44 +3,51 @@ using System.Collections;
 
 public class makeObjectFromCSV : MonoBehaviour {
 
-	public GameObject[] settingprefab;
-	int[][] dataElement;
+
+	int[][] dataElements;
 	mapObject[,] dataObject;
 	Vector3 instanciatePos;
-	public float blockLength = 0.5f;
-	public int blockKind = 1;
-	int testYCount = 30;//テスト用
-	int testXCount = 30;//テスト用
+	public int[] blockKind = new int[4];
+	public GameObject[] settingprefab = new GameObject[4];
+	int YCount = 30;//テスト用
+	int XCount = 30;//テスト用
 	int stateFactoNnum = 3;
 
+	void Start() {
+		makeMapObject();
+		StartCoroutine("instanciateAllObject");
+	}
+
 	void makeMapObject() {
-		dataElement = new int[testYCount][];
-		for (int j = 0; j < testYCount; j++) {
-			dataElement[j] = new int[testXCount];
-		}
-		
-		dataObject = new mapObject[testXCount, testYCount];
+		makeDataElement makeDataclass = new makeDataElement();
+		dataElements = makeDataclass.getDataElement((@"C:\Users\appirits_1020520\Documents\myGameProject\myrootGameProject\Assets\data\datacsvFile.csv"));
 
-		for (int j = 0; j < dataElement.GetLength(1); ++j) {
-			for (int i = 0; i < dataElement.GetLength(0); ++i) {
-				//このタイミングでオブジェクトをpointX、pointYの位置にインスタンシエイトする文を入れる　dataObject[i, j] = Instantiate(hogehogeprefab, new Vector3(i*10,j*10, 0), Quaternion.identity)asGameObject;
-				dataObject[i, j].changeState(dataElement[j][stateFactoNnum]);
-			}
-		}
+		testANDcheckData();
 	}
 
 
-	void instanciateAllObject() {
-		for (int j = 0; j<dataElement.GetLength(1); ++j) {
-			instanciatePos.y = j + blockLength;
-			for (int i = 0; i<dataElement.GetLength(0); ++i) {
-				instanciatePos.x = i + blockLength;
-				instanciateObject(instanciatePos, blockKind);//まだバグってるはず
+	private IEnumerator instanciateAllObject() {
+		yield return new WaitForSeconds(1.0f);
+		for (int j = 0; j < dataElements.GetLength(1); ++j) {
+			instanciatePos.y = j;
+			for (int i = 0; i < dataElements.GetLength(0); ++i) {
+				instanciatePos.x = i;
+				instanciateObject(instanciatePos, blockKind[2]);//まだバグってるはず
 			}
+			yield return null;
 		}
 	}
 
-	void instanciateObject(Vector3 pos ,int i) {
+	void instanciateObject(Vector3 pos, int i) {
 		Instantiate(settingprefab[i], pos, Quaternion.identity);
+	}
+	void testANDcheckData() {
+		for (int j = 0; j < dataElements.GetLength(1); ++j) {
+			for (int i = 0; i < dataElements.GetLength(0); ++i) {
+				Debug.Log(dataElements[j][i]);
+			}
+			Debug.Log("一行下がり");
 		}
 	}
+}
+

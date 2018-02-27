@@ -44,8 +44,6 @@ public class tatchManager : MonoBehaviour {
 
 		}
 
-
-
 		//タッチがはなされたタイミングで、オブジェクトの位置と対応する座標を割り出し、保持オブジェクトを設置可能かを受け取る。
 		//もし設置可能であれば、置き、設置カウントを減らす
 		if (Input.GetMouseButtonUp(0)) {
@@ -54,8 +52,7 @@ public class tatchManager : MonoBehaviour {
 			Destroy(refObject);
 		}
 	}
-	//セットしようとした位置にオブジェクトがあるかを確認し、なければ置けないし、あったら置ける。バッテンプレハブを作成する
-	//そこの配列がまだ置けるという値を返せば設置できるし、返さなければ置けない。
+
 
 
 
