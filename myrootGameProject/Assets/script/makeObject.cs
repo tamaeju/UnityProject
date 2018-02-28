@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class makeObjectFromCSV : MonoBehaviour {
+public class makeObject : MonoBehaviour {
 
 
 	int[][] dataElements;
@@ -12,7 +12,7 @@ public class makeObjectFromCSV : MonoBehaviour {
 	int YCount = 30;//テスト用
 	int XCount = 30;//テスト用
 	int stateFactoNnum = 3;
-
+	public RayEmit rayemitter;
 	void Start() {
 		makeMapObject();
 		StartCoroutine("instanciateAllObject");
@@ -24,7 +24,12 @@ public class makeObjectFromCSV : MonoBehaviour {
 
 		testANDcheckData();
 	}
+	void Update() {
+		if (Input.GetMouseButtonDown(0)) {
+			instanciateObject(rayemitter.checkPos(),1);
+		}
 
+	}
 
 	private IEnumerator instanciateAllObject() {
 		yield return new WaitForSeconds(1.0f);
@@ -39,7 +44,10 @@ public class makeObjectFromCSV : MonoBehaviour {
 	}
 
 	void instanciateObject(Vector3 pos, int i) {
-		Instantiate(settingprefab[i], pos, Quaternion.identity);
+		if (pos != null) {
+			Instantiate(settingprefab[i], pos, Quaternion.identity);
+		}
+		else { }
 	}
 	void testANDcheckData() {
 		for (int j = 0; j < dataElements.GetLength(1); ++j) {

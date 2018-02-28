@@ -67,9 +67,10 @@
     <Compile Include="Assets\script\BillBoard.cs" />
     <Compile Include="Assets\script\Dycstraprogram.cs" />
     <Compile Include="Assets\script\MoveTo.cs" />
+    <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\makeCSV.cs" />
     <Compile Include="Assets\script\makeDataElement.cs" />
-    <Compile Include="Assets\script\makeObjectFromCSV.cs" />
+    <Compile Include="Assets\script\makeObject.cs" />
     <Compile Include="Assets\script\tatchManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
