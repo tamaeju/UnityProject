@@ -18,8 +18,12 @@ public class LevelButton : MonoBehaviour {
 		changeButtonColour();
 	}
 
-	public Vector3 returnThisPos() {
+	public Vector2 returnThisPos() {
 		return this.pos;
+	}
+
+	public int returnThisState() {
+		return this.stateNum;
 	}
 	public void changeButtonColour() {
 		if(stateNum == 0)

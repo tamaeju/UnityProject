@@ -7,7 +7,7 @@ using System.Text;
 
 public class ManagerClass : MonoBehaviour {
 	public tatchManager tachM;
-	public makeObjectClass MOclass;
+	public makeObject MOclass;
 	public RayEmit rayemitter;
 	int[,] objectTypes;//どの座標にどの種類のオブジェクトが格納されているかのデータ
 	bool[,] canSet;//オブジェクトを置く事ができる座標かどうか

@@ -4,53 +4,33 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class makeCSV  {
-		public int MaxtileCount = 30;
-		//public mapObject[,] maptileobject;
+public class makeCSV {
+	public int MaxtileCount = 10;
+	public GameObject[,] maptileobject;
 
-		void preUseScript() {
-			//maptileobject = new mapObject[MaxtileCount, MaxtileCount];
-
-		}
-		void pushMakeCsvButton() {
-			logSave();
-		}
-		public void logSave() {
-			StreamWriter sw;
-			FileInfo fi;
-			string ApplicationdataPath = "";
-			string FileName = "";
-			fi = new FileInfo(ApplicationdataPath + FileName);
-			sw = fi.AppendText();
-
-			for (int j = 0; j < MaxtileCount; j++) {
-				for (int i = 0; i < MaxtileCount; i++) {
-					//sw.WriteLine("{0},{1},{2}", i, j, maptileobject[i, j].returnThisState());
-				}
-			}
-			sw.Flush();
-			sw.Close();
-		}
-
+	void pushMakeCsvButton() {
+		logSave();
 	}
-	class mapObject {
-		state mystate = state.road;
+	public void logSave() {
+		StreamWriter sw;
+		FileInfo fi;
+		string ApplicationdataPath = "";
+		string FileName = "";
+		fi = new FileInfo(ApplicationdataPath + FileName);
+		sw = fi.AppendText();
 
-		//ステイトをチェンジさせるクラス、値を入れると、それに対応したenumに設定される
-		public void changeState(int statenum) {
-			mystate = (state)Enum.ToObject(typeof(state), statenum);
+		for (int j = 0; j < MaxtileCount; j++) {
+			for (int i = 0; i < MaxtileCount; i++) {
+				//Vector2 pos =  maptileobject[i, j].
+				//sw.WriteLine("{0},{1},{2}", i, j, .returnThisState());
+			}
 		}
+		sw.Flush();
+		sw.Close();
+	}
 
-		public int returnThisState() {
-			return (int)mystate;
-		}
-		public enum state {
-			road,
-			block,
-			enemy,
-			wall
-
-		}
 }
 

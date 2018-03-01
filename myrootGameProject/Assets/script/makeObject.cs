@@ -5,7 +5,7 @@ public class makeObject : MonoBehaviour {
 
 
 	int[][] dataElements;
-	mapObject[,] dataObject;
+	GameObject [,] dataObject;
 	Vector3 instanciatePos;
 	public int[] blockKind = new int[4];
 	public GameObject[] settingprefab = new GameObject[4];
