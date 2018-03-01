@@ -66,6 +66,7 @@
     <Compile Include="Assets\script\Asterrogram.cs" />
     <Compile Include="Assets\script\BillBoard.cs" />
     <Compile Include="Assets\script\Dycstraprogram.cs" />
+    <Compile Include="Assets\script\LevelButton.cs" />
     <Compile Include="Assets\script\ManagerClass.cs" />
     <Compile Include="Assets\script\MoveTo.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />

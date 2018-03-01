@@ -3,6 +3,7 @@ using System.Collections;
 
 public class RayEmit : MonoBehaviour {
 
+	float objectHight = 4.5f;
 	// Use this for initialization
 	void Start () {
 	
@@ -18,6 +19,7 @@ public class RayEmit : MonoBehaviour {
 			if (hit.collider != null) {
 				GameObject hitObj = hit.collider.gameObject;
 				pos = hitObj.transform.position;
+				pos.y = objectHight;
 				return pos;
 			}
 			else {
