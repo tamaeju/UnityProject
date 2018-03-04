@@ -7,30 +7,28 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class makeCSV {
-	public int MaxtileCount = 10;
-	public GameObject[,] maptileobject;
+public class makeCSV//CSVデータ作成クラス。x,y,kindの列データを座標の数だけ作成
+{
+	public int MaxtileCount = LevelDesignCreate.maxColumn;
+	StreamWriter sw;
 
-	void pushMakeCsvButton() {
-		logSave();
-	}
-	public void logSave() {
-		StreamWriter sw;
+	public void logSave(string aDatapath,GameObject[] writtenData){//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
+		File.Delete(aDatapath);
 		FileInfo fi;
-		string ApplicationdataPath = "";
-		string FileName = "";
-		fi = new FileInfo(ApplicationdataPath + FileName);
+		fi = new FileInfo(aDatapath);
 		sw = fi.AppendText();
-
-		for (int j = 0; j < MaxtileCount; j++) {
-			for (int i = 0; i < MaxtileCount; i++) {
-				//Vector2 pos =  maptileobject[i, j].
-				//sw.WriteLine("{0},{1},{2}", i, j, .returnThisState());
-			}
-		}
+		writeLogData(writtenData);
 		sw.Flush();
 		sw.Close();
 	}
-
+	void writeLogData(GameObject[] writtenData){//実際にログデータを書く部分、流れとしてはオブジェクトのデータを取得し、それを書いていくだけなので、int[,]がもらえればいいだけの話。
+		for (int j = 0; j < MaxtileCount; j++)
+		{
+			for (int i = 0; i < MaxtileCount; i++)
+			{
+				sw.WriteLine("{0},{1},{2}", i.ToString(), j.ToString(), writtenData[j * 10 + i].GetComponent<LevelButton>().returnThisState());
+			}
+		}
+	}
 }
 

@@ -20,7 +20,6 @@ public class tatchManager : MonoBehaviour {
 		for (int i = 0; i < LeftCount.Length; i++) {
 			LeftCount[i] = 2;
 			charactorq = Quaternion.Euler(90f, 0f, 0f);
-
 		}
 	}
 	
@@ -52,10 +51,5 @@ public class tatchManager : MonoBehaviour {
 			Destroy(refObject);
 		}
 	}
-
-
-
-
-
 
 }

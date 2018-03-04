@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelButton : MonoBehaviour {
+public class LevelButton : MonoBehaviour {//レベルデザインデータ作成用のボタンのスクリプト
 	public Vector3 pos;
 	public int stateNum;
 
