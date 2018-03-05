@@ -14,6 +14,7 @@ public class LevelDesignCreate : MonoBehaviour
 	public GameObject[] dataObject = new GameObject[maxColumn * maxColumn];//インスペクタで代入するために
 	int[,] LevelDesignData;
 	public GameObject canvasObject;
+	int loadColomn = 3;
 
 	void Start()
 	{//レベルデザインデータのメモリ領域確保
@@ -52,14 +53,14 @@ public class LevelDesignCreate : MonoBehaviour
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-		int checkColomn = 3;
+
 		string filename = "\\testData.csv";
 		string datapath = Application.dataPath + "\\data" + filename;
 		makeDataFromCSV DataMaker = new makeDataFromCSV();
-		LevelDesignData = DataMaker.getDataElement(datapath, checkColomn - 1);
+		LevelDesignData = DataMaker.getDataElement(datapath, loadColomn - 1);
 		testShowDebug();
 		Debug.Log("csvの列番号{0}のデータをチェックします");
-		Debug.Log(checkColomn);
+		Debug.Log(loadColomn);
 		makeObject ObjectMaker = GetComponent<makeObject>();
 		ObjectMaker.instanciateAllObject(LevelDesignData);
 	}

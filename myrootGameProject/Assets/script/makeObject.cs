@@ -7,7 +7,6 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	int[,] dataElements;
 	GameObject [,] dataObject;
 	Vector3 instanciatePos;
-	public int blockKind = 4;
 	public GameObject[] settingprefab = new GameObject[4];
 	public RayEmit rayemitter;
 

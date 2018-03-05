@@ -9,4 +9,7 @@ public class MoveTo : MonoBehaviour {
 		UnityEngine.AI.NavMeshAgent agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		agent.destination = goal.position;
 	}
+	public Vector3 returnMypos() {
+		return this.transform.position;
+	} 
 }
