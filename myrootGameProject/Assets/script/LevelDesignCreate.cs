@@ -20,8 +20,8 @@ public class LevelDesignCreate : MonoBehaviour
 		LevelDesignData = new int[maxColumn, maxColumn];
 	}
 
-	public void MakeDesignData()
-	{//レベルデザインデータの2次元配列を作成
+	public void MakeDesignData()//レベルデザインデータを1次元配列から2次元配列へ置換
+	{
 		for (int j = 0; j < maxColumn; ++j)
 		{
 			for (int i = 0; i < maxColumn; ++i)
@@ -30,9 +30,9 @@ public class LevelDesignCreate : MonoBehaviour
 			}
 		}
 		testShowDebug();
-
 	}
-	public void testShowDebug()
+
+	public void testShowDebug()//テストメソッド
 	{//デバッグメソッド
 		for (int j = 0; j < maxColumn; ++j)
 		{
@@ -42,7 +42,7 @@ public class LevelDesignCreate : MonoBehaviour
 			}
 		}
 	}
-	public void MakeCsvButton()
+	public void MakeCsvButton()//ボタンプッシュで実行
 	{
 		MakeDesignData();
 		makeCSV CsvCreater = new makeCSV();
@@ -50,7 +50,7 @@ public class LevelDesignCreate : MonoBehaviour
 		string datapath = Application.dataPath + "\\data" + filename;
 		CsvCreater.logSave(datapath, dataObject);
 	}
-	public void makeObjectFromCsvButton()
+	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
 		int checkColomn = 3;
 		string filename = "\\testData.csv";
@@ -63,14 +63,13 @@ public class LevelDesignCreate : MonoBehaviour
 		makeObject ObjectMaker = GetComponent<makeObject>();
 		ObjectMaker.instanciateAllObject(LevelDesignData);
 	}
-	public void CanvasONOFFButton()
+	public void CanvasONOFFButton()//ボタンプッシュで実行
 	{
 		Transform trasnform = canvasObject.GetComponent<Transform>();
 
-			foreach (Transform item in trasnform)
-			{
-				item.gameObject.SetActive(false);
-			}
+		foreach (Transform item in trasnform) {
+			item.gameObject.SetActive(false);
+		}
 
 
 	}
