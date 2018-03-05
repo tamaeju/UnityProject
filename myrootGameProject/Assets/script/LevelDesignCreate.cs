@@ -11,14 +11,32 @@ public class LevelDesignCreate : MonoBehaviour
 {//マップエディタのマネージャースクリプト。makeCSVクラスと、makeDataElementクラスを保有
 
 	public static int maxColumn = 10;//他のクラスも参照する最大要素数
-	public GameObject[] dataObject = new GameObject[maxColumn * maxColumn];//インスペクタで代入するために
+	public GameObject[] dataObjects = new GameObject[maxColumn * maxColumn];//インスペクタで代入するために
 	int[,] LevelDesignData;
 	public GameObject canvasObject;
 	int loadColomn = 3;
+	public GameObject levelButton;
 
-	void Start()
-	{//レベルデザインデータのメモリ領域確保
+	void InstanciateandgetREFmethod() {//インスペクターで紐づけを行うためのメソッド。インスタンシエイトしたタイミングでapplyして紐づけする。
+		var parent = canvasObject.transform;
+		for (int j = 0; j < maxColumn; ++j) {
+			for (int i = 0; i < maxColumn; ++i) {
+				dataObjects[j * 10 + i] = Instantiate(levelButton, settingPosition(i, j, 0), Quaternion.identity, parent) as GameObject;
+				if (i == 0 | i == 9 | j == 0 | j == 9) {
+					dataObjects[j * 10 + i].GetComponent<LevelButton>().changeState(1);
+				}
+			}
+		}
+	}
+	Vector3 settingPosition(int x, int y, int z) {//InstanciateandgetREFmethod()と合わせ技のため
+		Vector3 returnPos = new Vector3((x+8.5f)* 30, (y+1.7f)* 30 ,z);
+		return returnPos;
+	}
+
+	void Start()//レベルデザインデータのメモリ領域確保
+	{
 		LevelDesignData = new int[maxColumn, maxColumn];
+		InstanciateandgetREFmethod();
 	}
 
 	public void MakeDesignData()//レベルデザインデータを1次元配列から2次元配列へ置換
@@ -27,14 +45,14 @@ public class LevelDesignCreate : MonoBehaviour
 		{
 			for (int i = 0; i < maxColumn; ++i)
 			{
-				LevelDesignData[i, j] = dataObject[j * 10 + i].GetComponent<LevelButton>().returnThisState();
+				LevelDesignData[i, j] = dataObjects[j * 10 + i].GetComponent<LevelButton>().returnThisState();
 			}
 		}
 		testShowDebug();
 	}
 
 	public void testShowDebug()//テストメソッド
-	{//デバッグメソッド
+	{
 		for (int j = 0; j < maxColumn; ++j)
 		{
 			for (int i = 0; i < maxColumn; ++i)
@@ -46,10 +64,11 @@ public class LevelDesignCreate : MonoBehaviour
 	public void MakeCsvButton()//ボタンプッシュで実行
 	{
 		MakeDesignData();
+		testShowDebug();
 		makeCSV CsvCreater = new makeCSV();
 		string filename = "\\testData.csv";
 		string datapath = Application.dataPath + "\\data" + filename;
-		CsvCreater.logSave(datapath, dataObject);
+		CsvCreater.logSave(datapath, LevelDesignData);
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{

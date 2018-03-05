@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class LevelButton : MonoBehaviour {//レベルデザインデータ作成用のボタンのスクリプト
 	public Vector3 pos;
 	public int stateNum;
 
-	public void chengeState(){
+	public void addState(){
 		if (stateNum < 3) {
 			stateNum++;
 		}
@@ -15,6 +16,13 @@ public class LevelButton : MonoBehaviour {//レベルデザインデータ作成
 		changeButtonColour();
 	}
 	void Start() {
+		changeButtonColour();
+	}
+	public void changeState(int astateNum) {
+		if (Math.Abs(stateNum) < 4) {
+			stateNum = astateNum++;
+		}
+		else { stateNum = 0; }
 		changeButtonColour();
 	}
 
