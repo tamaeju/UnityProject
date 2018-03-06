@@ -53,7 +53,6 @@ public class LevelDesignCreate : MonoBehaviour
 				LevelDesignData[i, j] = dataObjects[j * 10 + i].GetComponent<LevelButton>().returnThisState();
 			}
 		}
-		testShowDebug();
 	}
 
 	public void testShowDebug()//テストメソッド
@@ -69,7 +68,6 @@ public class LevelDesignCreate : MonoBehaviour
 	public void MakeCsvButton()//ボタンプッシュで実行
 	{
 		MakeDesignData();
-		testShowDebug();
 		makeCSV CsvCreater = new makeCSV();
 		CsvCreater.logSave(datapath, LevelDesignData);
 	}
@@ -77,7 +75,6 @@ public class LevelDesignCreate : MonoBehaviour
 	{
 		makeDataFromCSV DataMaker = new makeDataFromCSV();
 		LevelDesignData = DataMaker.getDataElement(datapath, loadColomn - 1);
-		testShowDebug();
 		Debug.Log("csvの列番号{0}のデータをチェックします");
 		Debug.Log(loadColomn);
 		makeObject ObjectMaker = GetComponent<makeObject>();

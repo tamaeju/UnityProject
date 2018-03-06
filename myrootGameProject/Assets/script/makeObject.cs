@@ -30,10 +30,8 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	}
 
 	void instanciateObject(Vector3 pos, int i) {
-		if (pos != null) {
 			Instantiate(settingprefab[i], pos, Quaternion.identity);
-		}
-		else { }
+
 	}
 
 	void testANDcheckData() {
