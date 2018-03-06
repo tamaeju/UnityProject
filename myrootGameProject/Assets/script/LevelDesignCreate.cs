@@ -16,6 +16,9 @@ public class LevelDesignCreate : MonoBehaviour
 	public GameObject canvasObject;
 	int loadColomn = 3;
 	public GameObject levelButton;
+	string filename;
+	string datapath;
+
 
 	void InstanciateandgetREFmethod() {//インスペクターで紐づけを行うためのメソッド。インスタンシエイトしたタイミングでapplyして紐づけする。
 		var parent = canvasObject.transform;
@@ -37,6 +40,8 @@ public class LevelDesignCreate : MonoBehaviour
 	{
 		LevelDesignData = new int[maxColumn, maxColumn];
 		InstanciateandgetREFmethod();
+		filename = "\\testData.csv";
+		datapath = Application.dataPath + "\\data" + filename;
 	}
 
 	public void MakeDesignData()//レベルデザインデータを1次元配列から2次元配列へ置換
@@ -66,15 +71,10 @@ public class LevelDesignCreate : MonoBehaviour
 		MakeDesignData();
 		testShowDebug();
 		makeCSV CsvCreater = new makeCSV();
-		string filename = "\\testData.csv";
-		string datapath = Application.dataPath + "\\data" + filename;
 		CsvCreater.logSave(datapath, LevelDesignData);
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-
-		string filename = "\\testData.csv";
-		string datapath = Application.dataPath + "\\data" + filename;
 		makeDataFromCSV DataMaker = new makeDataFromCSV();
 		LevelDesignData = DataMaker.getDataElement(datapath, loadColomn - 1);
 		testShowDebug();
@@ -90,7 +90,11 @@ public class LevelDesignCreate : MonoBehaviour
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(false);
 		}
-
-
+	}
+	public void ChangeCSVNum(Dropdown dropdown) {
+		filename = "\\testData"+ dropdown.value.ToString() + ".csv";
+		datapath = Application.dataPath + "\\data" + filename;
+		Debug.Log(filename);
+		Debug.Log(datapath);
 	}
 }

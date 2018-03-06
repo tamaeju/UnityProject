@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RayEmit : MonoBehaviour {
+public class RayEmit{
 
 	float objectHight = 4.5f;
 
@@ -24,5 +24,16 @@ public class RayEmit : MonoBehaviour {
 		else {
 			pos.x = -1; pos.z = -1; pos.y = -1; return pos;
 		}
+	}
+	public GameObject getObject() {
+		RaycastHit hit;
+		if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.down, out hit)) {
+			if (hit.collider != null) {
+				GameObject hitObj = hit.collider.gameObject;
+				return hitObj;
+			}
+			else {  return null; }
+		}
+		else { return null; }
 	}
 }

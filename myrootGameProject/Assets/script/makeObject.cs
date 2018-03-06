@@ -10,13 +10,9 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	public GameObject[] settingprefab = new GameObject[4];
 	public RayEmit rayemitter;
 
-
-
-
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
 		}
-
 	}
 
 	public void instanciateAllObject(int[,]aPrefabKind) {
