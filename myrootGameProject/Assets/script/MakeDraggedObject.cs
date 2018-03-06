@@ -13,6 +13,7 @@ public class MakeDraggedObject : MonoBehaviour {
 	[SerializeField]private Text scoretext;//TextというのはあくまでコンポーネントのTextであるので、文字を変えたいならText.textと書く必要がある。
 
 	public void Start() {
+		scoretext.text = "LeftCount" + ObjectLeftCount.ToString();
 	}
 
 	public int getMyObjectKind() {

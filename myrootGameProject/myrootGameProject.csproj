@@ -92,6 +92,7 @@
     <Compile Include="Assets\script\Player.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\ScoreManager.cs" />
+    <Compile Include="Assets\script\SetPointRayEmiter.cs" />
     <Compile Include="Assets\script\makeCSV.cs" />
     <Compile Include="Assets\script\makeDataFromCSV.cs" />
     <Compile Include="Assets\script\makeObject.cs" />

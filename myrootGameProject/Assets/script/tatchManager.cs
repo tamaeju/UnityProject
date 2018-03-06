@@ -15,6 +15,8 @@ public class tatchManager : MonoBehaviour {
 	public GameObject ground;
 	float groundhight;
 	float instancehight;
+	public GameObject groungrayemitter;
+	private GameObject refrayObject;
 
 	bool Istatch;
 
@@ -39,12 +41,13 @@ public class tatchManager : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) {
 			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			instancePosition.y = instancehight;
+			instancePosition.y = instancehight + 2;
 			if (rayemitter.getObject() != null) {
 				dragger = rayemitter.getObject().GetComponent<MakeDraggedObject>();
 				if (dragger.getObjectLeftCount() > 0) {
 					int prefabkind = dragger.getMyObjectKind();
 					refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
+					refrayObject = Instantiate(groungrayemitter, instancePosition, charactorq) as GameObject;
 					dragger.decreaseLeftCount();
 				}
 				else { Debug.Log("noLeftItem"); }
@@ -55,17 +58,25 @@ public class tatchManager : MonoBehaviour {
 		if (Input.GetMouseButton(0)) {
 			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			instancePosition.y = instancehight;
+			instancePosition.y = instancehight + 2;
 			if (refObject != null) {
 				refObject.transform.position = instancePosition;
+				refrayObject.transform.position = instancePosition;
 			}
 		}
 
 		//タッチがはなされたタイミングで、オブジェクトの位置と対応する座標を割り出し、保持オブジェクトを設置可能かを受け取る。
 		//もし設置可能であれば、置き、設置カウントを減らす
 		if (Input.GetMouseButtonUp(0)) {
-			setPosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			setPosition.y = instancehight;
+			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
+			instancePosition.y = instancehight;
+			refObject.transform.position = instancePosition;
+			if (refObject != null) {
+				refObject.transform.position = instancePosition;
+				refrayObject.transform.position = instancePosition;
+				refObject = null;
+			}
 		}
 	}
 }
