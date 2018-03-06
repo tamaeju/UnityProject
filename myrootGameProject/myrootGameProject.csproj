@@ -82,6 +82,7 @@
     <Compile Include="Assets\script\BillBoard.cs" />
     <Compile Include="Assets\script\Dropdowns.cs" />
     <Compile Include="Assets\script\Dycstraprogram.cs" />
+    <Compile Include="Assets\script\Item.cs" />
     <Compile Include="Assets\script\LevelButton.cs" />
     <Compile Include="Assets\script\LevelDesignCreate.cs" />
     <Compile Include="Assets\script\LevelDesignCreate2.cs" />
