@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.AI;
+
 
 public class CharactorMove : MonoBehaviour {
 	delegate void Action();
 	public GameObject TargetObject;
-	UnityEngine.AI.NavMeshAgent agent;
+	NavMeshAgent agent;
 
 	void Start() {
-
-		agent.SetDestination(TargetObject.transform.position);
+		agent = GetComponent<NavMeshAgent>();
+		agent.destination = TargetObject.transform.position;
 	}
 
 	public void changeSpeed(float newSpeed, float waittime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。

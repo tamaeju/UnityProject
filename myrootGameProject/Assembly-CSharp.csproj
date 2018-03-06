@@ -57,6 +57,7 @@
      <Compile Include="Assets\script\LevelDesignCreate2.cs" />
      <Compile Include="Assets\script\MakeDraggedObject.cs" />
      <Compile Include="Assets\script\ManagerClass.cs" />
+     <Compile Include="Assets\script\MoveTo.cs" />
      <Compile Include="Assets\script\ObjectManager.cs" />
      <Compile Include="Assets\script\RayEmit.cs" />
      <Compile Include="Assets\script\ScoreManager.cs" />
