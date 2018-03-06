@@ -9,6 +9,7 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	Vector3 instanciatePos;
 	public GameObject[] settingprefab = new GameObject[4];
 	public RayEmit rayemitter;
+	float blocklength = 0.9f;
 
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
@@ -45,7 +46,7 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	}
 	Vector3 settingPosition(int x, int y,int z)
 	{
-		Vector3 returnPos = new Vector3((x - 4) * 0.9f, z, (y - 5) * 0.9f);
+		Vector3 returnPos = new Vector3((x - 4.5f) * blocklength, z, (y - 4.5f) * blocklength);
 		return returnPos;
 	}
 }

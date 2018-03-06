@@ -44,7 +44,8 @@ public class tatchManager : MonoBehaviour {
 			instancePosition.y = instancehight + 2;
 			if (rayemitter.getObject() != null) {
 				dragger = rayemitter.getObject().GetComponent<MakeDraggedObject>();
-				if (dragger.getObjectLeftCount() > 0) {
+				if (dragger.GetType() == typeof(MakeDraggedObject) && dragger.getObjectLeftCount() > 0)
+				{
 					int prefabkind = dragger.getMyObjectKind();
 					refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
 					refrayObject = Instantiate(groungrayemitter, instancePosition, charactorq) as GameObject;
@@ -77,6 +78,6 @@ public class tatchManager : MonoBehaviour {
 				refrayObject.transform.position = instancePosition;
 				refObject = null;
 			}
-		}
+		}//置いた位置のポジションをとる。その値を0.9で割った数値に対して、floorをかけてやり、
 	}
 }

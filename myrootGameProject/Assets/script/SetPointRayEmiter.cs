@@ -18,7 +18,7 @@ public class SetPointRayEmiter : MonoBehaviour {
 		}
 
 		//Rayを画面に表示
-		Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green, 5, false);
+		//Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green, 5, false);
 
 	}
 }

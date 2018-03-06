@@ -32,7 +32,7 @@ public class LevelDesignCreate : MonoBehaviour
 		}
 	}
 	Vector3 settingPosition(int x, int y, int z) {//InstanciateandgetREFmethod()と合わせ技のため
-		Vector3 returnPos = new Vector3((x+8.5f)* 30, (y+1.7f)* 30 ,z);
+		Vector3 returnPos = new Vector3((x+10f)* 28, (y+3f)* 28 ,z);
 		return returnPos;
 	}
 
