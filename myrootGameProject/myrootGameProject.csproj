@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\script\Asterrogram.cs" />
     <Compile Include="Assets\script\BillBoard.cs" />
+    <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\Dropdowns.cs" />
     <Compile Include="Assets\script\Dycstraprogram.cs" />
     <Compile Include="Assets\script\Item.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="Assets\script\ManagerClass.cs" />
     <Compile Include="Assets\script\MoveTo.cs" />
     <Compile Include="Assets\script\ObjectManager.cs" />
-    <Compile Include="Assets\script\Player.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\ScoreManager.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />

@@ -7,22 +7,20 @@ using UnityEngine.AI;
 
 public class CharactorMove : MonoBehaviour {
 
-	public GameObject TargetObject;
+	[SerializeField] private GameObject TargetObject;
 	Action act;
 	NavMeshAgent agent;
 
 
-	void Awake() {
+	void Start() {
 		agent = GetComponent<NavMeshAgent>();
-		agent.destination = TargetObject.transform.position;
-		StartCoroutine(delaySetDestination(2f));
 	}
 
 	void Update()
 	{
-		//Debug.Log(TargetObject.transform.position);
-		act = () =>{ Debug.Log(TargetObject.transform.position); };
-		StartCoroutine(vargucolutinmethod(act, 3));
+		//agent.destination = TargetObject.transform.position;
+		//act = () =>{ Debug.Log(TargetObject.transform.position); };
+		//StartCoroutine(vargucolutinmethod(act, 3));
 	}
 
 	//ゴールオブジェクト
@@ -51,5 +49,11 @@ public class CharactorMove : MonoBehaviour {
 		Debug.Log("Called,vargucolutinmethod");
 		act();
 		yield break;
+	}
+	public void setdestination(GameObject target) {//プレイヤーオブジェクトのエージェントの目的オブジェクトをゴールオブジェクトに変更。
+		agent = GetComponent<NavMeshAgent>();
+		TargetObject = target;
+		agent.destination = TargetObject.transform.position;
+		Debug.Log("calledsetdestination");
 	}
 }

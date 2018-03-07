@@ -43,9 +43,9 @@ public class tatchManager : MonoBehaviour {
 			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
 			instancePosition.y = instancehight + 2;
 			if (rayemitter.getObject() != null) {
-				dragger = rayemitter.getObject().GetComponent<MakeDraggedObject>();
-				if (dragger.GetType() == typeof(MakeDraggedObject) && dragger.getObjectLeftCount() > 0)
+				if (rayemitter.getObject().GetComponent<MakeDraggedObject>().GetType() == typeof(MakeDraggedObject) && rayemitter.getObject().GetComponent<MakeDraggedObject>().getObjectLeftCount() > 0)
 				{
+					dragger = rayemitter.getObject().GetComponent<MakeDraggedObject>();
 					int prefabkind = dragger.getMyObjectKind();
 					refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
 					refrayObject = Instantiate(groungrayemitter, instancePosition, charactorq) as GameObject;
@@ -72,7 +72,6 @@ public class tatchManager : MonoBehaviour {
 			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
 			instancePosition.y = instancehight;
-			refObject.transform.position = instancePosition;
 			if (refObject != null) {
 				refObject.transform.position = instancePosition;
 				refrayObject.transform.position = instancePosition;
