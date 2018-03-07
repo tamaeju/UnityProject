@@ -54,7 +54,6 @@
      <Compile Include="Assets\script\Item.cs" />
      <Compile Include="Assets\script\LevelButton.cs" />
      <Compile Include="Assets\script\LevelDesignCreate.cs" />
-     <Compile Include="Assets\script\LevelDesignCreate2.cs" />
      <Compile Include="Assets\script\MakeDraggedObject.cs" />
      <Compile Include="Assets\script\ManagerClass.cs" />
      <Compile Include="Assets\script\MoveTo.cs" />

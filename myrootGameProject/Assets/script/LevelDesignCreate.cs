@@ -81,7 +81,8 @@ public class LevelDesignCreate : MonoBehaviour
 		ObjectMaker.instanciateAllObject(_leveldesigndata, instancehight);
 		goalobject = ObjectMaker.getGoalObject();
 		playerobject = ObjectMaker.getPlayerObject();
-		playerobject.GetComponent<CharactorMove>().setDestination(goalobject);
+		try { playerobject.GetComponent<CharactorMove>().setDestination(goalobject); }
+		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", playerobject)); }
 		updateCansetDatas(_leveldesigndata);
 	}
 	public void CanvasONOFFButton()//ボタンプッシュで実行
@@ -102,7 +103,7 @@ public class LevelDesignCreate : MonoBehaviour
 		Vector2 setpos = new Vector2();
 		setpos = parseVector3toVector2(aSetpos);
 		_leveldesigndata[(int)setpos.x, (int)setpos.y] = objectkind;
-		Debug.Log(setpos.x.ToString()+setpos.y.ToString()+"ischanged to" + _leveldesigndata[(int)setpos.x, (int)setpos.y].ToString());
+		Debug.Log(setpos.x.ToString()+"," + setpos.y.ToString()+"ischanged to" + _leveldesigndata[(int)setpos.x, (int)setpos.y].ToString());
 	}
 
 	private Vector2 parseVector3toVector2(Vector3 aVector3) {//vector3をvector2に変換するメソッド（x→x,z→y）
@@ -145,7 +146,7 @@ public class LevelDesignCreate : MonoBehaviour
 	}
 	public void updateCansetDatas(Vector3 existencepoints) {
 		Vector2 cehckvector2 = parseVector3toVector2(existencepoints);
-		_canSetDatas[(int)existencepoints.x, (int)existencepoints.y] = false;
+		_canSetDatas[(int)cehckvector2.x, (int)cehckvector2.y] = false;
 	}
 	public bool checkCanSet(Vector3 checkvector3) {//そこにおけるかを返すメソッド。
 		Vector2 checkvector2 = parseVector3toVector2(checkvector3);

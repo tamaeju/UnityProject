@@ -67,10 +67,11 @@ public class tatchManager : MonoBehaviour {
 		if (Input.GetMouseButtonUp(0)) {//タッチが離されたタイミングで、オブジェクトをつかんでいればnullを入れる。
 			setInstanceposFromMouse(0);
 			Vector3 indexVector3 = getIndexpos(instancePosition);//x,y,zが何番目の配列か調べる。
-			if (manager.checkCanSet(indexVector3)) {//今のポジションのインデックスが配列内であり、セットできるのであれば
+			if (manager.checkCanSet(indexVector3)&& refObject!=null) {//今のポジションのインデックスが配列内であり、セットできるのであれば
 				draggeeditem.decreaseLeftCount();//レフトカウントを1減らす。
 				refObject.transform.position = getRoundedgPos(instancePosition);
-				manager.changeMapData(getIndexpos(refObject.transform.position), draggeeditem.getMyObjectKind());
+				manager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
+				manager.updateCansetDatas(indexVector3);
 				manager.updateCansetDatas(indexVector3);
 			}
 			else {
