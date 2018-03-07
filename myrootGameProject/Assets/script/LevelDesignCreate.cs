@@ -82,6 +82,7 @@ public class LevelDesignCreate : MonoBehaviour
 		goalobject = ObjectMaker.getGoalObject();
 		playerobject = ObjectMaker.getPlayerObject();
 		playerobject.GetComponent<CharactorMove>().setDestination(goalobject);
+		updateCansetDatas(_leveldesigndata);
 	}
 	public void CanvasONOFFButton()//ボタンプッシュで実行
 	{
@@ -104,19 +105,21 @@ public class LevelDesignCreate : MonoBehaviour
 		Debug.Log(setpos.x.ToString()+setpos.y.ToString()+"ischanged to" + _leveldesigndata[(int)setpos.x, (int)setpos.y].ToString());
 	}
 
-	public Vector2 parseVector3toVector2(Vector3 aVector3) {//vector3をvector2に変換するメソッド（x→x,z→y）
+	private Vector2 parseVector3toVector2(Vector3 aVector3) {//vector3をvector2に変換するメソッド（x→x,z→y）
 		Vector2 indexpos = new Vector2();
 		indexpos.x = aVector3.x;
 		indexpos.y = aVector3.z;
 		return indexpos;
 	}
 	public Vector2[] getOverRidePoint(Vector3 myposition) {//移動オブジェクトの存在する4点の座標を返すメソッド
+
 		Vector2[] overridepoints = new Vector2[4];
+		Vector2 cehckvector2 = parseVector3toVector2(myposition);
 		int highx, lowx, highy, lowy;
-		highx = (int)Math.Ceiling(myposition.x/blocklength);
-		highy = (int)Math.Ceiling(myposition.y /blocklength);
-		lowx = (int)Math.Floor(myposition.x /blocklength);
-		lowy = (int)Math.Floor(myposition.y /blocklength);
+		highx = (int)Math.Ceiling(cehckvector2.x/blocklength);
+		highy = (int)Math.Ceiling(cehckvector2.y /blocklength);
+		lowx = (int)Math.Floor(cehckvector2.x /blocklength);
+		lowy = (int)Math.Floor(cehckvector2.y /blocklength);
 		overridepoints[0].x = lowx; overridepoints[0].y = lowy;
 		overridepoints[1].x = lowx; overridepoints[1].y = highy;
 		overridepoints[2].x = highx; overridepoints[2].y = lowy;
@@ -126,17 +129,33 @@ public class LevelDesignCreate : MonoBehaviour
 	public void updateCansetDatas(int[,] existencepoints) {//ブロックが置いてあるポイントをfalseにして、それ以外をtrueにする
 		for (int j = 0; j < existencepoints.GetLength(1); ++j) {
 			for (int i = 0; i < existencepoints.GetLength(0); ++i) {
-				if (existencepoints[i, j] == 0) {
-					_canSetDatas[i, j] = true;
+				if (existencepoints[i, j] == 1) {
+					_canSetDatas[i, j] = false;
 				}
 				else { _canSetDatas[i, j] = true; }
 			}
 		}
 	}
-	public void updateCansetDatas(Vector2[] existencepoints) {//移動オブジェクトの存在するポイント4点をfalseにして、それ以外をtrueにする
+	public void updateCansetDatas(Vector3[] existencepoints) {//移動オブジェクトの存在するポイント4点をfalseにして、それ以外をtrueにする
+		Vector2 cehckvector2; 
 		foreach (var item in existencepoints) {
-			_canSetDatas[(int)item.x, (int)item.y] = false;
+			cehckvector2 = parseVector3toVector2(item);
+			_canSetDatas[(int)cehckvector2.x, (int)cehckvector2.y] = false;
 		}
+	}
+	public void updateCansetDatas(Vector3 existencepoints) {
+		Vector2 cehckvector2 = parseVector3toVector2(existencepoints);
+		_canSetDatas[(int)existencepoints.x, (int)existencepoints.y] = false;
+	}
+	public bool checkCanSet(Vector3 checkvector3) {//そこにおけるかを返すメソッド。
+		Vector2 checkvector2 = parseVector3toVector2(checkvector3);
+		if (checkinIndex(checkvector2))
+			return _canSetDatas[(int)checkvector2.x, (int)checkvector2.y];
+		else { return false; }
+	}
+	private bool checkinIndex(Vector3 checkvector3) {
+		Vector2 checkvector2 = parseVector3toVector2(checkvector3);
+		return checkvector2.x >= 0 && (int)checkvector2.x < maxColumn && checkvector2.y >= 0 && (int)checkvector2.y < maxColumn;
 	}
 
 

@@ -11,7 +11,6 @@ public class CharactorMove : MonoBehaviour {
 	Action act;
 	NavMeshAgent agent;
 
-
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
 	}
@@ -21,7 +20,6 @@ public class CharactorMove : MonoBehaviour {
 	//ゴールオブジェクト
 	public void changeSpeed(float newspeed, float waittime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。
 		StartCoroutine(changeSpeedColutin(5f, 5f));
-
 	}
 
 	private IEnumerator changeSpeedColutin(float newSpeed, float effecttime) {
@@ -51,6 +49,6 @@ public class CharactorMove : MonoBehaviour {
 	}
 	public Vector3 getMyPosition() {
 		return transform.position;
-	}
-
+	}//たどり着かせなければ勝ちのルール追加。
+	 //イライラ棒システム
 }

@@ -44,12 +44,6 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 		return goalobject;
 	}
 
-	//メイクオブジェクトがオブジェクト群を生成。その後ゲームスタートボタンを押すとレベルデザインクリエイトクラスが、オブジェクトたちにゴールオブジェクトの場所を渡す。
-
-	void instanciateObject(Vector3 pos, int i) {
-			Instantiate(settingprefab[i], pos, Quaternion.identity);
-	}
-
 
 	Vector3 settingObjectPos(int x, int y,float z)
 	{

@@ -12,7 +12,7 @@ public class tatchManager : MonoBehaviour {
 	Vector3 setPosition;
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
-	MakeDraggedObject dragger;
+	MakeDraggedObject draggeeditem;
 	public GameObject ground;
 	float groundhight;
 	float instancehight;
@@ -20,7 +20,7 @@ public class tatchManager : MonoBehaviour {
 	private GameObject refrayObject;
 	float blocklength = 0.9f;
 	public GameObject Mapmanager;
-
+	private LevelDesignCreate manager;
 	bool Istatch;
 
 	// Use this for initialization
@@ -32,7 +32,8 @@ public class tatchManager : MonoBehaviour {
 		}
 		rayemitter = new RayEmit();
 		groundhight = ground.transform.position.y;
-		instancehight = groundhight+0.5f;
+		instancehight = groundhight + 0.5f;
+		manager = Mapmanager.GetComponent<LevelDesignCreate>();
 	}
 
 	public void makeDraggedObject(int objectKind) {
@@ -40,63 +41,62 @@ public class tatchManager : MonoBehaviour {
 	}
 
 	void Update() {
-		//タップしたらオブジェクトを置けちゃう問題はif文で、メイクドラッグドオブジェクトじゃなかったら以下の処理をしないでいいのでは。
 		if (Input.GetMouseButtonDown(0)) {
-			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			instancePosition.y = instancehight + 2;
-			if (rayemitter.getObject() != null) {
-				if (rayemitter.getObject().GetComponent<MakeDraggedObject>().GetType() == typeof(MakeDraggedObject) && rayemitter.getObject().GetComponent<MakeDraggedObject>().getObjectLeftCount() > 0) {
-					dragger = rayemitter.getObject().GetComponent<MakeDraggedObject>();
-					int prefabkind = dragger.getMyObjectKind();
-					refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
-					refrayObject = Instantiate(groungrayemitter, instancePosition, charactorq) as GameObject;
-					dragger.decreaseLeftCount();
-				}
-			else { Debug.Log("noLeftItem"); }
+			setInstanceposFromMouse(2);
+			try { draggeeditem = rayemitter.getObject().GetComponent<MakeDraggedObject>(); }
+			catch { Debug.Log(string.Format("draggeeditem" + "が{0}", draggeeditem)); }
+			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(MakeDraggedObject) && draggeeditem.getObjectLeftCount() > 0) 
+				{//ドラッグしたアイテムがmakedraggedobjectであり、かつレフトカウントが0より大きいなら
+				int prefabkind = draggeeditem.getMyObjectKind();
+				refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
 			}
-			else { rayemitter = null; }
-		}
-		//タッチされ続けている間、オブジェクトの位置を動かし続ける。
-		if (Input.GetMouseButton(0)) {
-			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			instancePosition.y = instancehight + 2;
-			if (refObject != null) {
-				refObject.transform.position = instancePosition;
-				refrayObject.transform.position = instancePosition;
+			else {
+				Debug.Log("noLeftItem");
 			}
 		}
 
-		//タッチがはなされたタイミングで、オブジェクトの位置と対応する座標を割り出し、保持オブジェクトを設置可能かを受け取る。
-		//もし設置可能であれば、置き、設置カウントを減らす
-		if (Input.GetMouseButtonUp(0)) {
-			screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
-			instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-			instancePosition.y = instancehight;
+		if (Input.GetMouseButton(0)) {//タッチされ続けている間、オブジェクトの位置を動かし続ける。
+			setInstanceposFromMouse(2);
 			if (refObject != null) {
-				refObject.transform.position = getRoundedgpos(instancePosition);
-				refrayObject.transform.position = getRoundedgpos(instancePosition);
-				Mapmanager.GetComponent<LevelDesignCreate>().changeMapData(getindexpos(refObject.transform.position), dragger.getMyObjectKind());
-				refObject = null;
-				dragger = null;
+				refObject.transform.position = instancePosition;
+			}
+			else {
 			}
 		}
-		
+
+		if (Input.GetMouseButtonUp(0)) {//タッチが離されたタイミングで、オブジェクトをつかんでいればnullを入れる。
+			setInstanceposFromMouse(0);
+			Vector3 indexVector3 = getIndexpos(instancePosition);//x,y,zが何番目の配列か調べる。
+			if (manager.checkCanSet(indexVector3)) {//今のポジションのインデックスが配列内であり、セットできるのであれば
+				draggeeditem.decreaseLeftCount();//レフトカウントを1減らす。
+				refObject.transform.position = getRoundedgPos(instancePosition);
+				manager.changeMapData(getIndexpos(refObject.transform.position), draggeeditem.getMyObjectKind());
+				manager.updateCansetDatas(indexVector3);
+			}
+			else {
+				Destroy(refObject);
+			}
+			refObject = null;
+			draggeeditem = null;
+		}
 	}
-	public Vector3 getindexpos(Vector3 aPos) {//設置されているポジションのindexを返すメソッド
+	public Vector3 getIndexpos(Vector3 aPos) {//設置されているポジションのindexを返すメソッド
 		Vector3 indexpos = new Vector3();
 		indexpos.x = (float)Math.Round(aPos.x / blocklength);
 		indexpos.y = (float)Math.Round(aPos.y / blocklength);
 		indexpos.z = (float)Math.Round(aPos.z / blocklength);
 		return indexpos;
 	}
-	public Vector3 getRoundedgpos(Vector3 aPos) {//設置されるポジションを返すメソッド
-		Vector3 roundedpos = getindexpos(aPos);
-		roundedpos.x = roundedpos.x * blocklength;
-		roundedpos.y = roundedpos.y * blocklength;
-		roundedpos.z = roundedpos.z * blocklength;
+	public Vector3 getRoundedgPos(Vector3 aPos) {//設置されるポジションを返すメソッド
+		Vector3 roundedpos = new Vector3();
+		roundedpos.x = getIndexpos(aPos).x * blocklength;
+		roundedpos.y = getIndexpos(aPos).y * blocklength;
+		roundedpos.z = getIndexpos(aPos).z * blocklength;
 		return roundedpos;
 	}
-
+	public void setInstanceposFromMouse(int slideypos) {
+		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
+		instancePosition.y = instancehight + slideypos;
+	}
 }
