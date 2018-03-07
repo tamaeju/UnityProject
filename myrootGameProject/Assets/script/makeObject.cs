@@ -12,6 +12,7 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 	float blocklength = 0.9f;
 	private GameObject goalobject;
 	private GameObject playerobject;
+	private int slidespace = 4;
 
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
@@ -52,7 +53,7 @@ public class makeObject : MonoBehaviour {//オブジェクト生成を行うク�
 
 	Vector3 settingObjectPos(int x, int y,float z)
 	{
-		Vector3 returnPos = new Vector3((x - 4.5f) * blocklength, z, (y - 4.5f) * blocklength);
+		Vector3 returnPos = new Vector3(x * blocklength, z, y * blocklength);
 		return returnPos;
 	}
 }
