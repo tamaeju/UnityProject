@@ -78,26 +78,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\Asterrogram.cs" />
-    <Compile Include="Assets\script\BillBoard.cs" />
+    <Compile Include="Assets\script\CSVManager.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
-    <Compile Include="Assets\script\Dropdowns.cs" />
-    <Compile Include="Assets\script\Dycstraprogram.cs" />
+    <Compile Include="Assets\script\DropdownUI.cs" />
     <Compile Include="Assets\script\Item.cs" />
     <Compile Include="Assets\script\LevelButton.cs" />
     <Compile Include="Assets\script\LevelDesignCreate.cs" />
     <Compile Include="Assets\script\MakeDraggedObject.cs" />
-    <Compile Include="Assets\script\ManagerClass.cs" />
-    <Compile Include="Assets\script\MoveTo.cs" />
-    <Compile Include="Assets\script\ObjectManager.cs" />
+    <Compile Include="Assets\script\MakeManager.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\ScoreManager.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
-    <Compile Include="Assets\script\makeCSV.cs" />
-    <Compile Include="Assets\script\makeDataFromCSV.cs" />
-    <Compile Include="Assets\script\makeObject.cs" />
+    <Compile Include="Assets\script\TouchManager.cs" />
     <Compile Include="Assets\script\setObject.cs" />
-    <Compile Include="Assets\script\tatchManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

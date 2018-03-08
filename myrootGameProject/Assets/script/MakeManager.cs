@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class makeObject : MonoBehaviour {//オブジェクト生成を行うクラス。
+public class MakeManager : MonoBehaviour {//オブジェクト生成を行うクラス。
 
 
 	int[,] dataelements;

@@ -8,17 +8,7 @@ public class Item : MonoBehaviour
 	GameObject enemyobject;
 	[SerializeField] private itemstate mystate;
 
-	// Use this for initialization
-	void Start()
-	{
 
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
 	void OnTriggerEnter(Collider other)
 	{
 		if (mystate == itemstate.faster)
@@ -46,7 +36,7 @@ public class Item : MonoBehaviour
 			}
 		}
 	}
-	enum itemstate {
+	public enum itemstate {
 		faster,
 		slowdown,
 		stop,

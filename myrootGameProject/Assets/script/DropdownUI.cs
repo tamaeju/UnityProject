@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dropdowns : MonoBehaviour {
+public class DropdownUI : MonoBehaviour {
 	public Dropdown dropdown;
 	void Start() {
 		if (dropdown) {

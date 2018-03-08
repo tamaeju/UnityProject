@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelDesignCreate : MonoBehaviour
-{//マップエディタのマネージャースクリプト。makeCSVクラスと、makeDataElementクラスを保有
+{//データ保持とUIの作成と配列変換を
 
 	public static int maxColumn = 10;//他のクラスも参照する最大要素数
 	public GameObject[] UIobjects = new GameObject[maxColumn * maxColumn];//インスペクタで代入するために
@@ -42,7 +42,7 @@ public class LevelDesignCreate : MonoBehaviour
 		return returnPos;
 	}
 
-	void Start()//レベルデザインデータのメモリ領域確保
+	void Start()//ンデータをもちつつ、UIデータのインスタンス化も行い、データの整合性確認も行う。
 	{
 		_leveldesigndata = new int[maxColumn, maxColumn];
 		instanciateandGetUIObjects();
@@ -68,16 +68,16 @@ public class LevelDesignCreate : MonoBehaviour
 	public void makeCsvButton()//ボタンプッシュで実行
 	{
 		makeLevelDesignData();
-		makeCSV CsvCreater = new makeCSV();
+		CSVManager CsvCreater = new CSVManager();
 		CsvCreater.logSave(datapath, _leveldesigndata);
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-		makeDataFromCSV DataMaker = new makeDataFromCSV();
+		CSVManager DataMaker = new CSVManager();
 		_leveldesigndata = DataMaker.getDataElement(datapath, loadColomn - 1);
 		Debug.Log("以下のcsvの列番号のデータをチェックします");
 		Debug.Log(loadColomn);
-		makeObject ObjectMaker = GetComponent<makeObject>();
+		MakeManager ObjectMaker = GetComponent<MakeManager>();
 		ObjectMaker.instanciateAllObject(_leveldesigndata, instancehight);
 		goalobject = ObjectMaker.getGoalObject();
 		playerobject = ObjectMaker.getPlayerObject();

@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class tatchManager : MonoBehaviour {
+public class TouchManager : MonoBehaviour {
 	private static Vector3 TouchPosition = Vector3.zero;
 	public GameObject[] instanceObject;
 	GameObject refObject;
