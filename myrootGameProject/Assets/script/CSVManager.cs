@@ -33,7 +33,7 @@ class CSVManager{//CSVデータの読み込みと書き込みを行うクラス
 		string[] lines = System.IO.File.ReadAllLines(textFile, enc);
 		string[] RowStrings = lines[0].Split(',');
 
-		//ジャグ配列の初期化
+
 		dataElements = new int[lines.Length][];
 		for (int i = 0; i < lines.Length; i++) {
 			dataElements[i] = new int[RowStrings.Length];

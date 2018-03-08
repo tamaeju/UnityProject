@@ -17,13 +17,16 @@ public class UIManager : MonoBehaviour {
 	string datapath;
 	private GameObject goalobject;
 	private GameObject playerobject;
+	[SerializeField]
+	CSVManager csvmanager;
+	[SerializeField]
+	DataManager datamanager;
 
 	void Start() {
 		instanciateandGetUIObjects();
 	}
 
 	float blocklength = 0.9f;
-	DataManager datamanager;
 
 	Vector3 setUIPos(int x, int y, int z) {//InstanciateandgetREFmethod()と合わせ技のため
 		Vector3 returnPos = new Vector3((x + 10f) * 28, (y + 3f) * 28, z);

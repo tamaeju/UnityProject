@@ -12,12 +12,12 @@ public class TouchManager : MonoBehaviour {
 	Vector3 setPosition;
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
+	MakeManager makemanager;
 	MakeDraggedObject draggeeditem;
 	public GameObject groungrayemitter;
 	private GameObject refrayObject;
 	float blocklength = 0.9f;
 	public GameObject Mapmanager;
-	private GameManager manager;
 
 
 	void Start() {
@@ -27,8 +27,6 @@ public class TouchManager : MonoBehaviour {
 			charactorq = Quaternion.Euler(90f, 0f, 0f);
 		}
 		rayemitter = new RayEmit();
-		groundhight = ground.transform.position.y;
-		instancehight = groundhight + 0.5f;
 		manager = Mapmanager.GetComponent<GameManager>();
 	}
 
@@ -38,13 +36,12 @@ public class TouchManager : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
-			setInstanceposFromMouse(2);
 			try { draggeeditem = rayemitter.getObject().GetComponent<MakeDraggedObject>(); }
 			catch { Debug.Log(string.Format("draggeeditem" + "が{0}", draggeeditem)); }
 			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(MakeDraggedObject) && draggeeditem.getObjectLeftCount() > 0) 
 				{//ドラッグしたアイテムがmakedraggedobjectであり、かつレフトカウントが0より大きいなら
 				int prefabkind = draggeeditem.getMyObjectKind();
-				refObject = Instantiate(instanceObject[prefabkind], instancePosition, charactorq) as GameObject;
+				refObject = Instantiate(instanceObject[prefabkind], instancePosition(2), charactorq) as GameObject;
 			}
 			else {
 				Debug.Log("noLeftItem");
@@ -91,9 +88,12 @@ public class TouchManager : MonoBehaviour {
 		roundedpos.z = getIndexpos(aPos).z * blocklength;
 		return roundedpos;
 	}
-	public void setInstanceposFromMouse(int slideypos) {
+	public Vector3 getInstanceposFromMouse(int slideypos) {
+		Vector3 instancePosition;
+		Vector3 screenPotsition;
 		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
 		instancePosition.y = instancehight + slideypos;
+		return instancePosition;
 	}
 }

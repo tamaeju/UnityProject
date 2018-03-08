@@ -82,7 +82,6 @@
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataManager.cs" />
     <Compile Include="Assets\script\DropdownUI.cs" />
-    <Compile Include="Assets\script\GameManager.cs" />
     <Compile Include="Assets\script\Item.cs" />
     <Compile Include="Assets\script\LevelButton.cs" />
     <Compile Include="Assets\script\MakeDraggedObject.cs" />

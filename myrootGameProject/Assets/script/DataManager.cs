@@ -18,6 +18,7 @@ public class DataManager : MonoBehaviour {
 	public GameObject canvasObject;
 	public GameObject _levelbutton;
 	float blocklength = 0.9f;
+	[SerializeField]CSVManager csvmanager;
 
 	void Start() {
 		_canSetDatas = new bool[maxGridNum, maxGridNum];

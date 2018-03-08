@@ -16,6 +16,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	float groundhight;
 	float instancehight;
 	public GameObject ground;
+	[SerializeField]DataManager datamanager;
 
 	void Start() {
 		groundhight = ground.transform.position.y;
@@ -59,5 +60,6 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		Vector3 returnPos = new Vector3(x * blocklength, z, y * blocklength);
 		return returnPos;
 	}
+
 }
 
