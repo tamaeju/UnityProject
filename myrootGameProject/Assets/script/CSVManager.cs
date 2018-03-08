@@ -7,16 +7,24 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-class CSVManager{//CSVからデータを作成するクラス
+class CSVManager{//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;
 	int[][] dataElements;//csvから作ったデータ
 	int[,] practicalDataElements;//dataElementsからパースして使うデータ
+	string filename;
+	string datapath;
+
+	public CSVManager() {
+		filename = "testData.csv";
+		datapath = Application.dataPath + "/data/" + filename;
+	}
 
 	public int[,] getDataElement(string aDatapassANDname,int usingcolumnNum) {
 		getJagDataElement(aDatapassANDname);
 		parsePracticalDataElements(dataElements, usingcolumnNum);
 		return practicalDataElements;
 	}
+
 
 	void getJagDataElement(string datapassANDname) {
 
@@ -36,12 +44,11 @@ class CSVManager{//CSVからデータを作成するクラス
 			for (int i = 0; i < dataElements[0].Length; ++i) {
 				dataElements[j][i] = Int32.Parse(RowStrings[i]);
 			}
-		}//lines[]はテキストの情報を一行ずつ入れた文の配列。RowStringsはlines[n]を,で分けた文の配列。dateElements[x,y]は、lines[x+y]のRowStrings[3]を格納した配列
-		//DebugJagCSVData();
+		}
 	}
 
 	void parsePracticalDataElements(int[][] oldData,int usingcolumnNum) {//ジャグ配列から2次元配列への変換メソッド
-		practicalDataElements = new int[LevelDesignCreate.maxColumn, LevelDesignCreate.maxColumn];
+		practicalDataElements = new int[DataManager.maxGridNum, DataManager.maxGridNum];
 		for (int j = 0; j < practicalDataElements.GetLength(1); j++) {
 			for (int i = 0; i < practicalDataElements.GetLength(0); i++) {
 				practicalDataElements[i, j] = oldData[practicalDataElements.GetLength(0) * j + i][usingcolumnNum];
@@ -86,7 +93,6 @@ class CSVManager{//CSVからデータを作成するクラス
 			}
 		}
 	}
-
 }
 
 

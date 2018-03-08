@@ -80,16 +80,18 @@
   <ItemGroup>
     <Compile Include="Assets\script\CSVManager.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
+    <Compile Include="Assets\script\DataManager.cs" />
     <Compile Include="Assets\script\DropdownUI.cs" />
+    <Compile Include="Assets\script\GameManager.cs" />
     <Compile Include="Assets\script\Item.cs" />
     <Compile Include="Assets\script\LevelButton.cs" />
-    <Compile Include="Assets\script\LevelDesignCreate.cs" />
     <Compile Include="Assets\script\MakeDraggedObject.cs" />
     <Compile Include="Assets\script\MakeManager.cs" />
+    <Compile Include="Assets\script\NewBehaviourScript.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
-    <Compile Include="Assets\script\ScoreManager.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
     <Compile Include="Assets\script\TouchManager.cs" />
+    <Compile Include="Assets\script\UIManager.cs" />
     <Compile Include="Assets\script\setObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

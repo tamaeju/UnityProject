@@ -13,17 +13,13 @@ public class TouchManager : MonoBehaviour {
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
 	MakeDraggedObject draggeeditem;
-	public GameObject ground;
-	float groundhight;
-	float instancehight;
 	public GameObject groungrayemitter;
 	private GameObject refrayObject;
 	float blocklength = 0.9f;
 	public GameObject Mapmanager;
-	private LevelDesignCreate manager;
-	bool Istatch;
+	private GameManager manager;
 
-	// Use this for initialization
+
 	void Start() {
 		LeftCount = new int[3];
 		for (int i = 0; i < LeftCount.Length; i++) {
@@ -33,7 +29,7 @@ public class TouchManager : MonoBehaviour {
 		rayemitter = new RayEmit();
 		groundhight = ground.transform.position.y;
 		instancehight = groundhight + 0.5f;
-		manager = Mapmanager.GetComponent<LevelDesignCreate>();
+		manager = Mapmanager.GetComponent<GameManager>();
 	}
 
 	public void makeDraggedObject(int objectKind) {
