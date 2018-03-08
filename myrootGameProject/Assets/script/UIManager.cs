@@ -8,34 +8,29 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
-	public GameObject[] UIobjects = new GameObject[DataManager.maxGridNum * DataManager.maxGridNum];//インスペクタで代入するために
-	int[,] _leveldesigndata;
-	public GameObject canvasObject;
-	int loadColomn = 3;
+	public GameObject[] UIobjects;
+	public GameObject uiposition;
 	public GameObject _levelbutton;
+	int loadColomn = 3;
 	string filename;
 	string datapath;
-	private GameObject goalobject;
-	private GameObject playerobject;
-	[SerializeField]
-	CSVManager csvmanager;
-	[SerializeField]
-	DataManager datamanager;
+	[SerializeField]CSVManager csvmanager;
+	[SerializeField]DataManager datamanager;
+	[SerializeField]MakeManager makemanager;
 
 	void Start() {
+		UIobjects = new GameObject[DataManager.maxGridNum * DataManager.maxGridNum];
 		instanciateandGetUIObjects();
 	}
 
-	float blocklength = 0.9f;
-
-	Vector3 setUIPos(int x, int y, int z) {//InstanciateandgetREFmethod()と合わせ技のため
+	Vector3 setUIPos(int x, int y, int z) {
 		Vector3 returnPos = new Vector3((x + 10f) * 28, (y + 3f) * 28, z);
 		return returnPos;
 	}
 
 
 	public void instanciateandGetUIObjects() {//インスペクターで紐づけを行うためのメソッド。インスタンシエイトしたタイミングでapplyして紐づけする。
-		var parent = canvasObject.transform;
+		var parent = uiposition.transform;
 		for (int j = 0; j < DataManager.maxGridNum; ++j) {
 			for (int i = 0; i < DataManager.maxGridNum; ++i) {
 				UIobjects[j * 10 + i] = Instantiate(_levelbutton, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;
@@ -45,27 +40,25 @@ public class UIManager : MonoBehaviour {
 
 	public void makeCsvButton()//ボタンプッシュで実行
 	{
-		datamanager.makeLevelDesignData();
-		CSVManager CsvCreater = new CSVManager();
-		CsvCreater.logSave(datapath, _leveldesigndata);
+		datamanager.makeLevelDesignData(UIobjects);
+		Debug.Log(datamanager.getLevelDesignData()[0,0]);
+		csvmanager.logSave(datapath, datamanager.getLevelDesignData());
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-		CSVManager DataMaker = new CSVManager();
-		_leveldesigndata = DataMaker.getDataElement(datapath, loadColomn - 1);
+		int[,]_leveldesigndata = csvmanager.getDataElement(datapath, loadColomn - 1);
 		Debug.Log("以下のcsvの列番号のデータをチェックします");
 		Debug.Log(loadColomn);
-		MakeManager ObjectMaker = GetComponent<MakeManager>();
-		ObjectMaker.instanciateAllObject(_leveldesigndata);
-		goalobject = ObjectMaker.getGoalObject();
-		playerobject = ObjectMaker.getPlayerObject();
-		try { playerobject.GetComponent<CharactorMove>().setDestination(goalobject); }
-		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", playerobject)); }
+		makemanager.instanciateAllObject(_leveldesigndata);
+		GameObject goalobject = makemanager.getGoalObject();
+		GameObject playerobject = makemanager.getPlayerObject();
+		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }
+		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
 		datamanager.updateCansetDatas(_leveldesigndata);
 	}
 	public void CanvasONOFFButton()//ボタンプッシュで実行
 	{
-		Transform trasnform = canvasObject.GetComponent<Transform>();
+		Transform trasnform = uiposition.GetComponent<Transform>();
 
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(false);
@@ -76,5 +69,16 @@ public class UIManager : MonoBehaviour {
 		datapath = Application.dataPath + "/data/" + filename;
 		Debug.Log("changedfileto");
 		Debug.Log(filename);
+	}
+	public void loadCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
+
+		for (int j = 0; j < DataManager.maxGridNum; ++j)
+		{
+			for (int i = 0; i < DataManager.maxGridNum; ++i)
+			{
+				int objectkind = csvmanager.getDataElement(datapath, loadColomn - 1)[i, j];
+				UIobjects[j * 10 + i].GetComponent<LevelButton>().changeState(objectkind);
+			}
+		}
 	}
 }

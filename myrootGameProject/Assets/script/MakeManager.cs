@@ -3,12 +3,9 @@ using System.Collections;
 
 public class MakeManager : MonoBehaviour {//オブジェクト生成を行うクラス。
 
-
 	int[,] dataelements;
 	GameObject [,] dataobjects;
 	Vector3 instanciatePos;
-	public GameObject[] settingprefab = new GameObject[4];
-	public RayEmit rayemitter;
 	float blocklength = 0.9f;
 	private GameObject goalobject;
 	private GameObject playerobject;
@@ -17,6 +14,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	float instancehight;
 	public GameObject ground;
 	[SerializeField]DataManager datamanager;
+	public GameObject[] instanceObjects;
 
 	void Start() {
 		groundhight = ground.transform.position.y;
@@ -35,13 +33,13 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 				if (aPrefabKind[i, j] == 0) {
 				}
 				else if (aPrefabKind[i, j] == 1) {
-					Instantiate(settingprefab[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity);
+					Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity);
 				}
 				else if (aPrefabKind[i, j] == 2) {//プレイヤーオブジェクトを生成する時はプレイヤーオブジェクトの参照を保持
-					playerobject = Instantiate(settingprefab[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+					playerobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
 				}
 				else if (aPrefabKind[i, j] == 3) {//ゴールオブジェクトを生成する時はゴールオブジェクトの参照を保持
-					goalobject = Instantiate(settingprefab[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+					goalobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
 				}
 
 			}
@@ -59,6 +57,15 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	{
 		Vector3 returnPos = new Vector3(x * blocklength, z, y * blocklength);
 		return returnPos;
+	}
+	public float getObjecthight() {
+		return instancehight;
+	}
+	public float getBlockLength(){
+		return blocklength;
+	}
+	public GameObject getInstanceObject(int index) {
+		return instanceObjects[index];
 	}
 
 }

@@ -7,14 +7,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-class CSVManager{//CSVデータの読み込みと書き込みを行うクラス
+class CSVManager : MonoBehaviour{//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;
 	int[][] dataElements;//csvから作ったデータ
 	int[,] practicalDataElements;//dataElementsからパースして使うデータ
 	string filename;
 	string datapath;
 
-	public CSVManager() {
+	public void Start() {
 		filename = "testData.csv";
 		datapath = Application.dataPath + "/data/" + filename;
 	}
@@ -57,24 +57,7 @@ class CSVManager{//CSVデータの読み込みと書き込みを行うクラス
 		//DebugCSVData();
 	}
 
-	void DebugJagCSVData()
-	{
-		int checkcolumn = 2;
-		for (int j = 0; j < dataElements.Length; ++j)
-		{
-				Debug.Log(dataElements[j][0].ToString()+","+ dataElements[j][1] + ","+ dataElements[j][checkcolumn]);
-		}
-	}
-	void DebugCSVData()
-	{
-		for (int j = 0; j < practicalDataElements.GetLength(1); j++)
-		{
-			for (int i = 0; i < practicalDataElements.GetLength(0); i++)
-			{
-				Debug.Log(i + "," + j + "," + practicalDataElements[i,j]);
-			}
-		}
-	}
+	//以下データ書き込み部分
 
 	public void logSave(string aDatapath, int[,] writtenData) {//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
 		File.Delete(aDatapath);

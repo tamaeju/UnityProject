@@ -7,24 +7,18 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-
 public class DataManager : MonoBehaviour {
 	public static int maxGridNum = 10;//他のクラスも参照する最大要素数
-	public GameObject[] UIobjects = new GameObject[maxGridNum * maxGridNum];//インスペクタで代入するために
 	public int[,] _leveldesigndata;
 	bool[,] _canSetDatas;
-	public GameObject canvasObject;
-	public GameObject _levelbutton;
-	float blocklength = 0.9f;
-	[SerializeField]CSVManager csvmanager;
 
 	void Start() {
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
+		Debug.Log("caledStart");
+		Debug.Log(String.Format("_leveldesigndata is {0}", _leveldesigndata));
+		Debug.Log(String.Format("_leveldesigndata[0,0] is {0}", _leveldesigndata[0, 0]));
 	}
-
 
 	public void changeMapData(Vector3 aSetpos, int objectkind) {//レベルデザインデータを更新するメソッド
 		Vector2 setpos = new Vector2();
@@ -39,8 +33,7 @@ public class DataManager : MonoBehaviour {
 		indexpos.y = aVector3.z;
 		return indexpos;
 	}
-	public Vector2[] getOverRidePoint(Vector3 myposition) {//移動オブジェクトの存在する4点の座標を返すメソッド
-
+	public Vector2[] getOverRidePoint(Vector3 myposition,float blocklength) {//移動オブジェクトの存在する4点の座標を返すメソッド
 		Vector2[] overridepoints = new Vector2[4];
 		Vector2 cehckvector2 = parseVector3toVector2(myposition);
 		int highx, lowx, highy, lowy;
@@ -86,12 +79,16 @@ public class DataManager : MonoBehaviour {
 		return checkvector2.x >= 0 && (int)checkvector2.x < maxGridNum && checkvector2.y >= 0 && (int)checkvector2.y < maxGridNum;
 	}
 
-	public void makeLevelDesignData()//レベルデザインデータを1次元配列から2次元配列へ置換
-{
+	public void makeLevelDesignData(GameObject[] UIobjects) {
 		for (int j = 0; j < maxGridNum; ++j) {
 			for (int i = 0; i < maxGridNum; ++i) {
+				Debug.Log(String.Format("UIobjects is {0}",UIobjects[0]));
+				Debug.Log(String.Format("_leveldesigndata is {0}", _leveldesigndata));
 				_leveldesigndata[i, j] = UIobjects[j * 10 + i].GetComponent<LevelButton>().returnThisState();
 			}
 		}
+	}
+	public int[,] getLevelDesignData() {
+		return _leveldesigndata;
 	}
 }

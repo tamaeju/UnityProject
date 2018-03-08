@@ -3,8 +3,6 @@ using System.Collections;
 using System;
 
 public class TouchManager : MonoBehaviour {
-	private static Vector3 TouchPosition = Vector3.zero;
-	public GameObject[] instanceObject;
 	GameObject refObject;
 	public int[] LeftCount;
 	Quaternion charactorq;
@@ -12,13 +10,10 @@ public class TouchManager : MonoBehaviour {
 	Vector3 setPosition;
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
-	MakeManager makemanager;
+	public MakeManager makemanager;
 	MakeDraggedObject draggeeditem;
-	public GameObject groungrayemitter;
 	private GameObject refrayObject;
-	float blocklength = 0.9f;
-	public GameObject Mapmanager;
-
+	public DataManager datamanager;
 
 	void Start() {
 		LeftCount = new int[3];
@@ -27,7 +22,6 @@ public class TouchManager : MonoBehaviour {
 			charactorq = Quaternion.Euler(90f, 0f, 0f);
 		}
 		rayemitter = new RayEmit();
-		manager = Mapmanager.GetComponent<GameManager>();
 	}
 
 	public void makeDraggedObject(int objectKind) {
@@ -41,7 +35,7 @@ public class TouchManager : MonoBehaviour {
 			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(MakeDraggedObject) && draggeeditem.getObjectLeftCount() > 0) 
 				{//ドラッグしたアイテムがmakedraggedobjectであり、かつレフトカウントが0より大きいなら
 				int prefabkind = draggeeditem.getMyObjectKind();
-				refObject = Instantiate(instanceObject[prefabkind], instancePosition(2), charactorq) as GameObject;
+				refObject = Instantiate(makemanager.getInstanceObject(prefabkind), getInstanceposFromMouse(2), charactorq) as GameObject;
 			}
 			else {
 				Debug.Log("noLeftItem");
@@ -49,7 +43,7 @@ public class TouchManager : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButton(0)) {//タッチされ続けている間、オブジェクトの位置を動かし続ける。
-			setInstanceposFromMouse(2);
+			getInstanceposFromMouse(2);
 			if (refObject != null) {
 				refObject.transform.position = instancePosition;
 			}
@@ -58,14 +52,13 @@ public class TouchManager : MonoBehaviour {
 		}
 
 		if (Input.GetMouseButtonUp(0)) {//タッチが離されたタイミングで、オブジェクトをつかんでいればnullを入れる。
-			setInstanceposFromMouse(0);
+			getInstanceposFromMouse(0);
 			Vector3 indexVector3 = getIndexpos(instancePosition);//x,y,zが何番目の配列か調べる。
-			if (manager.checkCanSet(indexVector3)&& refObject!=null) {//今のポジションのインデックスが配列内であり、セットできるのであれば
+			if (datamanager.checkCanSet(indexVector3)&& refObject!=null) {//今のポジションのインデックスが配列内であり、セットできるのであれば
 				draggeeditem.decreaseLeftCount();//レフトカウントを1減らす。
 				refObject.transform.position = getRoundedgPos(instancePosition);
-				manager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
-				manager.updateCansetDatas(indexVector3);
-				manager.updateCansetDatas(indexVector3);
+				datamanager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
+				datamanager.updateCansetDatas(indexVector3);
 			}
 			else {
 				Destroy(refObject);
@@ -76,24 +69,23 @@ public class TouchManager : MonoBehaviour {
 	}
 	public Vector3 getIndexpos(Vector3 aPos) {//設置されているポジションのindexを返すメソッド
 		Vector3 indexpos = new Vector3();
-		indexpos.x = (float)Math.Round(aPos.x / blocklength);
-		indexpos.y = (float)Math.Round(aPos.y / blocklength);
-		indexpos.z = (float)Math.Round(aPos.z / blocklength);
+		indexpos.x = (float)Math.Round(aPos.x / makemanager.getBlockLength());
+		indexpos.y = (float)Math.Round(aPos.y / makemanager.getBlockLength());
+		indexpos.z = (float)Math.Round(aPos.z / makemanager.getBlockLength());
 		return indexpos;
 	}
 	public Vector3 getRoundedgPos(Vector3 aPos) {//設置されるポジションを返すメソッド
 		Vector3 roundedpos = new Vector3();
-		roundedpos.x = getIndexpos(aPos).x * blocklength;
-		roundedpos.y = getIndexpos(aPos).y * blocklength;
-		roundedpos.z = getIndexpos(aPos).z * blocklength;
+		roundedpos.x = getIndexpos(aPos).x * makemanager.getBlockLength();
+		roundedpos.y = getIndexpos(aPos).y * makemanager.getBlockLength();
+		roundedpos.z = getIndexpos(aPos).z * makemanager.getBlockLength();
 		return roundedpos;
 	}
 	public Vector3 getInstanceposFromMouse(int slideypos) {
-		Vector3 instancePosition;
 		Vector3 screenPotsition;
 		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
-		instancePosition.y = instancehight + slideypos;
+		instancePosition.y = makemanager.getObjecthight() + slideypos;
 		return instancePosition;
 	}
 }
