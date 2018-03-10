@@ -29,7 +29,7 @@ public class TouchManager : MonoBehaviour {
 			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(MakeDraggedObject) && draggeeditem.getObjectLeftCount() > 0) 
 				{//ドラッグしたアイテムがmakedraggedobjectであり、かつレフトカウントが0より大きいなら
 				int prefabkind = draggeeditem.getMyObjectKind();
-				refObject = Instantiate(makemanager.getInstanceObject(prefabkind), getInstanceposFromMouse(2), charactorq) as GameObject;
+				refObject = makemanager.InstanciateandGetRef(prefabkind, getInstanceposFromMouse(2));
 			}
 			else {
 				Debug.Log("touched irregular obeject or noLeftItem");

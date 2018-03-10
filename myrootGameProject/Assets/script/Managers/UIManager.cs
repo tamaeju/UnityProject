@@ -10,13 +10,16 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 	public GameObject[] UIobjects;
 	public GameObject uiposition;
+	public GameObject canvasposition;
 	public GameObject _levelbutton;
+
 	int loadColomn = Config.usecsvcolumn;
 	string filename;
 	string csvdatapath;
 	[SerializeField]CSVManager csvmanager;
 	[SerializeField]DataManager datamanager;
 	[SerializeField]MakeManager makemanager;
+
 
 	void Start() {
 		filename = "testData0.csv";
@@ -52,6 +55,8 @@ public class UIManager : MonoBehaviour {
 		Debug.Log("以下のcsvの列番号のデータをチェックします");
 		Debug.Log(loadColomn);
 		makemanager.instanciateAllObject(_leveldesigndata);
+		makemanager.makeDraggedObject();
+		makemanager.makeleftbutton(canvasposition.transform);
 		GameObject goalobject = makemanager.getGoalObject();
 		GameObject playerobject = makemanager.getPlayerObject();
 		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }
@@ -90,4 +95,5 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 	}
+
 }

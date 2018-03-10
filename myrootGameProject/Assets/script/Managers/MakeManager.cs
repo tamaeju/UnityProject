@@ -12,6 +12,8 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	public GameObject ground;
 	[SerializeField]DataManager datamanager;
 	public GameObject[] instanceObjects;
+	[SerializeField]GameObject [] makedraggerdobjects;
+	public GameObject[] _LeftCountbuttons;
 
 	void Start() {
 		groundhight = ground.transform.position.y;
@@ -42,6 +44,12 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			}
 		}
 	}
+	public void makeDraggedObject() {
+		for(int i = 0;i < makedraggerdobjects.Length;i++ ) {
+			makedraggerdobjects[i] = Instantiate(makedraggerdobjects[i], makedraggerdobjects[i].GetComponent<Transform>().position, Quaternion.identity)as GameObject;
+		}
+	}
+
 	public GameObject getPlayerObject() {
 		return playerobject;
 	}
@@ -63,6 +71,20 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	}
 	public GameObject getInstanceObject(int index) {
 		return instanceObjects[index];
+	}
+	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {
+		GameObject objectref;
+		objectref = Instantiate(getInstanceObject(onjectindex), instancepos, Quaternion.identity) as GameObject;
+		return objectref;
+
+	}
+	public void makeleftbutton(Transform parenttransform)
+	{
+		for (int i = 0; i < _LeftCountbuttons.Length; i++)
+		{
+			_LeftCountbuttons[i] = Instantiate(_LeftCountbuttons[i], _LeftCountbuttons[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
+			_LeftCountbuttons[i].transform.parent = parenttransform;
+		}
 	}
 
 }

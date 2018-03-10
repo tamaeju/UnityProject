@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-	[SerializeField] private itemstate mystate;
-	[SerializeField]private GameObject effect;
-	public void Start(int kindindex) {
-		mystate = (itemstate)kindindex;
+	[SerializeField]
+	private itemstate mystate;
+	[SerializeField]
+	private GameObject effect;
+	public void Start()
+	{
 		changeMyColour();
 	}
+	//現状アイテムの数だけプレハブを生成しないといけないのが非常に汚い。作成されたタイミングで、こいつ自身が自分の種別を判断する？
+	//いや、コンストラクタで呼び出せないから微妙。
+	//アイテムスクリプトの配列の中から選択して作成すべきな気がする。
+	//やるなら、アイテムプレハブ作成後にすぐチェンジしてあげる状態が望ましい気がする。
+	//アイテムプレハブ作成後に、もしアイテムスクリプトを所有していたら、
 
 	void OnTriggerEnter(Collider other)
 	{
@@ -41,7 +48,8 @@ public class Item : MonoBehaviour
 			}
 		}
 	}
-	public enum itemstate {
+	public enum itemstate
+	{
 		faster,
 		slowdown,
 		stop,
@@ -57,5 +65,9 @@ public class Item : MonoBehaviour
 			GetComponent<Renderer>().material.color = Color.green;
 		if ((int)mystate == 3)
 			GetComponent<Renderer>().material.color = Color.yellow;
+	}
+	public void changeMyState(int stateNum)
+	{
+		mystate = (itemstate)stateNum;
 	}
 }
