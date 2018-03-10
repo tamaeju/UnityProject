@@ -30,4 +30,7 @@ public class MakeDraggedObject : MonoBehaviour {
 	public void changeScoreText() {
 		scoretext.text = "LeftCount" + ObjectLeftCount.ToString();
 	}
+	public void setREFofLeftCount(Text ascoretext) {
+		scoretext = ascoretext;
+	}
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Config : MonoBehaviour {
 
 	public readonly static float blocklength  = 0.9f;
-	public readonly static int usecsvcolumn  = 3;
 	public readonly static int maxGridNum  = 10;
 	public Transform groundtransform;
 	public Vector3 firstblocklocalposition;
+	public readonly static int stageCount = 100;
 
 
 	public Vector3 getFirstblocklocalposition() {//groundが0,0,0の位置にあるならローカル座標が出る。

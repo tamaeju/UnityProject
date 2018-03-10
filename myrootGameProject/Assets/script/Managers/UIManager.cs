@@ -12,8 +12,8 @@ public class UIManager : MonoBehaviour {
 	public GameObject uiposition;
 	public GameObject canvasposition;
 	public GameObject _levelbutton;
-
-	int loadColomn = Config.usecsvcolumn;
+	[SerializeField]
+	int loadmapColomn = 3;
 	string filename;
 	string csvdatapath;
 	[SerializeField]CSVManager csvmanager;
@@ -51,9 +51,9 @@ public class UIManager : MonoBehaviour {
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-		int[,]_leveldesigndata = csvmanager.getDataElement(csvdatapath, loadColomn - 1);
+		int[,]_leveldesigndata = csvmanager.getDataElement(csvdatapath, loadmapColomn - 1);
 		Debug.Log("以下のcsvの列番号のデータをチェックします");
-		Debug.Log(loadColomn);
+		Debug.Log(loadmapColomn);
 		makemanager.instanciateAllObject(_leveldesigndata);
 		makemanager.makeDraggedObject();
 		makemanager.makeleftbutton(canvasposition.transform);
@@ -90,10 +90,13 @@ public class UIManager : MonoBehaviour {
 			{
 				Debug.Log(filename);
 				Debug.Log(csvdatapath);
-				int objectkind = csvmanager.getDataElement(csvdatapath, loadColomn - 1)[i, j];
+				int objectkind = csvmanager.getDataElement(csvdatapath, loadmapColomn - 1)[i, j];
 				UIobjects[j * 10 + i].GetComponent<LevelButton>().changeState(objectkind);
 			}
 		}
+	}
+	public string getCsvDatapassandFileName() {
+		return csvdatapath;
 	}
 
 }

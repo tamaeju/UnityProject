@@ -1,6 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
 using System.Collections;
-
+using UnityEngine;
+using UnityEngine.UI;
 public class MakeManager : MonoBehaviour {//オブジェクト生成を行うクラス。
 	
 	float blocklength = Config.blocklength;
@@ -44,11 +49,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			}
 		}
 	}
-	public void makeDraggedObject() {
-		for(int i = 0;i < makedraggerdobjects.Length;i++ ) {
-			makedraggerdobjects[i] = Instantiate(makedraggerdobjects[i], makedraggerdobjects[i].GetComponent<Transform>().position, Quaternion.identity)as GameObject;
-		}
-	}
+
 
 	public GameObject getPlayerObject() {
 		return playerobject;
@@ -84,6 +85,13 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		{
 			_LeftCountbuttons[i] = Instantiate(_LeftCountbuttons[i], _LeftCountbuttons[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
 			_LeftCountbuttons[i].transform.parent = parenttransform;
+			makedraggerdobjects[i] = Instantiate(makedraggerdobjects[i], makedraggerdobjects[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
+			makedraggerdobjects[i].GetComponent<MakeDraggedObject>().setREFofLeftCount(_LeftCountbuttons[i].GetComponent<Text>());
+		}
+	}
+	public void makeDraggedObject() {
+		for (int i = 0; i < makedraggerdobjects.Length; i++) {
+			
 		}
 	}
 

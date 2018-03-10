@@ -78,20 +78,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\CSVManager.cs" />
+    <Compile Include="Assets\UETools\Magic_Particle_Effects\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
-    <Compile Include="Assets\script\DataManager.cs" />
     <Compile Include="Assets\script\DropdownUI.cs" />
+    <Compile Include="Assets\script\Goal.cs" />
     <Compile Include="Assets\script\Item.cs" />
     <Compile Include="Assets\script\LevelButton.cs" />
+    <Compile Include="Assets\script\LevelSelectButtons_selectscene.cs" />
+    <Compile Include="Assets\script\LevelSelectManager.cs" />
     <Compile Include="Assets\script\MakeDraggedObject.cs" />
-    <Compile Include="Assets\script\MakeManager.cs" />
-    <Compile Include="Assets\script\NewBehaviourScript.cs" />
+    <Compile Include="Assets\script\Managers\CSVManager.cs" />
+    <Compile Include="Assets\script\Managers\Config.cs" />
+    <Compile Include="Assets\script\Managers\DataManager.cs" />
+    <Compile Include="Assets\script\Managers\MakeManager.cs" />
+    <Compile Include="Assets\script\Managers\TouchManager.cs" />
+    <Compile Include="Assets\script\Managers\UIManager.cs" />
+    <Compile Include="Assets\script\PlayerMove.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
+    <Compile Include="Assets\script\ScrollObject.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
-    <Compile Include="Assets\script\TouchManager.cs" />
-    <Compile Include="Assets\script\UIManager.cs" />
+    <Compile Include="Assets\script\TargetChara.cs" />
     <Compile Include="Assets\script\setObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
+    <None Include="Assets\UETools\Magic_Particle_Effects\Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

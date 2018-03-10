@@ -11,11 +11,18 @@ public class DataManager : MonoBehaviour {
 	public static int maxGridNum = Config.maxGridNum;//他のクラスも参照する最大要素数
 	int[,] _leveldesigndata;
 	bool[,] _canSetDatas;
+	int[] needeatcount;
+	int needeatcountcolomn = 2;//データの3列目なら3-1で要素番号2で正しい。
+	int[] stagelefttimecount;
+	int stagelefttimecountcolomn = 1;
+	[SerializeField] CSVManager csvmanager;
+	[SerializeField] UIManager UImanager;
 
 	void Start() {
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
-
+		needeatcount = new int[Config.stageCount];
+		stagelefttimecount = new int[Config.stageCount];
 	}
 
 	public void changeMapData(Vector3 aSetpos, int objectkind) {//レベルデザインデータを更新するメソッド
@@ -86,5 +93,9 @@ public class DataManager : MonoBehaviour {
 	}
 	public int[,] getLevelDesignData() {
 		return _leveldesigndata;
+	}
+	public void getEatCountandLefttimeCount() {
+		needeatcount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(),needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(),stagelefttimecountcolomn);
 	}
 }
