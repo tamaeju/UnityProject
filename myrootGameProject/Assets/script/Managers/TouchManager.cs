@@ -68,7 +68,7 @@ public class TouchManager : MonoBehaviour {
 		indexpos.z = (float)Math.Round(aPos.z / makemanager.getBlockLength());
 		return indexpos;
 	}
-	public Vector3 getRoundedgPos(Vector3 aPos) {//設置されるポジションを返すメソッド
+	public Vector3 getRoundedgPos(Vector3 aPos) {//設置されるポジションを返すメソッド.getIndexPosにブロックのlengthをかけて、インデックスを実際に使えるvectorに変換している。
 		Vector3 roundedpos = new Vector3();
 		roundedpos.x = getIndexpos(aPos).x * makemanager.getBlockLength();
 		roundedpos.y = getIndexpos(aPos).y * makemanager.getBlockLength();

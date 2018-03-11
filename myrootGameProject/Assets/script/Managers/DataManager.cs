@@ -15,14 +15,22 @@ public class DataManager : MonoBehaviour {
 	int needeatcountcolomn = 2;//データの3列目なら3-1で要素番号2で正しい。
 	int[] stagelefttimecount;
 	int stagelefttimecountcolomn = 1;
-	[SerializeField] CSVManager csvmanager;
-	[SerializeField] UIManager UImanager;
+	[SerializeField]
+	CSVManager csvmanager;
+	[SerializeField]
+	UIManager UImanager;
+	clearconditiondata[] conditionaldatas;
+	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
+
+
 
 	void Start() {
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
 		needeatcount = new int[Config.stageCount];
 		stagelefttimecount = new int[Config.stageCount];
+		dragitemdatas = new dragitemdata[Config.stageCount, Config.stageCount];
+		conditionaldatas = new clearconditiondata[Config.stageCount];
 	}
 
 	public void changeMapData(Vector3 aSetpos, int objectkind) {//レベルデザインデータを更新するメソッド
@@ -38,7 +46,7 @@ public class DataManager : MonoBehaviour {
 		indexpos.y = aVector3.z;
 		return indexpos;
 	}
-	public Vector2[] getOverRidePoint(Vector3 myposition,float blocklength) {//移動オブジェクトの存在する4点の座標を返すメソッド
+	public Vector2[] getOverRidePoint(Vector3 myposition, float blocklength) {//移動オブジェクトの存在する4点の座標を返すメソッド
 		Vector2[] overridepoints = new Vector2[4];
 		Vector2 cehckvector2 = parseVector3toVector2(myposition);
 		int highx, lowx, highy, lowy;
@@ -58,7 +66,7 @@ public class DataManager : MonoBehaviour {
 				if (existencepoints[i, j] == 1) {
 					_canSetDatas[i, j] = false;
 				}
-				else {_canSetDatas[i, j] = true; }
+				else { _canSetDatas[i, j] = true; }
 			}
 		}
 	}
@@ -95,7 +103,14 @@ public class DataManager : MonoBehaviour {
 		return _leveldesigndata;
 	}
 	public void getEatCountandLefttimeCount() {
-		needeatcount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(),needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(),stagelefttimecountcolomn);
+		needeatcount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(), needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(), stagelefttimecountcolomn);
 	}
+	public void Updateclearconditiondata(clearconditiondata[] aconditionaldatas) {
+		conditionaldatas = aconditionaldatas;
+	}
+	public void Updatedragitemdata(dragitemdata[,] adragitemdatas) {
+		dragitemdatas = adragitemdatas;
+	}
+
 }
