@@ -13,6 +13,8 @@ public class UIDragButton : MonoBehaviour {
 	int objectkind;
 	[SerializeField]
 	int leftcount;
+	[SerializeField]
+	int bottunkind;
 
 	public void ChangeObjectKind() {
 		if (objectkind >= buttonkindLength - 1) {//要素番号なので-1

@@ -21,10 +21,13 @@ public class DataManager : MonoBehaviour {
 	UIManager UImanager;
 	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
+	int stage;//セーブするときとロードする時に使う
+
 
 
 
 	void Start() {
+
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
 		needeatcount = new int[Config.stageCount];
@@ -103,14 +106,27 @@ public class DataManager : MonoBehaviour {
 		return _leveldesigndata;
 	}
 	public void getEatCountandLefttimeCount() {
-		needeatcount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(), needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(UImanager.getCsvDatapassandFileName(), stagelefttimecountcolomn);
+		needeatcount = csvmanager.get1dimentionalData(csvdatapath, needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(csvdatapath, stagelefttimecountcolomn);
 	}
-	public void Updateclearconditiondata(clearconditiondata[] aconditionaldatas) {
+	public void UpdateALLclearconditiondata(clearconditiondata[] aconditionaldatas) {
 		conditionaldatas = aconditionaldatas;
 	}
-	public void Updatedragitemdata(dragitemdata[,] adragitemdatas) {
+	public void UpdateALLdragitemdata(dragitemdata[,] adragitemdatas) {
 		dragitemdatas = adragitemdatas;
 	}
+	public void Updateclearconditiondata(//?
+		) {
+
+		//conditionaldatas[stage].
+	}
+	public void Updatdragitemdata(int buttonkind, int objectkind, int leftcount) {
+		dragitemdatas[buttonkind, stage - 1].itemkind = objectkind;//[何個目のボタンか,ステージ-1]の要素番号(struct型)に代入
+		dragitemdatas[buttonkind, stage - 1].itemcount = leftcount;
+		//csvmanagerにセーブ依頼を出す。
+	}
+
+
+
 
 }

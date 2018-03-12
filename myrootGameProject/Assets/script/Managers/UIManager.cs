@@ -14,16 +14,14 @@ public class UIManager : MonoBehaviour {
 	public GameObject _levelbutton;
 	[SerializeField]
 	int loadmapColomn = 3;
-	string filename;
-	string csvdatapath;
 	[SerializeField]CSVManager csvmanager;
 	[SerializeField]DataManager datamanager;
 	[SerializeField]MakeManager makemanager;
+	[SerializeField]DataPathManager datapathmanager;
 
 
 	void Start() {
-		filename = "testData0.csv";
-		csvdatapath = Application.dataPath + "/data/" + filename;
+
 		UIobjects = new GameObject[DataManager.maxGridNum * DataManager.maxGridNum];
 		instanciateandGetUIObjects();
 	}
@@ -47,11 +45,11 @@ public class UIManager : MonoBehaviour {
 	{
 		datamanager.makeLevelDesignData(UIobjects);
 		Debug.Log(datamanager.getLevelDesignData()[0,0]);
-		csvmanager.logSave(csvdatapath, datamanager.getLevelDesignData());
+		csvmanager.logSave(datapathmanager.getcsvdatapath(), datamanager.getLevelDesignData());
 	}
 	public void makeObjectFromCsvButton()//ボタンプッシュで実行
 	{
-		int[,]_leveldesigndata = csvmanager.getDataElement(csvdatapath, loadmapColomn - 1);
+		int[,]_leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(), loadmapColomn - 1);
 		Debug.Log("以下のcsvの列番号のデータをチェックします");
 		Debug.Log(loadmapColomn);
 		makemanager.instanciateAllObject(_leveldesigndata);
@@ -79,24 +77,22 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
-		filename = "testData" + dropdown.value.ToString() + ".csv";
-		csvdatapath = Application.dataPath + "/data/" + filename;
-		Debug.Log(String.Format("{0}file was changed ", filename));
+		datapathmanager.updateFilename("testData" + dropdown.value.ToString() + ".csv");
+		datapathmanager.updateCSVdatapath(Application.dataPath + "/data/" + datapathmanager.getfilename());
+		Debug.Log(String.Format("{0}file was changed ", datapathmanager.getfilename()));
 	}
 	public void loadCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
 		for (int j = 0; j < DataManager.maxGridNum; ++j)
 		{
 			for (int i = 0; i < DataManager.maxGridNum; ++i)
 			{
-				Debug.Log(filename);
-				Debug.Log(csvdatapath);
-				int objectkind = csvmanager.getDataElement(csvdatapath, loadmapColomn - 1)[i, j];
+				Debug.Log(datapathmanager.getfilename());
+				Debug.Log(datapathmanager.getcsvdatapath() );
+				int objectkind = csvmanager.getDataElement(datapathmanager.getcsvdatapath(), loadmapColomn - 1)[i, j];
 				UIobjects[j * 10 + i].GetComponent<LevelButton>().changeState(objectkind);
 			}
 		}
 	}
-	public string getCsvDatapassandFileName() {
-		return csvdatapath;
-	}
+
 
 }

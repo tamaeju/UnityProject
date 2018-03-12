@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
+    <Compile Include="Assets\script\DataPathManager.cs" />
     <Compile Include="Assets\script\DropdownUI.cs" />
     <Compile Include="Assets\script\Goal.cs" />
     <Compile Include="Assets\script\Item.cs" />
