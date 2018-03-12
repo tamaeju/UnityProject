@@ -22,6 +22,8 @@ public class DataManager : MonoBehaviour {
 	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
 	int stage;//セーブするときとロードする時に使う
+	[SerializeField]
+	DataPathManager datamanager;
 
 
 
@@ -106,8 +108,8 @@ public class DataManager : MonoBehaviour {
 		return _leveldesigndata;
 	}
 	public void getEatCountandLefttimeCount() {
-		needeatcount = csvmanager.get1dimentionalData(csvdatapath, needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(csvdatapath, stagelefttimecountcolomn);
+		needeatcount = csvmanager.get1dimentionalData(datamanager.getcsvdatapath(2), needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(datamanager.getcsvdatapath(2), stagelefttimecountcolomn);
 	}
 	public void UpdateALLclearconditiondata(clearconditiondata[] aconditionaldatas) {
 		conditionaldatas = aconditionaldatas;

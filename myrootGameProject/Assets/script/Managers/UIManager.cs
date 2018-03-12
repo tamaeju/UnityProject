@@ -41,23 +41,21 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
-	public void makeCsvButton()//ボタンプッシュで実行
+	public void makeMapCsvButton()//ボタンプッシュで実行
 	{
 		datamanager.makeLevelDesignData(UIobjects);
 		Debug.Log(datamanager.getLevelDesignData()[0,0]);
-		csvmanager.logSave(datapathmanager.getcsvdatapath(), datamanager.getLevelDesignData());
+		csvmanager.logSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
 	}
-	public void makeObjectFromCsvButton()//ボタンプッシュで実行
+	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
 	{
-		int[,]_leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(), loadmapColomn - 1);
-		Debug.Log("以下のcsvの列番号のデータをチェックします");
-		Debug.Log(loadmapColomn);
+		int[,]_leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), loadmapColomn - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);
 		makemanager.makeDraggedObject();
 		makemanager.makeleftbutton(canvasposition.transform);
 		GameObject goalobject = makemanager.getGoalObject();
 		GameObject playerobject = makemanager.getPlayerObject();
-		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }
+		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
 		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
 		datamanager.updateCansetDatas(_leveldesigndata);
 	}
@@ -77,18 +75,17 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
-		datapathmanager.updateFilename("testData" + dropdown.value.ToString() + ".csv");
-		datapathmanager.updateCSVdatapath(Application.dataPath + "/data/" + datapathmanager.getfilename());
-		Debug.Log(String.Format("{0}file was changed ", datapathmanager.getfilename()));
+		datapathmanager.ChangeCSVNum(0,dropdown.value);//0はマップデータ
 	}
-	public void loadCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
+
+	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
 		for (int j = 0; j < DataManager.maxGridNum; ++j)
 		{
 			for (int i = 0; i < DataManager.maxGridNum; ++i)
 			{
-				Debug.Log(datapathmanager.getfilename());
-				Debug.Log(datapathmanager.getcsvdatapath() );
-				int objectkind = csvmanager.getDataElement(datapathmanager.getcsvdatapath(), loadmapColomn - 1)[i, j];
+				Debug.Log(datapathmanager.getfilename(0));
+				Debug.Log(datapathmanager.getcsvdatapath(0));
+				int objectkind = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), loadmapColomn - 1)[i, j];
 				UIobjects[j * 10 + i].GetComponent<LevelButton>().changeState(objectkind);
 			}
 		}

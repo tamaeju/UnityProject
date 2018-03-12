@@ -13,24 +13,22 @@ public class DataPathManager : MonoBehaviour {
 	string[] csvdatapath;
 	int stageindex;
 	string[] originfilename;
-	string mapdata = "mapdata";
-	string ditemData = "ditemData";
-	string clearconditionalData = "clearconditionalData";
+	int filekindcount = 3;
+
 
 	void Start() {
-		filename = new string[3];
-		csvdatapath = new string[3];
-		originfilename = new string[3];
-		filename[0] = "mapData0.csv";
-		csvdatapath[0] = Application.dataPath + "/data/" + filename[0];
+		filename = new string[filekindcount];
+		csvdatapath = new string[filekindcount];
+		originfilename = new string[filekindcount];
 
-		filename[1] = "ditemData0.csv";
-		csvdatapath[1] = Application.dataPath + "/data/" + filename[1];
+		originfilename[0] = "mapData";
+		originfilename[1] = "ditemDat";
+		originfilename[2] = "clearconditionalData0";
 
-		filename[2] = "clearconditionalData0.csv";
-		csvdatapath[2] = Application.dataPath + "/data/" + filename[2];
-
-
+		for (int i = 0; i < filekindcount; i++) {
+			filename[i] = originfilename[i] + "0.csv";
+			csvdatapath[i] = Application.dataPath + "/data/" + filename[i];
+		}
 	}
 
 	public string getfilename(int filekind) {
@@ -41,8 +39,8 @@ public class DataPathManager : MonoBehaviour {
 	}
 
 	public void ChangeCSVNum(int filekind, int dropdownvalue) {//保存先と、呼び出し先のcsvを変更するメソッド
-		filename[filekind] = "testData" + dropdownvalue.ToString() + ".csv";
+		filename[filekind] = originfilename[filekind] + dropdownvalue.ToString() + ".csv";
 		csvdatapath[filekind] = Application.dataPath + "/data/" + filename[filekind];
-		Debug.Log(String.Format("{0}file was changed ", datapathmanager.getfilename()));
+		Debug.Log(String.Format("{0}file was changed ", csvdatapath[filekind]));
 	}
-}//ファイル名とパスだけを入れるメソッドを作る。
+}
