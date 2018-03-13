@@ -5,8 +5,8 @@ using UnityEngine;
 public class UIDragButtonManager : MonoBehaviour {
 
 	[SerializeField]
-	GameObject[] UIDragButton;//生成する
-	DataManager datamanager;
+	private GameObject[] UIDragButton;//生成する
+	[SerializeField] DataManager datamanager;
 	public GameObject canvasposition;
 	CSVManager csvmanager;
 
@@ -31,8 +31,10 @@ public class UIDragButtonManager : MonoBehaviour {
 		instancepos.y = instancepos.y - 120;
 		UIDragButton[2] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
 
+
 		setUIdragbuttonNum();
 		setmyreference();
+
 	}
 
 
@@ -40,11 +42,9 @@ public class UIDragButtonManager : MonoBehaviour {
 	public　void onclickSaveButton(int buttonkind) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
 		Debug.Log("called  "+"onclickSaveButton");
 		Debug.Log(buttonkind);
-		if (UIDragButton[buttonkind] = null) { Debug.Log(null); }
-		else { UIDragButton[buttonkind].GetComponent<UIDragButton>().getObjectKind(); }
-		//UIbuttonが定義すらされていない。この理由は、プレハブのUIボタンを見に行ってしまっている事。つまりマップ上にあるマネージャーの参照をちゃんととらないといけない。
-
-		UIDragButton UIbutton = UIDragButton[buttonkind].GetComponent<UIDragButton>();
+		Debug.Log(UIDragButton.Length);
+		GameObject UIobject = this.UIDragButton[buttonkind];
+		UIDragButton UIbutton = UIobject.GetComponent<UIDragButton>();
 		datamanager.Updatdragitemdata(buttonkind, UIbutton.getObjectKind(), UIbutton.getLeftCount());
 
 	}
@@ -59,10 +59,9 @@ public class UIDragButtonManager : MonoBehaviour {
 		}
 	}
 	public void setmyreference() {
-		UIDragButtonManager motherobject = this.GetComponent<UIDragButtonManager>();
 		foreach (var item in UIDragButton) {
-			item.GetComponent<UIDragButton>().setmotherobject(motherobject);
+			item.GetComponent<UIDragButton>().setmotherobject(this.GetComponent<UIDragButtonManager>());
 		}
 	}
-
+	//セーブボタンを押したら、各ボタンオブジェクトに、UIマネージャーが値を聞いて
 }

@@ -21,7 +21,7 @@ public class DataManager : MonoBehaviour {
 	UIManager UImanager;
 	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
-	int stage;//セーブするときとロードする時に使う
+	int stage =1;//セーブするときとロードする時に使う,試しに１を入れている。
 	[SerializeField]
 	DataPathManager datapathmanager;
 
