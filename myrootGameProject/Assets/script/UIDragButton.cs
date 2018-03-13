@@ -14,7 +14,9 @@ public class UIDragButton : MonoBehaviour {
 	[SerializeField]
 	int leftcount;
 	[SerializeField]
-	int bottunkind;
+	int buttonnum;
+	[SerializeField]
+	UIDragButtonManager uidraggbuttonmanager;
 
 	public void ChangeObjectKind() {
 		if (objectkind >= buttonkindLength - 1) {//要素番号なので-1
@@ -42,5 +44,16 @@ public class UIDragButton : MonoBehaviour {
 	public int getLeftCount() {
 		return leftcount;
 	}
+	public void changeobjectNum(int num) {
+		buttonnum = num;
+	}
+	public void setmotherobject(UIDragButtonManager amotherobject) {
+		uidraggbuttonmanager= amotherobject;
+	}
+	public void callUISave() {
+		uidraggbuttonmanager.onclickSaveButton(buttonnum);
+	}
+	//セーブボタンを押すと、UIドラッグボタンマネージャーのセーブメソッドを呼び出す。
+	//セーブメソッドは、自身の監督するUIドラッグボタンのオブジェクト全てのデータを
 }
 

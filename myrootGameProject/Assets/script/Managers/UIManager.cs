@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour {
 	[SerializeField]DataManager datamanager;
 	[SerializeField]MakeManager makemanager;
 	[SerializeField]DataPathManager datapathmanager;
+	[SerializeField]UIDragButtonManager UIdraghmanager;
 
 
 	void Start() {
@@ -45,7 +46,7 @@ public class UIManager : MonoBehaviour {
 	{
 		datamanager.makeLevelDesignData(UIobjects);
 		Debug.Log(datamanager.getLevelDesignData()[0,0]);
-		csvmanager.logSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
+		csvmanager.MapdataCSVSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
 	}
 	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
 	{
@@ -58,6 +59,8 @@ public class UIManager : MonoBehaviour {
 		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
 		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
 		datamanager.updateCansetDatas(_leveldesigndata);
+		UIdraghmanager.deletebutton();
+
 	}
 	public void CanvasOFFButton()//ボタンプッシュで実行
 	{

@@ -93,6 +93,7 @@
     <Compile Include="Assets\script\Managers\DataManager.cs" />
     <Compile Include="Assets\script\Managers\MakeManager.cs" />
     <Compile Include="Assets\script\Managers\TouchManager.cs" />
+    <Compile Include="Assets\script\Managers\UIDragButtonManager.cs" />
     <Compile Include="Assets\script\Managers\UIManager.cs" />
     <Compile Include="Assets\script\PlayerMove.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
     <Compile Include="Assets\script\TargetChara.cs" />
     <Compile Include="Assets\script\UIDragButton.cs" />
-    <Compile Include="Assets\script\UIDragButtonManager.cs" />
     <Compile Include="Assets\script\setObject.cs" />
     <Compile Include="Assets\script\struct\clearconditionaldata.cs" />
     <Compile Include="Assets\script\struct\dragitemdata.cs" />

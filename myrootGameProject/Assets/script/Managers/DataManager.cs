@@ -23,7 +23,7 @@ public class DataManager : MonoBehaviour {
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
 	int stage;//セーブするときとロードする時に使う
 	[SerializeField]
-	DataPathManager datamanager;
+	DataPathManager datapathmanager;
 
 
 
@@ -108,8 +108,8 @@ public class DataManager : MonoBehaviour {
 		return _leveldesigndata;
 	}
 	public void getEatCountandLefttimeCount() {
-		needeatcount = csvmanager.get1dimentionalData(datamanager.getcsvdatapath(2), needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(datamanager.getcsvdatapath(2), stagelefttimecountcolomn);
+		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), stagelefttimecountcolomn);
 	}
 	public void UpdateALLclearconditiondata(clearconditiondata[] aconditionaldatas) {
 		conditionaldatas = aconditionaldatas;
@@ -123,9 +123,11 @@ public class DataManager : MonoBehaviour {
 		//conditionaldatas[stage].
 	}
 	public void Updatdragitemdata(int buttonkind, int objectkind, int leftcount) {
+		Debug.Log("Updatdragitemdata");
 		dragitemdatas[buttonkind, stage - 1].itemkind = objectkind;//[何個目のボタンか,ステージ-1]の要素番号(struct型)に代入
 		dragitemdatas[buttonkind, stage - 1].itemcount = leftcount;
 		//csvmanagerにセーブ依頼を出す。
+		csvmanager.itemdataCSVSave(datapathmanager.getcsvdatapath(1),dragitemdatas);
 	}
 
 
