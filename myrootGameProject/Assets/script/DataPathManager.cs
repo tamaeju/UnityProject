@@ -22,7 +22,7 @@ public class DataPathManager : MonoBehaviour {
 		originfilename = new string[filekindcount];
 
 		originfilename[0] = "mapData";
-		originfilename[1] = "ditemDat";
+		originfilename[1] = "ditemData";
 		originfilename[2] = "clearconditionalData0";
 
 		for (int i = 0; i < filekindcount; i++) {

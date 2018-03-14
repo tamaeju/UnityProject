@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-class CSVManager : MonoBehaviour{//CSVデータの読み込みと書き込みを行うクラス
+public class CSVManager : MonoBehaviour{//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;//dataElementsからパースして使うデータ
 	int[][] stagedata;//何秒以内クリアか、必要捕食数のデータ
 

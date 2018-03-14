@@ -15,21 +15,17 @@ public class DataManager : MonoBehaviour {
 	int needeatcountcolomn = 2;//データの3列目なら3-1で要素番号2で正しい。
 	int[] stagelefttimecount;
 	int stagelefttimecountcolomn = 1;
-	[SerializeField]
-	CSVManager csvmanager;
-	[SerializeField]
-	UIManager UImanager;
 	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
 	int stage =1;//セーブするときとロードする時に使う,試しに１を入れている。
+
 	[SerializeField]
-	DataPathManager datapathmanager;
+	Meditator meditator;
 
 
 
 
 	void Start() {
-
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
 		needeatcount = new int[Config.stageCount];
@@ -51,6 +47,7 @@ public class DataManager : MonoBehaviour {
 		indexpos.y = aVector3.z;
 		return indexpos;
 	}
+
 	public Vector2[] getOverRidePoint(Vector3 myposition, float blocklength) {//移動オブジェクトの存在する4点の座標を返すメソッド
 		Vector2[] overridepoints = new Vector2[4];
 		Vector2 cehckvector2 = parseVector3toVector2(myposition);
@@ -107,7 +104,12 @@ public class DataManager : MonoBehaviour {
 	public int[,] getLevelDesignData() {
 		return _leveldesigndata;
 	}
+
 	public void getEatCountandLefttimeCount() {
+
+		CSVManager csvmanager = meditator.getcsvmanager();
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+
 		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), needeatcountcolomn);
 		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), stagelefttimecountcolomn);
 	}
@@ -122,8 +124,11 @@ public class DataManager : MonoBehaviour {
 
 		//conditionaldatas[stage].
 	}
-	public void Updatdragitemdata(int buttonkind, int objectkind, int leftcount) {
+	public void Updatedragitemdata(int buttonkind, int objectkind, int leftcount) {
 		Debug.Log("Updatdragitemdata");
+		CSVManager csvmanager = meditator.getcsvmanager();
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+
 		dragitemdatas[buttonkind, stage - 1].itemkind = objectkind;//[何個目のボタンか,ステージ-1]の要素番号(struct型)に代入
 		dragitemdatas[buttonkind, stage - 1].itemcount = leftcount;
 		//csvmanagerにセーブ依頼を出す。

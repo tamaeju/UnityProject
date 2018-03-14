@@ -6,9 +6,10 @@ public class UIDragButtonManager : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject[] UIDragButton;//生成する
-	[SerializeField] DataManager datamanager;
+
 	public GameObject canvasposition;
-	CSVManager csvmanager;
+	[SerializeField]
+	Meditator meditator;
 
 	[SerializeField]
 	GameObject UIButtonPrefab;
@@ -45,7 +46,7 @@ public class UIDragButtonManager : MonoBehaviour {
 		Debug.Log(UIDragButton.Length);
 		GameObject UIobject = this.UIDragButton[buttonkind];
 		UIDragButton UIbutton = UIobject.GetComponent<UIDragButton>();
-		datamanager.Updatdragitemdata(buttonkind, UIbutton.getObjectKind(), UIbutton.getLeftCount());
+		meditator.getdatamanager().Updatedragitemdata(buttonkind, UIbutton.getObjectKind(), UIbutton.getLeftCount());
 
 	}
 	public void setUIdragbuttonNum() {

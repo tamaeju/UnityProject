@@ -95,6 +95,7 @@
     <Compile Include="Assets\script\Managers\TouchManager.cs" />
     <Compile Include="Assets\script\Managers\UIDragButtonManager.cs" />
     <Compile Include="Assets\script\Managers\UIManager.cs" />
+    <Compile Include="Assets\script\Meditator.cs" />
     <Compile Include="Assets\script\PlayerMove.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\ScrollObject.cs" />

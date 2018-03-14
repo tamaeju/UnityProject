@@ -14,11 +14,8 @@ public class UIManager : MonoBehaviour {
 	public GameObject _levelbutton;
 	[SerializeField]
 	int loadmapColomn = 3;
-	[SerializeField]CSVManager csvmanager;
-	[SerializeField]DataManager datamanager;
-	[SerializeField]MakeManager makemanager;
-	[SerializeField]DataPathManager datapathmanager;
-	[SerializeField]UIDragButtonManager UIdraghmanager;
+	[SerializeField]
+	Meditator meditator;
 
 
 	void Start() {
@@ -44,12 +41,21 @@ public class UIManager : MonoBehaviour {
 
 	public void makeMapCsvButton()//ボタンプッシュで実行
 	{
-		datamanager.makeLevelDesignData(UIobjects);
-		Debug.Log(datamanager.getLevelDesignData()[0,0]);
-		csvmanager.MapdataCSVSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
+		DataManager datamanager = meditator.getdatamanager();
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+
+		meditator.getdatamanager().makeLevelDesignData(UIobjects);
+		Debug.Log(meditator.getdatamanager().getLevelDesignData()[0,0]);
+		meditator.getcsvmanager().MapdataCSVSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
 	}
 	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
 	{
+		MakeManager makemanager = meditator.getmakemanager();
+		CSVManager csvmanager = meditator.getcsvmanager();
+		DataManager datamanager = meditator.getdatamanager();
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		UIDragButtonManager UIdraghmanager  = meditator.getUIdraghmanager();
+
 		int[,]_leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), loadmapColomn - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);
 		makemanager.makeDraggedObject();
@@ -78,10 +84,13 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		datapathmanager.ChangeCSVNum(0,dropdown.value);//0はマップデータ
 	}
 
 	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		CSVManager csvmanager = meditator.getcsvmanager();
 		for (int j = 0; j < DataManager.maxGridNum; ++j)
 		{
 			for (int i = 0; i < DataManager.maxGridNum; ++i)

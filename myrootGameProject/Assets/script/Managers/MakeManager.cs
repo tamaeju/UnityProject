@@ -15,10 +15,14 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	float groundhight;
 	float instancehight;
 	public GameObject ground;
-	[SerializeField]DataManager datamanager;
+
 	public GameObject[] instanceObjects;
 	[SerializeField]GameObject [] makedraggerdobjects;
 	public GameObject[] _LeftCountbuttons;
+
+	[SerializeField]
+	Meditator meditator;
+
 
 	void Start() {
 		groundhight = ground.transform.position.y;
@@ -79,7 +83,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		return objectref;
 
 	}
-	public void makeleftbutton(Transform parenttransform)
+	public void makeleftbutton(Transform parenttransform)//leftcountを作成し、ドラッグドオブジェクトに紐づけを行う。
 	{
 		for (int i = 0; i < _LeftCountbuttons.Length; i++)
 		{
@@ -91,7 +95,6 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	}
 	public void makeDraggedObject() {
 		for (int i = 0; i < makedraggerdobjects.Length; i++) {
-			
 		}
 	}
 

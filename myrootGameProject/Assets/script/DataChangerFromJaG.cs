@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataChangerFromJaG : MonoBehaviour {
 	int timelimitElementNum = 1;
 	int requiredkillcountElementNum = 2;
+
 	int itemkindElementNum = 2;
 	int itemcountElementNum = 3;
 	//構造体は値渡しなのですごく注意が必要な気がする。
