@@ -83,18 +83,18 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		return objectref;
 
 	}
-	public void makeleftbutton(Transform parenttransform)//leftcountを作成し、ドラッグドオブジェクトに紐づけを行う。
+	public void makeDragedObjectandButton(Transform parenttransform)//leftcountを作成し、ドラッグドオブジェクトに紐づけを行う。
 	{
+		DataManager datamanager = meditator.getdatamanager();
 		for (int i = 0; i < _LeftCountbuttons.Length; i++)
 		{
 			_LeftCountbuttons[i] = Instantiate(_LeftCountbuttons[i], _LeftCountbuttons[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
 			_LeftCountbuttons[i].transform.parent = parenttransform;
 			makedraggerdobjects[i] = Instantiate(makedraggerdobjects[i], makedraggerdobjects[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
-			makedraggerdobjects[i].GetComponent<MakeDraggedObject>().setREFofLeftCount(_LeftCountbuttons[i].GetComponent<Text>());
-		}
-	}
-	public void makeDraggedObject() {
-		for (int i = 0; i < makedraggerdobjects.Length; i++) {
+			MakeDraggedObject draggedobject = makedraggerdobjects[i].GetComponent<MakeDraggedObject>();
+			draggedobject.setREFofLeftCount(_LeftCountbuttons[i].GetComponent<Text>());
+			draggedobject.setMyObjectKind(datamanager.getDragitemkind(i));
+			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
 		}
 	}
 

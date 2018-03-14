@@ -65,59 +65,71 @@ public class CSVManager : MonoBehaviour{//CSVデータの読み込みと書き�
 
 	//以下データ書き込み部分
 
-	public void MapdataCSVSave(string aDatapath, int[,] writtenData) {//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
+	public void CSVSave<T>(string aDatapath, T writtendata) {//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
 		File.Delete(aDatapath);
 		FileInfo fi;
 		fi = new FileInfo(aDatapath);
 		m_sw = fi.AppendText();
-		writeMapData(writtenData);
+
+		int[,] doublevariable;
+		dragitemdata[,] itemdatas;
+		clearconditiondata[] conditionaldatas;
+		if (writtendata.GetType() == typeof(int[,]))
+		{
+			doublevariable = (int[,])(object)writtendata;
+			writeData(doublevariable);
+		}
+		else if (writtendata.GetType() == typeof(dragitemdata[,]))
+		{
+			itemdatas = (dragitemdata[,])(object)writtendata;
+			writeData(itemdatas);
+		}
+		else if (writtendata.GetType() == typeof(clearconditiondata[]))
+		{
+			conditionaldatas = (clearconditiondata[])(object)writtendata;
+			writeData(conditionaldatas);
+		}
+
 		m_sw.Flush();
 		m_sw.Close();
 		Debug.Log("file was written");
 	}
-	private void writeMapData(int[,] writtenData) {//実際にログデータを書く部分、流れとしてはオブジェクトのデータを取得し、それを書いていくだけなので、int[,]がもらえればいいだけの話。
-		for (int j = 0; j < writtenData.GetLength(1); j++) {
-			for (int i = 0; i < writtenData.GetLength(0); i++) {
+
+
+
+
+	private void writeData (int[,] writtenData)
+	{//実際にログデータを書く部分、流れとしてはオブジェクトのデータを取得し、それを書いていくだけなので、int[,]がもらえればいいだけの話。
+		for (int j = 0; j < writtenData.GetLength(1); j++)
+		{
+			for (int i = 0; i < writtenData.GetLength(0); i++)
+			{
 				m_sw.WriteLine("{0},{1},{2}", i.ToString(), j.ToString(), writtenData[i, j].ToString());
 			}
 		}
+		Debug.Log("MapData was written");
 	}
-
-	public void itemdataCSVSave(string aDatapath, dragitemdata[,] writtenData) {//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
-		Debug.Log("itemdataCSVSave");
-		File.Delete(aDatapath);
-		FileInfo fi;
-		fi = new FileInfo(aDatapath);
-		m_sw = fi.AppendText();
-		writeitemData(writtenData);
-		m_sw.Flush();
-		m_sw.Close();
-		Debug.Log("file was written");
-	}
-	private void writeitemData(dragitemdata[,] writtenData) {
-		for (int j = 0; j < writtenData.GetLength(1); j++) {
-			for (int i = 0; i < writtenData.GetLength(0); i++) {
-				m_sw.WriteLine("{0},{1},{2}.{3}", i, j, writtenData[i, j].itemkind, writtenData[i, j].itemcount);
+	private void writeData(dragitemdata[,] writtenData) {
+		for (int j = 0; j < writtenData.GetLength(0); j++) {
+			for (int i = 0; i < writtenData.GetLength(1); i++) {
+				Debug.Log(String.Format("dragitemdatas, UIbuttonNum, stage   {0},{1},{2},{3}  ", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount));
+				//m_sw.WriteLine("{0},{1},{2}.{3}", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount);
 			}
 		}
+		Debug.Log("itemdata was written");
+	}
+	private void writeData(clearconditiondata[] writtenData)
+	{
+		for (int i = 0; i < writtenData.Length; i++)
+		{
+			m_sw.WriteLine("{0},{1},{2}", i, writtenData[i].timelimit, writtenData[i].RequiredKillCount);
+		}
+		Debug.Log("conditiondata was written");
+
 	}
 
-	public void clearconditionaldataCSVSave(string aDatapath,clearconditiondata[] writtenData) {//アセットフォルダにtest.csvというファイルを作成する。作成するときはこのクラスを呼び出し、データを渡せばいい。
-		File.Delete(aDatapath);
-		FileInfo fi;
-		fi = new FileInfo(aDatapath);
-		m_sw = fi.AppendText();
-		writeclearconditionalData(writtenData);
-		m_sw.Flush();
-		m_sw.Close();
-		Debug.Log("file was written");
-	}
-	private void writeclearconditionalData(clearconditiondata[] writtenData) {
-			for (int i = 0; i < writtenData.Length; i++) {
-				m_sw.WriteLine("{0},{1},{2}", i, writtenData[i].timelimit , writtenData[i].RequiredKillCount);
-			}
-		
-	}
+
+
 }
 
 

@@ -40,13 +40,9 @@ public class UIDragButtonManager : MonoBehaviour {
 
 
 
-	public　void onclickSaveButton(int buttonkind) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
-		Debug.Log("called  "+"onclickSaveButton");
-		Debug.Log(buttonkind);
-		Debug.Log(UIDragButton.Length);
-		GameObject UIobject = this.UIDragButton[buttonkind];
-		UIDragButton UIbutton = UIobject.GetComponent<UIDragButton>();
-		meditator.getdatamanager().Updatedragitemdata(buttonkind, UIbutton.getObjectKind(), UIbutton.getLeftCount());
+	public　void onclickSaveButton(UIDragButton dragbutton) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
+		DataManager datamanager = meditator.getdatamanager();
+		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
 
 	}
 	public void setUIdragbuttonNum() {

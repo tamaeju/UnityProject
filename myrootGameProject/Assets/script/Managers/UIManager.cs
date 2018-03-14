@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour {
 
 		meditator.getdatamanager().makeLevelDesignData(UIobjects);
 		Debug.Log(meditator.getdatamanager().getLevelDesignData()[0,0]);
-		meditator.getcsvmanager().MapdataCSVSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
+		meditator.getcsvmanager().CSVSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
 	}
 	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
 	{
@@ -58,8 +58,7 @@ public class UIManager : MonoBehaviour {
 
 		int[,]_leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), loadmapColomn - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);
-		makemanager.makeDraggedObject();
-		makemanager.makeleftbutton(canvasposition.transform);
+		makemanager.makeDragedObjectandButton(canvasposition.transform);
 		GameObject goalobject = makemanager.getGoalObject();
 		GameObject playerobject = makemanager.getPlayerObject();
 		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
@@ -85,7 +84,12 @@ public class UIManager : MonoBehaviour {
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		DataManager datamanager = meditator.getdatamanager();
+
 		datapathmanager.ChangeCSVNum(0,dropdown.value);//0はマップデータ
+		datapathmanager.ChangeCSVNum(1, dropdown.value);//0はマップデータ
+		datapathmanager.ChangeCSVNum(2, dropdown.value);//0はマップデータ
+		datamanager.changeStageNum(dropdown.value);
 	}
 
 	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。

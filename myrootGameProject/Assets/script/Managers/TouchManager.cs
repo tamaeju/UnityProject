@@ -9,12 +9,21 @@ public class TouchManager : MonoBehaviour {
 	Vector3 setPosition;
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
-	public MakeManager makemanager;
 	MakeDraggedObject draggeeditem;
 	private GameObject refrayObject;
-	public DataManager datamanager;
+
+	[SerializeField]
+	Meditator meditator;
+
+	MakeManager makemanager;
+	DataManager datamanager;
+
+
+
 
 	void Start() {
+		makemanager = meditator.getmakemanager();
+		datamanager = meditator.getdatamanager();
 		rayemitter = new RayEmit();
 	}
 

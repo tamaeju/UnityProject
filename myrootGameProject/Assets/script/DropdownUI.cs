@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DropdownUI : MonoBehaviour {
-	public Dropdown dropdown;
+	Dropdown dropdown;
 	void Start() {
 		dropdown = this.GetComponent<Dropdown>();
 		if (dropdown) {

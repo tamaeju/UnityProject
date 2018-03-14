@@ -17,7 +17,7 @@ public class DataManager : MonoBehaviour {
 	int stagelefttimecountcolomn = 1;
 	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
-	int stage =1;//セーブするときとロードする時に使う,試しに１を入れている。
+	int stage;
 
 	[SerializeField]
 	Meditator meditator;
@@ -30,7 +30,7 @@ public class DataManager : MonoBehaviour {
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
 		needeatcount = new int[Config.stageCount];
 		stagelefttimecount = new int[Config.stageCount];
-		dragitemdatas = new dragitemdata[Config.stageCount, Config.stageCount];
+		dragitemdatas = new dragitemdata[Config.stageCount, Config.dragbuttonNum];
 		conditionaldatas = new clearconditiondata[Config.stageCount];
 	}
 
@@ -113,29 +113,34 @@ public class DataManager : MonoBehaviour {
 		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), needeatcountcolomn);
 		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), stagelefttimecountcolomn);
 	}
-	public void UpdateALLclearconditiondata(clearconditiondata[] aconditionaldatas) {
-		conditionaldatas = aconditionaldatas;
-	}
+
 	public void UpdateALLdragitemdata(dragitemdata[,] adragitemdatas) {
 		dragitemdatas = adragitemdatas;
 	}
-	public void Updateclearconditiondata(//?
-		) {
 
-		//conditionaldatas[stage].
-	}
-	public void Updatedragitemdata(int buttonkind, int objectkind, int leftcount) {
-		Debug.Log("Updatdragitemdata");
+	public void UpdateDragitemData(int UIbuttonNum, int itemkind, int leftcount) {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
-		dragitemdatas[buttonkind, stage - 1].itemkind = objectkind;//[何個目のボタンか,ステージ-1]の要素番号(struct型)に代入
-		dragitemdatas[buttonkind, stage - 1].itemcount = leftcount;
-		//csvmanagerにセーブ依頼を出す。
-		csvmanager.itemdataCSVSave(datapathmanager.getcsvdatapath(1),dragitemdatas);
+
+		Debug.Log(String.Format("dragitemdatas, UIbuttonNum, stage   {0},{1},{2}   ", dragitemdatas, UIbuttonNum, stage));
+		dragitemdatas[stage, UIbuttonNum].itemkind = itemkind;
+		dragitemdatas[stage, UIbuttonNum].itemcount = leftcount;
+
+		String dragitemdatapath = datapathmanager.getcsvdatapath(1);
+		csvmanager.CSVSave(dragitemdatapath, dragitemdatas);
+	}
+	public void changeStageNum(int Num) {
+		stage = Num;
+	}
+	public int getDragitemkind(int UIbuttonNum) {
+	return dragitemdatas[stage, UIbuttonNum].itemkind;
 	}
 
-
+	public int getDragitemleft(int UIbuttonNum)
+	{
+		return dragitemdatas[stage, UIbuttonNum].itemcount;
+	}
 
 
 }

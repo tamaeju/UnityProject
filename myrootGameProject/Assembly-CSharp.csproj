@@ -47,20 +47,33 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\script\CharactorMove.cs" />
+     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
+     <Compile Include="Assets\script\DataPathManager.cs" />
      <Compile Include="Assets\script\DropdownUI.cs" />
+     <Compile Include="Assets\script\Goal.cs" />
      <Compile Include="Assets\script\Item.cs" />
      <Compile Include="Assets\script\LevelButton.cs" />
+     <Compile Include="Assets\script\LevelSelectButtons_selectscene.cs" />
+     <Compile Include="Assets\script\LevelSelectManager.cs" />
      <Compile Include="Assets\script\MakeDraggedObject.cs" />
      <Compile Include="Assets\script\Managers\CSVManager.cs" />
      <Compile Include="Assets\script\Managers\Config.cs" />
      <Compile Include="Assets\script\Managers\DataManager.cs" />
      <Compile Include="Assets\script\Managers\MakeManager.cs" />
      <Compile Include="Assets\script\Managers\TouchManager.cs" />
+     <Compile Include="Assets\script\Managers\UIDragButtonManager.cs" />
      <Compile Include="Assets\script\Managers\UIManager.cs" />
-     <Compile Include="Assets\script\NewBehaviourScript.cs" />
+     <Compile Include="Assets\script\Meditator.cs" />
+     <Compile Include="Assets\script\PlayerMove.cs" />
      <Compile Include="Assets\script\RayEmit.cs" />
+     <Compile Include="Assets\script\ScrollObject.cs" />
      <Compile Include="Assets\script\SetPointRayEmiter.cs" />
+     <Compile Include="Assets\script\TargetChara.cs" />
+     <Compile Include="Assets\script\UIDragButton.cs" />
      <Compile Include="Assets\script\setObject.cs" />
+     <Compile Include="Assets\script\struct\clearconditionaldata.cs" />
+     <Compile Include="Assets\script\struct\dragitemdata.cs" />
+     <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

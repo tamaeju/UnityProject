@@ -33,4 +33,13 @@ public class MakeDraggedObject : MonoBehaviour {
 	public void setREFofLeftCount(Text ascoretext) {
 		scoretext = ascoretext;
 	}
+	public void setMyObjectKind(int kind)
+	{
+		MyObjectKind =  kind;
+		changeScoreText();
+	}
+	public void setObjectLeftCount(int count)
+	{
+		ObjectLeftCount = count;
+	}
 }

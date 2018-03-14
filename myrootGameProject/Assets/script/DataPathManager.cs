@@ -9,11 +9,10 @@ using UnityEngine.UI;
 
 public class DataPathManager : MonoBehaviour {
 
-	string[] filename;//0マップデータ、1ditemdata,2clearcondinaldata
-	string[] csvdatapath;
-	int stageindex;
-	string[] originfilename;
-	int filekindcount = 3;
+	public string[] filename;//0マップデータ、1ditemdata,2clearcondinaldata
+	public  string[] csvdatapath;
+	public string[] originfilename;
+	public int filekindcount = 3;
 
 
 	void Start() {
