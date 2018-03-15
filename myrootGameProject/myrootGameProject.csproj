@@ -78,7 +78,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\script\ButtonEventManager.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
     <Compile Include="Assets\script\DataPathManager.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="Assets\script\LevelSelectButtons_selectscene.cs" />
     <Compile Include="Assets\script\LevelSelectManager.cs" />
     <Compile Include="Assets\script\MakeDraggedObject.cs" />
+    <Compile Include="Assets\script\Managers\ButtonEventManager.cs" />
     <Compile Include="Assets\script\Managers\CSVManager.cs" />
     <Compile Include="Assets\script\Managers\Config.cs" />
     <Compile Include="Assets\script\Managers\DataManager.cs" />

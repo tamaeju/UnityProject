@@ -92,23 +92,29 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 
 		for (int i = 0; i < Config.dragbuttonNum ; i++)
 		{
+			float itemmakerpositiondifference = i*3;
+			float leftcountpositiondifference = i * 30;
+			Transform canvastrans = objectcontainer.getcanvasposition().transform;
+			Vector2 leftcountdifference = new Vector2(200,200);
+
 			GameObject　itemleftCount = Instantiate(leftcountprefab, this.transform.position, Quaternion.identity) as GameObject;
 			itemleftCount.transform.parent = objectcontainer.getcanvasposition().transform;
+			Transform leftCounttrans = itemleftCount.transform;
+			leftCounttrans.position = new Vector3(leftCounttrans.position.x+ leftcountdifference.x, leftCounttrans.position.y - leftcountpositiondifference, leftCounttrans.position.z); 
 			//レフトカウントボタンを作成し、親オブジェクトをペアレントトランスフォームにしている。
 
 			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
 			MakeDraggedObject draggedobject = dragobjectmaker.GetComponent<MakeDraggedObject>();
+			Transform draggerTrans = draggedobject.transform;
+			draggerTrans.position = new Vector3(draggerTrans.position.x, draggerTrans.position.y, draggerTrans.position.z-itemmakerpositiondifference);
 			//draggedobjectを作成し、コンポーネントの取得をしている。
 
 			draggedobject.setREFofLeftCount(itemleftCount.GetComponent<Text>());
 			//draggedobjectがleftcountを使用できるようにしている。
-
-
 			draggedobject.setMyObjectKind(datamanager.getDragitemkind(i));
 			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
 			//draggedobjectのパラメータを設定している。
-
-		//UI
+			
 		}
 	}
 
