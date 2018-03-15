@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DataManager : MonoBehaviour {
-	public static int maxGridNum = Config.maxGridNum;//他のクラスも参照する最大要素数
+	private static int maxGridNum = Config.maxGridNum;//他のクラスも参照する最大要素数
 	int[,] _leveldesigndata;
 	bool[,] _canSetDatas;
 	int[] needeatcount;
@@ -94,7 +94,8 @@ public class DataManager : MonoBehaviour {
 		return checkvector2.x >= 0 && (int)checkvector2.x < maxGridNum && checkvector2.y >= 0 && (int)checkvector2.y < maxGridNum;
 	}
 
-	public void makeLevelDesignData(GameObject[] UIobjects) {
+	public void makeLevelDesignData() {
+		GameObject[] UIobjects = meditator.getUImanager().getUIobjects();
 		for (int j = 0; j < maxGridNum; ++j) {
 			for (int i = 0; i < maxGridNum; ++i) {
 				_leveldesigndata[i, j] = UIobjects[j * 10 + i].GetComponent<LevelButton>().returnThisState();
@@ -122,13 +123,9 @@ public class DataManager : MonoBehaviour {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
-
 		Debug.Log(String.Format("dragitemdatas, UIbuttonNum, stage   {0},{1},{2}   ", dragitemdatas, UIbuttonNum, stage));
 		dragitemdatas[stage, UIbuttonNum].itemkind = itemkind;
 		dragitemdatas[stage, UIbuttonNum].itemcount = leftcount;
-
-		String dragitemdatapath = datapathmanager.getcsvdatapath(1);
-		csvmanager.CSVSave(dragitemdatapath, dragitemdatas);
 	}
 	public void changeStageNum(int Num) {
 		stage = Num;
@@ -141,6 +138,8 @@ public class DataManager : MonoBehaviour {
 	{
 		return dragitemdatas[stage, UIbuttonNum].itemcount;
 	}
-
+	public dragitemdata[,] getItemData() {
+		return dragitemdatas;
+	}
 
 }

@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIDragButtonManager : MonoBehaviour {
 
@@ -41,9 +46,12 @@ public class UIDragButtonManager : MonoBehaviour {
 
 
 	public　void onclickSaveButton(UIDragButton dragbutton) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
+		CSVManager csvmanager = meditator.getcsvmanager();
 		DataManager datamanager = meditator.getdatamanager();
-		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
+		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
+		csvmanager.itemCsvSave(datapathmanager.getcsvdatapath(1), datamanager.getItemData());
 	}
 	public void setUIdragbuttonNum() {
 		for (int i = 0; i < UIDragButton.Length; i++) {

@@ -14,18 +14,15 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	private int slidespace = 4;
 	float groundhight;
 	float instancehight;
-	public GameObject ground;
-
-	public GameObject[] instanceObjects;
-	[SerializeField]GameObject [] makedraggerdobjects;
-	public GameObject[] _LeftCountbuttons;
 
 	[SerializeField]
 	Meditator meditator;
 
+	[SerializeField]
+	ObjectContainer objectcontainer;
 
 	void Start() {
-		groundhight = ground.transform.position.y;
+		groundhight = objectcontainer.getground().transform.position.y;
 		instancehight = groundhight + 0.5f;
 	}
 
@@ -36,6 +33,8 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	}
 
 	public void instanciateAllObject(int[,] aPrefabKind) {
+		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
+
 		for (int j = 0; j < aPrefabKind.GetLength(1); ++j) {
 			for (int i = 0; i < aPrefabKind.GetLength(0); ++i) {
 				if (aPrefabKind[i, j] == 0) {
@@ -74,27 +73,42 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	public float getBlockLength(){
 		return blocklength;
 	}
-	public GameObject getInstanceObject(int index) {
-		return instanceObjects[index];
-	}
+
 	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {
 		GameObject objectref;
-		objectref = Instantiate(getInstanceObject(onjectindex), instancepos, Quaternion.identity) as GameObject;
+		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
+
+		objectref = Instantiate(instanceObjects[onjectindex], instancepos, Quaternion.identity) as GameObject;
 		return objectref;
 
 	}
-	public void makeDragedObjectandButton(Transform parenttransform)//leftcountを作成し、ドラッグドオブジェクトに紐づけを行う。
+	public void makeDragedObjectandButton()
 	{
 		DataManager datamanager = meditator.getdatamanager();
-		for (int i = 0; i < _LeftCountbuttons.Length; i++)
+		GameObject objectleftcount = objectcontainer.getobjectleftCount();
+		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
+		GameObject leftcountprefab = objectcontainer.getobjectleftCount();
+		GameObject dragobjectmakerprefab = objectcontainer.getdragobjectmaker();
+
+		for (int i = 0; i < Config.dragbuttonNum ; i++)
 		{
-			_LeftCountbuttons[i] = Instantiate(_LeftCountbuttons[i], _LeftCountbuttons[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
-			_LeftCountbuttons[i].transform.parent = parenttransform;
-			makedraggerdobjects[i] = Instantiate(makedraggerdobjects[i], makedraggerdobjects[i].GetComponent<Transform>().position, Quaternion.identity) as GameObject;
-			MakeDraggedObject draggedobject = makedraggerdobjects[i].GetComponent<MakeDraggedObject>();
-			draggedobject.setREFofLeftCount(_LeftCountbuttons[i].GetComponent<Text>());
+			GameObject　itemleftCount = Instantiate(leftcountprefab, this.transform.position, Quaternion.identity) as GameObject;
+			itemleftCount.transform.parent = objectcontainer.getcanvasposition().transform;
+			//レフトカウントボタンを作成し、親オブジェクトをペアレントトランスフォームにしている。
+
+			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
+			MakeDraggedObject draggedobject = dragobjectmaker.GetComponent<MakeDraggedObject>();
+			//draggedobjectを作成し、コンポーネントの取得をしている。
+
+			draggedobject.setREFofLeftCount(itemleftCount.GetComponent<Text>());
+			//draggedobjectがleftcountを使用できるようにしている。
+
+
 			draggedobject.setMyObjectKind(datamanager.getDragitemkind(i));
 			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
+			//draggedobjectのパラメータを設定している。
+
+		//UI
 		}
 	}
 

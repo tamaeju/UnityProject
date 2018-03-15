@@ -16,6 +16,11 @@ public class Meditator : MonoBehaviour {
 	UIDragButtonManager UIdraghmanager;
 	[SerializeField]
 	TouchManager touchmanager;
+	[SerializeField]
+	UIManager UImanager;
+	[SerializeField]
+	ObjectContainer objectcontainer;
+
 
 	public CSVManager getcsvmanager() {
 		return csvmanager;
@@ -34,5 +39,11 @@ public class Meditator : MonoBehaviour {
 	}
 	public TouchManager gettouchmanager() {
 		return touchmanager;
+	}
+	public UIManager getUImanager() {
+		return UImanager;
+	}
+	public ObjectContainer getobjectcontainer() {
+		return objectcontainer;
 	}
 }
