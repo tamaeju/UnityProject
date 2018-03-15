@@ -10,39 +10,51 @@ using UnityEngine.UI;
 public class ButtonEventManager : MonoBehaviour {
 	[SerializeField]
 	Meditator meditator;
-
-	[SerializeField]
+	MakeManager makemanager;
+	CSVManager csvmanager;
+	DataManager datamanager;
+	DataPathManager datapathmanager;
+	ItemmakeEditorManager UIdraghmanager;
 	int usecolomn_of_mapdata = 3;
+
+	void Start() {
+		makemanager = meditator.getmakemanager();
+		csvmanager = meditator.getcsvmanager();
+		datamanager = meditator.getdatamanager();
+		datapathmanager = meditator.getdatapathmanager();
+		UIdraghmanager = meditator.getUIdraghmanager();
+	}
 
 	public void makeMapCsvButton()//ボタンプッシュで実行
 		{
-		DataManager datamanager = meditator.getdatamanager();
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		UIManager UImanager = meditator.getUImanager();
-
 		meditator.getdatamanager().makeLevelDesignData();
 		Debug.Log(meditator.getdatamanager().getLevelDesignData()[0, 0]);
-		meditator.getcsvmanager().MapCsvSave(datapathmanager.getcsvdatapath(0), datamanager.getLevelDesignData());
+		meditator.getcsvmanager().MapCsvSave(datamanager.getLevelDesignData());
 	}
 
 	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
 	{
-		MakeManager makemanager = meditator.getmakemanager();
-		CSVManager csvmanager = meditator.getcsvmanager();
-		DataManager datamanager = meditator.getdatamanager();
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		ItemmakeEditorManager UIdraghmanager = meditator.getUIdraghmanager();
 
 		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1);
-		makemanager.instanciateAllObject(_leveldesigndata);
-		makemanager.makeDragedObjectandButton();
-		GameObject goalobject = makemanager.getGoalObject();
-		GameObject playerobject = makemanager.getPlayerObject();
+		makemanager.instanciateAllObject(_leveldesigndata);//マップオブジェクト作成
+
+
 		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
 		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
+
 		datamanager.updateCansetDatas(_leveldesigndata);
 		UIdraghmanager.deletebutton();
 
+		DataChangerFromJaG jagchanger = meditator.getjagchanger();
+		Debug.Log("datapathmanager.getcsvdatapath(1)は→　"+datapathmanager.getcsvdatapath(1));
+		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(1));//アイテムデータをcsvからロード
+		datamanager.UpdateALLdragitemdata(jagchanger.parsejagtodobledragitemdatadatas(jagitemdata));
+
+
+		int[][] jagcleardata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(2));//クリアコンディショナルデータをcsvからロード
+		datamanager.UpdateALLcleardata(jagchanger.parsejagtodobleClearconditiondatas(jagcleardata));
+
+		makemanager.makeDragedObjectandButton();//アイテムメイカー作成
 	}
 	public void CanvasOFFButton()//ボタンプッシュで実行
 	{
@@ -59,9 +71,6 @@ public class ButtonEventManager : MonoBehaviour {
 		}
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		DataManager datamanager = meditator.getdatamanager();
-
 		datapathmanager.ChangeCSVNum(0, dropdown.value);//0はマップデータ
 		datapathmanager.ChangeCSVNum(1, dropdown.value);//0はマップデータ
 		datapathmanager.ChangeCSVNum(2, dropdown.value);//0はマップデータ

@@ -10,6 +10,8 @@ using UnityEngine.UI;
 public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;//dataElementsからパースして使うデータ
 	int[][] stagedata;//何秒以内クリアか、必要捕食数のデータ
+	[SerializeField]
+	Meditator meditator;
 
 	public int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {
 		int[][] dataElements;
@@ -20,7 +22,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		return practicalDataElements;
 	}
 
-	public int[][] getJagDataElement(string datapassANDname) {
+	public int[][] getJagDataElement(string datapassANDname) {//ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
 		int[][] dataElements;
 		Debug.Log(datapassANDname);
 		string textFile = datapassANDname;
@@ -51,7 +53,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 			}
 		}
 		return practicalDataElements;
-		//DebugCSVData();
 	}
 
 	public int[] get1dimentionalData(string aDatapassANDname, int extractcolomn) {
@@ -65,17 +66,20 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 
 	
 
-	public void MapCsvSave(string aDatapath, int[,] writtendata) {
+	public void MapCsvSave(int[,] writtendata) {
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<int[,]> actaug = writeData;
-		CSVSave(aDatapath, writtendata, actaug);
+		CSVSave(datapathmanager.getcsvdatapath(0), writtendata, actaug);
 	}
-	public void itemCsvSave(string aDatapath, dragitemdata[,] writtendata) {
+	public void itemCsvSave(dragitemdata[,] writtendata) {
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<dragitemdata[,]> actaug = writeData;
-		CSVSave(aDatapath, writtendata, actaug);
+		CSVSave(datapathmanager.getcsvdatapath(1), writtendata, actaug);
 	}
-	public void cleardataCsvSave(string aDatapath, clearconditiondata[] writtendata) {
+	public void cleardataCsvSave(clearconditiondata[] writtendata) {
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<clearconditiondata[]> actaug = writeData;
-		CSVSave(aDatapath, writtendata, actaug);
+		CSVSave(datapathmanager.getcsvdatapath(2), writtendata, actaug);
 	}
 
 
@@ -102,7 +106,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	private void writeData(dragitemdata[,] writtenData) {
 		for (int j = 0; j < writtenData.GetLength(0); j++) {
 			for (int i = 0; i < writtenData.GetLength(1); i++) {
-				//Debug.Log(String.Format("dragitemdatas, UIbuttonNum, stage   {0},{1},{2},{3}  ", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount));
 				m_sw.WriteLine("{0},{1},{2}.{3}", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount);
 			}
 		}
@@ -115,21 +118,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		Debug.Log("conditiondata was written");
 	}
 }
-//int[,] doublevariable;
-//dragitemdata[,] itemdatas;
-//clearconditiondata[] conditionaldatas;
 
-//if (writtendata.GetType() == typeof(int[,])) {
-//	doublevariable = (int[,])(object)writtendata;
-//	writeData(doublevariable);
-//}
-//else if (writtendata.GetType() == typeof(dragitemdata[,])) {
-//	itemdatas = (dragitemdata[,])(object)writtendata;
-//	writeData(itemdatas);
-//}
-//else if (writtendata.GetType() == typeof(clearconditiondata[])) {
-//	conditionaldatas = (clearconditiondata[])(object)writtendata;
-//	writeData(conditionaldatas);
-//}
 
 

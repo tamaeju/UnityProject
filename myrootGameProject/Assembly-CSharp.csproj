@@ -49,6 +49,7 @@
      <Compile Include="Assets\script\AnimePlay.cs" />
      <Compile Include="Assets\script\CharactorMove.cs" />
      <Compile Include="Assets\script\DataChangerFromJaG.cs" />
+     <Compile Include="Assets\script\DataCheck.cs" />
      <Compile Include="Assets\script\DataPathManager.cs" />
      <Compile Include="Assets\script\DropdownUI.cs" />
      <Compile Include="Assets\script\Goal.cs" />
@@ -65,10 +66,11 @@
      <Compile Include="Assets\script\Managers\TouchEventManager.cs" />
      <Compile Include="Assets\script\Managers\UIManager.cs" />
      <Compile Include="Assets\script\MapEditorbutton.cs" />
+     <Compile Include="Assets\script\MassDealer.cs" />
      <Compile Include="Assets\script\Meditator.cs" />
      <Compile Include="Assets\script\PrefabContainer.cs" />
      <Compile Include="Assets\script\RayEmit.cs" />
-     <Compile Include="Assets\script\ScrollObject.cs" />
+     <Compile Include="Assets\script\Scroller.cs" />
      <Compile Include="Assets\script\SelectsceneButton.cs" />
      <Compile Include="Assets\script\SetPointRayEmiter.cs" />
      <Compile Include="Assets\script\TargetChara.cs" />

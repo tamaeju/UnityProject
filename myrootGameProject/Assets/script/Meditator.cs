@@ -20,7 +20,12 @@ public class Meditator : MonoBehaviour {
 	UIManager UImanager;
 	[SerializeField]
 	PrefabContainer objectcontainer;
-
+	[SerializeField]
+	DataCheck datachecker;
+	[SerializeField]
+	MassDealer massdealer;
+	[SerializeField]
+	DataChangerFromJaG jagchanger;
 
 	public CSVManager getcsvmanager() {
 		return csvmanager;
@@ -45,5 +50,17 @@ public class Meditator : MonoBehaviour {
 	}
 	public PrefabContainer getobjectcontainer() {
 		return objectcontainer;
+	}
+	public DataCheck getdatachecker()
+	{
+		return datachecker;
+	}
+	public MassDealer getmassdealer()
+	{
+		return massdealer;
+	}
+	public DataChangerFromJaG getjagchanger()
+	{
+		return jagchanger;
 	}
 }

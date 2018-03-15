@@ -70,9 +70,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	public float getObjecthight() {
 		return instancehight;
 	}
-	public float getBlockLength(){
-		return blocklength;
-	}
+
 
 	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {
 		GameObject objectref;
@@ -93,28 +91,28 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		for (int i = 0; i < Config.dragbuttonNum ; i++)
 		{
 			float itemmakerpositiondifference = i*3;
-			float leftcountpositiondifference = i * 30;
-			Transform canvastrans = objectcontainer.getcanvasposition().transform;
-			Vector2 leftcountdifference = new Vector2(200,200);
+			float leftcountpositiondifference = i * 130;
+			Transform canvastrans = objectcontainer.getcanvasposition().transform;//キャンバスオブジェクトの値を入れて、見かけの値を入れる事で調整している。
+			Vector2 leftcountpos = new Vector2(364, 108);
 
 			GameObject　itemleftCount = Instantiate(leftcountprefab, this.transform.position, Quaternion.identity) as GameObject;
 			itemleftCount.transform.parent = objectcontainer.getcanvasposition().transform;
 			Transform leftCounttrans = itemleftCount.transform;
-			leftCounttrans.position = new Vector3(leftCounttrans.position.x+ leftcountdifference.x, leftCounttrans.position.y - leftcountpositiondifference, leftCounttrans.position.z); 
-			//レフトカウントボタンを作成し、親オブジェクトをペアレントトランスフォームにしている。
+
+			leftCounttrans.position = new Vector3(canvastrans.position.x+ leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, leftCounttrans.position.z); 
+
 
 			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
 			ItemMaker draggedobject = dragobjectmaker.GetComponent<ItemMaker>();
 			Transform draggerTrans = draggedobject.transform;
 			draggerTrans.position = new Vector3(draggerTrans.position.x, draggerTrans.position.y, draggerTrans.position.z-itemmakerpositiondifference);
-			//draggedobjectを作成し、コンポーネントの取得をしている。
+
 
 			draggedobject.setREFofLeftCount(itemleftCount.GetComponent<Text>());
-			//draggedobjectがleftcountを使用できるようにしている。
+
 			draggedobject.setMyObjectKind(datamanager.getDragitemkind(i));
 			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
-			//draggedobjectのパラメータを設定している。
-			
+
 		}
 	}
 

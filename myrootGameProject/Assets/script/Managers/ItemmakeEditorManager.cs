@@ -51,7 +51,7 @@ public class ItemmakeEditorManager : MonoBehaviour {
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
 		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
-		csvmanager.itemCsvSave(datapathmanager.getcsvdatapath(1), datamanager.getItemData());
+		csvmanager.itemCsvSave(datamanager.getItemData());
 	}
 	public void setUIdragbuttonNum() {
 		for (int i = 0; i < UIDragButton.Length; i++) {

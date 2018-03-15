@@ -1,6 +1,12 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class DataChangerFromJaG : MonoBehaviour {
 	int timelimitElementNum = 1;
@@ -36,12 +42,15 @@ public class DataChangerFromJaG : MonoBehaviour {
 	public dragitemdata[,] parsejagtodobledragitemdatadatas(int[][] jagdata) {
 
 		dragitemdata[,] getdata = new dragitemdata[jagdata.Length, jagdata[0].Length];
-		for (int j = 0; j < getdata.GetLength(1); j++) {
-			for (int i = 0; i < getdata.GetLength(0); i++) {
-				getdata[j / jagdata[0].Length, j % jagdata[0].Length].itemkind = jagdata[j][itemkindElementNum];
-				getdata[j / jagdata[0].Length, j % jagdata[0].Length].itemcount = jagdata[j][itemcountElementNum];
+		int xlength = jagdata[0].Length;
+		for (int i = 0; i < getdata.GetLength(0); i++) {
+			for (int j = 0; j < getdata.GetLength(1); j++) {
+				getdata[j % xlength, j / xlength].itemkind = jagdata[i][itemkindElementNum];
+				getdata[j % xlength, j / xlength].itemcount = jagdata[i][itemcountElementNum];
+				Debug.Log(String.Format("{0}{1}{2}{3}",i,j, jagdata[i][itemkindElementNum], jagdata[i][itemcountElementNum]));
 			}
 		}
 		return getdata;
 	}
+	//csvからデータを読み込んで、datachangefromjagclassクラスのメソッドを使って変換。そのデータをデータマネージャーに上書きする。
 }
