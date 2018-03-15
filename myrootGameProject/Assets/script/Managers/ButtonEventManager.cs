@@ -31,7 +31,7 @@ public class ButtonEventManager : MonoBehaviour {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataManager datamanager = meditator.getdatamanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		UIDragButtonManager UIdraghmanager = meditator.getUIdraghmanager();
+		ItemmakeEditorManager UIdraghmanager = meditator.getUIdraghmanager();
 
 		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);

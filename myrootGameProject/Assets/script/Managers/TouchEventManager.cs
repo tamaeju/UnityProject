@@ -2,14 +2,14 @@
 using System.Collections;
 using System;
 
-public class TouchManager : MonoBehaviour {
+public class TouchEventManager : MonoBehaviour {
 	GameObject refObject;
 	Quaternion charactorq;
 	Vector3 instancePosition;
 	Vector3 setPosition;
 	Vector3 screenPotsition;
 	RayEmit rayemitter;
-	MakeDraggedObject draggeeditem;
+	ItemMaker draggeeditem;
 	private GameObject refrayObject;
 
 	[SerializeField]
@@ -33,9 +33,9 @@ public class TouchManager : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
-			try { draggeeditem = rayemitter.getObject().GetComponent<MakeDraggedObject>(); }
+			try { draggeeditem = rayemitter.getObject().GetComponent<ItemMaker>(); }
 			catch { Debug.Log(string.Format("draggeeditem が null)", draggeeditem)); }
-			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(MakeDraggedObject) && draggeeditem.getObjectLeftCount() > 0) 
+			if (draggeeditem !=null&& draggeeditem.GetType() == typeof(ItemMaker) && draggeeditem.getObjectLeftCount() > 0) 
 				{//ドラッグしたアイテムがmakedraggedobjectであり、かつレフトカウントが0より大きいなら
 				int prefabkind = draggeeditem.getMyObjectKind();
 				refObject = makemanager.InstanciateandGetRef(prefabkind, getInstanceposFromMouse(2));

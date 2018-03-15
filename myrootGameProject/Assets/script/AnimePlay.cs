@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : CharactorMove {
+public class AnimePlay : CharactorMove {
 	public Animation anim;
 
 	void Start () {

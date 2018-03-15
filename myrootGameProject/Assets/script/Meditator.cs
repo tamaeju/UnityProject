@@ -13,13 +13,13 @@ public class Meditator : MonoBehaviour {
 	[SerializeField]
 	DataPathManager datapathmanager;
 	[SerializeField]
-	UIDragButtonManager UIdraghmanager;
+	ItemmakeEditorManager UIdraghmanager;
 	[SerializeField]
-	TouchManager touchmanager;
+	TouchEventManager touchmanager;
 	[SerializeField]
 	UIManager UImanager;
 	[SerializeField]
-	ObjectContainer objectcontainer;
+	PrefabContainer objectcontainer;
 
 
 	public CSVManager getcsvmanager() {
@@ -31,19 +31,19 @@ public class Meditator : MonoBehaviour {
 	public DataPathManager getdatapathmanager() {
 		return datapathmanager;
 	}
-	public UIDragButtonManager getUIdraghmanager() {
+	public ItemmakeEditorManager getUIdraghmanager() {
 		return UIdraghmanager;
 	}
 	public MakeManager getmakemanager() {
 		return makemanager;
 	}
-	public TouchManager gettouchmanager() {
+	public TouchEventManager gettouchmanager() {
 		return touchmanager;
 	}
 	public UIManager getUImanager() {
 		return UImanager;
 	}
-	public ObjectContainer getobjectcontainer() {
+	public PrefabContainer getobjectcontainer() {
 		return objectcontainer;
 	}
 }

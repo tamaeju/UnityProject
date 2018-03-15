@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 
 
-public class ScrollObject : MonoBehaviour {
+public class Scroller : MonoBehaviour {
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
 	public float doubleratio = 1600f;

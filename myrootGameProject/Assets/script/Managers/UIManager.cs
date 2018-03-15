@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour {
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
 				int objectkind = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1)[i, j];
-				UIobjects[j * 10 + i].GetComponent<LevelButton>().changeState(objectkind);
+				UIobjects[j * 10 + i].GetComponent<MapEditorbutton>().changeState(objectkind);
 			}
 		}
 	}

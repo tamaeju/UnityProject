@@ -19,7 +19,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	Meditator meditator;
 
 	[SerializeField]
-	ObjectContainer objectcontainer;
+	PrefabContainer objectcontainer;
 
 	void Start() {
 		groundhight = objectcontainer.getground().transform.position.y;
@@ -104,7 +104,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			//レフトカウントボタンを作成し、親オブジェクトをペアレントトランスフォームにしている。
 
 			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
-			MakeDraggedObject draggedobject = dragobjectmaker.GetComponent<MakeDraggedObject>();
+			ItemMaker draggedobject = dragobjectmaker.GetComponent<ItemMaker>();
 			Transform draggerTrans = draggedobject.transform;
 			draggerTrans.position = new Vector3(draggerTrans.position.x, draggerTrans.position.y, draggerTrans.position.z-itemmakerpositiondifference);
 			//draggedobjectを作成し、コンポーネントの取得をしている。

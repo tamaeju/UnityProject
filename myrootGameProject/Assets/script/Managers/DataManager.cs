@@ -98,7 +98,7 @@ public class DataManager : MonoBehaviour {
 		GameObject[] UIobjects = meditator.getUImanager().getUIobjects();
 		for (int j = 0; j < maxGridNum; ++j) {
 			for (int i = 0; i < maxGridNum; ++i) {
-				_leveldesigndata[i, j] = UIobjects[j * 10 + i].GetComponent<LevelButton>().returnThisState();
+				_leveldesigndata[i, j] = UIobjects[j * 10 + i].GetComponent<MapEditorbutton>().returnThisState();
 			}
 		}
 	}
