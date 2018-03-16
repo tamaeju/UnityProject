@@ -95,11 +95,8 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			Transform canvastrans = objectcontainer.getcanvasposition().transform;//キャンバスオブジェクトの値を入れて、見かけの値を入れる事で調整している。
 			Vector2 leftcountpos = new Vector2(364, 108);
 
-			GameObject　itemleftCount = Instantiate(leftcountprefab, this.transform.position, Quaternion.identity) as GameObject;
-			itemleftCount.transform.parent = objectcontainer.getcanvasposition().transform;
-			Transform leftCounttrans = itemleftCount.transform;
-
-			leftCounttrans.position = new Vector3(canvastrans.position.x+ leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, leftCounttrans.position.z); 
+			GameObject itemleftCount = MakeGetUIobject(leftcountprefab, leftcountpos);
+			itemleftCount.transform.position = new Vector3(canvastrans.position.x+ leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);
 
 
 			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
@@ -114,6 +111,13 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
 
 		}
+	}//vector2の引数を与えれば、キャンバスのトランスフォーム+引数の場所にオブジェクトを生成し、そのオブジェクトの参照を返してくれるメソッド。
+	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {
+		Transform canvastrans = objectcontainer.getcanvasposition().transform;
+		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity) as GameObject;
+		getobject.transform.parent = canvastrans;
+		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
+		return getobject;
 	}
 
 }

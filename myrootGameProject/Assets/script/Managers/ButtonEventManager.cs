@@ -51,8 +51,7 @@ public class ButtonEventManager : MonoBehaviour {
 		datamanager.UpdateALLdragitemdata(jagchanger.parsejagtodobledragitemdatadatas(jagitemdata));
 
 
-		int[][] jagcleardata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(2));//クリアコンディショナルデータをcsvからロード
-		datamanager.UpdateALLcleardata(jagchanger.parsejagtodobleClearconditiondatas(jagcleardata));
+
 
 		makemanager.makeDragedObjectandButton();//アイテムメイカー作成
 	}

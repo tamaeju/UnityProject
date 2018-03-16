@@ -39,6 +39,11 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		for (int j = 0; j < dataElements.Length; ++j) {
 			RowStrings = lines[j].Split(',');
 			for (int i = 0; i < dataElements[0].Length; ++i) {
+				Debug.Log(dataElements[j][i]);
+				Debug.Log(String.Format("dataElements.Lengthは{0}dataElements[0].Lengthは{1}", dataElements.Length, dataElements[0].Length));
+				Debug.Log(String.Format("datapassANDname{0}", datapassANDname));
+				Debug.Log(String.Format("x{0}y{1}dataelements{2}", j,i,dataElements[j][i]));
+				Debug.Log(String.Format("RowStrings[i]は{0}", RowStrings[i]));
 				dataElements[j][i] = Int32.Parse(RowStrings[i]);
 			}
 		}
@@ -106,7 +111,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	private void writeData(dragitemdata[,] writtenData) {
 		for (int j = 0; j < writtenData.GetLength(0); j++) {
 			for (int i = 0; i < writtenData.GetLength(1); i++) {
-				m_sw.WriteLine("{0},{1},{2}.{3}", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount);
+				m_sw.WriteLine("{0},{1},{2},{3}", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount);
 			}
 		}
 		Debug.Log("itemdata was written");

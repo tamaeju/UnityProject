@@ -15,7 +15,6 @@ public class DataManager : MonoBehaviour {
 	int needeatcountcolomn = 2;//データの3列目なら3-1で要素番号2で正しい。
 	int[] stagelefttimecount;
 	int stagelefttimecountcolomn = 1;
-	clearconditiondata[] conditionaldatas;
 	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
 	int stage;
 	DataCheck datachecker;
@@ -30,7 +29,7 @@ public class DataManager : MonoBehaviour {
 		needeatcount = new int[Config.stageCount];
 		stagelefttimecount = new int[Config.stageCount];
 		dragitemdatas = new dragitemdata[Config.stageCount, Config.dragbuttonNum];
-		conditionaldatas = new clearconditiondata[Config.stageCount];
+
 		datachecker = meditator.getdatachecker();
 		massdealer = meditator.getmassdealer();
 	}
@@ -92,10 +91,6 @@ public class DataManager : MonoBehaviour {
 	}
 
 
-	public void UpdateALLcleardata(clearconditiondata[] clearconditions)
-	{
-		conditionaldatas = clearconditions;
-	}
 
 	public void UpdateDragitemData(int UIbuttonNum, int itemkind, int leftcount) {
 		CSVManager csvmanager = meditator.getcsvmanager();
@@ -107,6 +102,9 @@ public class DataManager : MonoBehaviour {
 	}
 	public void changeStageNum(int Num) {
 		stage = Num;
+	}
+	public int getStageNum() {
+		return stage;
 	}
 	public int getDragitemkind(int UIbuttonNum) {
 	return dragitemdatas[stage, UIbuttonNum].itemkind;

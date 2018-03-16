@@ -30,27 +30,23 @@ public class DataChangerFromJaG : MonoBehaviour {
 	public clearconditiondata[] parsejagtodobleClearconditiondatas(int[][] jagdata) {
 
 		clearconditiondata[] getdata = new clearconditiondata[jagdata.Length];
-		for (int j = 0; j < getdata.GetLength(1); j++) {
-			for (int i = 0; i < getdata.GetLength(0); i++) {
+		for (int j = 0; j < jagdata.Length; j++) {
 				getdata[j].timelimit = jagdata[j][timelimitElementNum];
 				getdata[j].RequiredKillCount = jagdata[j][requiredkillcountElementNum];
-			}
 		}
 		return getdata;
 	}
 
 	public dragitemdata[,] parsejagtodobledragitemdatadatas(int[][] jagdata) {
-
-		dragitemdata[,] getdata = new dragitemdata[jagdata.Length, jagdata[0].Length];
 		int xlength = jagdata[0].Length;
-		for (int i = 0; i < getdata.GetLength(0); i++) {
-			for (int j = 0; j < getdata.GetLength(1); j++) {
-				getdata[j % xlength, j / xlength].itemkind = jagdata[i][itemkindElementNum];
-				getdata[j % xlength, j / xlength].itemcount = jagdata[i][itemcountElementNum];
-				Debug.Log(String.Format("{0}{1}{2}{3}",i,j, jagdata[i][itemkindElementNum], jagdata[i][itemcountElementNum]));
-			}
+		dragitemdata[,] getdata = new dragitemdata[jagdata.Length / xlength, jagdata[0].Length];
+		for (int j = 0; j < jagdata.Length; j++) {
+			getdata[j / xlength, j % xlength].itemkind = jagdata[j][itemkindElementNum];
+			getdata[j / xlength, j % xlength].itemcount = jagdata[j][itemcountElementNum];
+				//Debug.Log(String.Format("{0}{1}{2}{3}",j, jagdata[j][itemkindElementNum], jagdata[j][itemcountElementNum]));
 		}
 		return getdata;
 	}
 	//csvからデータを読み込んで、datachangefromjagclassクラスのメソッドを使って変換。そのデータをデータマネージャーに上書きする。
+
 }
