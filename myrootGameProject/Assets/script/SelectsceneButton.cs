@@ -35,7 +35,7 @@ public class SelectsceneButton : MonoBehaviour {
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		ButtonEventManager buttonmanager = meditator.getbuttonmanager();
 		datapathmanager.ChangeMapCSVNum(myStageCount);
-		buttonmanager.makeObjectfromSelectScene();
+		buttonmanager.makeObjectfromSelectScene(myStageCount);
 		parentActiveOff();
 	}
 	public void getRefOfMeditator() {

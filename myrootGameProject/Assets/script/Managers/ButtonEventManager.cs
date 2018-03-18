@@ -87,11 +87,10 @@ public class ButtonEventManager : MonoBehaviour {
 	}
 
 
-	public void makeObjectfromSelectScene(){//グラウンドを作成する必要がある。
+	public void makeObjectfromSelectScene(int stageNum){//グラウンドを作成する必要がある。
 
 		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);//マップオブジェクト作成
-
 
 		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
 		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
@@ -102,6 +101,7 @@ public class ButtonEventManager : MonoBehaviour {
 		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(1));
 		Debug.Log(datapathmanager.getcsvdatapath(1));
 		datamanager.UpdateALLdragitemdata(jagchanger.parsejagtodobledragitemdatadatas(jagitemdata));
+		datamanager.changeStageNum(stageNum);
 
 		itemmakermanager.makeItemMaker();//アイテムメイカー作成
 	}
