@@ -6,9 +6,10 @@ using System.IO;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-public class ItemMakeEditor : MonoBehaviour {
 
-	readonly int buttonkindLength = 8;//生成オブジェクトの種類
+public class ItemMakeEditor : MonoBehaviour {//itemmakerを作るためのUI
+
+	readonly int buttonkindLength =Config.itemkindlength;//生成オブジェクトの種類
 	[SerializeField]
 	int objectkind;
 	[SerializeField]
@@ -18,6 +19,7 @@ public class ItemMakeEditor : MonoBehaviour {
 	[SerializeField]
 	ItemmakeEditorManager uidraggbuttonmanager;
 
+	
 	public void ChangeObjectKind() {
 		if (objectkind >= buttonkindLength - 1) {//要素番号なので-1
 			objectkind = 0;
@@ -25,8 +27,9 @@ public class ItemMakeEditor : MonoBehaviour {
 		else {
 			objectkind++;
 		}
-		//ボタンの子オブジェクトにアクセスして、テキストを変更する。
-		this.gameObject.GetComponentInChildren<Text>().text = objectkind.ToString();
+		var enmName = (Item.itemstate)Enum.ToObject(typeof(Item.itemstate), objectkind);
+		this.gameObject.GetComponentInChildren<Text>().text = enmName.ToString();//番号からアイテムの名前をとってきて、それを反映する。
+
 	}
 	public void increaseObjectLeftCount() {
 		leftcount++;

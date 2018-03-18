@@ -42,14 +42,13 @@ public class ItemmakeEditorManager : MonoBehaviour {
 		setmyreference();
 
 	}
-
-
+	
 
 	public　void onclickSaveButton(ItemMakeEditor dragbutton) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataManager datamanager = meditator.getdatamanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
-
+		datamanager.LoadALLdragitemdata();//一度csvからデータを読み込み。
 		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
 		csvmanager.itemCsvSave(datamanager.getItemData());
 	}
@@ -68,5 +67,4 @@ public class ItemmakeEditorManager : MonoBehaviour {
 			item.GetComponent<ItemMakeEditor>().setmotherobject(this.GetComponent<ItemmakeEditorManager>());
 		}
 	}
-	//セーブボタンを押したら、各ボタンオブジェクトに、UIマネージャーが値を聞いて
 }

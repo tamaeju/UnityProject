@@ -30,10 +30,14 @@ public class RayEmit{
 		if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.down, out hit)) {
 			if (hit.collider != null) {
 				GameObject hitObj = hit.collider.gameObject;
+				Debug.Log("getobj");
+				Debug.Log(hitObj);
 				return hitObj;
+
 			}
-			else {  return null; }
+			else { Debug.Log("null"); return null;  }
+			
 		}
-		else { return null; }
+		else { Debug.Log("null"); return null; }
 	}
 }

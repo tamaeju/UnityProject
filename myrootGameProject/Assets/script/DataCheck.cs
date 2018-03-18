@@ -29,8 +29,8 @@ public class DataCheck : MonoBehaviour {
 		overridepoints[3].x = highx; overridepoints[3].y = highy;
 		return overridepoints;
 	}
-	public bool checkCanSet(Vector3 checkvector3)
-	{//そこにおけるかを返すメソッド。
+	public bool checkCanSet(Vector3 checkvector3)//そこにおけるかを返すメソッド。
+	{
 		bool[,] cansetdatas = datamanager.getcanSetDatas();
 		Vector2 checkvector2 = massdealer.parseVector3toVector2(checkvector3);
 		if (checkinIndex(checkvector2))

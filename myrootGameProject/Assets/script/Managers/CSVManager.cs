@@ -16,7 +16,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	public int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {
 		int[][] dataElements;
 		int[,] practicalDataElements;
-		Debug.Log(aDatapassANDname);
 		dataElements = getJagDataElement(aDatapassANDname);//ジャグデータをもらって、
 		practicalDataElements = parsePracticalDataElements(dataElements, usingcolumnNum);//2次元配列にしたcsvのデータを取得するのだが、
 		return practicalDataElements;
@@ -24,7 +23,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 
 	public int[][] getJagDataElement(string datapassANDname) {//ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
 		int[][] dataElements;
-		Debug.Log(datapassANDname);
 		string textFile = datapassANDname;
 		System.Text.Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
 		string[] lines = System.IO.File.ReadAllLines(textFile, enc);
@@ -39,11 +37,11 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		for (int j = 0; j < dataElements.Length; ++j) {
 			RowStrings = lines[j].Split(',');
 			for (int i = 0; i < dataElements[0].Length; ++i) {
-				Debug.Log(dataElements[j][i]);
-				Debug.Log(String.Format("dataElements.Lengthは{0}dataElements[0].Lengthは{1}", dataElements.Length, dataElements[0].Length));
-				Debug.Log(String.Format("datapassANDname{0}", datapassANDname));
-				Debug.Log(String.Format("x{0}y{1}dataelements{2}", j,i,dataElements[j][i]));
-				Debug.Log(String.Format("RowStrings[i]は{0}", RowStrings[i]));
+				//Debug.Log(dataElements[j][i]);
+				//Debug.Log(String.Format("dataElements.Lengthは{0}dataElements[0].Lengthは{1}", dataElements.Length, dataElements[0].Length));
+				//Debug.Log(String.Format("datapassANDname{0}", datapassANDname));
+				//Debug.Log(String.Format("x{0}y{1}dataelements{2}", j,i,dataElements[j][i]));
+				//Debug.Log(String.Format("RowStrings[i]は{0}", RowStrings[i]));
 				dataElements[j][i] = Int32.Parse(RowStrings[i]);
 			}
 		}

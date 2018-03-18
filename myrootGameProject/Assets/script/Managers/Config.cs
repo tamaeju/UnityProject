@@ -10,6 +10,8 @@ public class Config : MonoBehaviour {
 	public Vector3 firstblocklocalposition;
 	public readonly static int stageCount = 100;
 	public readonly static int dragbuttonNum = 3;
+	public readonly static int itemkindlength = 8;
+	public readonly static int blockkindlength = 8;
 
 	public Vector3 getFirstblocklocalposition() {//groundが0,0,0の位置にあるならローカル座標が出る。
 		firstblocklocalposition = new Vector3(0,0,0);

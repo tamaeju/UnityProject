@@ -53,7 +53,6 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		}
 	}
 
-
 	public GameObject getPlayerObject() {
 		return playerobject;
 	}
@@ -74,48 +73,17 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 
 	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {
 		GameObject objectref;
-		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
+		GameObject[] instanceObjects = objectcontainer.getitemObjects();
 
 		objectref = Instantiate(instanceObjects[onjectindex], instancepos, Quaternion.identity) as GameObject;
 		return objectref;
 
 	}
-	public void makeDragedObjectandButton()
-	{
-		DataManager datamanager = meditator.getdatamanager();
-		GameObject objectleftcount = objectcontainer.getobjectleftCount();
-		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
-		GameObject leftcountprefab = objectcontainer.getobjectleftCount();
-		GameObject dragobjectmakerprefab = objectcontainer.getdragobjectmaker();
 
-		for (int i = 0; i < Config.dragbuttonNum ; i++)
-		{
-			float itemmakerpositiondifference = i*3;
-			float leftcountpositiondifference = i * 130;
-			Transform canvastrans = objectcontainer.getcanvasposition().transform;//キャンバスオブジェクトの値を入れて、見かけの値を入れる事で調整している。
-			Vector2 leftcountpos = new Vector2(364, 108);
-
-			GameObject itemleftCount = MakeGetUIobject(leftcountprefab, leftcountpos);
-			itemleftCount.transform.position = new Vector3(canvastrans.position.x+ leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);
-
-
-			GameObject dragobjectmaker = Instantiate(dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform>().position, Quaternion.identity) as GameObject;
-			ItemMaker draggedobject = dragobjectmaker.GetComponent<ItemMaker>();
-			Transform draggerTrans = draggedobject.transform;
-			draggerTrans.position = new Vector3(draggerTrans.position.x, draggerTrans.position.y, draggerTrans.position.z-itemmakerpositiondifference);
-
-
-			draggedobject.setREFofLeftCount(itemleftCount.GetComponent<Text>());
-
-			draggedobject.setMyObjectKind(datamanager.getDragitemkind(i));
-			draggedobject.setObjectLeftCount(datamanager.getDragitemleft(i));
-
-		}
-	}//vector2の引数を与えれば、キャンバスのトランスフォーム+引数の場所にオブジェクトを生成し、そのオブジェクトの参照を返してくれるメソッド。
-	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {
+	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//vector2の引数を与えれば、キャンバスのトランスフォーム+引数の場所にオブジェクトを生成し、そのオブジェクトの参照を返してくれるメソッド。
 		Transform canvastrans = objectcontainer.getcanvasposition().transform;
-		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity) as GameObject;
-		getobject.transform.parent = canvastrans;
+		//Debug.Log(String.Format("canvastrans{0}{1}{2}", canvastrans, canvastrans.position.x, canvastrans.position.y));
+		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
 		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
 		return getobject;
 	}

@@ -90,6 +90,14 @@ public class DataManager : MonoBehaviour {
 		dragitemdatas = adragitemdatas;
 	}
 
+	public void LoadALLdragitemdata() {//csvデータを読み込んできてアイテムデータを上書き。
+		CSVManager csvmanager = meditator.getcsvmanager();
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		DataChangerFromJaG jagchanger = meditator.getjagchanger();
+		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(1));
+		dragitemdatas = jagchanger.parsejagtodobledragitemdatadatas(jagitemdata);
+	}
+
 
 
 	public void UpdateDragitemData(int UIbuttonNum, int itemkind, int leftcount) {

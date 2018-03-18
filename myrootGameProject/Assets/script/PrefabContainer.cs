@@ -11,9 +11,9 @@ public class PrefabContainer : MonoBehaviour {
 	[SerializeField]
 	GameObject ground;//groundの座標から設置位置を調整するため
 	[SerializeField]
-	GameObject[] instanceObjects;
+	GameObject[] instanceObjects = new GameObject[Config.blockkindlength];
 	[SerializeField]
-	GameObject[] itemObjects;
+	GameObject[] itemObjects = new GameObject[Config.itemkindlength];
 	[SerializeField]
 	GameObject dragobjectmaker;
 	[SerializeField] GameObject dragobjectleftcount;
@@ -30,6 +30,7 @@ public class PrefabContainer : MonoBehaviour {
 	public GameObject[] getinstanceObjects() {
 		return instanceObjects;
 	}
+
 	public GameObject getground() {
 		return ground;
 	}

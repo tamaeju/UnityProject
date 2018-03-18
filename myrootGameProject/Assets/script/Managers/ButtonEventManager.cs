@@ -10,11 +10,18 @@ using UnityEngine.UI;
 public class ButtonEventManager : MonoBehaviour {
 	[SerializeField]
 	Meditator meditator;
+
 	MakeManager makemanager;
+
 	CSVManager csvmanager;
+
 	DataManager datamanager;
+
 	DataPathManager datapathmanager;
+
 	ItemmakeEditorManager UIdraghmanager;
+
+	ItemMakerCreater itemmakermanager;
 	int usecolomn_of_mapdata = 3;
 
 	void Start() {
@@ -23,6 +30,7 @@ public class ButtonEventManager : MonoBehaviour {
 		datamanager = meditator.getdatamanager();
 		datapathmanager = meditator.getdatapathmanager();
 		UIdraghmanager = meditator.getUIdraghmanager();
+		itemmakermanager = meditator.getitemmakermanager();
 	}
 
 	public void makeMapCsvButton()//ボタンプッシュで実行
@@ -52,32 +60,49 @@ public class ButtonEventManager : MonoBehaviour {
 
 
 
-
-		makemanager.makeDragedObjectandButton();//アイテムメイカー作成
+		itemmakermanager.makeItemMaker();//アイテムメイカー作成
 	}
 	public void CanvasOFFButton()//ボタンプッシュで実行
 	{
-		Transform trasnform = meditator.getobjectcontainer().getmapmassuipositionObject().GetComponent<Transform>();
+		Transform trasnform = meditator.getprefabcontainer().getmapmassuipositionObject().GetComponent<Transform>();
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(false);
 		}
 	}
 	public void CanvasONButton()//ボタンプッシュで実行
 	{
-		Transform trasnform = meditator.getobjectcontainer().getmapmassuipositionObject().GetComponent<Transform>();
+		Transform trasnform = meditator.getprefabcontainer().getmapmassuipositionObject().GetComponent<Transform>();
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(true);
 		}
 	}
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド
-		datapathmanager.ChangeCSVNum(0, dropdown.value);//0はマップデータ
-		datapathmanager.ChangeCSVNum(1, dropdown.value);//0はマップデータ
-		datapathmanager.ChangeCSVNum(2, dropdown.value);//0はマップデータ
+		datapathmanager.ChangeMapCSVNum(dropdown.value);//0はマップデータ
 		datamanager.changeStageNum(dropdown.value);
 	}
 
 	public void callloadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
 		UIManager UImanager = meditator.getUImanager();
 		UImanager.loadMapCSV();
+	}
+
+
+	public void makeObjectfromSelectScene(){//グラウンドを作成する必要がある。
+
+		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1);
+		makemanager.instanciateAllObject(_leveldesigndata);//マップオブジェクト作成
+
+
+		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
+		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
+
+		datamanager.updateCansetDatas(_leveldesigndata);
+
+		DataChangerFromJaG jagchanger = meditator.getjagchanger();
+		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(1));
+		Debug.Log(datapathmanager.getcsvdatapath(1));
+		datamanager.UpdateALLdragitemdata(jagchanger.parsejagtodobledragitemdatadatas(jagitemdata));
+
+		itemmakermanager.makeItemMaker();//アイテムメイカー作成
 	}
 }

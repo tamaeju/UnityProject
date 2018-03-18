@@ -25,9 +25,6 @@ public class TouchEventManager : MonoBehaviour {
 		rayemitter = new RayEmit();
 	}
 
-	public void makeDraggedObject(int objectKind) {
-
-	}
 
 	void Update() {
 		if (Input.GetMouseButtonDown(0)) {
@@ -39,6 +36,7 @@ public class TouchEventManager : MonoBehaviour {
 				refObject = makemanager.InstanciateandGetRef(prefabkind, massdealer.getInstanceposFromMouse(2));
 			}
 			else {
+				Debug.Log(String.Format("draggeeditem.GetType() is {0} draggeeditem.getObjectLeftCount() is {1}", draggeeditem.GetType(), draggeeditem.getObjectLeftCount()));
 				Debug.Log("touched irregular obeject or noLeftItem");
 			}
 		}
