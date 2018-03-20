@@ -11,7 +11,7 @@ public class MassDealer : MonoBehaviour {
 	[SerializeField]
 	Meditator meditator;
 
-	public Vector2 parseVector3toVector2(Vector3 aVector3)
+	public Vector2 parseVector3XYZtoVector2XZ(Vector3 aVector3)
 	{//vector3をvector2に変換するメソッド（x→x,z→y）
 		Vector2 indexpos = new Vector2();
 		indexpos.x = aVector3.x;
@@ -22,7 +22,8 @@ public class MassDealer : MonoBehaviour {
 	{//設置されているポジションのindexを返すメソッド
 		Vector3 indexpos = new Vector3();
 		indexpos.x = (float)Math.Round(aPos.x / Config.blocklength);
-		indexpos.y = (float)Math.Round(aPos.y / Config.blocklength);
+		//indexpos.y = (float)Math.Round(aPos.y / Config.blocklength);//yの座標を返す必要がないのでコメントアウト
+		indexpos.y = aPos.y;
 		indexpos.z = (float)Math.Round(aPos.z / Config.blocklength);
 		return indexpos;
 	}
@@ -30,7 +31,8 @@ public class MassDealer : MonoBehaviour {
 	{//設置されるポジションを返すメソッド.getIndexPosにブロックのlengthをかけて、インデックスを実際に使えるvectorに変換している。
 		Vector3 roundedpos = new Vector3();
 		roundedpos.x = getIndexpos(aPos).x * Config.blocklength;
-		roundedpos.y = getIndexpos(aPos).y * Config.blocklength;
+		//roundedpos.y = getIndexpos(aPos).y * Config.blocklength;//yの座標を返す必要がないのでコメントアウト
+		roundedpos.y = aPos.y;
 		roundedpos.z = getIndexpos(aPos).z * Config.blocklength;
 		return roundedpos;
 	}

@@ -36,7 +36,7 @@ public class DataManager : MonoBehaviour {
 
 	public void changeMapData(Vector3 aSetpos, int objectkind) {//レベルデザインデータを更新するメソッド
 		Vector2 setpos = new Vector2();
-		setpos = massdealer.parseVector3toVector2(aSetpos);
+		setpos = massdealer.parseVector3XYZtoVector2XZ(aSetpos);
 		_leveldesigndata[(int)setpos.x, (int)setpos.y] = objectkind;
 		Debug.Log(setpos.x.ToString() + "," + setpos.y.ToString() + "ischanged to" + _leveldesigndata[(int)setpos.x, (int)setpos.y].ToString());
 	}
@@ -56,12 +56,12 @@ public class DataManager : MonoBehaviour {
 	public void updateCansetDatas(Vector3[] existencepoints) {//移動オブジェクトの存在するポイント4点をfalseにして、それ以外をtrueにする
 		Vector2 cehckvector2;
 		foreach (var item in existencepoints) {
-			cehckvector2 = massdealer.parseVector3toVector2(item);
+			cehckvector2 = massdealer.parseVector3XYZtoVector2XZ(item);
 			_canSetDatas[(int)cehckvector2.x, (int)cehckvector2.y] = false;
 		}
 	}
 	public void updateCansetDatas(Vector3 existencepoints) {
-		Vector2 cehckvector2 = massdealer.parseVector3toVector2(existencepoints);
+		Vector2 cehckvector2 = massdealer.parseVector3XYZtoVector2XZ(existencepoints);
 		_canSetDatas[(int)cehckvector2.x, (int)cehckvector2.y] = false;
 	}
 
