@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSelectCanvasManager : MonoBehaviour {
-	int horizontaldivisionNum =4;
+	int horizontaldivisionNum =5;
 	float UIbuttonhorizontalsize;
 	float UIbuttonverticalsize;
 	int arraysizeofUIbutton = 128;
@@ -19,7 +19,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {
 		UIbuttonhorizontalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.x;
 		UIbuttonverticalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.y;
 		var parent = this.transform;
-		originpos = new Vector2((UIbuttonhorizontalsize / 2),   400f);
+		originpos = new Vector2((UIbuttonhorizontalsize / 2),   350f);
 		buttonobjects = new GameObject[arraysizeofUIbutton];
 		for (int i = 0; i < arraysizeofUIbutton; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
@@ -36,14 +36,14 @@ public class LevelSelectCanvasManager : MonoBehaviour {
 		return getpos;
 	}
 
-	Vector2 getUIArray(int elementnum) {//要素番号を入れたら、縦何番目、横何番目かを教えてくれる。（不使用メソッド）
+	Vector2 getUIArray(int elementnum) {//要素番号を入れたら、縦何番目、横何番目かを教えてくれる。
 		Vector2 getpos = new Vector2();
 		getpos.x = elementnum % horizontaldivisionNum;//例余りが0なら左端、1なら左から2番目、2なら左から3番目、3なら左から4番目に生成
 		getpos.y = elementnum / horizontaldivisionNum;//例0～3個目は0列目、4～7は1列目
 		return getpos;//[0,0]は←左上)
 	}
 
-	Vector2 getUIPosfromArraycount(Vector2 arrayNum) {//配列から表示位置を設定する。（不使用メソッド）
+	Vector2 getUIPosfromArraycount(Vector2 arrayNum) {//配列から表示位置を設定する。
 		Vector2 getpos = new Vector2();
 		getpos.x = arrayNum.x * UIbuttonhorizontalsize + buffalength* (arrayNum.x+1);
 		getpos.y = -1*(arrayNum.y * UIbuttonverticalsize + buffalength * (arrayNum.y));
