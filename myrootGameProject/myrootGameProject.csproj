@@ -82,6 +82,7 @@
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
     <Compile Include="Assets\script\DataCheck.cs" />
+    <Compile Include="Assets\script\DisplayMoveAgent.cs" />
     <Compile Include="Assets\script\DropdownUI.cs" />
     <Compile Include="Assets\script\Goal.cs" />
     <Compile Include="Assets\script\Item.cs" />
@@ -103,12 +104,13 @@
     <Compile Include="Assets\script\Managers\UIManager.cs" />
     <Compile Include="Assets\script\MapEditorbutton.cs" />
     <Compile Include="Assets\script\MassDealer.cs" />
+    <Compile Include="Assets\script\PlayerMove.cs" />
     <Compile Include="Assets\script\PrefabContainer.cs" />
     <Compile Include="Assets\script\RayEmit.cs" />
     <Compile Include="Assets\script\Scroller.cs" />
     <Compile Include="Assets\script\SelectsceneButton.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
-    <Compile Include="Assets\script\TargetChara.cs" />
+    <Compile Include="Assets\script\TargetMove.cs" />
     <Compile Include="Assets\script\setObject.cs" />
     <Compile Include="Assets\script\struct\clearconditionaldata.cs" />
     <Compile Include="Assets\script\struct\dragitemdata.cs" />

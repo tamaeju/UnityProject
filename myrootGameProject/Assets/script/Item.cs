@@ -45,84 +45,70 @@ public class Item : MonoBehaviour {
 	}
 
 	abstract class state {
-		abstract public void changeColour();
-		abstract public void oncloisionobject(Collider other);
+		protected Color mycolor;
+		protected float effecttime;
+		protected float speed;
+		protected Item myitem;
+
+		public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
+		public void oncloisionobject(Collider other) {
+			other.GetComponent<CharactorMove>().changeSpeed(speed, effecttime);
+			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
+			Destroy(myitem.gameObject);
+		}
 	}
 
 	class faster : state {
-		Item myitem;
 		public faster(Item anItem) {
 			myitem = anItem;
-		}
-		public override void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.red; }
-		public override void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(5f, 5f);
-			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
-			Destroy(myitem.gameObject);
+			effecttime = 5f;
+			speed = 5f;
+			mycolor = Color.magenta;
 		}
 	}
-
+	class faster2 : state {
+		public faster2(Item anItem) {
+			myitem = anItem;
+			speed = 10f;
+			effecttime = 2f;
+			mycolor = Color.red;
+		}
+	}
 	class slowdown : state {
-		Item myitem;
 		public slowdown(Item anItem) {
 			myitem = anItem;
+			speed = 0.5f;
+			effecttime = 3f;
+			mycolor = Color.cyan;
 		}
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.blue; }
-		public void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(0.5f, 3f);
-			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
-			Destroy(myitem.gameObject);
+	}
+	class slowdown2 : state {
+		public slowdown2(Item anItem) {
+			myitem = anItem;
+			speed = 0.3f;
+			effecttime = 3f;
+			mycolor = Color.blue;
 		}
 	}
 	class stop : state {
-		Item myitem;
 		public stop(Item anItem) {
 			myitem = anItem;
-		}
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.green; }
-		public void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(0f, 2f);
-			Instantiate(myitem.effect);
-			Destroy(myitem.gameObject);
+			speed = 0f;
+			effecttime = 2f;
+			mycolor = Color.grey;
 		}
 	}
 
-	class faster2 : state {
-		Item myitem;
-		public faster2(Item anItem) {
-			myitem = anItem;
-		}
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.yellow; }
-		public void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(10, 2);
-			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
-			Destroy(myitem.gameObject);
-		}
-	}
 
-	class slowdown2 : state {
-		Item myitem;
-		public slowdown2(Item anItem) {
-			myitem = anItem;
-		}
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.cyan; }
-		public void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(0.3f, 3f);
-			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
-			Destroy(myitem.gameObject);
-		}
-	}
+
 	class stop2 : state {
-		Item myitem;
 		public stop2(Item anItem) {
 			myitem = anItem;
-		}
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = Color.grey; }
-		public void oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(0f, 4f);
-			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
-			Destroy(myitem.gameObject);
+			speed = 0f;
+			effecttime = 4f;
+			mycolor = Color.black;
 		}
 	}
+
 	
 }

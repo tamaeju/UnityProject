@@ -34,20 +34,22 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 
 	public void instanciateAllObject(int[,] aPrefabKind) {
 		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
-
+		GameObject popobject;
 		for (int j = 0; j < aPrefabKind.GetLength(1); ++j) {
 			for (int i = 0; i < aPrefabKind.GetLength(0); ++i) {
-				if (aPrefabKind[i, j] == 0) {
+				if (aPrefabKind[i, j] != 0) {//0はアイテムなし
+					popobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+					if (popobject.GetComponent<PlayerMove>()) {
+						playerobject = popobject;
+					}
+					else if (popobject.GetComponent<Goal>()) {
+						goalobject = popobject;
+					}
+					else if (popobject.GetComponent<TargetMove>()) {
+						popobject.GetComponent<TargetMove>().getclearconditioner(meditator.getclearmanager());
+					}
 				}
-				else if (aPrefabKind[i, j] == 1) {
-					Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity);
-				}
-				else if (aPrefabKind[i, j] == 2) {//プレイヤーオブジェクトを生成する時はプレイヤーオブジェクトの参照を保持
-					playerobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
-				}
-				else if (aPrefabKind[i, j] == 3) {//ゴールオブジェクトを生成する時はゴールオブジェクトの参照を保持
-					goalobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
-				}
+
 
 			}
 		}
@@ -82,11 +84,22 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 
 	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//vector2の引数を与えれば、キャンバスのトランスフォーム+引数の場所にオブジェクトを生成し、そのオブジェクトの参照を返してくれるメソッド。
 		Transform canvastrans = objectcontainer.getcanvasposition().transform;
-		//Debug.Log(String.Format("canvastrans{0}{1}{2}", canvastrans, canvastrans.position.x, canvastrans.position.y));
 		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
 		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
 		return getobject;
 	}
-
+	//if (aPrefabKind[i, j] == 0) {
+	//}
+	//else if (aPrefabKind[i, j] == 1) {
+	//	Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity);
+	//}
+	//else if (aPrefabKind[i, j] == 2) {//プレイヤーオブジェクトを生成する時はプレイヤーオブジェクトの参照を保持
+	//	playerobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+	//}
+	//else if (aPrefabKind[i, j] == 3) {//ゴールオブジェクトを生成する時はゴールオブジェクトの参照を保持
+	//	goalobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+	//}
+	//playerムーブコンポーネントをもってたらplayerに代入的な。
+	//ポップオブジェクトがプレイヤーコンポーネントを持っていればplayerオブジェクトを代入する
 }
 

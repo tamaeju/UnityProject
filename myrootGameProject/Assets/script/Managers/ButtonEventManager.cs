@@ -40,14 +40,11 @@ public class ButtonEventManager : MonoBehaviour {
 		meditator.getcsvmanager().MapCsvSave(datamanager.getLevelDesignData());
 	}
 
-	public void makeObjectFromMapCsvButton()//ボタンプッシュで実行
-	{
-
+	public void makeObjectFromMapCsvButton(){
 		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1);
 		makemanager.instanciateAllObject(_leveldesigndata);//マップオブジェクト作成
 
-
-		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
+		try { makemanager.getPlayerObject().GetComponent<PlayerMove>().setDestination(makemanager.getGoalObject()); }//プレイヤーに目的地をセットする処理
 		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }
 
 		datamanager.updateCansetDatas(_leveldesigndata);

@@ -36,12 +36,19 @@ public class MassDealer : MonoBehaviour {
 		roundedpos.z = getIndexpos(aPos).z * Config.blocklength;
 		return roundedpos;
 	}
-	public Vector3 getInstanceposFromMouse(int slideypos)
+	public Vector3 getInstanceposFromMouse(int slideypos)//オブジェクトを配置する際のメソッド。意図的にy座標は固定している
 	{
 		Vector3 screenPotsition, instancePosition;
 		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
 		instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
 		instancePosition.y = meditator.getmakemanager().getObjecthight() + slideypos;
+		return instancePosition;
+	}
+	public Vector3 getposFromMouse()//オブジェクトを配置する際のメソッド。意図的にy座標は固定している
+{
+		Vector3 screenPotsition, instancePosition;
+		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.z, Input.mousePosition.y);
+		instancePosition = Camera.main.ScreenToWorldPoint(screenPotsition);
 		return instancePosition;
 	}
 }

@@ -72,12 +72,14 @@ public class ClearConditionManager : MonoBehaviour {
 	}
 	public bool isClear() {//クリアしているかをbooleanで返すメソッドを持つ、ゴール
 		int stagenum = datamanager.getStageNum();
-		return 0 < recenttime && conditionaldatas[stagenum].RequiredKillCount <= m_stageneedeatcount; //ステージが0から始まっている点に要注意
+		return 0 < recenttime && conditionaldatas[stagenum].RequiredKillCount <= recenteatcount; //ステージが0から始まっている点に要注意
 	}
 
 	public void getTextinstance(){
-		eatconditiontext = meditator.getmakemanager().MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
-		timelimitconditiontext = meditator.getmakemanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
+		if (eatconditiontext == null && timelimitconditiontext == null) {//多分オッケー
+			eatconditiontext = meditator.getmakemanager().MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
+			timelimitconditiontext = meditator.getmakemanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
+		}
 	}
 	public void decreaseEatCount() {
 		if (m_stageneedeatcount > 0) {
@@ -105,4 +107,8 @@ public class ClearConditionManager : MonoBehaviour {
 	private void gameOverEvent() {
 		Instantiate(gameoverprefab, this.transform.position, Quaternion.identity);
 	}
+	public void addRecentEatcount() {
+		recenteatcount++;
+	}
+
 }

@@ -30,6 +30,8 @@ public class Meditator : MonoBehaviour {
 	ButtonEventManager buttonmanager;
 	[SerializeField]
 	ItemMakerCreater itemmakermanager;
+	[SerializeField]
+	ClearConditionManager clearmanager;
 
 	public CSVManager getcsvmanager() {
 		return csvmanager;
@@ -72,5 +74,8 @@ public class Meditator : MonoBehaviour {
 	}
 	public ItemMakerCreater getitemmakermanager() {
 		return itemmakermanager;
+	}
+	public ClearConditionManager getclearmanager() {
+		return clearmanager;
 	}
 }

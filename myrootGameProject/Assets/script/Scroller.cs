@@ -31,4 +31,9 @@ public class Scroller : MonoBehaviour {//自身のレクトトランスフォー
 			yield return null;
 		}
 	}
+	public void move(Vector3 moveVector) {//指定した距離を1秒かけて動くメソッド
+		rectform = GetComponent<RectTransform>();
+		variableVector3 = rectform.position + moveVector;
+		rectform.position = variableVector3;
+	}
 }

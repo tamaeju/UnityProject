@@ -10,7 +10,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {
 	public GameObject buttonprefabclone;
 	GameObject[] buttonobjects;
 	Vector2 originpos;
-	float buffalength = 20;
+	float buffalength = 45;
 	[SerializeField]
 	Meditator meditator;
 
