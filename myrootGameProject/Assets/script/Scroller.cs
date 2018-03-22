@@ -10,6 +10,8 @@ using UnityEngine;
 public class Scroller : MonoBehaviour {//自身のレクトトランスフォームを引数に合わせて変更する（これの場合はスクロールのバリューが1で1600動くよう設定）
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
+	float heightRange = 1700;
+
 	public float doubleratio = 1600f;
 	public void changeposition(float scrollvalue) {
 		rectform = GetComponent<RectTransform>();
@@ -31,9 +33,18 @@ public class Scroller : MonoBehaviour {//自身のレクトトランスフォー
 			yield return null;
 		}
 	}
-	public void move(Vector3 moveVector) {//指定した距離を1秒かけて動くメソッド
+	public void move(Vector3 moveVector) {
 		rectform = GetComponent<RectTransform>();
-		variableVector3 = rectform.position + moveVector;
-		rectform.position = variableVector3;
+		variableVector3 = rectform.position;
+		variableVector3.y = rectform.position.y + moveVector.y;
+		if (rectform.position.y < heightRange && rectform.position.y > -1 * heightRange)
+		{
+			rectform.position = variableVector3;
+		}
+		else
+		{
+			variableVector3.y = variableVector3.y / Math.Abs(variableVector3.y) * (heightRange - 100);
+			rectform.position = variableVector3;
+		}
 	}
 }

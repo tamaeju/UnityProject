@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-
+using System.Linq;
+using System.Text;
+using System.IO;
+using UnityEngine.UI;
 
 public class CharactorMove : MonoBehaviour {
 
 	[SerializeField] private GameObject targetobject;
 	NavMeshAgent agent;
+	[SerializeField]
+	GameObject effectwordprefab;
+	GameObject effectwordobject;
 	float normalSpeed;
 
 	void Start() {
@@ -20,6 +26,8 @@ public class CharactorMove : MonoBehaviour {
 
 	//ゴールオブジェクト
 	public void changeSpeed(float newspeed, float effecttime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。
+		//effectプレハブを作成し、そのテキストを1秒立つごとに変化させる。
+
 		StartCoroutine(changeSpeedColutin(newspeed, effecttime));
 	}
 

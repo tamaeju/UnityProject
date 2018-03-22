@@ -19,7 +19,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {
 		UIbuttonhorizontalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.x;
 		UIbuttonverticalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.y;
 		var parent = this.transform;
-		originpos = new Vector2((UIbuttonhorizontalsize / 2),   350f);
+		originpos = new Vector2((UIbuttonhorizontalsize+100),   350f);
 		buttonobjects = new GameObject[arraysizeofUIbutton];
 		for (int i = 0; i < arraysizeofUIbutton; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;

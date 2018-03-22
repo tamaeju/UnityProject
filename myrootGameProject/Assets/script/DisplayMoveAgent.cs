@@ -8,7 +8,9 @@ public class DisplayMoveAgent : MonoBehaviour {
 	public void movescrollobject(Vector3 movedistance) {
 		scrollobject.move(movedistance);
 	}
-
-	//タッチされている位置を取得し、キャンバスマスクの位置を、その位置分加算して返す。
+	public void destroythisobject() {
+		Destroy(this.gameObject);
+	}
+	
 
 }
