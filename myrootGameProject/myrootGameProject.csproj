@@ -111,6 +111,7 @@
     <Compile Include="Assets\script\SelectsceneButton.cs" />
     <Compile Include="Assets\script\SetPointRayEmiter.cs" />
     <Compile Include="Assets\script\TargetMove.cs" />
+    <Compile Include="Assets\script\TitleScroll.cs" />
     <Compile Include="Assets\script\setObject.cs" />
     <Compile Include="Assets\script\struct\clearconditionaldata.cs" />
     <Compile Include="Assets\script\struct\dragitemdata.cs" />

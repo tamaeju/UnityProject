@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 	Vector3 setUIPos(int x, int y, int z) {
-		Vector3 returnPos = new Vector3((x + 11.5f) * 28, (y + 2.5f) * 28, z);
+		Vector3 returnPos = new Vector3((x + 11.5f) * 28, (y + 4f) * 28, z);
 		return returnPos;
 	}
 

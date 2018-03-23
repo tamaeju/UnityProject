@@ -23,10 +23,10 @@ public class ItemMakerCreater : MonoBehaviour {
 
 		for (int i = 0; i < Config.dragbuttonNum; i++) {
 			float itemmakerpositiondifference = i * 3;
-			float leftcountpositiondifference = i * 130;
+			float leftcountpositiondifference = i * 150;
 			Transform canvastrans = prefabcontainer.getcanvasposition().transform;//キャンバスオブジェクトの値を入れて、見かけの値を入れる事で調整している。
-			Vector2 leftcountpos = new Vector2(364, 108);
-			Vector2 itemlabelpos = new Vector2(364, 128);
+			Vector2 leftcountpos = new Vector2(414, 115);
+			Vector2 itemlabelpos = new Vector2(414, 128);
 
 			GameObject itemleftCount = makemanager.MakeGetUIobject(leftcountprefab, leftcountpos);
 			GameObject itemlabelname = makemanager.MakeGetUIobject(leftcountprefab, itemlabelpos);
