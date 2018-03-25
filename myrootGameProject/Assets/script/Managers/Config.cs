@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Config : MonoBehaviour {
+public class Config : MonoBehaviour {//ゲームのシステムや不変の設定を取り扱うクラス。
 
 	public readonly static float blocklength  = 0.9f;
 	public readonly static int maxGridNum  = 10;
@@ -12,6 +12,8 @@ public class Config : MonoBehaviour {
 	public readonly static int dragbuttonNum = 3;
 	public readonly static int itemkindlength = 8;
 	public readonly static int blockkindlength = 8;
+	public readonly static 	int usecolomn_of_mapdata = 3;
+	public readonly static int filekindlength = 3;
 
 	public Vector3 getFirstblocklocalposition() {//groundが0,0,0の位置にあるならローカル座標が出る。
 		firstblocklocalposition = new Vector3(0,0,0);

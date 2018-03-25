@@ -7,10 +7,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemmakeEditorManager : MonoBehaviour {
+public class ItemmakeEditorManager : MonoBehaviour {//ItemmakerをエディットするUIを管理するオブジェクト
 
 	[SerializeField]
-	private GameObject[] UIDragButton;//生成する
+	private GameObject[] Itemmaker;
 
 	public GameObject canvasposition;
 	[SerializeField]
@@ -22,20 +22,20 @@ public class ItemmakeEditorManager : MonoBehaviour {
 	int xposition = 301;
 	int yposition = 131;
 
-	// Use this for initialization
-	void Start() {
+
+	void Start() {//ItemmakerEditorの生成。
 		var parent = canvasposition.transform;
 		Vector3 instancepos = new Vector3();
 		instancepos = canvasposition.transform.position;
 		instancepos.x = instancepos.x + xposition;
 		instancepos.y = instancepos.y + yposition;
-		UIDragButton = new GameObject[buttonNum];
+		Itemmaker = new GameObject[buttonNum];
 
-		UIDragButton[0] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity,parent) as GameObject;
+		Itemmaker[0] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity,parent) as GameObject;
 		instancepos.y = instancepos.y - 120;
-		UIDragButton[1] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
+		Itemmaker[1] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
 		instancepos.y = instancepos.y - 120;
-		UIDragButton[2] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
+		Itemmaker[2] = Instantiate(UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
 
 
 		setUIdragbuttonNum();
@@ -44,26 +44,26 @@ public class ItemmakeEditorManager : MonoBehaviour {
 	}
 	
 
-	public　void onclickSaveButton(ItemMakeEditor dragbutton) {//saveボタンクリックで、引数に応じたボタンオブジェクトの値をデータマネージャーに渡す。
+	public　void onclickSaveButton(ItemMakeEditor dragbutton) {//saveボタンクリックで、引数に応じたeditorの値をセーブ
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataManager datamanager = meditator.getdatamanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		datamanager.LoadALLdragitemdata();//一度csvからデータを読み込み。
+		datamanager.LoadALLdragitemdata();
 		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
 		csvmanager.itemCsvSave(datamanager.getItemData());
 	}
 	public void setUIdragbuttonNum() {
-		for (int i = 0; i < UIDragButton.Length; i++) {
-			UIDragButton[i].GetComponent<ItemMakeEditor>().changeobjectNum(i);
+		for (int i = 0; i < Itemmaker.Length; i++) {
+			Itemmaker[i].GetComponent<ItemMakeEditor>().changeobjectNum(i);
 		}
 	}
 	public void deletebutton() {
-		foreach (var item in UIDragButton) {
+		foreach (var item in Itemmaker) {
 			Destroy(item);
 		}
 	}
 	public void setmyreference() {
-		foreach (var item in UIDragButton) {
+		foreach (var item in Itemmaker) {
 			item.GetComponent<ItemMakeEditor>().setmotherobject(this.GetComponent<ItemmakeEditorManager>());
 		}
 	}

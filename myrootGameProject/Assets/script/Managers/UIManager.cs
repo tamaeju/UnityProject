@@ -7,19 +7,23 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
-	public GameObject[] UIobjects;
-	public GameObject uiposition;//setbuttonsを入れる。UIを表示ONOFFするため
-	public GameObject canvasposition;//leftcountをキャンバスにおくためだけのもの
-	public GameObject _levelbutton;
+public class UIManager : MonoBehaviour {//マップに何を配置するかを調整するUIであるobjectselectボタンを扱うクラス
+
 	[SerializeField]
-	int usecolomn_of_mapdata = 3;
+	private GameObject[] UIobjects;//マップエディット用のUIボタンの格納用配列
+	[SerializeField]
+	private GameObject _levelbutton;//マップエディット用のUIボタン
+	[SerializeField]
+	private GameObject uiposition;//_levelbuttonを表示ONOFFするためのUIの親オブジェクト
+	[SerializeField]
+	private GameObject canvasposition;//UI生成用のUIの親オブジェクト
+
+
 	[SerializeField]
 	Meditator meditator;
 
 
-	void Start() {
-
+	void Start() {//マップエディットUIの生成。
 		UIobjects = new GameObject[Config.maxGridNum * Config.maxGridNum];
 		instanciateandGetUIObjects();
 	}
@@ -30,7 +34,7 @@ public class UIManager : MonoBehaviour {
 	}
 
 
-	public void instanciateandGetUIObjects() {//インスペクターで紐づけを行うためのメソッド。インスタンシエイトしたタイミングでapplyして紐づけする。
+	public void instanciateandGetUIObjects() {//マップエディット用のUIボタン生成と、参照の取得
 		var parent = uiposition.transform;
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
@@ -44,11 +48,12 @@ public class UIManager : MonoBehaviour {
 	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		CSVManager csvmanager = meditator.getcsvmanager();
-		GameObject[] UIobjects = meditator.getUImanager().getUIobjects();
+		GameObject[] UIobjects = getUIobjects();
+		int usecolomn = Config.usecolomn_of_mapdata;
 
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
-				int objectkind = csvmanager.getDataElement(datapathmanager.getcsvdatapath(0), usecolomn_of_mapdata - 1)[i, j];
+				int objectkind = csvmanager.getDataElement(datapathmanager.getmapdatapath(), usecolomn - 1)[i, j];
 				UIobjects[j * 10 + i].GetComponent<MapEditorbutton>().changeState(objectkind);
 			}
 		}

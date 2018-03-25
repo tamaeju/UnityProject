@@ -9,15 +9,15 @@ using UnityEngine.UI;
 
 public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;//dataElementsからパースして使うデータ
-	int[][] stagedata;//何秒以内クリアか、必要捕食数のデータ
+	int[][] stagedata;//何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）
 	[SerializeField]
 	Meditator meditator;
 
-	public int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {
+	public int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {//データパスと使用するカラムを入力して使用する。
 		int[][] dataElements;
 		int[,] practicalDataElements;
-		dataElements = getJagDataElement(aDatapassANDname);//ジャグデータをもらって、
-		practicalDataElements = parsePracticalDataElements(dataElements, usingcolumnNum);//2次元配列にしたcsvのデータを取得するのだが、
+		dataElements = getJagDataElement(aDatapassANDname);
+		practicalDataElements = parsePracticalDataElements(dataElements, usingcolumnNum);
 		return practicalDataElements;
 	}
 
@@ -37,11 +37,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		for (int j = 0; j < dataElements.Length; ++j) {
 			RowStrings = lines[j].Split(',');
 			for (int i = 0; i < dataElements[0].Length; ++i) {
-				//Debug.Log(dataElements[j][i]);
-				//Debug.Log(String.Format("dataElements.Lengthは{0}dataElements[0].Lengthは{1}", dataElements.Length, dataElements[0].Length));
-				//Debug.Log(String.Format("datapassANDname{0}", datapassANDname));
-				//Debug.Log(String.Format("x{0}y{1}dataelements{2}", j,i,dataElements[j][i]));
-				//Debug.Log(String.Format("RowStrings[i]は{0}", RowStrings[i]));
+
 				dataElements[j][i] = Int32.Parse(RowStrings[i]);
 			}
 		}
@@ -72,17 +68,17 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	public void MapCsvSave(int[,] writtendata) {
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<int[,]> actaug = writeData;
-		CSVSave(datapathmanager.getcsvdatapath(0), writtendata, actaug);
+		CSVSave(datapathmanager.getmapdatapath(), writtendata, actaug);
 	}
 	public void itemCsvSave(dragitemdata[,] writtendata) {
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<dragitemdata[,]> actaug = writeData;
-		CSVSave(datapathmanager.getcsvdatapath(1), writtendata, actaug);
+		CSVSave(datapathmanager.getitemdatapath(), writtendata, actaug);
 	}
 	public void cleardataCsvSave(clearconditiondata[] writtendata) {
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<clearconditiondata[]> actaug = writeData;
-		CSVSave(datapathmanager.getcsvdatapath(2), writtendata, actaug);
+		CSVSave(datapathmanager.getconditiondatapath(), writtendata, actaug);
 	}
 
 

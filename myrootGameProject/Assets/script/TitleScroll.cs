@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TitleScroll : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {
+public class TitleScroll : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {//タイトルのキャンバスを動かすためのコンポーネント、eventsystemを使用。
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
 	RectTransform outofrectform = new RectTransform();

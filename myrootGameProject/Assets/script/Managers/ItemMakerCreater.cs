@@ -7,11 +7,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemMakerCreater : MonoBehaviour {
+public class ItemMakerCreater : MonoBehaviour {//Itemmakerとレフトカウントを作成するクラス
 	[SerializeField]
 	Meditator meditator;
 
-	public void makeItemMaker()//Itemmakerとレフトカウントを作成しているのだが、これを作るのはこいつでいいのだろうか。
+	public void makeItemMaker()//この処理に関してはUIマネージャーに移譲したほうがベターかもしれない
 	{
 
 		PrefabContainer prefabcontainer = meditator.getprefabcontainer();

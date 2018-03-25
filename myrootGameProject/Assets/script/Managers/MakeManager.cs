@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class MakeManager : MonoBehaviour {//オブジェクト生成を行うクラス。
 	
 	float blocklength = Config.blocklength;
-	private GameObject goalobject;
-	private GameObject playerobject;
-	private int slidespace = 4;
+	GameObject goalobject;
+	GameObject playerobject;
+	int slidespace = 4;
 	float groundhight;
 	float instancehight;
 
@@ -21,18 +21,13 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	[SerializeField]
 	PrefabContainer objectcontainer;
 
-	void Start() {
+	void Start() {//オブジェクトの生成位置の取得
 		groundhight = objectcontainer.getground().transform.position.y;
 		instancehight = groundhight + 0.5f;
 	}
 
 
-	void Update() {
-		if (Input.GetMouseButtonDown(0)) {
-		}
-	}
-
-	public void instanciateAllObject(int[,] aPrefabKind) {
+	public void instanciateAllMapObject(int[,] aPrefabKind) {//playerやブロックなどのオブジェクトを生成するメソッド。
 		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
 		GameObject popobject;
 		for (int j = 0; j < aPrefabKind.GetLength(1); ++j) {
@@ -63,7 +58,7 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	}
 
 
-	Vector3 settingObjectPos(int x, int y,float z)
+	Vector3 settingObjectPos(int x, int y,float z)//i,jのインデックスからマップオブジェクトの生成位置を設定する処理。
 	{
 		Vector3 returnPos = new Vector3(x * blocklength, z, y * blocklength);
 		return returnPos;
@@ -72,34 +67,19 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		return instancehight;
 	}
 
-
-	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {
+	public GameObject InstanciateandGetRef(int onjectindex,Vector3 instancepos) {//オブジェクトを生成して参照を返すメソッド
 		GameObject objectref;
 		GameObject[] instanceObjects = objectcontainer.getitemObjects();
-
 		objectref = Instantiate(instanceObjects[onjectindex], instancepos, Quaternion.identity) as GameObject;
 		return objectref;
-
 	}
 
-	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//vector2の引数を与えれば、キャンバスのトランスフォーム+引数の場所にオブジェクトを生成し、そのオブジェクトの参照を返してくれるメソッド。
+	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//UI上にオブジェクトを生成し、vector2の位置にオブジェクトを生成する処理
 		Transform canvastrans = objectcontainer.getcanvasposition().transform;
 		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
 		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
 		return getobject;
 	}
-	//if (aPrefabKind[i, j] == 0) {
-	//}
-	//else if (aPrefabKind[i, j] == 1) {
-	//	Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity);
-	//}
-	//else if (aPrefabKind[i, j] == 2) {//プレイヤーオブジェクトを生成する時はプレイヤーオブジェクトの参照を保持
-	//	playerobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
-	//}
-	//else if (aPrefabKind[i, j] == 3) {//ゴールオブジェクトを生成する時はゴールオブジェクトの参照を保持
-	//	goalobject = Instantiate(instanceObjects[aPrefabKind[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
-	//}
-	//playerムーブコンポーネントをもってたらplayerに代入的な。
-	//ポップオブジェクトがプレイヤーコンポーネントを持っていればplayerオブジェクトを代入する
+
 }
 

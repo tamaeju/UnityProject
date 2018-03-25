@@ -7,16 +7,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemMaker : MonoBehaviour {
+public class ItemMaker : MonoBehaviour {//ドラッグ＆ドロップで、アイテムを生成するオブジェクト
 	[SerializeField]private int MyObjectKind;
 	[SerializeField]private int ObjectLeftCount;
-	[SerializeField]private Text scoretext;//TextというのはあくまでコンポーネントのTextであるので、文字を変えたいならText.textと書く必要がある。
+	[SerializeField]private Text scoretext;
 	[SerializeField]private Text labeltext;
 
 	public void Start() {
 		scoretext.text = "Left " + ObjectLeftCount.ToString();
 		changeLabelText();
-		//scoretext.text = ObjectLeftCount.ToString();
 	}
 
 	public int getMyObjectKind() {

@@ -7,10 +7,10 @@ using System.Collections;
 using UnityEngine;
 
 
-public class Scroller : MonoBehaviour {//自身のレクトトランスフォームを引数に合わせて変更する（これの場合はスクロールのバリューが1で1600動くよう設定）
+public class Scroller : MonoBehaviour {//スクロールするオブジェクトのコンポーネント
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
-	float heightRange = 1700;
+	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
 
 	public float doubleratio = 1600f;
 	public void changeposition(float scrollvalue) {
@@ -20,20 +20,20 @@ public class Scroller : MonoBehaviour {//自身のレクトトランスフォー
 		rectform.position = variableVector3;
 	}
 
-	//0.1秒ごとに指定移動距離の1/10を動き、画面外にはけるようなメソッド。
+	
 	public void DisplayMoveOut() {
 		StartCoroutine(moveCoroutine(1200));
 	}
-	private IEnumerator moveCoroutine(int movedistance) {//指定した距離を1秒かけて動くメソッド
+	private IEnumerator moveCoroutine(int totalmovedistance) {//画面外にはける動きを作成するために、1Fごとに指定移動距離の1/20を動く。
 		for (int i = 0; i < 20; i++) {
 			rectform = GetComponent<RectTransform>();
 			variableVector3 = rectform.position;
-			variableVector3.y = variableVector3.y + movedistance/20;
+			variableVector3.y = variableVector3.y + totalmovedistance/20;
 			rectform.position = variableVector3;
 			yield return null;
 		}
 	}
-	public void move(Vector3 moveVector) {
+	public void move(Vector3 moveVector) {//マウスの動きからポジションを移動させる処理。（heightRangeの絶対値以上のスクロールを禁止している）
 		rectform = GetComponent<RectTransform>();
 		variableVector3 = rectform.position;
 		variableVector3.y = rectform.position.y + moveVector.y;

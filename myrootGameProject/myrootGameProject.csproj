@@ -94,7 +94,6 @@
     <Compile Include="Assets\script\Managers\Config.cs" />
     <Compile Include="Assets\script\Managers\DataManager.cs" />
     <Compile Include="Assets\script\Managers\DataPathManager.cs" />
-    <Compile Include="Assets\script\Managers\Debugger.cs" />
     <Compile Include="Assets\script\Managers\ItemMakerCreater.cs" />
     <Compile Include="Assets\script\Managers\ItemmakeEditorManager.cs" />
     <Compile Include="Assets\script\Managers\LevelSelectCanvasManager.cs" />

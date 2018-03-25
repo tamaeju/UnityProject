@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClearConditionManager : MonoBehaviour {
+public class ClearConditionManager : MonoBehaviour {//クリア条件を管理するクラス
 	CSVManager csvmanager;
 	DataManager datamanager;
 	[SerializeField]
@@ -21,12 +21,12 @@ public class ClearConditionManager : MonoBehaviour {
 	int m_stagetimelimit;//目標制限時間
 	int recenttime;//現在時間
 
-	Vector2 eatconditionaltextpos = new Vector2(-300, 160);
+	Vector2 eatconditionaltextpos = new Vector2(-300, 160);//表示位置
 	Text eatconditiontext;
 	[SerializeField]
 	GameObject eatconditiontexttprefab;
 
-	Vector2 timelimittextpos = new Vector2(-300, 120);
+	Vector2 timelimittextpos = new Vector2(-300, 120);//表示位置
 	Text timelimitconditiontext;
 	[SerializeField]
 	GameObject timelimittextprefab;
@@ -34,14 +34,13 @@ public class ClearConditionManager : MonoBehaviour {
 	clearconditiondata[] conditionaldatas;
 
 
-	void Start() {
+	void Start() {//conditionaldatasをとってくるための初期化
 		csvmanager = meditator.getcsvmanager();
 		datamanager = meditator.getdatamanager();
 		conditionaldatas = new clearconditiondata[Config.stageCount];
-
 	}
 
-	public void stageStart() {
+	public void stageStart() {//ステージタイムの更新開始
 		getClearcondition();
 		getTextinstance();
 		reflectDisplay();
@@ -49,11 +48,11 @@ public class ClearConditionManager : MonoBehaviour {
 		StartCoroutine(timedecreasePerSecond());
 	}
 
-	public void getClearcondition() {//csvmanagerを介して、クリア条件をとってくる。
+	public void getClearcondition() {//csvmanagerを介してクリア条件をとってくる。
 		int stagenum = datamanager.getStageNum();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		DataChangerFromJaG jagchanger = meditator.getjagchanger();
-		int[][] jagcleardata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(2));//クリアコンディショナルデータをcsvからロード
+		int[][] jagcleardata = csvmanager.getJagDataElement(datapathmanager.getconditiondatapath());
 		UpdateALLcleardata(jagchanger.parsejagtodobleClearconditiondatas(jagcleardata));
 		m_stageneedeatcount = conditionaldatas[stagenum].RequiredKillCount;
 		m_stagetimelimit = conditionaldatas[stagenum].timelimit;

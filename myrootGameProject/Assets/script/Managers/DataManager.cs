@@ -82,8 +82,8 @@ public class DataManager : MonoBehaviour {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
-		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getcsvdatapath(2), stagelefttimecountcolomn);
+		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), needeatcountcolomn);
+		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), stagelefttimecountcolomn);
 	}
 
 	public void UpdateALLdragitemdata(dragitemdata[,] adragitemdatas) {
@@ -94,7 +94,7 @@ public class DataManager : MonoBehaviour {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		DataChangerFromJaG jagchanger = meditator.getjagchanger();
-		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getcsvdatapath(1));
+		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getitemdatapath());
 		dragitemdatas = jagchanger.parsejagtodobledragitemdatadatas(jagitemdata);
 	}
 
