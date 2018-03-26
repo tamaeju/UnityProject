@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetMove : CharactorMove {
+public class TargetMove : CharactorMove {//ゴール以外のマップのターゲットのクラス
 
 	[SerializeField]GameObject effectprefab;
 	ClearConditionManager clearconditioner;
-	//接触された時に、キャンバスを出し、クリア表示を行う
+
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Player") {
 			Instantiate(effectprefab, this.transform.position, Quaternion.identity);
@@ -16,11 +16,9 @@ public class TargetMove : CharactorMove {
 	public void getclearconditioner(ClearConditionManager aclearconditioner) {
 		clearconditioner = aclearconditioner;
 	}
-	void updateclearcondition() {
+	void updateclearcondition() {//クリアコンディションの情報を更新する処理
 		if (clearconditioner != null)
 			clearconditioner.addRecentEatcount();
 	}
-	//キャラクターと接触したら、キャラクターの動きを数秒間止めて、クリアコンディションの情報を更新する。これはオブザーバーパターンで実装したいが、
-	//実際はターゲットキャラを作成したらその
-	//
+
 }

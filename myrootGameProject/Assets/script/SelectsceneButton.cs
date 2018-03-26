@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SelectsceneButton : MonoBehaviour {
+public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタンクラス
 	Text mytext;
 	[SerializeField]
 	GameObject effectprefab;
@@ -20,32 +20,30 @@ public class SelectsceneButton : MonoBehaviour {
 		mytext = this.gameObject.GetComponentInChildren<Text>();
 		mytext.text = textname;
 	}
-	public void makeEffectPrefab() {
-		Vector3 instancepos;
-		instancepos = this.transform.position;
-		instancepos.z = -10;
-		Instantiate(effectprefab,this.transform.position,Quaternion.identity);
-	}
-	//ボタンクリックで発動するメソッド。datapathmanagerのパスを変更するために、自分の値を引数として渡す。
-	public void changeMystageCount(int stagecount) {
+
+	
+	public void changeMystageCount(int stagecount) {//ボタンクリックで動作する処理。自分の値をステージレベルの引数として渡す。
 		myStageCount = stagecount;
 	}
-	public void stageCall() {
-		getRefOfMeditator();
+	public void stageCall() {//ステージを呼び出す処理
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		ButtonEventManager buttonmanager = meditator.getbuttonmanager();
 		datapathmanager.ChangeMapCSVNum(myStageCount);
 		buttonmanager.makeObjectfromSelectScene(myStageCount);
 		parentActiveOff();
 	}
-	public void getRefOfMeditator() {
-		GameObject parent = this.transform.parent.gameObject;
-		meditator = parent.GetComponent<LevelSelectCanvasManager>().sendMeditator();
-
+	public void getMeditatorRef(Meditator　ameditator) {
+		meditator = ameditator;
 	}
-	public void parentActiveOff() {
+	public void parentActiveOff() {//キャンバスを不可視にするための処理
 		GameObject parent = this.transform.parent.parent.parent.gameObject;
 		parent.SetActive(false); 
 
+	}
+	public void makeEffectPrefab() {
+		Vector3 instancepos;
+		instancepos = this.transform.position;
+		instancepos.z = -10;
+		Instantiate(effectprefab, this.transform.position, Quaternion.identity);
 	}
 }

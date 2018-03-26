@@ -27,6 +27,8 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
 			buttonobjects[i].GetComponent<SelectsceneButton>().changeThisText("Level  "+(i+1).ToString());
 			buttonobjects[i].GetComponent<SelectsceneButton>().changeMystageCount(i);
+			buttonobjects[i].GetComponent<SelectsceneButton>().getMeditatorRef(meditator);
+
 		}
 	}
 
@@ -51,9 +53,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		getpos.y = -1*(arrayNum.y * UIbuttonverticalsize + buffalength * (arrayNum.y));
 		return getpos;
 	}
-	public Meditator sendMeditator() {
-		return meditator;
-	}
+
 
 
 }
