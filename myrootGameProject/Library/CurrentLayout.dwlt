@@ -88,8 +88,8 @@ MonoBehaviour:
     y: 30
     width: 1904
     height: 928
-  m_MinSize: {x: 911, y: 442}
-  m_MaxSize: {x: 22006, y: 10021}
+  m_MinSize: {x: 913, y: 442}
+  m_MaxSize: {x: 22008, y: 10021}
   vertical: 0
   controlID: 138
 --- !u!114 &5
@@ -204,8 +204,8 @@ MonoBehaviour:
     y: 0
     width: 375
     height: 928
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 277, y: 71}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -395,9 +395,9 @@ MonoBehaviour:
     height: 907
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1a2a0000
+    m_SelectedIDs: 24060000
     m_LastClickedID: 0
-    m_ExpandedIDs: 7ef3ffff00000000
+    m_ExpandedIDs: e2fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -500,9 +500,9 @@ MonoBehaviour:
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0e300000
-    m_LastClickedID: 12302
-    m_ExpandedIDs: 00000000c82f0000f62f00003e3000006e300000063100000831000000ca9a3bffffff7f
+    m_SelectedIDs: 92250000
+    m_LastClickedID: 9618
+    m_ExpandedIDs: 000000000c2500004825000044260000e82600008c2a00008e2a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -530,7 +530,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c82f0000f62f00003e3000006e3000000631000008310000
+    m_ExpandedIDs: 000000000c2500004825000044260000e82600008c2a00008e2a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -561,18 +561,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: dcf80000e06bffffc825000076250000d0250000ec250000be250000ca250000d825000074abfbff00000000788cffff44260000aee5fcffe4250000502600007c260000e0fdfdff9a7afbffba260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: LevelSelectCanvasManager
-      m_OriginalName: LevelSelectCanvasManager
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 10778
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_CreateAssetUtility:

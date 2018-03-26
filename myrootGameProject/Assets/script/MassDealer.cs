@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MassDealer : MonoBehaviour {
+public class MassDealer : MonoBehaviour {//オブジェクトを設置するための座標設定、変換クラス
 	[SerializeField]
 	Meditator meditator;
 

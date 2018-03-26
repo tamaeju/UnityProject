@@ -2,25 +2,23 @@
 using System.Collections;
 using System;
 
-public class TouchEventManager : MonoBehaviour {
+public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙動を扱うクラス
 	GameObject catchObject;
-	Vector3 instancePosition;
 	RayEmit rayemitter;
 	ItemMaker draggeeditem;
 	DisplayMoveAgent DisplayMoveagent;
 	Vector3 initialtappoint;
-	Vector3 tappointdifference;
-
-	[SerializeField]
-	Meditator meditator;
 	MakeManager makemanager;
 	DataManager datamanager;
 	DataCheck datachecker;
 	MassDealer massdealer;
 
+	[SerializeField]
+	Meditator meditator;
 
 
-	void Start() {
+
+	void Start() {//参照オブジェクトの初期化
 		makemanager = meditator.getmakemanager();
 		datamanager = meditator.getdatamanager();
 		datachecker = meditator.getdatachecker();
@@ -30,17 +28,17 @@ public class TouchEventManager : MonoBehaviour {
 
 
 
-	void Update() {
-		if (Input.GetMouseButtonDown(0)) {//ドラッグしたアイテムのアイテムメイカーコンポーネントを取ってこれたら、それに応じた引数でメソッドを実行する
+	void Update() {//マウス入力による処理分岐
+		if (Input.GetMouseButtonDown(0)) {
 			checkandSetTouchObjectKind();
-			if (draggeeditem != null) { DragDownItemMaker(); }//draggeditemのオブジェクトをつかめたときはドラッグオンアイテムメイカーのメソッドを実行
-			if (DisplayMoveagent != null) { DragDownScrollagent(); }//draggeditemのオブジェクトをつかめたときはドラッグオンスクローラーのメソッドを実行
+			if (draggeeditem != null) { DragDownItemMaker(); }
+			if (DisplayMoveagent != null) { DragDownScrollagent(); }
 		}
-		if (Input.GetMouseButton(0)) {//タッチされ続けている間、オブジェクトの位置を動かし続ける。
-			DragOnItemMaker();
-			DragOnScrollagent();
+		if (Input.GetMouseButton(0)) {
+			if (draggeeditem != null) { DragOnItemMaker(); }
+			if (DisplayMoveagent != null) { DragOnScrollagent(); }
 		}
-		if (Input.GetMouseButtonUp(0)) {//タッチが離されたタイミングで、オブジェクトをつかんでいればnullを入れる。
+		if (Input.GetMouseButtonUp(0)) {
 			DragUpItemMaker();
 			catchObject = null;
 			draggeeditem = null;
@@ -49,7 +47,7 @@ public class TouchEventManager : MonoBehaviour {
 	}
 
 
-	void checkandSetTouchObjectKind() {
+	void checkandSetTouchObjectKind() {//レイキャストを飛ばしたオブジェクトで参照を設定
 		if (rayemitter.getObject().GetComponent<ItemMaker>() != null) {
 			draggeeditem = rayemitter.getObject().GetComponent<ItemMaker>();
 			DisplayMoveagent = null;
@@ -71,15 +69,15 @@ public class TouchEventManager : MonoBehaviour {
 		}
 	}
 	void DragOnItemMaker() {
-		if (catchObject != null) {
 			catchObject.transform.position = massdealer.getInstanceposFromMouse(2);
-		}
 	}
-	void DragUpItemMaker() {
+
+	void DragUpItemMaker() {//Itemを対応した座標に設置するための判定および処理
+		Vector3 instancePosition;
 		instancePosition = massdealer.getInstanceposFromMouse(0);
 		Vector3 indexVector3 = massdealer.getIndexpos(instancePosition);//x,y,zが何番目の配列か調べる。
-		if (datachecker.checkCanSet(indexVector3) && catchObject != null) {//今のポジションのインデックスが配列内であり、セットできるのであれば
-			draggeeditem.decreaseLeftCount();//レフトカウントを1減らす。
+		if (datachecker.checkCanSet(indexVector3) && catchObject != null) {//今のポジションのインデックスが配列内であり、セットできるのであれば処理実行
+			draggeeditem.decreaseLeftCount();
 			catchObject.transform.position = massdealer.getRoundedgPos(instancePosition);
 			datamanager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
 			datamanager.updateCansetDatas(indexVector3);
@@ -87,14 +85,13 @@ public class TouchEventManager : MonoBehaviour {
 		else {
 			Destroy(catchObject);
 		}
-
 	}
+
 	void DragDownScrollagent() {//タップ位置を取得
 		initialtappoint = massdealer.getposFromMouse();
 	}
-	void DragOnScrollagent() {//初期のタップ位置との差分を取得し
+	void DragOnScrollagent() {//初期のタップ位置との差分を取得する処理
 		DisplayMoveagent.movescrollobject((initialtappoint - massdealer.getposFromMouse())/5);
-		//ディスプレイ全体のサイズより大きく移動する場合は、修正を行う。
 	}
 	void DragUpScrollagent() {
 

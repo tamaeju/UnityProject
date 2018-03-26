@@ -13,7 +13,6 @@ public class ItemMakerCreater : MonoBehaviour {//Itemmakerとレフトカウン�
 
 	public void makeItemMaker()//この処理に関してはUIマネージャーに移譲したほうがベターかもしれない
 	{
-
 		PrefabContainer prefabcontainer = meditator.getprefabcontainer();
 		DataManager datamanager = meditator.getdatamanager();
 		MakeManager makemanager = meditator.getmakemanager();

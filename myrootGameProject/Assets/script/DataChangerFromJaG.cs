@@ -8,14 +8,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class DataChangerFromJaG : MonoBehaviour {
+public class DataChangerFromJaG : MonoBehaviour {//csvから読み込んだデータを構造体のデータ等に変換するクラス。
 	int timelimitElementNum = 1;
 	int requiredkillcountElementNum = 2;
-
 	int itemkindElementNum = 2;
 	int itemcountElementNum = 3;
-	//構造体は値渡しなのですごく注意が必要な気がする。
-	//このクラスの呼ばれるタイミングについては、ボタンタップ→UIマネージャーが指示→CSVマネージャーがジャグデータとってくる→UIマネージャーの命令でそのデータを変換する→Datamanagerに渡すという流れ
 
 	public int[,]parsejagtodoubledata(int[][] jagdata,int ElementNum) {//要素番号を入れる点に注意。
 		int[,] getdata = new int[jagdata.Length, jagdata[0].Length];
@@ -27,7 +24,7 @@ public class DataChangerFromJaG : MonoBehaviour {
 		return getdata;
 	}
 
-	public clearconditiondata[] parsejagtodobleClearconditiondatas(int[][] jagdata) {
+	public clearconditiondata[] parsejagtodobleClearconditiondatas(int[][] jagdata) {//jagデータから構造体に変換する処理
 
 		clearconditiondata[] getdata = new clearconditiondata[jagdata.Length];
 		for (int j = 0; j < jagdata.Length; j++) {
@@ -43,10 +40,9 @@ public class DataChangerFromJaG : MonoBehaviour {
 		for (int j = 0; j < jagdata.Length; j++) {
 			getdata[j / xlength, j % xlength].itemkind = jagdata[j][itemkindElementNum];
 			getdata[j / xlength, j % xlength].itemcount = jagdata[j][itemcountElementNum];
-				//Debug.Log(String.Format("{0}{1}{2}{3}",j, jagdata[j][itemkindElementNum], jagdata[j][itemcountElementNum]));
+				
 		}
 		return getdata;
 	}
-	//csvからデータを読み込んで、datachangefromjagclassクラスのメソッドを使って変換。そのデータをデータマネージャーに上書きする。
 
 }

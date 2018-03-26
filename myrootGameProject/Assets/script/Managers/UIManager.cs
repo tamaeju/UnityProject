@@ -58,4 +58,11 @@ public class UIManager : MonoBehaviour {//マップに何を配置するかを�
 			}
 		}
 	}
+	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//UI上にオブジェクトを生成し、vector2の位置にオブジェクトを生成する処理
+		PrefabContainer objectcontainer　= meditator.geto
+		Transform canvastrans = objectcontainer.getcanvasposition().transform;
+		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
+		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
+		return getobject;
+	}
 }

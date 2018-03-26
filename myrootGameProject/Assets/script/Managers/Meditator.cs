@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meditator : MonoBehaviour {
-//オブジェクトの参照を代替わりするクラス
+public class Meditator : MonoBehaviour {//オブジェクトの参照を代替わりするクラス
+
 	[SerializeField]
 	CSVManager csvmanager;
 	[SerializeField]
