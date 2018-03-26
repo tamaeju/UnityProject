@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DataCheck : MonoBehaviour {
+public class DataCheck : MonoBehaviour {//データマネージャーに保存されている値との整合性を確認するクラス
 	[SerializeField]
 	DataManager datamanager;
 	[SerializeField]

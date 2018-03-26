@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RayEmit{
+public class RayEmit{//
 
 	float objectHight = 4.5f;
 

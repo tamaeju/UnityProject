@@ -33,8 +33,7 @@ public class MapEditorbutton : MonoBehaviour {//レベルデザインデータ�
 		changeButtonColour();
 		changemychar();
 	}
-	public void changemychar() {
-		//自身のステイトのenumをとってきて、その最初の文字を入れ替える。
+	public void changemychar() {//自身のステイトのenumをとってきて、その最初の文字を入れ替える。
 		mytext = GetComponentInChildren<Text>();
 		var state =  (blockkind)Enum.ToObject(typeof(blockkind), stateNum);
 		var stringname = Enum.GetName(typeof(blockkind), state);
@@ -87,6 +86,5 @@ public class MapEditorbutton : MonoBehaviour {//レベルデザインデータ�
 		item5,
 		disappearblock,
 		switchdisappear
-
 	}
 }

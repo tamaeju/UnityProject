@@ -15,7 +15,7 @@ public class ItemMakerCreater : MonoBehaviour {//Itemmakerとレフトカウン�
 	{
 		PrefabContainer prefabcontainer = meditator.getprefabcontainer();
 		DataManager datamanager = meditator.getdatamanager();
-		MakeManager makemanager = meditator.getmakemanager();
+		UIManager uimanager = meditator.getUImanager();
 
 		GameObject leftcountprefab = prefabcontainer.getobjectleftCount();
 		GameObject dragobjectmakerprefab = prefabcontainer.getdragobjectmaker();
@@ -27,8 +27,8 @@ public class ItemMakerCreater : MonoBehaviour {//Itemmakerとレフトカウン�
 			Vector2 leftcountpos = new Vector2(414, 115);
 			Vector2 itemlabelpos = new Vector2(414, 128);
 
-			GameObject itemleftCount = makemanager.MakeGetUIobject(leftcountprefab, leftcountpos);
-			GameObject itemlabelname = makemanager.MakeGetUIobject(leftcountprefab, itemlabelpos);
+			GameObject itemleftCount = uimanager.MakeGetUIobject(leftcountprefab, leftcountpos);
+			GameObject itemlabelname = uimanager.MakeGetUIobject(leftcountprefab, itemlabelpos);
 
 			itemleftCount.transform.position = new Vector3(canvastrans.position.x + leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);
 			itemlabelname.transform.position = new Vector3(canvastrans.position.x + itemlabelpos.x, canvastrans.position.y + itemlabelpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);

@@ -7,15 +7,17 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DataManager : MonoBehaviour {
-	private static int maxGridNum = Config.maxGridNum;//他のクラスも参照する最大要素数
+public class DataManager : MonoBehaviour {//ゲームデータを保存、使用、返すクラス。データの保持はこのクラスに任せ、値の返却は別クラスに任せたほうがまとまる。（datagetterみたいなクラス）
+
+	private static int maxGridNum = Config.maxGridNum;//最大要素数
 	int[,] _leveldesigndata;
 	bool[,] _canSetDatas;
 	int[] needeatcount;
 	int needeatcountcolomn = 2;//データの3列目なら3-1で要素番号2で正しい。
 	int[] stagelefttimecount;
 	int stagelefttimecountcolomn = 1;
-	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列
+	dragitemdata[,] dragitemdatas;//dragitemdatas構造体の配列※ステージ数がインデックス
+	clearconditiondata[] clearconditionaldatas;//clearconditiondata構造体の配列※ステージ数がインデックス
 	int stage;
 	DataCheck datachecker;
 	[SerializeField]
@@ -23,7 +25,7 @@ public class DataManager : MonoBehaviour {
 	MassDealer massdealer;
 
 
-	void Start() {
+	void Start() {//各データの初期化
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
 		needeatcount = new int[Config.stageCount];
@@ -66,7 +68,7 @@ public class DataManager : MonoBehaviour {
 	}
 
 
-	public void makeLevelDesignData() {
+	public void makeLevelDesignData() {//objectseteditorから、レベルデザインの更新を行う処理
 		GameObject[] UIobjects = meditator.getUImanager().getUIobjects();
 		for (int j = 0; j < maxGridNum; ++j) {
 			for (int i = 0; i < maxGridNum; ++i) {
@@ -78,16 +80,14 @@ public class DataManager : MonoBehaviour {
 		return _leveldesigndata;
 	}
 
-	public void getEatCountandLefttimeCount() {
-		CSVManager csvmanager = meditator.getcsvmanager();
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
 
-		needeatcount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), needeatcountcolomn);
-		stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), stagelefttimecountcolomn);
-	}
 
 	public void UpdateALLdragitemdata(dragitemdata[,] adragitemdatas) {
 		dragitemdatas = adragitemdatas;
+	}
+
+	public void UpdateALLClearconditiondata(clearconditiondata[] aclearconditiondatas) {
+		clearconditionaldatas = aclearconditiondatas;
 	}
 
 	public void LoadALLdragitemdata() {//csvデータを読み込んできてアイテムデータを上書き。
@@ -98,12 +98,10 @@ public class DataManager : MonoBehaviour {
 		dragitemdatas = jagchanger.parsejagtodobledragitemdatadatas(jagitemdata);
 	}
 
-
-
+	
 	public void UpdateDragitemData(int UIbuttonNum, int itemkind, int leftcount) {
 		CSVManager csvmanager = meditator.getcsvmanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
-
 		Debug.Log(String.Format("dragitemdatas, UIbuttonNum, stage   {0},{1},{2}   ", dragitemdatas, UIbuttonNum, stage));
 		dragitemdatas[stage, UIbuttonNum].itemkind = itemkind;
 		dragitemdatas[stage, UIbuttonNum].itemcount = leftcount;
@@ -128,4 +126,11 @@ public class DataManager : MonoBehaviour {
 	public bool[,] getcanSetDatas() {
 		return _canSetDatas;
 	}
+	//public void getEatCountandLefttimeCount() {
+	//	CSVManager csvmanager = meditator.getcsvmanager();
+	//	DataPathManager datapathmanager = meditator.getdatapathmanager();
+
+	//	needeatcount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), needeatcountcolomn);
+	//	stagelefttimecount = csvmanager.get1dimentionalData(datapathmanager.getconditiondatapath(), stagelefttimecountcolomn);
+	//}
 }

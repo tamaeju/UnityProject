@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {//マップに何を配置するかを調整するUIであるobjectselectボタンを扱うクラス
+public class UIManager : MonoBehaviour {//マップに何を配置するかを調整するUIであるobjectselectボタンを扱うクラス。クリアコンディションのテキストも扱うようにする。
 
 	[SerializeField]
 	private GameObject[] UIobjects;//マップエディット用のUIボタンの格納用配列
@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour {//マップに何を配置するかを�
 	private GameObject uiposition;//_levelbuttonを表示ONOFFするためのUIの親オブジェクト
 	[SerializeField]
 	private GameObject canvasposition;//UI生成用のUIの親オブジェクト
-
-
 	[SerializeField]
 	Meditator meditator;
 
@@ -59,7 +57,7 @@ public class UIManager : MonoBehaviour {//マップに何を配置するかを�
 		}
 	}
 	public GameObject MakeGetUIobject(GameObject instanceprefab, Vector2 objectpos) {//UI上にオブジェクトを生成し、vector2の位置にオブジェクトを生成する処理
-		PrefabContainer objectcontainer　= meditator.geto
+		PrefabContainer objectcontainer = meditator.getprefabcontainer();
 		Transform canvastrans = objectcontainer.getcanvasposition().transform;
 		GameObject getobject = Instantiate(instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
 		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);

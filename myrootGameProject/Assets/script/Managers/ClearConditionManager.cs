@@ -75,9 +75,9 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	}
 
 	public void getTextinstance(){
-		if (eatconditiontext == null && timelimitconditiontext == null) {//多分オッケー
-			eatconditiontext = meditator.getmakemanager().MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
-			timelimitconditiontext = meditator.getmakemanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
+		if (eatconditiontext == null && timelimitconditiontext == null) {
+			eatconditiontext = meditator.getUImanager().MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
+			timelimitconditiontext = meditator.getUImanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
 		}
 	}
 	public void decreaseEatCount() {
