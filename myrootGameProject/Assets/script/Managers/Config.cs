@@ -11,9 +11,13 @@ public class Config : MonoBehaviour {//ゲームのシステムや不変の設�
 	public readonly static int stageCount = 100;
 	public readonly static int dragbuttonNum = 3;
 	public readonly static int itemkindlength = 8;
+<<<<<<< HEAD
 	public readonly static int blockkindlength = 8;
 	public readonly static 	int usecolomn_of_mapdata = 3;
 	public readonly static int filekindlength = 3;
+=======
+	public readonly static int blockkindlength = 12;
+>>>>>>> origin/testbranch3333
 
 	public Vector3 getFirstblocklocalposition() {//groundが0,0,0の位置にあるならローカル座標が出る。
 		firstblocklocalposition = new Vector3(0,0,0);
