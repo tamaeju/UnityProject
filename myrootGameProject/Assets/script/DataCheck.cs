@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class DataCheck : MonoBehaviour {//データマネージャーに保存されている値との整合性を確認するクラス
 	[SerializeField]
-	DataManager datamanager;
+	MapDataManager datamanager;
 	[SerializeField]
 	MassDealer massdealer;
 
@@ -33,13 +33,23 @@ public class DataCheck : MonoBehaviour {//データマネージャーに保存�
 	{
 		bool[,] cansetdatas = datamanager.getcanSetDatas();
 		Vector2 checkvector2 = massdealer.parseVector3XYZtoVector2XZ(checkvector3);
-		if (checkinIndex(checkvector2))
+		if (checkinIndex(checkvector2)) {
+			Debug.Log(String.Format("{0}{1}{2}", (int)checkvector2.x, (int)checkvector2.y, cansetdatas[(int)checkvector2.x, (int)checkvector2.y].ToString()));
 			return cansetdatas[(int)checkvector2.x, (int)checkvector2.y];
+		}
 		else { return false; }
 	}
 	private bool checkinIndex(Vector3 checkvector3)
 	{
 		Vector2 checkvector2 = massdealer.parseVector3XYZtoVector2XZ(checkvector3);
 		return checkvector2.x >= 0 && (int)checkvector2.x < Config.maxGridNum && checkvector2.y >= 0 && (int)checkvector2.y < Config.maxGridNum;
+	}
+	void debugdatacheck() {//デバッグ用なので、無視して問題ない。
+		bool[,] cansetdatas = datamanager.getcanSetDatas();
+		for (int j = 0; j < cansetdatas.GetLength(1); j++) {
+			for (int i = 0; i < cansetdatas.GetLength(0); i++) {
+				Debug.Log(String.Format("{0}{1}{2}",i, j, cansetdatas[i, j]));
+			}
+		}
 	}
 }

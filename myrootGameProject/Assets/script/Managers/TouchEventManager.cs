@@ -9,7 +9,7 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 	DisplayMoveAgent DisplayMoveagent;
 	Vector3 initialtappoint;
 	MakeManager makemanager;
-	DataManager datamanager;
+	MapDataManager mapdatamanager;
 	DataCheck datachecker;
 	MassDealer massdealer;
 
@@ -20,7 +20,7 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 
 	void Start() {//参照オブジェクトの初期化
 		makemanager = meditator.getmakemanager();
-		datamanager = meditator.getdatamanager();
+		mapdatamanager = meditator.getmapdatamanager();
 		datachecker = meditator.getdatachecker();
 		massdealer = meditator.getmassdealer();
 		rayemitter = new RayEmit();
@@ -76,11 +76,13 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 		Vector3 instancePosition;
 		instancePosition = massdealer.getInstanceposFromMouse(0);
 		Vector3 indexVector3 = massdealer.getIndexpos(instancePosition);//x,y,zが何番目の配列か調べる。
+		Debug.Log(String.Format("indexVector3.x, indexVector3.y, indexVector3.zはそれぞれ{0}{1}{2}", indexVector3.x, indexVector3.y, indexVector3.z));
+
 		if (datachecker.checkCanSet(indexVector3) && catchObject != null) {//今のポジションのインデックスが配列内であり、セットできるのであれば処理実行
 			draggeeditem.decreaseLeftCount();
 			catchObject.transform.position = massdealer.getRoundedgPos(instancePosition);
-			datamanager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
-			datamanager.updateCansetDatas(indexVector3);
+			mapdatamanager.changeMapData(indexVector3, draggeeditem.getMyObjectKind());
+			mapdatamanager.updateCansetDatas(indexVector3);
 		}
 		else {
 			Destroy(catchObject);

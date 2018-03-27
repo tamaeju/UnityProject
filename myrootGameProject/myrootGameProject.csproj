@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\script\AnimePlay.cs" />
+    <Compile Include="Assets\script\BombItem.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
     <Compile Include="Assets\script\DataCheck.cs" />
@@ -91,13 +92,15 @@
     <Compile Include="Assets\script\Managers\ButtonEventManager.cs" />
     <Compile Include="Assets\script\Managers\CSVManager.cs" />
     <Compile Include="Assets\script\Managers\ClearConditionManager.cs" />
+    <Compile Include="Assets\script\Managers\ClearDataManager.cs" />
     <Compile Include="Assets\script\Managers\Config.cs" />
-    <Compile Include="Assets\script\Managers\DataManager.cs" />
     <Compile Include="Assets\script\Managers\DataPathManager.cs" />
+    <Compile Include="Assets\script\Managers\ItemDataManager.cs" />
     <Compile Include="Assets\script\Managers\ItemMakerCreater.cs" />
     <Compile Include="Assets\script\Managers\ItemmakeEditorManager.cs" />
     <Compile Include="Assets\script\Managers\LevelSelectCanvasManager.cs" />
     <Compile Include="Assets\script\Managers\MakeManager.cs" />
+    <Compile Include="Assets\script\Managers\MapDataManager.cs" />
     <Compile Include="Assets\script\Managers\Meditator.cs" />
     <Compile Include="Assets\script\Managers\TouchEventManager.cs" />
     <Compile Include="Assets\script\Managers\UIManager.cs" />

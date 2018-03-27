@@ -44,8 +44,6 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 						popobject.GetComponent<TargetMove>().getclearconditioner(meditator.getclearmanager());
 					}
 				}
-
-
 			}
 		}
 	}

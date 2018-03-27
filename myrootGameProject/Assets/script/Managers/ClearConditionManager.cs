@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class ClearConditionManager : MonoBehaviour {//クリア条件を管理するクラス
 	CSVManager csvmanager;
-	DataManager datamanager;
+	MapDataManager datamanager;
 	[SerializeField]
 	Meditator meditator;
 
@@ -36,27 +36,24 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 
 	void Start() {//conditionaldatasをとってくるための初期化
 		csvmanager = meditator.getcsvmanager();
-		datamanager = meditator.getdatamanager();
+		datamanager = meditator.getmapdatamanager();
 		conditionaldatas = new clearconditiondata[Config.stageCount];
 	}
 
-	public void stageStart() {//ステージタイムの更新開始
-		getClearcondition();
-		getTextinstance();
-		reflectDisplay();
+	public void stageStart() {//ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
+		getClearcondition();//クリアコンディション
+		getTextinstance();//食事条件と、残りタイムの関連テキストを生成し、参照の取得を行う。
+		reflectTexttoDisplay();
 		recenttime = m_stagetimelimit;
 		StartCoroutine(timedecreasePerSecond());
 	}
 
 	public void getClearcondition() {//csvmanagerを介してクリア条件をとってくる。
-		int stagenum = datamanager.getStageNum();
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		DataChangerFromJaG jagchanger = meditator.getjagchanger();
-		int[][] jagcleardata = csvmanager.getJagDataElement(datapathmanager.getconditiondatapath());
-		UpdateALLcleardata(jagchanger.parsejagtodobleClearconditiondatas(jagcleardata));
-		m_stageneedeatcount = conditionaldatas[stagenum].RequiredKillCount;
-		m_stagetimelimit = conditionaldatas[stagenum].timelimit;
+		m_stageneedeatcount = conditionaldatas[datamanager.getStageNum()].RequiredKillCount;
+		m_stagetimelimit = conditionaldatas[datamanager.getStageNum()].timelimit;
 	}
+
+
 
 	public void UpdateALLcleardata(clearconditiondata[] clearconditions) {
 		conditionaldatas = clearconditions;
@@ -64,7 +61,7 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 
 
 
-	public void reflectDisplay() {//コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
+	public void reflectTexttoDisplay() {//コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
 		int stagenum = datamanager.getStageNum();
 		eatconditiontext.text = recenteatcount.ToString();
 		timelimitconditiontext.text = recenttime.ToString();
@@ -80,6 +77,7 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 			timelimitconditiontext = meditator.getUImanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
 		}
 	}
+
 	public void decreaseEatCount() {
 		if (m_stageneedeatcount > 0) {
 			m_stageneedeatcount--;
@@ -90,19 +88,21 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 			recenttime--;
 		}
 	}
+
 	//1秒に1回タイムリミットをディクリーズする
 	private IEnumerator timedecreasePerSecond() {
 		for (int i = 0; i < m_stagetimelimit; i++) {
 			decreaseTime();
-			reflectDisplay();
+			reflectTexttoDisplay();
 			yield return new WaitForSeconds(1.0f);
 			if (i == m_stagetimelimit-1) {
-				reflectDisplay();
+				reflectTexttoDisplay();
 				gameOverEvent();
 				yield break;//ゲームオーバー処理
 			}
 		}
 	}
+
 	private void gameOverEvent() {
 		Instantiate(gameoverprefab, this.transform.position, Quaternion.identity);
 	}

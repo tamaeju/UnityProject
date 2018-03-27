@@ -6,8 +6,7 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 
 	[SerializeField]
 	CSVManager csvmanager;
-	[SerializeField]
-	DataManager datamanager;
+
 	[SerializeField]
 	MakeManager makemanager;
 	[SerializeField]
@@ -32,12 +31,19 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	ItemMakerCreater itemmakermanager;
 	[SerializeField]
 	ClearConditionManager clearmanager;
+	[SerializeField]
+	MapDataManager mapdatamanager;
+	[SerializeField]
+	ItemDataManager itemdatamanager;
+	[SerializeField]
+	ClearDataManager cleardatamanager;
+
 
 	public CSVManager getcsvmanager() {
 		return csvmanager;
 	}
-	public DataManager getdatamanager() {
-		return datamanager;
+	public MapDataManager getmapdatamanager() {
+		return mapdatamanager;
 	}
 	public DataPathManager getdatapathmanager() {
 		return datapathmanager;
@@ -78,4 +84,11 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	public ClearConditionManager getclearmanager() {
 		return clearmanager;
 	}
+	public ItemDataManager getitemdatamanager() {
+		return itemdatamanager;
+	}
+	public ClearDataManager getcleardatamanager() {
+		return cleardatamanager;
+	}
+
 }

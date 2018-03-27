@@ -5,7 +5,10 @@ using UnityEngine;
 public class Item : MonoBehaviour {
 	[SerializeField]
 	itemstate mystate;
-	public GameObject effect;
+	[SerializeField]
+	GameObject effect;
+	[SerializeField]
+	GameObject bombeffect;
 	state mystateinterface;
 	state[] stateallay;
 
@@ -37,7 +40,7 @@ public class Item : MonoBehaviour {
 		stop,
 		stop2,
 		block,
-		instanceblock
+		bomb
 	}
 
 	public void changeMyState(int stateNum) {
@@ -51,7 +54,7 @@ public class Item : MonoBehaviour {
 		protected Item myitem;
 
 		public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
-		public void oncloisionobject(Collider other) {
+		public void  oncloisionobject(Collider other) {
 			other.GetComponent<CharactorMove>().changeSpeed(speed, effecttime);
 			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
 			Destroy(myitem.gameObject);
@@ -110,5 +113,15 @@ public class Item : MonoBehaviour {
 		}
 	}
 
-	
+	class bomb : state {
+		public bomb(Item anItem) {
+			myitem = anItem;
+
+			mycolor = Color.black;
+		}
+		public new void oncloisionobject(Collider other) {
+
+		}
+	}
+
 }

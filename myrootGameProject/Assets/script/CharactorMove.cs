@@ -57,8 +57,4 @@ public class CharactorMove : MonoBehaviour {
 		return transform.position;
 	}//たどり着かせなければ勝ちのルール追加。
 	 //イライラ棒システム
-
-	//public //ゲームオーバーのキャンバスを表示する。下にはゲームリスタートのボタンが配置されている。
-
-	//public //ゲームクリアのキャンバスを表示する。下にはゲームリスタートのボタンが配置されている。
 }

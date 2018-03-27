@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemmakeEditorManager : MonoBehaviour {//ItemmakerをエディットするUIを管理するオブジェクト
+public class ItemmakeEditorManager : MonoBehaviour {//ItemmakerをエディットするUIを作成、管理するクラス。
 
 	[SerializeField]
 	private GameObject[] Itemmaker;
@@ -23,7 +23,7 @@ public class ItemmakeEditorManager : MonoBehaviour {//Itemmakerをエディッ�
 	int yposition = 131;
 
 
-	void Start() {//ItemmakerEditorの生成。
+	void Start() {//ItemmakerEditorの生成と、何番目のitemmakerEditorかの指定と、自身への参照を渡している。
 		var parent = canvasposition.transform;
 		Vector3 instancepos = new Vector3();
 		instancepos = canvasposition.transform.position;
@@ -46,18 +46,18 @@ public class ItemmakeEditorManager : MonoBehaviour {//Itemmakerをエディッ�
 
 	public　void onclickSaveButton(ItemMakeEditor dragbutton) {//saveボタンクリックで、引数に応じたeditorの値をセーブ
 		CSVManager csvmanager = meditator.getcsvmanager();
-		DataManager datamanager = meditator.getdatamanager();
+		ItemDataManager itemdatamanager = meditator.getitemdatamanager();
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
-		datamanager.LoadALLdragitemdata();
-		datamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
-		csvmanager.itemCsvSave(datamanager.getItemData());
+		itemdatamanager.LoadALLdragitemdata();
+		itemdatamanager.UpdateDragitemData(dragbutton.getUIbuttonNum(), dragbutton.getObjectKind(), dragbutton.getLeftCount());
+		csvmanager.itemCsvSave(itemdatamanager.getItemData());
 	}
-	public void setUIdragbuttonNum() {
+	public void setUIdragbuttonNum() {//上から何番目かを指定する処理
 		for (int i = 0; i < Itemmaker.Length; i++) {
 			Itemmaker[i].GetComponent<ItemMakeEditor>().changeobjectNum(i);
 		}
 	}
-	public void deletebutton() {
+	public void deletebutton() {//UIを消す際の処理
 		foreach (var item in Itemmaker) {
 			Destroy(item);
 		}
