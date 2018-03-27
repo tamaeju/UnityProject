@@ -6,13 +6,13 @@ using System;
 
 public class MapEditorbutton : MonoBehaviour {//レベルデザインデータ作成用のボタンのスクリプト
 	public Vector3 pos;
-	public int stateNum;
+	public int stateNum;//+1した数字を返す。
 	[SerializeField]
 	private Text mytext;
 	Color blackcolor = new Color(0,0,0,1);
 
 	public void addState(){
-		if (stateNum <  Config.blockkindlength) {
+		if (stateNum <  Config.blockkindlength-1) {
 			stateNum++;
 			changemychar();
 		}
@@ -37,7 +37,7 @@ public class MapEditorbutton : MonoBehaviour {//レベルデザインデータ�
 		mytext = GetComponentInChildren<Text>();
 		var state =  (blockkind)Enum.ToObject(typeof(blockkind), stateNum);
 		var stringname = Enum.GetName(typeof(blockkind), state);
-		mytext.text = stringname[0].ToString(); 
+		mytext.text = stringname[1].ToString(); 
 	}
 
 	public Vector2 returnThisPos() {
@@ -45,46 +45,38 @@ public class MapEditorbutton : MonoBehaviour {//レベルデザインデータ�
 	}
 
 	public int returnThisState() {
-		return this.stateNum;
+		return this.stateNum+1;//0が存在しないため基本的に+1を返す。
 	}
 	public void changeButtonColour() {
-		if(stateNum == (int)blockkind.nothing)
+		if(stateNum == (int)blockkind._1block)
 			gameObject.GetComponent<Image>().color = Color.red;
-		if (stateNum == (int)blockkind.block)
+		if (stateNum == (int)blockkind._2block)
 			gameObject.GetComponent<Image>().color = Color.blue;
-		if (stateNum == (int)blockkind.player)
+		if (stateNum == (int)blockkind._3block)
 			gameObject.GetComponent<Image>().color = Color.green;
-		if (stateNum == (int)blockkind.target)
+		if (stateNum == (int)blockkind._4block)
 			gameObject.GetComponent<Image>().color = Color.white;
-		if (stateNum == (int)blockkind.target2)
+		if (stateNum == (int)blockkind._5block)
 			gameObject.GetComponent<Image>().color = Color.white;
-		if (stateNum == (int)blockkind.goal)
+		if (stateNum == (int)blockkind._6block)
 			gameObject.GetComponent<Image>().color = Color.yellow;
-		if (stateNum == (int)blockkind.item1|| stateNum == (int)blockkind.item2 || stateNum == (int)blockkind.item3 || stateNum == (int)blockkind.item4 || stateNum == (int)blockkind.item4 || stateNum == (int)blockkind.item5)
+		if (stateNum == (int)blockkind._7block || stateNum == (int)blockkind._8block || stateNum == (int)blockkind._9block)
 		{//ブラックカラーのアルファの値をstatenumで割った値とする。
 			Color newcolor = new Color(0,0,0,blackcolor.a/ stateNum);
 			gameObject.GetComponent<Image>().color = newcolor;
 		}
-		if (stateNum == (int)blockkind.disappearblock)
-			gameObject.GetComponent<Image>().color = Color.black;
-		if (stateNum == (int)blockkind.switchdisappear)
-			gameObject.GetComponent<Image>().color = Color.black;
 
 	}
 	//ブロックなら青系、プレイヤーなら緑系、ゴールは黄色系,アイテム系は黒系で透明度をあげていく感じか。
 	public enum blockkind {
-		nothing,
-		block,
-		player,
-		target,
-		target2,
-		goal,
-		item1,
-		item2,
-		item3,
-		item4,
-		item5,
-		disappearblock,
-		switchdisappear
+		_1block,
+		_2block,
+		_3block,
+		_4block,
+		_5block,
+		_6block,
+		_7block,
+		_8block,
+		_9block,
 	}
 }

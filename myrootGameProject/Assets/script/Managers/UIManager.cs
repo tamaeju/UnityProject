@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour {//マップに何を配置するかを�
 		var parent = uiposition.transform;
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
-				UIobjects[j * 10 + i] = Instantiate(_levelbutton, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;
+				UIobjects[j * Config.maxGridNum + i] = Instantiate(_levelbutton, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;
 			}
 		}
 	}
