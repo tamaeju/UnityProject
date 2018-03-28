@@ -116,7 +116,7 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 		canvas.changeTitleText("clear!");
 		canvas.changeMessagetext("conglatulation!");
 		canvas.changeScorelabel("防衛数");
-		canvas.changeScoreText(0);
+		canvas.changeScoreText(recenteatcount);
 		canvas.setButtonscroll();
 		canvas.changebackcolor(Color.yellow);
 	}
@@ -126,9 +126,9 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 		canvas.changeTitleText("stagestart!");
 		canvas.changeMessagetext("");
 		canvas.changeScorelabel("目標防衛数");
-		canvas.changeScoreText(0);
+		canvas.changeScoreText(m_stageneedeatcount);
 		canvas.changeTimelabel("残時間");
-		canvas.changeTimeText(0);
+		canvas.changeTimeText(m_stagetimelimit);
 		canvas.setButtonscroll();
 		canvas.changebackcolor(Color.green);
 	}
