@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/FreeCharacter/FreeCharacter_scene.unity
+- path: Assets/scene/dataCreateScene.unity
   isLoaded: 1
   isActive: 1

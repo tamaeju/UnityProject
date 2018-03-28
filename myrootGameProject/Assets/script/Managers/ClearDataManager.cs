@@ -25,7 +25,13 @@ public class ClearDataManager : MonoBehaviour {
 		clearconditionaldatas = jagchanger.parsejagtodobleClearconditiondatas(csvmanager.getJagDataElement(datapathmanager.getconditiondatapath()));
 	}
 	public clearconditiondata getStageClearCondition(int stage) {
+		LoadALLclearconditondata();
 		return clearconditionaldatas[stage];
 	}
+	public clearconditiondata[] getclearconditondata() {//csvデータを読み込んできてアイテムデータを上書き。
+		LoadALLclearconditondata();
+		return clearconditionaldatas;
+	}
+
 
 }

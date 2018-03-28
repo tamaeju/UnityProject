@@ -17,9 +17,10 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	[SerializeField]
 	GameObject gameoverprefab;
 
-	int m_stageneedeatcount;//目標食事数
+
+	ClearDataManager cleardatamanager;
+	
 	int recenteatcount;//現在食事数
-	int m_stagetimelimit;//目標制限時間
 	int recenttime;//現在時間
 
 	Vector2 eatconditionaltextpos = new Vector2(-300, 160);//表示位置
@@ -39,25 +40,25 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 		csvmanager = meditator.getcsvmanager();
 		datamanager = meditator.getmapdatamanager();
 		conditionaldatas = new clearconditiondata[Config.stageCount];
+		cleardatamanager = meditator.getcleardatamanager();
 	}
 
 	public void stageStart() {//ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
-		getClearcondition();//クリアコンディション
+		conditionaldatas = cleardatamanager.getclearconditondata();
 		getTextinstance();//食事条件と、残りタイムの関連テキストを生成し、参照の取得を行う。
 		reflectTexttoDisplay();
-		recenttime = m_stagetimelimit;
+		recenttime = conditionaldatas[datamanager.getStageNum()].timelimit;
 		StartCoroutine(timedecreasePerSecond());
-	}
+		showstartcanvas();
 
-	public void getClearcondition() {//csvmanagerを介してクリア条件をとってくる。
-		m_stageneedeatcount = conditionaldatas[datamanager.getStageNum()].RequiredKillCount;
-		m_stagetimelimit = conditionaldatas[datamanager.getStageNum()].timelimit;
 	}
 
 
 
-	public void UpdateALLcleardata(clearconditiondata[] clearconditions) {
-		conditionaldatas = clearconditions;
+
+
+	public void UpdateALLcleardata() {
+		conditionaldatas = cleardatamanager.getclearconditondata();
 	}
 
 
@@ -80,8 +81,8 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	}
 
 	public void decreaseEatCount() {
-		if (m_stageneedeatcount > 0) {
-			m_stageneedeatcount--;
+		if (recenteatcount > 0) {
+			recenteatcount--;
 		}
 	}
 	public void decreaseTime() {
@@ -92,11 +93,12 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 
 	//1秒に1回タイムリミットをディクリーズする
 	private IEnumerator timedecreasePerSecond() {
-		for (int i = 0; i < m_stagetimelimit; i++) {
+		int timelimit = conditionaldatas[datamanager.getStageNum()].timelimit;
+		for (int i = 0; i < timelimit; i++) {
 			decreaseTime();
 			reflectTexttoDisplay();
 			yield return new WaitForSeconds(1.0f);
-			if (i == m_stagetimelimit-1) {
+			if (i == timelimit - 1) {
 				reflectTexttoDisplay();
 				gameOverEvent();
 				yield break;//ゲームオーバー処理
@@ -105,7 +107,9 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	}
 
 	private void gameOverEvent() {
-		Instantiate(gameoverprefab, this.transform.position, Quaternion.identity);
+		if (isClear()) { showclearcanvas(); }
+		else {
+			Instantiate(gameoverprefab, this.transform.position, Quaternion.identity); }
 	}
 	public void addRecentEatcount() {
 		recenteatcount++;
@@ -121,16 +125,25 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 		canvas.changebackcolor(Color.yellow);
 	}
 	private void showstartcanvas() {
+
+		int timelimit = conditionaldatas[datamanager.getStageNum()].timelimit;
+		int needeatcount = conditionaldatas[datamanager.getStageNum()].RequiredKillCount;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, transform.position, Quaternion.identity) as GameObject;
 		CanvasManager canvas = clearcanvasobject.GetComponent<CanvasManager>();
 		canvas.changeTitleText("stagestart!");
 		canvas.changeMessagetext("");
 		canvas.changeScorelabel("目標防衛数");
-		canvas.changeScoreText(m_stageneedeatcount);
+		canvas.changeScoreText(needeatcount);
 		canvas.changeTimelabel("残時間");
-		canvas.changeTimeText(m_stagetimelimit);
+		canvas.changeTimeText(timelimit);
 		canvas.setButtonscroll();
 		canvas.changebackcolor(Color.green);
 	}
+
+	//private void debugshowdata() {
+	//	for (int j = 0; j < conditionaldatas.Length; ++j) {
+	//			Debug.Log(String.Format("ステージは{0}, 必要イート数は{1}, 有時刻は{2}", j, conditionaldatas[j].RequiredKillCount, conditionaldatas[j].timelimit));
+	//		}
+	//}
 
 }

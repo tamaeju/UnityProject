@@ -16,7 +16,7 @@ public class TargetMove : CharactorMove {//ゴール以外のマップのター�
 	public void getclearconditioner(ClearConditionManager aclearconditioner) {
 		clearconditioner = aclearconditioner;
 	}
-	void updateclearcondition() {//クリアコンディションの情報を更新する処理
+	public void incleaseEatCount() {//クリアコンディションの情報を更新する処理
 		if (clearconditioner != null)
 			clearconditioner.addRecentEatcount();
 	}

@@ -34,13 +34,6 @@ public class CanvasManager : MonoBehaviour {//キャンバスを扱うクラス�
 	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
 
 	private void Start() {
-		changeTitleText("");
-		changeMessagetext("");
-		changeScorelabel("");
-		changeScoreText(0);
-		changeTimelabel("");
-		changeTimeText(0);
-		setButtonscroll();
 		buttontext = button.GetComponentInChildren<Text>();
 	}
 
@@ -60,13 +53,11 @@ public class CanvasManager : MonoBehaviour {//キャンバスを扱うクラス�
 	public void changeTimelabel(string label) {
 		timelabeltext.text = label;
 	}
-
-
 	public void changeMessagetext(string tex) {
 		messagetext.text = tex;
 	}
 	private void setButtonMethod(UnityAction act) {
-		button.onClick.AddListener(act);
+		button.GetComponent<Button>().onClick.AddListener(DisplayMoveOut);
 	}
 
 	public void changebuttontext(string tex) {
@@ -74,7 +65,8 @@ public class CanvasManager : MonoBehaviour {//キャンバスを扱うクラス�
 	}
 
 	public void setButtonscroll() {
-		setButtonMethod(DisplayMoveOut);
+		button.GetComponent<Button>().onClick.AddListener(DisplayMoveOut);
+		//setButtonMethod(DisplayMoveOut);
 	}
 
 
@@ -86,7 +78,7 @@ public class CanvasManager : MonoBehaviour {//キャンバスを扱うクラス�
 	}
 	private IEnumerator moveCoroutine(int totalmovedistance) {//画面外にはける動きを作成するために、1Fごとに指定移動距離の1/20を動く。
 		for (int i = 0; i < 20; i++) {
-			rectform = GetComponent<RectTransform>();
+			rectform = transform.parent.gameObject.GetComponent<RectTransform>();
 			variableVector3 = rectform.position;
 			variableVector3.y = variableVector3.y + totalmovedistance / 20;
 			rectform.position = variableVector3;
