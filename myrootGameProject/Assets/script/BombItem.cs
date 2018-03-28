@@ -13,30 +13,27 @@ public class BombItem : MonoBehaviour {
 	[SerializeField]
 	GameObject bombeffectprefab;
 	GameObject countdowntextobject;
-	Text countdowntext;
-	int bombCount = 3;
+	TextMesh countdowntext;
+	int bombCount = 5;
 
 	void Start() {
-		countdowntextobject = Instantiate(countdowntextprafab,this.transform.position, Quaternion.Euler(0, 90, 0)) as GameObject;
-		countdowntext = countdowntextobject.GetComponent<Text>();
+		countdowntextobject = Instantiate(countdowntextprafab,this.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
+		countdowntext = countdowntextobject.GetComponent<TextMesh>();
+		setThisObjectActive();//テスト用にいったんここに置く
 	}
 
 	void setThisObjectActive() {//場所に設置された瞬間から始まるカウントダウンをどうするかだが、
 		StartCoroutine(waitANDinstance());
 	}
 
-	void OnTriggerEnter(Collider other) {//グラウンドに置かれた瞬間からカウントダウン開始
-		if (other.gameObject.tag == "ground") {
-			setThisObjectActive();
-		}
-	}
-
 	private IEnumerator waitANDinstance() {
-		countdowntextobject.transform.position = this.transform.position;
+
 		for (int i = bombCount; i > 0; i--) {
+			countdowntextobject.transform.position = this.transform.position;
 			countdowntext.text = i.ToString();
 			yield return new WaitForSeconds(1f);
 		}
+		Destroy(countdowntext.gameObject); 
 		Instantiate(bombeffectprefab);
 		Destroy(this);
 		yield break;

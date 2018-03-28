@@ -12,7 +12,8 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	MapDataManager datamanager;
 	[SerializeField]
 	Meditator meditator;
-
+	[SerializeField]
+	GameObject scenecanvasprefab;
 	[SerializeField]
 	GameObject gameoverprefab;
 
@@ -108,6 +109,28 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	}
 	public void addRecentEatcount() {
 		recenteatcount++;
+	}
+	private void showclearcanvas() {
+		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, transform.position,Quaternion.identity) as GameObject;
+		CanvasManager canvas = clearcanvasobject.GetComponent<CanvasManager>();
+		canvas.changeTitleText("clear!");
+		canvas.changeMessagetext("conglatulation!");
+		canvas.changeScorelabel("防衛数");
+		canvas.changeScoreText(0);
+		canvas.setButtonscroll();
+		canvas.changebackcolor(Color.yellow);
+	}
+	private void showstartcanvas() {
+		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, transform.position, Quaternion.identity) as GameObject;
+		CanvasManager canvas = clearcanvasobject.GetComponent<CanvasManager>();
+		canvas.changeTitleText("stagestart!");
+		canvas.changeMessagetext("");
+		canvas.changeScorelabel("目標防衛数");
+		canvas.changeScoreText(0);
+		canvas.changeTimelabel("残時間");
+		canvas.changeTimeText(0);
+		canvas.setButtonscroll();
+		canvas.changebackcolor(Color.green);
 	}
 
 }

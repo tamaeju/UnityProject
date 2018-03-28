@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\script\AnimePlay.cs" />
     <Compile Include="Assets\script\BombItem.cs" />
+    <Compile Include="Assets\script\CanvasManager.cs" />
     <Compile Include="Assets\script\CharactorMove.cs" />
     <Compile Include="Assets\script\DataChangerFromJaG.cs" />
     <Compile Include="Assets\script\DataCheck.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\script\Managers\ClearConditionManager.cs" />
     <Compile Include="Assets\script\Managers\ClearDataManager.cs" />
     <Compile Include="Assets\script\Managers\Config.cs" />
+    <Compile Include="Assets\script\Managers\DataCreateScene.cs" />
     <Compile Include="Assets\script\Managers\DataPathManager.cs" />
     <Compile Include="Assets\script\Managers\ItemDataManager.cs" />
     <Compile Include="Assets\script\Managers\ItemMakerCreater.cs" />

@@ -10,79 +10,69 @@ using UnityEngine.UI;
 public class ButtonEventManager : MonoBehaviour {//ボタンを押した時のクリック処理の大方を扱うクラス。
 	[SerializeField]
 	Meditator meditator;
-	MakeManager makemanager;
-	CSVManager csvmanager;
-	ItemDataManager itemdatamanager;
-	MapDataManager mapdatamanager;
-	DataPathManager datapathmanager;
-	ItemmakeEditorManager UIdraghmanager;
-	ItemMakerCreater itemmakermanager;
-	int usecolomn_of_mapdata = 3;
+	Action makemethod;
+	Action<int> makeMakermethod;
+	Action<Dropdown> changecsvmethod;
+	Action makecsvmethod;
+	Action makeobjectmakeitemmakerdeleteUImethod;
 
-	void Start() {//ボタンタップで各種オブジェクトにアクセスする必要があるため、各種への参照を取得
-		makemanager = meditator.getmakemanager();
-		csvmanager = meditator.getcsvmanager();
-		mapdatamanager = meditator.getmapdatamanager();
-		itemdatamanager = meditator.getitemdatamanager();
-		datapathmanager = meditator.getdatapathmanager();
-		UIdraghmanager = meditator.getUIdraghmanager();
-		itemmakermanager = meditator.getitemmakermanager();
+
+
+	public void makeMapCsvButton() {//UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
+		makecsvmethod();
 	}
 
-	public void makeMapCsvButton()//UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
-		{
-		mapdatamanager.makeLevelDesignData();
-		csvmanager.MapCsvSave(mapdatamanager.getLevelDesignData());
+	public void setmakeMapCsvButton(Action anact) {//UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
+		makecsvmethod = anact;// makeMapCsvButtonメソッドを初期化時に代入する必要あり
 	}
 
-	public void makeObjectFromMapCsvButton(){//csvmanaにデータをとってくるよう要求、そのデータを用いて、makemaneにインスタンス生成を要求、そのデータにて、置けるか置けないかを上書き、プレイヤーのagerntをゴールに設定。
-											 //itemデータもその後取得し、datamanagerへそのデータ更新要求を行って、そのデータからアイテムメイカーというオブジェクト作成依頼をかける。
-		makeMapObjectANDupdateLeveldesignDataAndCansetData();
-		UIdraghmanager.deletebutton();
-		makeItemMaker(mapdatamanager.getStageNum());
+
+
+	public void makeObjectButton() {//csvmanaにデータをとってくるよう要求、そのデータを用いて、makemaneにインスタンス生成を要求、そのデータにて、置けるか置けないかを上書き、プレイヤーのagerntをゴールに設定。
+											  //itemデータもその後取得し、datamanagerへそのデータ更新要求を行って、そのデータからアイテムメイカーというオブジェクト作成依頼をかける。
+		makeobjectmakeitemmakerdeleteUImethod();
 	}
 
-	public void makeObjectfromSelectScene(int stageNum) {//レベルセレクト画面にてステージレベルを選択した際の遷移。マップエディターで表示しているUIを消す処理以外はmakeObjectFromMapCsvButtonと同様。
-		makeMapObjectANDupdateLeveldesignDataAndCansetData();
-		makeItemMaker(stageNum);
-
+	public void setmakeObjectButton(Action anact) {
+		makeobjectmakeitemmakerdeleteUImethod = anact;
 	}
 
-	public void CanvasOFFButton()//キャンバスの表示オフ
-	{
+
+	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド、マップデータ以外は１つのcsvファイルに保存（インデックスがステージになっているのでそう設計した）
+		changecsvmethod(dropdown);
+	}
+
+	public void setChangeCSVNum(Action<Dropdown> anact) {//保存先と、呼び出し先のcsvを変更するメソッド、マップデータ以外は１つのcsvファイルに保存（インデックスがステージになっているのでそう設計した）
+		changecsvmethod = anact;//ChangeCSVNumメソッドを初期化時に代入する必要あり
+	}
+
+
+
+	public void makeItemMaker(int stageNum) {
+		makeMakermethod(stageNum);
+	}
+
+	public void setmakeItemMaker(Action<int> anact) {
+		makeMakermethod = anact;//makeItemMakerを初期化時に代入してもらう必要あり。
+	}
+
+
+
+	public void CanvasOFFButton() {//キャンバスの表示オフ
 		Transform trasnform = meditator.getprefabcontainer().getmapmassuipositionObject().GetComponent<Transform>();
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(false);
 		}
 	}
-	public void CanvasONButton()//ボタンプッシュで実行
-	{
+	public void CanvasONButton() {//キャンバスの表示オン
 		Transform trasnform = meditator.getprefabcontainer().getmapmassuipositionObject().GetComponent<Transform>();
 		foreach (Transform item in trasnform) {
 			item.gameObject.SetActive(true);
 		}
 	}
-	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド、マップデータ以外は１つのcsvファイルに保存（インデックスがステージになっているのでそう設計した）
-		datapathmanager.ChangeMapCSVNum(dropdown.value);
-		mapdatamanager.changeStageNum(dropdown.value);
-	}
-
 	public void callloadMapCSV() {//指定のcsvからデータを読み込み、UIでのボタンのstateを変える。
 		UIManager UImanager = meditator.getUImanager();
 		UImanager.loadMapCSV();
 	}
-
-	public void makeItemMaker(int stageNum) {
-		itemdatamanager.LoadALLdragitemdata();//アイテムメイカーのデータを更新
-		mapdatamanager.changeStageNum(stageNum);//データマネージャーのステージ番号を変更
-		itemmakermanager.makeItemMaker();
-	}
-
-	public void makeMapObjectANDupdateLeveldesignDataAndCansetData() {
-		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getmapdatapath(), usecolomn_of_mapdata - 1);//レベルデザインデータをcsvからよみこんできて更新
-		makemanager.instanciateAllMapObject(_leveldesigndata);//メイクマネージャーにオブジェクトの作成命令
-		try { makemanager.getPlayerObject().GetComponent<CharactorMove>().setDestination(makemanager.getGoalObject()); }//playerキャラクターにターゲットの設定を行わせる
-		catch { Debug.Log(String.Format("ERROR,playerobject is {0}", makemanager.getPlayerObject())); }//無理だったらログ出力
-		mapdatamanager.updateCansetDatas(_leveldesigndata);//レベルデザインデータで置けるか否かのデータを設定。
-	}
 }
+

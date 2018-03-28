@@ -29,7 +29,7 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		ButtonEventManager buttonmanager = meditator.getbuttonmanager();
 		datapathmanager.ChangeMapCSVNum(myStageCount);
-		buttonmanager.makeObjectfromSelectScene(myStageCount);
+		buttonmanager.makeObjectButton();
 		parentActiveOff();
 	}
 	public void getMeditatorRef(Meditator　ameditator) {
