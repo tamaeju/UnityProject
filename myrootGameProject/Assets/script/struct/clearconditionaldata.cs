@@ -4,6 +4,6 @@ using UnityEngine;
 
 public struct clearconditiondata {
 		public int timelimit;
-		public int RequiredKillCount;
+		public int RequiredDeffenceCount;
 
 }
