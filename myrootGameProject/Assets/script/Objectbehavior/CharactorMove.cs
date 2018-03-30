@@ -10,13 +10,15 @@ using UnityEngine.UI;
 
 public class CharactorMove : MonoBehaviour {
 	[SerializeField]
-	GameObject countdowntextprafab;
+	protected GameObject countdowntextprafab;
 	[SerializeField]
-	GameObject curedeffectprefab;
+	protected GameObject curedeffectprefab;
 	private GameObject targetobject;
-	NavMeshAgent agent;
-	instance3Dword wordmaker;
-	float normalSpeed;
+
+	protected NavMeshAgent agent;
+	protected instance3Dword wordmaker;
+
+	float normalSpeed = 1.5f;
 
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
@@ -33,7 +35,7 @@ public class CharactorMove : MonoBehaviour {
 		StartCoroutine(changeSpeedColutin(newspeed, effecttime));
 	}
 
-	private IEnumerator changeSpeedColutin(float newSpeed, float effecttime) {
+	protected IEnumerator changeSpeedColutin(float newSpeed, float effecttime) {
 		agent.speed = newSpeed;
 		yield return new WaitForSeconds(effecttime);
 		agent.speed = normalSpeed;
@@ -45,7 +47,7 @@ public class CharactorMove : MonoBehaviour {
 		varguColutinMethod(act, waittime);
 	}
 
-	private IEnumerator varguColutinMethod(Action act, float waittime) {
+	protected IEnumerator varguColutinMethod(Action act, float waittime) {
 		yield return new WaitForSeconds(waittime);
 		act();
 		yield break;
@@ -55,8 +57,6 @@ public class CharactorMove : MonoBehaviour {
 		targetobject = target;
 		agent.destination = targetobject.transform.position;
 	}
-	public Vector3 getMyPosition() {
-		return transform.position;
-	}
-
+	//itemと触れあってからの挙動がおかしいのでチェックが必要と思われる。
+	//
 }

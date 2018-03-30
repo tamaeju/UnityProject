@@ -19,6 +19,7 @@ public class Goal : MonoBehaviour {
 			
 		}
 	}
-
-
+	void Update() {
+		transform.Rotate(new Vector3(0, 1.5f, 0));
+	}
 }

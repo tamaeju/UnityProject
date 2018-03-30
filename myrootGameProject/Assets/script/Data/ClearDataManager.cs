@@ -19,7 +19,6 @@ public class ClearDataManager : MonoBehaviour {
 		datapathmanager = meditator.getdatapathmanager();
 		jagchanger = meditator.getjagchanger();
 		csvmanager = meditator.getcsvmanager();
-
 	}
 	public void LoadALLclearconditondata() {//csvデータを読み込んできてアイテムデータを上書き。
 		clearconditionaldatas = jagchanger.parsejagtodobleClearconditiondatas(csvmanager.getJagDataElement(datapathmanager.getconditiondatapath()));

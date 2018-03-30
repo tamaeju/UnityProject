@@ -38,49 +38,43 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	clearconditiondata[] conditionaldatas;
 
 
-	void Start() {//conditionaldatasをとってくるための初期化
+	void Start() {//cleardatamanagerとconditionaldatasをとってくるための初期化
 		datamanager = meditator.getmapdatamanager();
-		conditionaldatas = new clearconditiondata[Config.stageCount];
 		cleardatamanager = meditator.getcleardatamanager();
-
-
 	}
 
-	public void stageStart() {//ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
+	public void clearConditionSet() {//クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
 		conditionaldatas = cleardatamanager.getclearconditondata();
 		getTextinstance();//食事条件と、残りタイムの関連テキストを生成し、参照の取得を行う。
-		reflectTexttoDisplay();
-		recenttime = conditionaldatas[datamanager.getStageNum()].timelimit;
+		recenttime = conditionaldatas[datamanager.getStageNum()].timelimit;//コンディショナルデータのタイムリミットを取得
+		reflectTexttoDisplay();//得たテキストインスタンスを画面に反映
+		makegamestartcanvas();
+		StartCoroutine(timedecreasePerSecond());
+	}
+
+
+	public void makegamestartcanvas() {//キャンバスメイカーの作成とプレハブの提供、スタートキャンバスの作成依頼
 		canvasMaker = gameObject.AddComponent<canvasmaker>();
 		canvasMaker.getsececanvas(instancecanvas);
 		canvasMaker.showstartcanvas(conditionaldatas[datamanager.getStageNum()]);
-		StartCoroutine(timedecreasePerSecond());
-		
-
 	}
-
-	public void UpdateALLcleardata() {
-		conditionaldatas = cleardatamanager.getclearconditondata();
-	}
-
 
 
 	public void reflectTexttoDisplay() {//コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
-		int stagenum = datamanager.getStageNum();
 		eatconditiontext.text = recenteatcount.ToString();
 		timelimitconditiontext.text = recenttime.ToString();
 	}
-	public bool isClear() {//クリアしているかをbooleanで返すメソッドを持つ、ゴール
+	public bool isClear() {//クリアしているかをbooleanで返すメソッド
 		int stagenum = datamanager.getStageNum();
 		return conditionaldatas[stagenum].RequiredDeffenceCount >= recenteatcount; //ステージが0から始まっている点に要注意
-	}//タイムリミットを過ぎたらゲームオーバー
-
+	}
 	
 
-	public void getTextinstance(){
+	public void getTextinstance(){//UImakerにテキストを作成してもらい参照を受け取るメソッド
 		if (eatconditiontext == null && timelimitconditiontext == null) {
-			eatconditiontext = meditator.getUImanager().MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
-			timelimitconditiontext = meditator.getUImanager().MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
+			MapEditorUIManager UImaker = meditator.getUImanager();
+			eatconditiontext = UImaker.MakeGetUIobject(eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text>();
+			timelimitconditiontext = UImaker.MakeGetUIobject(timelimittextprefab, timelimittextpos).GetComponent<Text>();
 		}
 	}
 
@@ -109,16 +103,17 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 			}
 		}
 	}
+	
 
 	private void gameOverEvent() {
 		if (isClear()) { canvasMaker.showclearcanvas(recenteatcount); }
 		else {
-			Instantiate(gameoverprefab, this.transform.position, Quaternion.identity); }
+			canvasMaker.showGameovercanvas(recenteatcount);
+		}
 	}
 	public void addRecentEatcount() {
 		recenteatcount++;
 		reflectTexttoDisplay(); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
-
 	}
 
 }

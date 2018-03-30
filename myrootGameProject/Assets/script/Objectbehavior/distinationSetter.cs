@@ -21,15 +21,16 @@ public class distinationSetter : MonoBehaviour {
 	public void setgoalobject(GameObject obj) {
 		goalobject = obj;
 	}
-	public void setClearconditioner(ClearConditionManager claerconditioner) {//クリアコンディションマネージャーへの参照を持たせる
+
+	public void setClearconditioner(ClearConditionManager claerconditioner) {
 		foreach (var item in targetobjects) {
-			item.GetComponent<TargetMove>().getclearconditioner(claerconditioner);
+			item.GetComponent<TargetMove>().setincleaseEatCount(claerconditioner.addRecentEatcount);
 		}
 	}
+
 	public void setditination() {//クリアコンディションマネージャーへの参照を持たせる
 		foreach (var item in targetobjects) {
 			item.GetComponent<TargetMove>().setDestination(goalobject);
 		}
 	}
-	//やりたい事の流れとしては、ターゲットキャラのインスタンス化
 }

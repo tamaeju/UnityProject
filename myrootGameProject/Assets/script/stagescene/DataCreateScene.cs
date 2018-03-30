@@ -28,7 +28,6 @@ public class DataCreateScene : MonoBehaviour {
 		datapathmanager = meditator.getdatapathmanager();
 		UIdraghmanager = meditator.getUIdraghmanager();
 		itemmakermanager = meditator.getitemmakermanager();
-
 		setbuttonmethod();
 
 	}
@@ -38,7 +37,6 @@ public class DataCreateScene : MonoBehaviour {
 		buttoneventmanager.setChangeCSVNum(ChangeCSVNum);
 		buttoneventmanager.setmakeItemMaker(makeItemMaker);
 		buttoneventmanager.setmakeMapCsvButton(makeMapCsv);
-
 	}
 
 	private void makeMapObjectANDupdateLeveldesignDataAndCansetData() {
@@ -69,5 +67,6 @@ public class DataCreateScene : MonoBehaviour {
 			UIdraghmanager.deletebutton();
 		}
 		makeItemMaker(mapdatamanager.getStageNum());
+		meditator.getclearmanager().clearConditionSet();
 	}
 }

@@ -33,9 +33,6 @@ public class Canvasbehavior : MonoBehaviour {//キャンバスを扱うクラス
 	RectTransform rectform;
 	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
 
-	private void Start() {
-		buttontext = button.GetComponentInChildren<Text>();
-	}
 
 	public void changeTitleText(string title) {
 		titletext.text = title;
@@ -66,7 +63,6 @@ public class Canvasbehavior : MonoBehaviour {//キャンバスを扱うクラス
 
 	public void setButtonscroll() {
 		button.GetComponent<Button>().onClick.AddListener(DisplayMoveOut);
-		//setButtonMethod(DisplayMoveOut);
 	}
 
 

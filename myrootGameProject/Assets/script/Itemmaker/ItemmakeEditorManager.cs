@@ -12,7 +12,7 @@ public class ItemmakeEditorManager : MonoBehaviour {//Itemmakerをエディッ�
 	[SerializeField]
 	private GameObject[] Itemmaker;
 
-	public GameObject canvasposition;
+	public GameObject ItemmakeEdiorcanvaspos;
 	[SerializeField]
 	Meditator meditator;
 
@@ -24,9 +24,9 @@ public class ItemmakeEditorManager : MonoBehaviour {//Itemmakerをエディッ�
 
 
 	void Start() {//ItemmakerEditorの生成と、何番目のitemmakerEditorかの指定と、自身への参照を渡している。
-		var parent = canvasposition.transform;
+		var parent = ItemmakeEdiorcanvaspos.transform;
 		Vector3 instancepos = new Vector3();
-		instancepos = canvasposition.transform.position;
+		instancepos = ItemmakeEdiorcanvaspos.transform.position;
 		instancepos.x = instancepos.x + xposition;
 		instancepos.y = instancepos.y + yposition;
 		Itemmaker = new GameObject[buttonNum];

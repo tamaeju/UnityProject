@@ -68,8 +68,5 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		objectref = Instantiate(instanceObjects[onjectindex], instancepos, Quaternion.identity) as GameObject;
 		return objectref;
 	}
-
-
-
 }
 

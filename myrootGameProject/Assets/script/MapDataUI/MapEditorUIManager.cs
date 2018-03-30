@@ -14,9 +14,8 @@ public class MapEditorUIManager : MonoBehaviour {//マップに何を配置す�
 	[SerializeField]
 	private GameObject _levelbutton;//マップエディット用のUIボタン
 	[SerializeField]
-	private GameObject uiposition;//_levelbuttonを表示ONOFFするためのUIの親オブジェクト
-	[SerializeField]
-	private GameObject canvasposition;//UI生成用のUIの親オブジェクト
+	private GameObject MapEditoruiButtonpos;//_levelbuttonを表示ONOFFするためのUIの親オブジェクト、レベル選択画面のときはここをnullにしておく。
+
 	[SerializeField]
 	Meditator meditator;
 
@@ -33,7 +32,7 @@ public class MapEditorUIManager : MonoBehaviour {//マップに何を配置す�
 
 
 	public void instanciateandGetUIObjects() {//マップエディット用のUIボタン生成と、参照の取得
-		var parent = uiposition.transform;
+		var parent = MapEditoruiButtonpos.transform;
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
 				MapEditorButtons[j * Config.maxGridNum + i] = Instantiate(_levelbutton, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;

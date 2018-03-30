@@ -55,7 +55,7 @@ public class Item : MonoBehaviour {
 
 		public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
 		public void  oncloisionobject(Collider other) {
-			other.GetComponent<CharactorMove>().changeSpeed(speed, effecttime);
+			other.GetComponent<TargetMove>().changeSpeed(speed, effecttime);
 			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
 			Destroy(myitem.gameObject);
 		}
@@ -108,7 +108,7 @@ public class Item : MonoBehaviour {
 		public stop2(Item anItem) {
 			myitem = anItem;
 			speed = 0f;
-			effecttime = 4f;
+			effecttime = 10f;
 			mycolor = Color.black;
 		}
 	}

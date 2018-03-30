@@ -84,6 +84,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ProtoPack\Scripts\OpenAnimTest.cs" />
+    <Compile Include="Assets\ProtoPack\Scripts\PlatformLiftTest.cs" />
+    <Compile Include="Assets\ProtoPack\Scripts\PlayerJumpTest.cs" />
+    <Compile Include="Assets\ProtoPack\Scripts\RotateScript.cs" />
+    <Compile Include="Assets\ProtoPack\Scripts\SlimeMoveTest.cs" />
     <Compile Include="Assets\script\Config\Config.cs" />
     <Compile Include="Assets\script\Data\CSVManager.cs" />
     <Compile Include="Assets\script\Data\ClearDataManager.cs" />
