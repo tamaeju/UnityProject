@@ -23,9 +23,10 @@ public class ClearDataManager : MonoBehaviour {
 	public void LoadALLclearconditondata() {//csvデータを読み込んできてアイテムデータを上書き。
 		clearconditionaldatas = jagchanger.parsejagtodobleClearconditiondatas(csvmanager.getJagDataElement(datapathmanager.getconditiondatapath()));
 	}
-	public clearconditiondata getStageClearCondition(int stage) {
+	public clearconditiondata getStageClearCondition() {
 		LoadALLclearconditondata();
-		return clearconditionaldatas[stage];
+		MapDataManager mapdatamanager = meditator.getmapdatamanager();
+		return clearconditionaldatas[mapdatamanager.getStageNum()];
 	}
 	public clearconditiondata[] getclearconditondata() {//csvデータを読み込んできてアイテムデータを上書き。
 		LoadALLclearconditondata();

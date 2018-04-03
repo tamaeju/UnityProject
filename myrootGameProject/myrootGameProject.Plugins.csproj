@@ -73,6 +73,9 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
+    <Reference Include="FullSerializer">
+      <HintPath>Assets/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
@@ -118,7 +121,11 @@
     <Compile Include="Assets\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />
+    <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
+    <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
+    <None Include="Assets\OpenWatcher\Resources\Font\LICENCE.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

@@ -16,10 +16,13 @@ public class ItemMakeEditor : MonoBehaviour {//itemmakerを作るためのUI
 	int leftcount;
 	[SerializeField]
 	int UIbuttonnum;
-	[SerializeField]
-	ItemmakeEditorManager uidraggbuttonmanager;
 
-	
+
+	ItemmakeEditorCreater uidraggbuttonmanager;
+	[SerializeField]
+	Text counttext;
+
+
 	public void ChangeObjectKind() {
 		if (objectkind >= buttonkindLength - 1) {//要素番号なので-1
 			objectkind = 0;
@@ -31,13 +34,20 @@ public class ItemMakeEditor : MonoBehaviour {//itemmakerを作るためのUI
 		this.gameObject.GetComponentInChildren<Text>().text = enmName.ToString();//番号からアイテムの名前をとってきて、それを反映する。
 
 	}
+
+	public void ChangeDisplayLeftCount() {
+		counttext.text = leftcount.ToString();//番号からアイテムの名前をとってきて、それを反映する。
+
+	}
 	public void increaseObjectLeftCount() {
 		leftcount++;
+		ChangeDisplayLeftCount();
 	}
 
 	public void decreaseObjectLeftCount() {
 		if (leftcount > 0) {
 			leftcount--;
+			ChangeDisplayLeftCount();
 		}
 		else { }
 	}
@@ -54,7 +64,7 @@ public class ItemMakeEditor : MonoBehaviour {//itemmakerを作るためのUI
 	public void changeobjectNum(int num) {
 		UIbuttonnum = num;
 	}
-	public void setmotherobject(ItemmakeEditorManager amotherobject) {
+	public void setmotherobject(ItemmakeEditorCreater amotherobject) {
 		uidraggbuttonmanager= amotherobject;
 	}
 	public void callUISave() {

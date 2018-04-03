@@ -58,7 +58,6 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 		}
 	}
 
-
 	void DragDownItemMaker() {
 		if (draggeeditem.getObjectLeftCount() > 0) {
 			int prefabkind = draggeeditem.getMyObjectKind();
@@ -85,7 +84,7 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 			mapdatamanager.updateCansetDatas(indexVector3);
 		}
 		else {
-			Destroy(catchObject);
+			UnityEngine.Object.Destroy(catchObject);
 		}
 	}
 
@@ -97,6 +96,8 @@ public class TouchEventManager : MonoBehaviour {//画面をtouchした際の挙�
 	}
 	void DragUpScrollagent() {
 
+	}
+	void setMeditator() {
 	}
 
 }

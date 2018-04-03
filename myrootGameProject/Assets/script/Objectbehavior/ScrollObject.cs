@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class ScrollObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {//タイトルのキャンバスを動かすためのコンポーネント、eventsystemを使用。
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
 	RectTransform outofrectform = new RectTransform();
+	Action tapevent;
+
 	public void OnPointerEnter(PointerEventData eventData) {
 	//
 	}
@@ -27,4 +34,6 @@ public class ScrollObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 			yield return null;
 		}
 	}
+
+	
 }

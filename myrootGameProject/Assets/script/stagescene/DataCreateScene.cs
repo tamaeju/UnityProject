@@ -15,9 +15,12 @@ public class DataCreateScene : MonoBehaviour {
 	ItemDataManager itemdatamanager;
 	MapDataManager mapdatamanager;
 	DataPathManager datapathmanager;
-	ItemmakeEditorManager UIdraghmanager;
+	ItemmakeEditorCreater UIdraghmanager;
 	ItemMakerCreater itemmakermanager;
 	ButtonEventManager buttoneventmanager;
+
+
+	canvasmaker canvasMaker;
 	int usecolomn_of_mapdata = 3;
 
 	void Start() {
@@ -28,6 +31,7 @@ public class DataCreateScene : MonoBehaviour {
 		datapathmanager = meditator.getdatapathmanager();
 		UIdraghmanager = meditator.getUIdraghmanager();
 		itemmakermanager = meditator.getitemmakermanager();
+
 		setbuttonmethod();
 
 	}
@@ -45,6 +49,7 @@ public class DataCreateScene : MonoBehaviour {
 		makemanager.gameObject.GetComponent<distinationSetter>().setditination();
 		mapdatamanager.updateCansetDatas(_leveldesigndata);//レベルデザインデータを元にで置けるか否かのデータを更新。
 	}
+
 	public void makeItemMaker(int stageNum) {
 		itemdatamanager.LoadALLdragitemdata();//アイテムメイカーのデータを更新
 		mapdatamanager.changeStageNum(stageNum);//データマネージャーのステージ番号を変更
@@ -60,13 +65,32 @@ public class DataCreateScene : MonoBehaviour {
 		mapdatamanager.makeLevelDesignData();
 		csvmanager.MapCsvSave(mapdatamanager.getLevelDesignData());
 	}
-	public void makeObjectFromMapCsvButton() {//csvmanaにデータをとってくるよう要求、そのデータを用いて、makemaneにインスタンス生成を要求、そのデータにて、置けるか置けないかを上書き、プレイヤーのagerntをゴールに設定。
-											  //itemデータもその後取得し、datamanagerへそのデータ更新要求を行って、そのデータからアイテムメイカーというオブジェクト作成依頼をかける。
-		makeMapObjectANDupdateLeveldesignDataAndCansetData();
+	public void makeObjectFromMapCsvButton() {
 		if (UIdraghmanager != null) {
 			UIdraghmanager.deletebutton();
 		}
 		makeItemMaker(mapdatamanager.getStageNum());
 		meditator.getclearmanager().clearConditionSet();
+	
+		makegamestartcanvas();
+		
 	}
+	public void makegamestartcanvas() {//キャンバスメイカーの作成とプレハブの提供、スタートキャンバスの作成依頼
+
+		PrefabContainer prefabcontainar = meditator.getprefabcontainer();
+		canvasMaker = gameObject.AddComponent<canvasmaker>();
+		canvasMaker.getscenecanvas(prefabcontainar.getinstancecanvas());
+
+
+		ClearDataManager cleardatamanager = meditator.getcleardatamanager();
+		Action canvastapmethod = () => { startStagePlay(); };
+		canvasMaker.showstartcanvas(cleardatamanager.getStageClearCondition(), canvastapmethod);//キャンバス作成時に実行するメソッドを渡している。
+		meditator.getclearmanager().setcanvasMaker(canvasMaker);//ゲームオーバーイベントで、クリアコンディションマネージャーがキャンバスメイカーを使用するためセット
+	}
+	public void startStagePlay(){
+		ClearConditionManager clearmanager = meditator.getclearmanager();
+		StartCoroutine(clearmanager.timedecreasePerSecond());
+		makeMapObjectANDupdateLeveldesignDataAndCansetData(); 
+	}
+
 }

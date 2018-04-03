@@ -20,10 +20,12 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	[SerializeField]
 	GameObject instancecanvas;
 	canvasmaker canvasMaker;
+
+
 	//キャンバスメイカーを初期化時に宣言し取得しておく。
 
-	int recenteatcount;//現在食事数
-	int recenttime;//現在時間
+	[Watch] int recenteatcount;//現在食事数
+	[Watch] int recenttime;//現在時間
 
 	Vector2 eatconditionaltextpos = new Vector2(-300, 160);//表示位置
 	Text eatconditiontext;
@@ -45,19 +47,12 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 
 	public void clearConditionSet() {//クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
 		conditionaldatas = cleardatamanager.getclearconditondata();
-		getTextinstance();//食事条件と、残りタイムの関連テキストを生成し、参照の取得を行う。
-		recenttime = conditionaldatas[datamanager.getStageNum()].timelimit;//コンディショナルデータのタイムリミットを取得
-		reflectTexttoDisplay();//得たテキストインスタンスを画面に反映
-		makegamestartcanvas();
-		StartCoroutine(timedecreasePerSecond());
+		getTextinstance();
+		recenttime = conditionaldatas[datamanager.getStageNum()].timelimit;
+		reflectTexttoDisplay();
 	}
 
 
-	public void makegamestartcanvas() {//キャンバスメイカーの作成とプレハブの提供、スタートキャンバスの作成依頼
-		canvasMaker = gameObject.AddComponent<canvasmaker>();
-		canvasMaker.getsececanvas(instancecanvas);
-		canvasMaker.showstartcanvas(conditionaldatas[datamanager.getStageNum()]);
-	}
 
 
 	public void reflectTexttoDisplay() {//コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
@@ -90,7 +85,7 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 	}
 
 	//1秒に1回タイムリミットをディクリーズする
-	private IEnumerator timedecreasePerSecond() {
+	public  IEnumerator timedecreasePerSecond() {
 		int timelimit = conditionaldatas[datamanager.getStageNum()].timelimit;
 		for (int i = 0; i < timelimit; i++) {
 			decreaseTime();
@@ -103,7 +98,7 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 			}
 		}
 	}
-	
+
 
 	private void gameOverEvent() {
 		if (isClear()) { canvasMaker.showclearcanvas(recenteatcount); }
@@ -111,9 +106,15 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 			canvasMaker.showGameovercanvas(recenteatcount);
 		}
 	}
+
+
 	public void addRecentEatcount() {
 		recenteatcount++;
 		reflectTexttoDisplay(); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
 	}
+	public void setcanvasMaker(canvasmaker maker) {
+		canvasMaker = maker;
+	}
+
 
 }

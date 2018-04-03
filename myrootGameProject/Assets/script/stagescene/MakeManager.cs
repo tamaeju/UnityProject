@@ -30,20 +30,26 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 	}
 
 
-	public void instanciateAllMapObject(int[,] _leveldesigndata) {//playerやブロックなどのオブジェクトを生成するメソッド。
+	public void instanciatesetdistination(int[,] _leveldesigndata, int i, int j) {
 		GameObject[] instanceObjects = objectcontainer.getinstanceObjects();
 		GameObject popobject;
+		if (_leveldesigndata[i, j] != 0) {//0はアイテムなし
+			popobject = Instantiate(instanceObjects[_leveldesigndata[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
+			if (popobject.GetComponent<Goal>()) {
+				distinationmaker.setgoalobject(popobject);
+			}
+			else if (popobject.GetComponent<TargetMove>()) {
+				distinationmaker.addtargetobject(popobject);
+				distinationmaker.setClearconditioner(meditator.getclearmanager());//method化
+			}
+		}
+	}
+
+	public void instanciateAllMapObject(int[,] _leveldesigndata) {//playerやブロックなどのオブジェクトを生成するメソッド。
 		for (int j = 0; j < _leveldesigndata.GetLength(1); ++j) {
 			for (int i = 0; i < _leveldesigndata.GetLength(0); ++i) {
 				if (_leveldesigndata[i, j] != 0) {//0はアイテムなし
-					popobject = Instantiate(instanceObjects[_leveldesigndata[i, j]], settingObjectPos(i, j, instancehight), Quaternion.identity) as GameObject;
-					if (popobject.GetComponent<Goal>()) {
-						distinationmaker.setgoalobject(popobject);
-					}
-					else if (popobject.GetComponent<TargetMove>()) {
-						distinationmaker.addtargetobject(popobject);
-						distinationmaker.setClearconditioner(meditator.getclearmanager());
-					}
+					instanciatesetdistination(_leveldesigndata, i, j);
 				}
 			} 
 		}
@@ -68,5 +74,6 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 		objectref = Instantiate(instanceObjects[onjectindex], instancepos, Quaternion.identity) as GameObject;
 		return objectref;
 	}
+	
 }
 

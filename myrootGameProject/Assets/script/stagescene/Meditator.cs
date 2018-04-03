@@ -12,7 +12,7 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	[SerializeField]
 	DataPathManager datapathmanager;
 	[SerializeField]
-	ItemmakeEditorManager UIdraghmanager;
+	ItemmakeEditorCreater UIdraghmanager;
 	[SerializeField]
 	TouchEventManager touchmanager;
 	[SerializeField]
@@ -37,6 +37,8 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	ItemDataManager itemdatamanager;
 	[SerializeField]
 	ClearDataManager cleardatamanager;
+	[SerializeField]
+	DataCreateScene datascene;
 
 
 	public CSVManager getcsvmanager() {
@@ -48,7 +50,7 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	public DataPathManager getdatapathmanager() {
 		return datapathmanager;
 	}
-	public ItemmakeEditorManager getUIdraghmanager() {
+	public ItemmakeEditorCreater getUIdraghmanager() {
 		return UIdraghmanager;
 	}
 	public MakeManager getmakemanager() {
@@ -90,5 +92,7 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	public ClearDataManager getcleardatamanager() {
 		return cleardatamanager;
 	}
-
+	public DataCreateScene getdatascene() {
+		return datascene;
+	}
 }

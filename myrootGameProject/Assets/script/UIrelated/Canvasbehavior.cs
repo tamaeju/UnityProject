@@ -8,8 +8,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
-public class Canvasbehavior : MonoBehaviour {//キャンバスを扱うクラス。オブジェクトがテキストをいじった形で生成できるようにしているので、生成時にメソッドを読んで設定してあげる。
+public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {//タイトルのキャンバスを動かすためのコンポーネント、eventsystemを使用
 	[SerializeField]
 	Text titletext;
 	[SerializeField]
@@ -22,15 +23,12 @@ public class Canvasbehavior : MonoBehaviour {//キャンバスを扱うクラス
 	Text timetext;
 	[SerializeField]
 	Image backgroundcolor;
-
 	[SerializeField]
 	Text messagetext;
-	[SerializeField]
-	Button button;
-	Text buttontext;
-
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
+	Action m_act;
+
 	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
 
 
@@ -53,31 +51,40 @@ public class Canvasbehavior : MonoBehaviour {//キャンバスを扱うクラス
 	public void changeMessagetext(string tex) {
 		messagetext.text = tex;
 	}
-	private void setButtonMethod(UnityAction act) {
-		button.GetComponent<Button>().onClick.AddListener(DisplayMoveOut);
-	}
 
-	public void changebuttontext(string tex) {
-		buttontext.text = tex;
-	}
 
-	public void setButtonscroll() {
-		button.GetComponent<Button>().onClick.AddListener(DisplayMoveOut);
-	}
 
+	public void OnPointerEnter(PointerEventData eventData) {
+		//
+	}
+	//ポインターがオブジェクトから出た時
+	public void OnPointerExit(PointerEventData ped) {
+		//
+	}
+	//クリックされた時
+	public void OnPointerDown(PointerEventData _data) {
+
+		StartCoroutine(moveCoroutine(1200));
+		m_act();
+
+	}
 
 	public void changebackcolor(Color color) {
 		backgroundcolor.color = color;
 	}
-	private void DisplayMoveOut() {
-		StartCoroutine(moveCoroutine(1200));
+
+	public void setMethod(Action canvasmethod) {
+		m_act = canvasmethod;
 	}
-	private IEnumerator moveCoroutine(int totalmovedistance) {//画面外にはける動きを作成するために、1Fごとに指定移動距離の1/20を動く。
+
+
+	private IEnumerator moveCoroutine(int movedistance) {//指定した距離を1秒かけて動くメソッド
+		RectTransform background = backgroundcolor.gameObject.GetComponent<RectTransform>();
+		Debug.Log("Calledtap");
 		for (int i = 0; i < 20; i++) {
-			rectform = transform.parent.gameObject.GetComponent<RectTransform>();
-			variableVector3 = rectform.position;
-			variableVector3.y = variableVector3.y + totalmovedistance / 20;
-			rectform.position = variableVector3;
+			variableVector3 = background.position;
+			variableVector3.y = variableVector3.y + movedistance / 20;
+			background.position = variableVector3;
 			yield return null;
 		}
 	}

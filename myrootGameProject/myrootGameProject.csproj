@@ -73,6 +73,9 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
+    <Reference Include="FullSerializer">
+      <HintPath>Assets/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
@@ -84,6 +87,33 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Auto Save\ExampleMoveObject.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Custom\ExampleSaveCustom.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Position\ExampleSavePosition.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Rotation\ExampleSaveRotation.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Scale\ExampleSaveScale.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Web\ExampleSaveWeb.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Shared\Scripts\SerializerDropdown.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Encoders\ISaveGameEncoder.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Encoders\SaveGameSimpleEncoder.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGame.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGameAuto.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGameWeb.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\ISaveGameSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameBinarySerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameJsonSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameXmlSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Color32Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\ColorSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\MeshSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\QuaternionSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector2Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector3Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector4Save.cs" />
+    <Compile Include="Assets\OpenWatcher\Sample\RotateCube.cs" />
+    <Compile Include="Assets\OpenWatcher\Scripts\WatchAttribute.cs" />
+    <Compile Include="Assets\OpenWatcher\Scripts\Watcher.cs" />
+    <Compile Include="Assets\OpenWatcher\Scripts\WatcherConfig.cs" />
     <Compile Include="Assets\ProtoPack\Scripts\OpenAnimTest.cs" />
     <Compile Include="Assets\ProtoPack\Scripts\PlatformLiftTest.cs" />
     <Compile Include="Assets\ProtoPack\Scripts\PlayerJumpTest.cs" />
@@ -100,7 +130,7 @@
     <Compile Include="Assets\script\Itemmaker\ItemMakeEditor.cs" />
     <Compile Include="Assets\script\Itemmaker\ItemMaker.cs" />
     <Compile Include="Assets\script\Itemmaker\ItemMakerCreater.cs" />
-    <Compile Include="Assets\script\Itemmaker\ItemmakeEditorManager.cs" />
+    <Compile Include="Assets\script\Itemmaker\ItemmakeEditorCreater.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorUIManager.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorbutton.cs" />
     <Compile Include="Assets\script\Objectbehavior\AnimePlay.cs" />
@@ -120,6 +150,7 @@
     <Compile Include="Assets\script\UIrelated\ButtonEventManager.cs" />
     <Compile Include="Assets\script\UIrelated\Canvasbehavior.cs" />
     <Compile Include="Assets\script\UIrelated\canvasmaker.cs" />
+    <Compile Include="Assets\script\edittools\Console.cs" />
     <Compile Include="Assets\script\levelselectscene related\DisplayMoveAgent.cs" />
     <Compile Include="Assets\script\levelselectscene related\LevelSelectCanvasManager.cs" />
     <Compile Include="Assets\script\levelselectscene related\SelectsceneButton.cs" />
@@ -133,7 +164,11 @@
     <Compile Include="Assets\script\struct\dragitemdata.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />
+    <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
+    <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
+    <None Include="Assets\OpenWatcher\Resources\Font\LICENCE.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

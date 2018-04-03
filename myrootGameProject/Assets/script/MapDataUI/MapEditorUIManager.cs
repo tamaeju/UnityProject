@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapEditorUIManager : MonoBehaviour {//マップに何を配置するかを調整するUIであるobjectselectボタンを扱うクラス。クリアコンディションのテキストも扱うようにする。
+public class MapEditorUIManager : MonoBehaviour {//マップに何を配置するかを調整するUIであるobjectselectボタンを扱うクラス。
 
 	[SerializeField]
 	private GameObject[] MapEditorButtons;//マップエディット用のUIボタンの格納用配列

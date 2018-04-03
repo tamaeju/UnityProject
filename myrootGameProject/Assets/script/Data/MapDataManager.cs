@@ -28,7 +28,6 @@ public class MapDataManager : MonoBehaviour {//ゲームデータを保存、使
 	void Start() {//各データの初期化
 		_canSetDatas = new bool[maxGridNum, maxGridNum];
 		_leveldesigndata = new int[maxGridNum, maxGridNum];
-		
 		massdealer = meditator.getmassdealer();
 	}
 
@@ -46,6 +45,7 @@ public class MapDataManager : MonoBehaviour {//ゲームデータを保存、使
 			}
 		}
 	}
+
 	public int[,] getLevelDesignData() {//レベルデザインデータ取得用処理
 		return _leveldesigndata;
 	}
