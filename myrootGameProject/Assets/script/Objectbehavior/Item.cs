@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour {
 	[SerializeField]
@@ -53,7 +58,9 @@ public class Item : MonoBehaviour {
 		protected float speed;
 		protected Item myitem;
 
-		public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
+
+
+	public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
 		public void  oncloisionobject(Collider other) {
 			other.GetComponent<TargetMove>().changeSpeed(speed, effecttime);
 			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
@@ -113,15 +120,6 @@ public class Item : MonoBehaviour {
 		}
 	}
 
-	class bomb : state {
-		public bomb(Item anItem) {
-			myitem = anItem;
-
-			mycolor = Color.black;
-		}
-		public new void oncloisionobject(Collider other) {
-
-		}
-	}
+	
 
 }

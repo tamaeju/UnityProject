@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 866409db5ab17004a88da76dd745c999
-timeCreated: 1522308156
+timeCreated: 1522806392
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - countdowntextprafab: {fileID: 1163344740210150, guid: 8235f934b201d3246b30b0348816005d,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -119,6 +119,16 @@
     <Compile Include="Assets\ProtoPack\Scripts\PlayerJumpTest.cs" />
     <Compile Include="Assets\ProtoPack\Scripts\RotateScript.cs" />
     <Compile Include="Assets\ProtoPack\Scripts\SlimeMoveTest.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\PseudoVolumetricExplosion.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\ExploderComponent.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\LightComponent.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\ParticleComponent.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\PseudoVolumetricComponent.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\VolumetricComponent.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\effects\exploderComponents\VolumetricComponent2D.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\exploders\Exploder.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\exploders\Exploder2D.cs" />
+    <Compile Include="Assets\True Explosions\System\Scripts\exploders\SphereExploder.cs" />
     <Compile Include="Assets\script\Config\Config.cs" />
     <Compile Include="Assets\script\Data\CSVManager.cs" />
     <Compile Include="Assets\script\Data\ClearDataManager.cs" />
@@ -169,6 +179,7 @@
     <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
     <None Include="Assets\OpenWatcher\Resources\Font\LICENCE.txt" />
+    <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
@@ -246,6 +257,7 @@
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\True Explosions\System\Shaders\SphereVolumetricExplosion.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -26,13 +26,13 @@ public class CharactorMove : MonoBehaviour {
 	}
 
 	
-	public void changeSpeed(float newspeed, float effecttime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。
+	public virtual void changeSpeed(float newspeed, float effecttime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。
 		wordmaker = gameObject.AddComponent<instance3Dword>();
-		wordmaker.getEffectTimePrefab(countdowntextprafab, curedeffectprefab);
-		wordmaker.makeCountDownText();
-
-		wordmaker.mekeEffectTimeWordcolutin((int)effecttime);
+		wordmaker.makeCountDownText (countdowntextprafab, (int)effecttime,curedeffectprefab);
 		StartCoroutine(changeSpeedColutin(newspeed, effecttime));
+	}
+	public void makewordmaker() {
+
 	}
 
 	protected IEnumerator changeSpeedColutin(float newSpeed, float effecttime) {

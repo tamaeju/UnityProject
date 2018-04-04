@@ -149,6 +149,7 @@
     <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\CartoonBusinessZombie\ReadMe.txt" />
     <None Include="Assets\OpenWatcher\Resources\Font\LICENCE.txt" />
+    <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
@@ -226,6 +227,7 @@
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\True Explosions\System\Shaders\SphereVolumetricExplosion.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

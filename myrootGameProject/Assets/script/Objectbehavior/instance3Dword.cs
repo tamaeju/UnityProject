@@ -14,12 +14,19 @@ public class instance3Dword : MonoBehaviour {//このコンポーネントを所
 	GameObject countdowntextobject;
 	TextMesh countdowntext;
 
-	public void makeCountDownText() {
+	private void instanceCountDownText() {
 		countdowntextobject = Instantiate(countdowntextprafab, this.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
 		countdowntext = countdowntextobject.GetComponent<TextMesh>();
 	}
 
-	public void mekeEffectTimeWordcolutin(int effecttime) {//場所に設置された瞬間から始まるカウントダウンをどうするかだが、
+	public void makeCountDownText(GameObject textprafab, int effecttime, GameObject effectprefab = null) {
+		getEffectTimePrefab(textprafab);
+		instanceCountDownText();
+
+		mekeEffectTimeWordcolutin(effecttime);
+	}
+
+	private void mekeEffectTimeWordcolutin(int effecttime) {//場所に設置された瞬間から始まるカウントダウンをどうするかだが、
 		StartCoroutine(mekeEffectTimeWord(effecttime));
 	}
 
@@ -35,7 +42,7 @@ public class instance3Dword : MonoBehaviour {//このコンポーネントを所
 		Instantiate(curedeffectprefab);
 		yield break;
 	}
-	public void getEffectTimePrefab(GameObject textprafab, GameObject effectprefab) {
+	private void getEffectTimePrefab(GameObject textprafab, GameObject effectprefab=null) {
 		countdowntextprafab = textprafab;
 		curedeffectprefab = effectprefab;
 	}

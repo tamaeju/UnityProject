@@ -6,38 +6,50 @@ using System.IO;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class BombItem : MonoBehaviour {
 	[SerializeField]
 	GameObject countdowntextprafab;
 	[SerializeField]
 	GameObject bombeffectprefab;
-	GameObject countdowntextobject;
-	TextMesh countdowntext;
-	int bombCount = 5;
+	[SerializeField]
+	float explosionduration = 5;
+	instance3Dword countdowntextmaker;
+
+
 
 	void Start() {
-		countdowntextobject = Instantiate(countdowntextprafab,this.transform.position, Quaternion.Euler(90, 0, 0)) as GameObject;
-		countdowntext = countdowntextobject.GetComponent<TextMesh>();
-		setThisObjectActive();//テスト用にいったんここに置く
+		Debug.LogFormat(this.transform.position.y.ToString());
+		var change = gameObject.ObserveEveryValueChanged(_ => this.transform.position.y);
+		change.Subscribe(_ => setThisObjectActive());//hogeの値が変わると、呼ばれる
+		Debug.LogFormat(this.transform.position.y.ToString());
+
+		countdowntextmaker = gameObject.AddComponent<instance3Dword>();
+		countdowntextmaker.makeCountDownText(countdowntextprafab, (int)explosionduration);
 	}
 
 	void setThisObjectActive() {//場所に設置された瞬間から始まるカウントダウンをどうするかだが、
-		StartCoroutine(waitANDinstance());
+		Debug.Log("clickedsetThisObjectActive");
+		StartCoroutine(waitandInstance());
 	}
 
-	private IEnumerator waitANDinstance() {
+	private IEnumerator waitandInstance() {
 
-		for (int i = bombCount; i > 0; i--) {
-			countdowntextobject.transform.position = this.transform.position;
-			countdowntext.text = i.ToString();
+		for (int i = (int)explosionduration; i > 0; i--) {
+			if (this.transform.position.y > 2) { i = (int)explosionduration; }
 			yield return new WaitForSeconds(1f);
 		}
-		Destroy(countdowntext.gameObject); 
-		Instantiate(bombeffectprefab);
-		Destroy(this);
+		GameObject explosion = Instantiate(bombeffectprefab,this.transform.position,Quaternion.identity) as GameObject;
+		yield return new WaitForSeconds(1f);
+		Destroy(explosion);
+		Destroy(this.gameObject);
 		yield break;
 	}
-	//車輪の再開発になってしまうので、テキストオブジェクトを生成し、自分の上に出すという処理はカプセル化して取り出したい。
-	//
+	//オブジェクトのy座標の位置が動いたら爆弾を動かし始める。
+	//テキストプレハブを生成。
+	//テキストプレハブの
+	//秒毎にテキストプレハブの
+
+
 }

@@ -56,15 +56,15 @@ public class TargetMove : CharactorMove {//ゴール以外のマップのター�
 		animatorcomponent.SetFloat("Speed", agent.speed);
 	}
 
-	public new void changeSpeed(float newspeed, float effecttime) {//スピードを変えるメソッド。変える時間と変わった速度を引数として保持する。
+	public override void changeSpeed(float newspeed, float effecttime) {//スピードを変えるメソッド。スーパークラスのメソッドに対して、アニメーションを変更する処理を追加
 		wordmaker = gameObject.AddComponent<instance3Dword>();
-		wordmaker.getEffectTimePrefab(countdowntextprafab, curedeffectprefab);
-		wordmaker.makeCountDownText();
-		wordmaker.mekeEffectTimeWordcolutin((int)effecttime);
+		wordmaker.makeCountDownText(countdowntextprafab, (int)effecttime, curedeffectprefab);
 
 		changeMoveAnimation();
 		StartCoroutine(changeSpeedColutin(newspeed, effecttime));
 		changeMoveAnimation();
+		Action act = () => { changeMoveAnimation(); };
+		waitAndDo(act, effecttime);
 	}
 
 
