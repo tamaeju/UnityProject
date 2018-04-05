@@ -16,40 +16,37 @@ public class BombItem : MonoBehaviour {
 	[SerializeField]
 	float explosionduration = 5;
 	instance3Dword countdowntextmaker;
-
+	IObservable<float> change;
 
 
 	void Start() {
-		Debug.LogFormat(this.transform.position.y.ToString());
-		var change = gameObject.ObserveEveryValueChanged(_ => this.transform.position.y);
-		change.Subscribe(_ => setThisObjectActive());//hogeの値が変わると、呼ばれる
-		Debug.LogFormat(this.transform.position.y.ToString());
+		change = this.gameObject.ObserveEveryValueChanged(_ => this.gameObject.transform.position.y);//トランスフォームyの値が変わった時にイベント発火するよう設定。
+
 
 		countdowntextmaker = gameObject.AddComponent<instance3Dword>();
 		countdowntextmaker.makeCountDownText(countdowntextprafab, (int)explosionduration);
+		change.Subscribe(_ => setThisObjectActive());//changeへイベントの登録
+		//iobservableインターフェースは、イベントの登録と、発火タイミングを設定するインターフェース
 	}
 
 	void setThisObjectActive() {//場所に設置された瞬間から始まるカウントダウンをどうするかだが、
-		Debug.Log("clickedsetThisObjectActive");
-		StartCoroutine(waitandInstance());
+		if (this.gameObject.transform.position.y > 2) { return; }
+		else {
+			StartCoroutine(waitandInstance());
+			Observable.FromCoroutine(waitandInstance) //waitandinstanceが終わった瞬間へイベントの登録
+				.Subscribe(_ => Destroy(this.gameObject)).AddTo(this);
+		}
 	}
+
 
 	private IEnumerator waitandInstance() {
 
 		for (int i = (int)explosionduration; i > 0; i--) {
-			if (this.transform.position.y > 2) { i = (int)explosionduration; }
 			yield return new WaitForSeconds(1f);
 		}
 		GameObject explosion = Instantiate(bombeffectprefab,this.transform.position,Quaternion.identity) as GameObject;
 		yield return new WaitForSeconds(1f);
 		Destroy(explosion);
-		Destroy(this.gameObject);
 		yield break;
 	}
-	//オブジェクトのy座標の位置が動いたら爆弾を動かし始める。
-	//テキストプレハブを生成。
-	//テキストプレハブの
-	//秒毎にテキストプレハブの
-
-
 }

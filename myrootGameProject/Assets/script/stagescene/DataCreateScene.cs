@@ -27,10 +27,10 @@ public class DataCreateScene : MonoBehaviour {
 		makemanager = meditator.getmakemanager();
 		csvmanager = meditator.getcsvmanager();
 		mapdatamanager = meditator.getmapdatamanager();
-		itemdatamanager = meditator.getitemdatamanager();
+
 		datapathmanager = meditator.getdatapathmanager();
 		UIdraghmanager = meditator.getUIdraghmanager();
-		itemmakermanager = meditator.getitemmakermanager();
+
 
 		setbuttonmethod();
 
@@ -51,6 +51,9 @@ public class DataCreateScene : MonoBehaviour {
 	}
 
 	public void makeItemMaker(int stageNum) {
+		itemmakermanager = meditator.getitemmakermanager();
+		itemdatamanager = meditator.getitemdatamanager();
+
 		itemdatamanager.LoadALLdragitemdata();//アイテムメイカーのデータを更新
 		mapdatamanager.changeStageNum(stageNum);//データマネージャーのステージ番号を変更
 		itemmakermanager.makeItemMaker();

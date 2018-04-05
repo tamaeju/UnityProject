@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UniRx;
 
 public class Goal : MonoBehaviour {
 
@@ -15,8 +16,14 @@ public class Goal : MonoBehaviour {
 	private GameObject effect;
 	//接触された時に、キャンバスを出し、クリア表示を行う
 	void OnTriggerEnter(Collider other) {
-		if (other.gameObject.tag == "Player") {
-			
+		if (other.gameObject.tag == "Targetchara") {
+			Renderer rend = GetComponent<Renderer>();
+			Color color = rend.material.color;
+			color.a = 0.6f;
+			rend.material.color = color;
+			color.a = 1f;
+			var timer = Observable.Timer(System.TimeSpan.FromSeconds(1));
+			timer.Subscribe(_ => rend.material.color = color);
 		}
 	}
 	void Update() {

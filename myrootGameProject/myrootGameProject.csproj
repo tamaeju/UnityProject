@@ -143,12 +143,12 @@
     <Compile Include="Assets\script\Itemmaker\ItemmakeEditorCreater.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorUIManager.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorbutton.cs" />
-    <Compile Include="Assets\script\Objectbehavior\AnimePlay.cs" />
     <Compile Include="Assets\script\Objectbehavior\BombItem.cs" />
+    <Compile Include="Assets\script\Objectbehavior\Bombfire.cs" />
     <Compile Include="Assets\script\Objectbehavior\CharactorMove.cs" />
     <Compile Include="Assets\script\Objectbehavior\DropdownUI.cs" />
     <Compile Include="Assets\script\Objectbehavior\Goal.cs" />
-    <Compile Include="Assets\script\Objectbehavior\Item.cs" />
+    <Compile Include="Assets\script\Objectbehavior\ItemspeedChange.cs" />
     <Compile Include="Assets\script\Objectbehavior\LevelSelectSceneScroller.cs" />
     <Compile Include="Assets\script\Objectbehavior\MassDealer.cs" />
     <Compile Include="Assets\script\Objectbehavior\RayEmit.cs" />
@@ -156,7 +156,6 @@
     <Compile Include="Assets\script\Objectbehavior\TargetMove.cs" />
     <Compile Include="Assets\script\Objectbehavior\distinationSetter.cs" />
     <Compile Include="Assets\script\Objectbehavior\instance3Dword.cs" />
-    <Compile Include="Assets\script\Objectbehavior\setObject.cs" />
     <Compile Include="Assets\script\UIrelated\ButtonEventManager.cs" />
     <Compile Include="Assets\script\UIrelated\Canvasbehavior.cs" />
     <Compile Include="Assets\script\UIrelated\canvasmaker.cs" />

@@ -7,7 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour {
+public class ItemspeedChange : MonoBehaviour {
 	[SerializeField]
 	itemstate mystate;
 	[SerializeField]
@@ -18,10 +18,16 @@ public class Item : MonoBehaviour {
 	state[] stateallay;
 
 	void Start() {
+		setItemEffectVariation();
+	}
+
+
+
+	private void setItemEffectVariation() {//スピードを変更するアイテムの効果をステートパターンで実装
 		stateallay = new state[Config.itemkindlength];
 		stateallay[(int)itemstate.faster] = new faster(this);
 		stateallay[(int)itemstate.faster2] = new faster2(this);
-		stateallay[(int)itemstate.slowdown] = new slowdown(this); 
+		stateallay[(int)itemstate.slowdown] = new slowdown(this);
 		stateallay[(int)itemstate.slowdown2] = new slowdown2(this);
 		stateallay[(int)itemstate.stop] = new stop(this);
 		stateallay[(int)itemstate.stop2] = new stop2(this);
@@ -35,7 +41,6 @@ public class Item : MonoBehaviour {
 			stateallay[(int)mystate].oncloisionobject(other);
 		}
 	}
-
 
 	public enum itemstate {
 		faster,
@@ -56,7 +61,7 @@ public class Item : MonoBehaviour {
 		protected Color mycolor;
 		protected float effecttime;
 		protected float speed;
-		protected Item myitem;
+		protected ItemspeedChange myitem;
 
 
 
@@ -69,7 +74,7 @@ public class Item : MonoBehaviour {
 	}
 
 	class faster : state {
-		public faster(Item anItem) {
+		public faster(ItemspeedChange anItem) {
 			myitem = anItem;
 			effecttime = 5f;
 			speed = 5f;
@@ -77,7 +82,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 	class faster2 : state {
-		public faster2(Item anItem) {
+		public faster2(ItemspeedChange anItem) {
 			myitem = anItem;
 			speed = 10f;
 			effecttime = 2f;
@@ -85,7 +90,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 	class slowdown : state {
-		public slowdown(Item anItem) {
+		public slowdown(ItemspeedChange anItem) {
 			myitem = anItem;
 			speed = 0.5f;
 			effecttime = 3f;
@@ -93,7 +98,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 	class slowdown2 : state {
-		public slowdown2(Item anItem) {
+		public slowdown2(ItemspeedChange anItem) {
 			myitem = anItem;
 			speed = 0.3f;
 			effecttime = 3f;
@@ -101,7 +106,7 @@ public class Item : MonoBehaviour {
 		}
 	}
 	class stop : state {
-		public stop(Item anItem) {
+		public stop(ItemspeedChange anItem) {
 			myitem = anItem;
 			speed = 0f;
 			effecttime = 2f;
@@ -112,7 +117,7 @@ public class Item : MonoBehaviour {
 
 
 	class stop2 : state {
-		public stop2(Item anItem) {
+		public stop2(ItemspeedChange anItem) {
 			myitem = anItem;
 			speed = 0f;
 			effecttime = 10f;

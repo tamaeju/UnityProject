@@ -31,7 +31,7 @@ public class ItemMakeEditor : MonoBehaviour {//itemmakerを作るためのUI
 		else {
 			objectkind++;
 		}
-		var enmName = (Item.itemstate)Enum.ToObject(typeof(Item.itemstate), objectkind);
+		var enmName = (ItemspeedChange.itemstate)Enum.ToObject(typeof(ItemspeedChange.itemstate), objectkind);
 		this.gameObject.GetComponentInChildren<Text>().text = enmName.ToString();//番号からアイテムの名前をとってきて、それを反映する。
 
 	}

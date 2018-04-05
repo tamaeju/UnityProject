@@ -33,7 +33,7 @@ public class ItemMaker : MonoBehaviour {//ドラッグ＆ドロップで、ア�
 		scoretext.text = "Left " + ObjectLeftCount.ToString();
 	}
 	public void changeLabelText() {
-		var enmName = (Item.itemstate)Enum.ToObject(typeof(Item.itemstate), MyObjectKind);
+		var enmName = (ItemspeedChange.itemstate)Enum.ToObject(typeof(ItemspeedChange.itemstate), MyObjectKind);
 		labeltext.text = enmName.ToString();
 	}
 	public void setREFofLeftCount(Text ascoretext) {
