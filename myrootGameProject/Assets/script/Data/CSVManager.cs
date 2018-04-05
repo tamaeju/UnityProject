@@ -13,7 +13,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	[SerializeField]
 	Meditator meditator;
 
-	public int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {//データパスと使用するカラムを入力して使用する。
+	private int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {//データパスと使用するカラムを入力して使用する。
 		int[][] dataElements;
 		int[,] practicalDataElements;
 		dataElements = getJagDataElement(aDatapassANDname);
@@ -21,7 +21,16 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		return practicalDataElements;
 	}
 
-	public int[][] getJagDataElement(string datapassANDname) {//ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
+	public int[,] getMapDataElement() {//データパスと使用するカラムを入力して使用する。
+		int usecolomnnum = Config.usecolomn_of_mapdata-1 ;
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		string mapdatapass = datapathmanager.getmapdatapath();
+		return getDataElement(mapdatapass, usecolomnnum);
+	}
+
+
+
+	private int[][] getJagDataElement(string datapassANDname) {//ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
 		int[][] dataElements;
 		string textFile = datapassANDname;
 		System.Text.Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
@@ -43,8 +52,17 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		}
 		return dataElements;
 	}
+	public int[][] getCCDataElement_needtoprocess() {
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		return getJagDataElement(datapathmanager.getconditiondatapath());
+	}
 
-	int[,] parsePracticalDataElements(int[][] oldData, int usingcolumnNum) {//ジャグ配列からグリッド座標毎に1要素となるアイテムに対応した2次元配列への変換メソッド
+	public int[][] getitemDataElement_needtoprocess() {
+		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		return getJagDataElement(datapathmanager.getitemdatapath());
+	}
+
+	private int[,] parsePracticalDataElements(int[][] oldData, int usingcolumnNum) {//ジャグ配列からグリッド座標毎に1要素となるアイテムに対応した2次元配列への変換メソッド
 		int[,] practicalDataElements = new int[Config.maxGridNum, Config.maxGridNum];
 		for (int j = 0; j < practicalDataElements.GetLength(1); j++) {
 			for (int i = 0; i < practicalDataElements.GetLength(0); i++) {
@@ -54,16 +72,6 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		return practicalDataElements;
 	}
 
-	public int[] get1dimentionalData(string aDatapassANDname, int extractcolomn) {//2次元のジャグデータから、1列のデータへ変換し取得する処理。
-		int[][] dataElements = getJagDataElement(aDatapassANDname);
-		int[] getdata = new int[dataElements.Length];
-		for (int i = 0; i < 0; i++) {
-			getdata[i] = dataElements[i][extractcolomn];
-		}
-		return getdata;
-	}
-	//csvデータからやりたい事をやるメソッドというのは、まずcsvmanagerからクリア条件のジャグデータを取得し、そのクリア条件のジャグデータからジャグパサークラスでクリアコンディション型の配列に格納
-	//というのを行う必要があるのだが、それを実行するのは、ボタンマネージャーが実行すべき。
 
 	private void CSVSave<T>(string aDatapath, T writtendata, Action<T> act) {//アセットフォルダにtest.csvというファイルを作成する。
 		File.Delete(aDatapath);
@@ -81,11 +89,13 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		Action<int[,]> actaug = writeData;
 		CSVSave(datapathmanager.getmapdatapath(), writtendata, actaug);
 	}
+
 	public void itemCsvSave(dragitemdata[,] writtendata) {//CSVSaveのジェネリック使用対応メソッド
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<dragitemdata[,]> actaug = writeData;
 		CSVSave(datapathmanager.getitemdatapath(), writtendata, actaug);
 	}
+
 	public void cleardataCsvSave(clearconditiondata[] writtendata) {//CSVSaveのジェネリック使用対応メソッド
 		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		Action<clearconditiondata[]> actaug = writeData;
@@ -100,6 +110,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		}
 		Debug.Log("MapData was written");
 	}
+
 	private void writeData(dragitemdata[,] writtenData) {//オーバーライドメソッド
 		for (int j = 0; j < writtenData.GetLength(0); j++) {
 			for (int i = 0; i < writtenData.GetLength(1); i++) {
@@ -108,12 +119,14 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		}
 		Debug.Log("itemdata was written");
 	}
+
 	private void writeData(clearconditiondata[] writtenData) {//オーバーライドメソッド
 		for (int i = 0; i < writtenData.Length; i++) {
 			m_sw.WriteLine("{0},{1},{2}", i, writtenData[i].timelimit, writtenData[i].RequiredDeffenceCount);
 		}
 		Debug.Log("conditiondata was written");
 	}
+
 }
 
 

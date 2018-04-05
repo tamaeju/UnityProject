@@ -44,7 +44,7 @@ public class DataCreateScene : MonoBehaviour {
 	}
 
 	private void makeMapObjectANDupdateLeveldesignDataAndCansetData() {
-		int[,] _leveldesigndata = csvmanager.getDataElement(datapathmanager.getmapdatapath(), usecolomn_of_mapdata - 1);//レベルデザインデータをcsvからよみこんできて更新、そのためこの時点で、csvのパスをしっかり変えられて入ればよい。
+		int[,] _leveldesigndata = csvmanager.getMapDataElement();//レベルデザインデータをcsvからよみこんできて更新、そのためこの時点で、csvのパスをしっかり変えられて入ればよい。
 		makemanager.instanciateAllMapObject(_leveldesigndata);//メイクマネージャーにオブジェクトの作成命令
 		makemanager.gameObject.GetComponent<distinationSetter>().setditination();
 		mapdatamanager.updateCansetDatas(_leveldesigndata);//レベルデザインデータを元にで置けるか否かのデータを更新。
@@ -60,7 +60,6 @@ public class DataCreateScene : MonoBehaviour {
 	}
 
 	public void ChangeCSVNum(Dropdown dropdown) {//保存先と、呼び出し先のcsvを変更するメソッド、マップデータ以外は１つのcsvファイルに保存（インデックスがステージになっているのでそう設計した）
-		datapathmanager.ChangeMapCSVNum(dropdown.value);
 		mapdatamanager.changeStageNum(dropdown.value);
 	}
 	public void makeMapCsv()//UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求

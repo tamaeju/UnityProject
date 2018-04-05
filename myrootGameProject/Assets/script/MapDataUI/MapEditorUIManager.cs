@@ -43,14 +43,13 @@ public class MapEditorUIManager : MonoBehaviour {//マップに何を配置す�
 		return MapEditorButtons;
 	}
 	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
 		CSVManager csvmanager = meditator.getcsvmanager();
 		GameObject[] UIobjects = getUIobjects();
 		int usecolomn = Config.usecolomn_of_mapdata;
 
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
-				int objectkind = csvmanager.getDataElement(datapathmanager.getmapdatapath(), usecolomn - 1)[i, j];
+				int objectkind = csvmanager.getMapDataElement()[i, j];
 				UIobjects[j * 10 + i].GetComponent<MapEditorbutton>().changeState(objectkind);
 			}
 		}

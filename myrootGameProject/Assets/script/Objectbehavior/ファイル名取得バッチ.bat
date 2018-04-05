@@ -1,1 +1,0 @@
-dir *.cs /b  > \list.txt

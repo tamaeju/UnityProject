@@ -22,7 +22,9 @@ public class MapDataManager : MonoBehaviour {//ゲームデータを保存、使
 	}
 
 	public void changeStageNum(int Num) {
+		DataPathManager datapather = meditator.getdatapathmanager();
 		stage = Num;
+		datapather.ChangeMapCSVNum(Num);
 	}
 
 	void Start() {//各データの初期化

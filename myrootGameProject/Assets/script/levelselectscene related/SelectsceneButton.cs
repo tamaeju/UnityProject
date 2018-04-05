@@ -26,9 +26,9 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 		myStageCount = stagecount;
 	}
 	public void stageCall() {//ステージを呼び出す処理
-		DataPathManager datapathmanager = meditator.getdatapathmanager();
+		MapDataManager mapdatamanager = meditator.getmapdatamanager();
 		ButtonEventManager buttonmanager = meditator.getbuttonmanager();
-		datapathmanager.ChangeMapCSVNum(myStageCount);
+		mapdatamanager.changeStageNum(myStageCount);
 		buttonmanager.makeObjectButton();
 		parentActiveOff();
 	}

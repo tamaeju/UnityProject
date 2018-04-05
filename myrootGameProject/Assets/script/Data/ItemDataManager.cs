@@ -17,12 +17,11 @@ public class ItemDataManager : MonoBehaviour {
 
 	void Start() {//各データの初期化
 		dragitemdatas = new dragitemdata[Config.stageCount, Config.dragbuttonNum];
-		datapathmanager = meditator.getdatapathmanager();
 		jagchanger = meditator.getjagchanger();
 		csvmanager = meditator.getcsvmanager();
 	}
 	public void LoadALLdragitemdata() {//csvデータを読み込んできてアイテムデータを上書き。
-		int[][] jagitemdata = csvmanager.getJagDataElement(datapathmanager.getitemdatapath());
+		int[][] jagitemdata = csvmanager.getitemDataElement_needtoprocess();
 		dragitemdatas = jagchanger.parsejagtodobledragitemdatadatas(jagitemdata);
 	}
 	public void UpdateDragitemData(int UIbuttonNum, int itemkind, int leftcount) {//dragitem更新用処理
