@@ -9,6 +9,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UniRx;
+
 public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア時のキャンバスを作成するクラス
 
 	GameObject scenecanvasprefab;
@@ -40,7 +43,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.setMethod(canvasmethod);
 	}
 
-	public void showGameovercanvas(int recenteatcount, Action act = null) {
+	public void showGameovercanvas(int recenteatcount) {
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, transform.position, Quaternion.identity) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
 		canvas.changeTitleText("gameover");
@@ -48,7 +51,12 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeScorelabel("到達数");
 		canvas.changeScoreText(recenteatcount);
 		canvas.changebackcolor(Color.magenta);
-		canvas.setMethod(act);
+		canvas.CanvasScrolled.Subscribe(x => testloadScene(x)); 
+	}
+
+	public void testloadScene(string x) {
+		Debug.LogFormat("testloadScene");
+		SceneManager.LoadScene(x);
 	}
 
 	public void getscenecanvas(GameObject canvasprefab) {

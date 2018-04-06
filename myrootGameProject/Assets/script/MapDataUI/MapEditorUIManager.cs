@@ -61,4 +61,8 @@ public class MapEditorUIManager : MonoBehaviour {//マップに何を配置す�
 		getobject.transform.position = new Vector3(canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
 		return getobject;
 	}
+	public void deleteEditorUIbuttons() {
+		foreach(var item in MapEditorButtons)
+		Destroy(item);
+	}
 }

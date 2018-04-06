@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト画面のセレクトボタンを生成するクラス
 
@@ -14,8 +15,10 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 	Vector2 originpos;
 	float buffalength = 45;
 	[SerializeField]
-	Meditator meditator;
+	LevelSelectScene levelselectscene;
 
+	[SerializeField]
+	GameObject levelselectscenecanvaspos;
 
 	void Start () {
 		UIbuttonhorizontalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.x;
@@ -25,10 +28,10 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		buttonobjects = new GameObject[arraysizeofUIbutton];
 		for (int i = 0; i < arraysizeofUIbutton; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
-			buttonobjects[i].GetComponent<SelectsceneButton>().changeThisText("Level  "+(i+1).ToString());
-			buttonobjects[i].GetComponent<SelectsceneButton>().changeMystageCount(i);
-			buttonobjects[i].GetComponent<SelectsceneButton>().getMeditatorRef(meditator);
-
+			SelectsceneButton selectscenebutton = buttonobjects[i].GetComponent<SelectsceneButton>();
+			selectscenebutton.changeThisText("Level  "+(i+1).ToString());
+			selectscenebutton.changeMystageCount(i);
+			selectscenebutton.OnClickedStageButton.Subscribe(stage => { levelselectscene.stageCall(stage); });
 		}
 	}
 
@@ -52,6 +55,9 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		getpos.x = arrayNum.x * UIbuttonhorizontalsize + buffalength* (arrayNum.x+1);
 		getpos.y = -1*(arrayNum.y * UIbuttonverticalsize + buffalength * (arrayNum.y));
 		return getpos;
+	}
+	public void canvasdisplayOff() {
+		levelselectscenecanvaspos.SetActive(false);
 	}
 
 

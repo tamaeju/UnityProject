@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class DataCreateScene : MonoBehaviour {
 	[SerializeField]
@@ -14,8 +15,7 @@ public class DataCreateScene : MonoBehaviour {
 	CSVManager csvmanager;
 	ItemDataManager itemdatamanager;
 	MapDataManager mapdatamanager;
-	DataPathManager datapathmanager;
-	ItemmakeEditorCreater UIdraghmanager;
+	ItemmakeEditorCreater itemmakeeditorcreater;
 	ItemMakerCreater itemmakermanager;
 	ButtonEventManager buttoneventmanager;
 
@@ -27,9 +27,7 @@ public class DataCreateScene : MonoBehaviour {
 		makemanager = meditator.getmakemanager();
 		csvmanager = meditator.getcsvmanager();
 		mapdatamanager = meditator.getmapdatamanager();
-
-		datapathmanager = meditator.getdatapathmanager();
-		UIdraghmanager = meditator.getUIdraghmanager();
+		itemmakeeditorcreater = meditator.getUIdraghmanager();
 
 
 		setbuttonmethod();
@@ -68,8 +66,8 @@ public class DataCreateScene : MonoBehaviour {
 		csvmanager.MapCsvSave(mapdatamanager.getLevelDesignData());
 	}
 	public void makeObjectFromMapCsvButton() {
-		if (UIdraghmanager != null) {
-			UIdraghmanager.deletebutton();
+		if (itemmakeeditorcreater != null) {
+			itemmakeeditorcreater.deletebutton();
 		}
 		makeItemMaker(mapdatamanager.getStageNum());
 		meditator.getclearmanager().clearConditionSet();
@@ -92,6 +90,10 @@ public class DataCreateScene : MonoBehaviour {
 	public void startStagePlay(){
 		ClearConditionManager clearmanager = meditator.getclearmanager();
 		StartCoroutine(clearmanager.timedecreasePerSecond());
+		MapEditorUIManager mapeditorUImanager = meditator.getUImanager();
+		if (mapeditorUImanager != null) {
+			mapeditorUImanager.deleteEditorUIbuttons();
+		}
 		makeMapObjectANDupdateLeveldesignDataAndCansetData(); 
 	}
 

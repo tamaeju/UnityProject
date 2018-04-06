@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-
+using UniRx;
 public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {//タイトルのキャンバスを動かすためのコンポーネント、eventsystemを使用
 	[SerializeField]
 	Text titletext;
@@ -29,8 +29,14 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	RectTransform rectform;
 	Action m_act;
 
+
 	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
 
+	private Subject<string> actionsubject = new Subject<string>();
+
+	public IObservable<string> CanvasScrolled {
+		get { return actionsubject; }
+	}
 
 	public void changeTitleText(string title) {
 		titletext.text = title;
@@ -65,6 +71,7 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	public void OnPointerDown(PointerEventData _data) {
 
 		StartCoroutine(moveCoroutine(1200));
+		actionsubject.OnNext("LevelSelectScene");
 		m_act();
 
 	}

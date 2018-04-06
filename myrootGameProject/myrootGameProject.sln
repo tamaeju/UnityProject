@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myrootGameProject.Plugins",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myrootGameProject", "myrootGameProject.csproj", "{C0A2B139-FD0F-03D0-1B5B-A02226FFBEF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myrootGameProject.Editor.Plugins", "myrootGameProject.Editor.Plugins.csproj", "{2870A147-6712-50B5-B4C8-7F55A0F87140}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "myrootGameProject.Editor", "myrootGameProject.Editor.csproj", "{ADB58704-89C1-466A-0E50-66DB478EF9DC}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{C0A2B139-FD0F-03D0-1B5B-A02226FFBEF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0A2B139-FD0F-03D0-1B5B-A02226FFBEF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0A2B139-FD0F-03D0-1B5B-A02226FFBEF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2870A147-6712-50B5-B4C8-7F55A0F87140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2870A147-6712-50B5-B4C8-7F55A0F87140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2870A147-6712-50B5-B4C8-7F55A0F87140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2870A147-6712-50B5-B4C8-7F55A0F87140}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ADB58704-89C1-466A-0E50-66DB478EF9DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADB58704-89C1-466A-0E50-66DB478EF9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB58704-89C1-466A-0E50-66DB478EF9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU

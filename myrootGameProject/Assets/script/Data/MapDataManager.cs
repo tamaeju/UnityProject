@@ -62,7 +62,7 @@ public class MapDataManager : MonoBehaviour {//ゲームデータを保存、使
 				if (existencepoints[i, j] == 1) {
 					_canSetDatas[i, j] = false;
 				}
-				else { _canSetDatas[i, j] = true; Debug.Log(String.Format("i, j, _canSetDatas[i, j]{0}{1}{2}", i, j, _canSetDatas[i, j])); }
+				else { _canSetDatas[i, j] = true;  }
 			}
 		}
 	}

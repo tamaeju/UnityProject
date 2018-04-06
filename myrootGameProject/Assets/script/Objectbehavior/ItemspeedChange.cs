@@ -33,7 +33,7 @@ public class ItemspeedChange : MonoBehaviour {
 		stateallay[(int)itemstate.stop2] = new stop2(this);
 		stateallay[(int)itemstate.stop2] = new stop2(this);
 		stateallay[(int)itemstate.stop2] = new stop2(this);
-		stateallay[(int)mystate].changeColour();
+		//stateallay[(int)mystate].changeColour();
 	}
 
 	void OnTriggerEnter(Collider other) {
