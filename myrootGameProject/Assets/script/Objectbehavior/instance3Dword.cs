@@ -32,11 +32,11 @@ public class instance3Dword : MonoBehaviour {//このコンポーネントを所
 
 	private IEnumerator mekeEffectTimeWord(int effecttime) {
 		for (int i = effecttime; i > 0; i--) {
-
+			yield return new WaitForSeconds(1f);
 			countdowntextobject.transform.position = this.gameObject.transform.position;
 			countdowntext.text = i.ToString();
-			yield return new WaitForSeconds(1f);
 		}
+		yield return new WaitForSeconds(1f);
 		Destroy(countdowntextobject);
 		Destroy(this);
 		Instantiate(curedeffectprefab);

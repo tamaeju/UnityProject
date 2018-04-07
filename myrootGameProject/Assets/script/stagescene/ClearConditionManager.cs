@@ -112,6 +112,11 @@ public class ClearConditionManager : MonoBehaviour {//クリア条件を管理�
 		recenteatcount++;
 		reflectTexttoDisplay(); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
 	}
+	public void decleaseRecentEatcount() {
+		recenteatcount--;
+		reflectTexttoDisplay(); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
+	}
+
 	public void setcanvasMaker(canvasmaker maker) {
 		canvasMaker = maker;
 	}

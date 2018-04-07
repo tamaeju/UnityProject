@@ -221,6 +221,7 @@
     <Compile Include="Assets\script\Itemmaker\ItemmakeEditorCreater.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorUIManager.cs" />
     <Compile Include="Assets\script\MapDataUI\MapEditorbutton.cs" />
+    <Compile Include="Assets\script\Objectbehavior\AidCharactor.cs" />
     <Compile Include="Assets\script\Objectbehavior\BombItem.cs" />
     <Compile Include="Assets\script\Objectbehavior\Bombfire.cs" />
     <Compile Include="Assets\script\Objectbehavior\CharactorMove.cs" />

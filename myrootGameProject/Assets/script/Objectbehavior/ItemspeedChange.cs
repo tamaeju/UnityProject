@@ -63,11 +63,10 @@ public class ItemspeedChange : MonoBehaviour {
 		protected float speed;
 		protected ItemspeedChange myitem;
 
+		public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
 
-
-	public void changeColour() { myitem.GetComponent<Renderer>().material.color = mycolor; }
 		public void  oncloisionobject(Collider other) {
-			other.GetComponent<TargetMove>().changeSpeed(speed, effecttime);
+			other.GetComponent<CharactorMove>().changeSpeed(speed, effecttime);
 			Instantiate(myitem.effect, myitem.transform.position, myitem.effect.transform.rotation);
 			Destroy(myitem.gameObject);
 		}

@@ -45,6 +45,7 @@ public class DataCreateScene : MonoBehaviour {
 		int[,] _leveldesigndata = csvmanager.getMapDataElement();//レベルデザインデータをcsvからよみこんできて更新、そのためこの時点で、csvのパスをしっかり変えられて入ればよい。
 		makemanager.instanciateAllMapObject(_leveldesigndata);//メイクマネージャーにオブジェクトの作成命令
 		makemanager.gameObject.GetComponent<distinationSetter>().setditination();
+		makemanager.gameObject.GetComponent<distinationSetter>().setAidditination();
 		mapdatamanager.updateCansetDatas(_leveldesigndata);//レベルデザインデータを元にで置けるか否かのデータを更新。
 	}
 

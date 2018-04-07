@@ -40,8 +40,13 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 			}
 			else if (popobject.GetComponent<TargetMove>()) {
 				distinationmaker.addtargetobject(popobject);
-				distinationmaker.setClearconditioner(meditator.getclearmanager());//method化
+				
 			}
+			else if (popobject.GetComponent<AidCharactor>()) {
+				distinationmaker.setAIDobject(popobject);
+			}
+
+
 		}
 	}
 
@@ -53,6 +58,8 @@ public class MakeManager : MonoBehaviour {//オブジェクト生成を行うク
 				}
 			} 
 		}
+		distinationmaker.setReachGoalMethod(meditator.getclearmanager());//method化
+		distinationmaker.setAidReachGoalMethod(meditator.getclearmanager());//method化
 	}
 
 

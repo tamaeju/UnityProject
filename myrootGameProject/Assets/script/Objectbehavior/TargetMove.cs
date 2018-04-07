@@ -18,9 +18,7 @@ public class TargetMove : CharactorMove {//ゴール以外のマップのター�
 	}
 	//問題点としては、最初にアニメーションが切り替わらな事。
 
-	public void getclearconditioner(ClearConditionManager aclearconditioner) {
-		clearconditioner = aclearconditioner;
-	}
+
 	public void incleaseEatCount() {//クリアコンディションの情報を更新する処理
 		increaseEatCountmethod();
 	}

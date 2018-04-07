@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "caliculateprogram.Plugins", "caliculateprogram.Plugins.csproj", "{F03E7101-C3B1-EF8C-498D-0BCDA662F7D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "caliculateprogram", "caliculateprogram.csproj", "{C51EF90A-79DB-739C-5B2A-EFF8B09045A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F03E7101-C3B1-EF8C-498D-0BCDA662F7D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F03E7101-C3B1-EF8C-498D-0BCDA662F7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F03E7101-C3B1-EF8C-498D-0BCDA662F7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F03E7101-C3B1-EF8C-498D-0BCDA662F7D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C51EF90A-79DB-739C-5B2A-EFF8B09045A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C51EF90A-79DB-739C-5B2A-EFF8B09045A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C51EF90A-79DB-739C-5B2A-EFF8B09045A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C51EF90A-79DB-739C-5B2A-EFF8B09045A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
