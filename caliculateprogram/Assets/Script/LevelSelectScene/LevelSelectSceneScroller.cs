@@ -5,46 +5,45 @@ using System.Text;
 using System.IO;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-
-public class LevelSelectSceneScroller : MonoBehaviour {//スクロールするオブジェクトのコンポーネント
+public class LevelSelectSceneScroller : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler {//タイトルのキャンバスを動かすためのコンポーネント、eventsystemを使用。
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
-	float heightRange = 1700;//画面のスクロール限界//スクロールが戻る際の挙動が不自然なので修正が必要と思われるが現時点では保留
+	Vector3 touchdownpos;
+	Vector3 touchexitpos;
+	Vector3 differencedistance;
 
-	public float doubleratio = 1600f;
-	public void changeposition(float scrollvalue) {
-		rectform = GetComponent<RectTransform>();
-		variableVector3 = rectform.position;
-		variableVector3.y= scrollvalue * doubleratio;
-		rectform.position = variableVector3;
+
+
+	public void OnPointerEnter(PointerEventData eventData) {
+		Vector3 screenPotsition, worldtapPosition;
+		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		worldtapPosition = Camera.main.ScreenToWorldPoint(screenPotsition);
+		touchexitpos = worldtapPosition;
+		Debug.LogFormat("OnPointerEnter");
 	}
 
-	
-	public void DisplayMoveOut() {
-		StartCoroutine(moveCoroutine(1200));
+	public void OnPointerExit(PointerEventData ped) {
+		Vector3 screenPotsition, worldtapPosition;
+		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		worldtapPosition = Camera.main.ScreenToWorldPoint(screenPotsition);
+		touchexitpos = worldtapPosition;
+		differencedistance = touchexitpos - touchdownpos;
+		ChangeObjectPos();
+		Debug.LogFormat("OnPointerExit");
 	}
-	private IEnumerator moveCoroutine(int totalmovedistance) {//画面外にはける動きを作成するために、1Fごとに指定移動距離の1/20を動く。
-		for (int i = 0; i < 20; i++) {
-			rectform = GetComponent<RectTransform>();
-			variableVector3 = rectform.position;
-			variableVector3.y = variableVector3.y + totalmovedistance/20;
-			rectform.position = variableVector3;
-			yield return null;
-		}
+
+	public void OnPointerDown(PointerEventData ped) {
+		Vector3 screenPotsition, worldtapPosition;
+		screenPotsition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z);
+		worldtapPosition = Camera.main.ScreenToWorldPoint(screenPotsition);
+		touchdownpos = worldtapPosition;
+		Debug.LogFormat("OnPointerDown");
 	}
-	public void move(Vector3 moveVector) {//マウスの動きからポジションを移動させる処理。（heightRangeの絶対値以上のスクロールを禁止している）
-		rectform = GetComponent<RectTransform>();
-		variableVector3 = rectform.position;
-		variableVector3.y = rectform.position.y + moveVector.y;
-		if (rectform.position.y < heightRange && rectform.position.y > -1 * heightRange)
-		{
-			rectform.position = variableVector3;
-		}
-		else
-		{
-			variableVector3.y = variableVector3.y / Math.Abs(variableVector3.y) * (heightRange - 100);
-			rectform.position = variableVector3;
-		}
+	private void ChangeObjectPos() {
+		rectform = this.GetComponent<RectTransform>();
+		Vector3 newPos = new Vector3(rectform.position.x + differencedistance.x, rectform.position.y + differencedistance.y, rectform.position.z);
+		this.GetComponent<RectTransform>().position = newPos;
 	}
 }

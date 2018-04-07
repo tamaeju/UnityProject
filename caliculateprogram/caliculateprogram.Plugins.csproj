@@ -73,6 +73,9 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
+    <Reference Include="FullSerializer">
+      <HintPath>Assets/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
@@ -323,6 +326,9 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />
+    <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
+    <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

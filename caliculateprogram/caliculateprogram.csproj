@@ -73,6 +73,9 @@
     <Reference Include="UnityEngine.VR">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
     </Reference>
+    <Reference Include="FullSerializer">
+      <HintPath>Assets/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
@@ -84,16 +87,48 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Auto Save\ExampleMoveObject.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Custom\ExampleSaveCustom.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Position\ExampleSavePosition.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Rotation\ExampleSaveRotation.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Scale\ExampleSaveScale.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Save Web\ExampleSaveWeb.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Examples\Shared\Scripts\SerializerDropdown.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Encoders\ISaveGameEncoder.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Encoders\SaveGameSimpleEncoder.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGame.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGameAuto.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\SaveGameWeb.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\ISaveGameSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameBinarySerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameJsonSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Serializers\SaveGameXmlSerializer.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Color32Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\ColorSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\MeshSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\QuaternionSave.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector2Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector3Save.cs" />
+    <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector4Save.cs" />
     <Compile Include="Assets\Script\Config.cs" />
     <Compile Include="Assets\Script\ControllerMethodSetter.cs" />
+    <Compile Include="Assets\Script\DataView.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\LevelSelectCanvasManager.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\LevelSelectSceneScroller.cs" />
-    <Compile Include="Assets\Script\LevelSelectScene\ScrollObject.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\SelectsceneButton.cs" />
+    <Compile Include="Assets\Script\MapDataManager.cs" />
+    <Compile Include="Assets\Script\MassMover.cs" />
+    <Compile Include="Assets\Script\MassStruct.cs" />
     <Compile Include="Assets\Script\MathMass.cs" />
     <Compile Include="Assets\Script\MoveController.cs" />
+    <Compile Include="Assets\Script\MovingMass.cs" />
+    <Compile Include="Assets\Script\ObjectMaker.cs" />
+    <Compile Include="Assets\Script\TargetDataView.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />
+    <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
+    <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
