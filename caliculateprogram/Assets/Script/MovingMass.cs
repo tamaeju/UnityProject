@@ -11,16 +11,23 @@ using UniRx;
 
 
 public class MovingMass : MonoBehaviour {
-	int m_number;
-	Vector2 m_pos;
+	ReactiveProperty<int> m_number = new ReactiveProperty<int>();
+	ReactiveProperty<Vector2> m_pos = new ReactiveProperty<Vector2>();
+	Action m_act;
 
-	public void SetMyPos(Vector2 pos) {
-		m_pos = pos;
+	void Start() {
+		m_pos.Subscribe(_=> MovePosition(m_pos.Value));
+		m_number.Subscribe(_ => m_act());
+	}
+
+	public void SetMyPos(int posX, int posY){
+		Vector2 newPos = new Vector2(posX, posY);
+		m_pos.Value = newPos;
 	}
 
 
 	public Vector2 GetMyPos() {
-		return  m_pos;
+		return m_pos.Value;
 	}
 
 	void MovePosition(Vector2 afterpos) {
@@ -28,9 +35,10 @@ public class MovingMass : MonoBehaviour {
 		this.transform.position = afterpos3;
 	}
 	public void ChangeMyNum(int num) {
-		m_number = num;
+		m_number.Value = num;
 	}
+
 	public int GetMyNumber() {
-		return m_number;
+		return m_number.Value;
 	}
 }

@@ -17,28 +17,34 @@ public class ObjectMaker : MonoBehaviour {//オブジェクト生成を行うク
 	GameObject moveobject;
 
 	GameObject[,] massobjects;
+	GameObject goalobject;
 
 	private void Start() {
 		massobjects = new GameObject[Config.maxGridNum, Config.maxGridNum];
 	}
 
 
-	public void InstanciateObject(int[,] _leveldesigndata, int i, int j) {
-		if (_leveldesigndata[i, j] == 0) {//0はプレイヤー
+	public void InstanciateObject(MassStruct[,] _leveldesigndata, int i, int j) {
+		if (_leveldesigndata[i, j].masskind == 0) {//0はプレイヤー
 			moveobject = Instantiate(moveprefab, settingObjectPos(i, j, 0), Quaternion.identity) as GameObject;
+			massobjects[i, j].GetComponent<MovingMass>().SetMyPos(i, j);
 		}
-		else {
-			massobjects[i,j] = Instantiate(massprefab, settingObjectPos(i, j, 0), Quaternion.identity) as GameObject;
+
+		else
+		{
+			massobjects[i, j] = Instantiate(massprefab, settingObjectPos(i, j, 0), Quaternion.identity) as GameObject;
+			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
+			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(_leveldesigndata[i, j].masskind);
+			massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(_leveldesigndata[i, j].massnumber);
+
 			//生成後に値を入れるメソッドを実行→MassStruct[,]を使用するmassstruct.massnumberとmassstruct.masskindを使用する。
 		}
 	}
 
-	public void instanciateAllMapObject(int[,] _leveldesigndata) {//playerやブロックなどのオブジェクトを生成するメソッド。
+	public void instanciateAllMapObject(MassStruct[,] _leveldesigndata) {//playerやブロックなどのオブジェクトを生成するメソッド。
 		for (int j = 0; j < _leveldesigndata.GetLength(1); ++j) {
 			for (int i = 0; i < _leveldesigndata.GetLength(0); ++i) {
-				if (_leveldesigndata[i, j] != 0) {//0はアイテムなし
 					InstanciateObject(_leveldesigndata, i, j);
-				}
 			} 
 		}
 	}
@@ -49,8 +55,13 @@ public class ObjectMaker : MonoBehaviour {//オブジェクト生成を行うク
 		return returnPos;
 	}
 
-
-
+	public GameObject GetMovingMass() {
+		return moveobject;
+	}
+	public GameObject[,] GetMathMasses()
+	{
+		return massobjects;
+	}
 
 }
 

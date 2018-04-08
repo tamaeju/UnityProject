@@ -25,7 +25,7 @@ public class MathMass : MonoBehaviour {
 		add,
 		substract,
 		multiplicate,
-		divide
+		divide,
 	}
 
 	//値に自分の数字を投げた時に答えを返してほしい
@@ -108,8 +108,9 @@ public class MathMass : MonoBehaviour {
 		}
 	}
 
-	public void SetMyPos(Vector2 pos) {
-		m_pos = pos;
+	public void SetMyPos(int posX, int posY) {
+		m_pos.x = posX;
+		m_pos.y = posY;
 	}
 
 
