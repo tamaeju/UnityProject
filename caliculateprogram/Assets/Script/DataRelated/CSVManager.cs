@@ -13,8 +13,9 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	DataPathManager datapathmanager;
 
 	void Start() {
-
-		datapathmanager = this.gameObject.AddComponent<DataPathManager>();
+		if (datapathmanager == null) {
+			datapathmanager = this.gameObject.AddComponent<DataPathManager>();
+		}
 	}
 
 
@@ -37,6 +38,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	private int[][] getJagDataElement(string datapassANDname) {//ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
 		int[][] dataElements;
 		string textFile = datapassANDname;
+		Debug.Log(datapassANDname);
 		System.Text.Encoding enc = System.Text.Encoding.GetEncoding("utf-8");
 		string[] lines = System.IO.File.ReadAllLines(textFile, enc);
 		string[] RowStrings = lines[0].Split(',');
@@ -59,7 +61,13 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 
 
 	private int[][] getMapaDataElement_needtoprocess() {
-		return getJagDataElement(datapathmanager.getmapdatapath() );
+		if (datapathmanager == null) {
+			datapathmanager = this.gameObject.AddComponent<DataPathManager>();
+			return getJagDataElement(datapathmanager.getmapdatapath());
+		}
+		else {
+			return getJagDataElement(datapathmanager.getmapdatapath());
+		}
 	}
 
 	public MassStruct[,] getMapDataElements()

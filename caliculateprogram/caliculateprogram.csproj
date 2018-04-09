@@ -110,20 +110,25 @@
     <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector2Save.cs" />
     <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector3Save.cs" />
     <Compile Include="Assets\BayatGames\SaveGameFree\Scripts\Types\Vector4Save.cs" />
+    <Compile Include="Assets\Script\ButtonControllerMethodSetter.cs" />
     <Compile Include="Assets\Script\Config.cs" />
-    <Compile Include="Assets\Script\ControllerMethodSetter.cs" />
-    <Compile Include="Assets\Script\DataView.cs" />
+    <Compile Include="Assets\Script\CurrentStageData.cs" />
+    <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
+    <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
+    <Compile Include="Assets\Script\DataRelated\DataPathManager.cs" />
+    <Compile Include="Assets\Script\FieldObjectMaker.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\LevelSelectCanvasManager.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\LevelSelectSceneScroller.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\SelectsceneButton.cs" />
     <Compile Include="Assets\Script\MapDataManager.cs" />
-    <Compile Include="Assets\Script\MassMover.cs" />
+    <Compile Include="Assets\Script\MassMoveDealer.cs" />
     <Compile Include="Assets\Script\MassStruct.cs" />
     <Compile Include="Assets\Script\MathMass.cs" />
     <Compile Include="Assets\Script\MoveController.cs" />
     <Compile Include="Assets\Script\MovingMass.cs" />
-    <Compile Include="Assets\Script\ObjectMaker.cs" />
-    <Compile Include="Assets\Script\TargetDataView.cs" />
+    <Compile Include="Assets\Script\PanelView.cs" />
+    <Compile Include="Assets\Script\TargetPanelView.cs" />
+    <Compile Include="Assets\Script\ViewMethodSetter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />

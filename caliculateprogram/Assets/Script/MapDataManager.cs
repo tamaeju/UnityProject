@@ -13,7 +13,7 @@ using UniRx;
 public class MapDataManager : MonoBehaviour {
 	MassStruct[,] massdata;
 
-	public void ChangeMassData(MassStruct[,] gotmassdata) {
+	public void SetAllMassData(MassStruct[,] gotmassdata) {
 		massdata = gotmassdata;
 	}
 

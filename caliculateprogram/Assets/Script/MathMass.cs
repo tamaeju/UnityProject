@@ -12,10 +12,8 @@ public class MathMass : MonoBehaviour {
 	int m_number;
 	massstate m_state;
 	Vector2 m_pos;
-
-	
-
 	ReactiveProperty<bool> m_isgthrough = new ReactiveProperty<bool>();
+
 	[SerializeField]
 	TextMesh m_masskindtext;
 	[SerializeField]
@@ -74,7 +72,7 @@ public class MathMass : MonoBehaviour {
 	}
 
 	private void Start() {
-		m_isgthrough.Subscribe(_ => ChangeDarkColor());
+		m_isgthrough.AsObservable().Subscribe(_ => ChangeDarkColor());
 	}
 
 	private void RenewText() {

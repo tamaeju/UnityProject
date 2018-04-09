@@ -6,7 +6,7 @@ using System.IO;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-public class ObjectMaker : MonoBehaviour {//オブジェクト生成を行うクラス。
+public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行うクラス。
 	
 	float blocklength = Config.blocklength;
 	[SerializeField]

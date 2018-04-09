@@ -9,19 +9,22 @@ using UnityEngine.UI;
 
 public class DataPathManager : MonoBehaviour {//ゲームデータの保存パスを管理するクラス。csvmanagerとの連携度高
 
-	private string filename;//0はマップデータ、1はditemdata,2はclearcondinaldata
+	private string filename = "mapData";//0はマップデータ、1はditemdata,2はclearcondinaldata
 	private string csvdatapath;
 	private int filekindlength = Config.filekindlength;
 	private int stageCount = Config.stageCount;
 
 
 	void Start() {
-		filename = "mapData";
 		csvdatapath = Application.dataPath + "/data/" + filename + ".csv";
 	}
 
 	public string getmapdatapath() {
+		if (csvdatapath == null) {
+			csvdatapath = Application.dataPath + "/data/" + filename + ".csv";
+		}
 		return csvdatapath;
+
 	}
 
 
