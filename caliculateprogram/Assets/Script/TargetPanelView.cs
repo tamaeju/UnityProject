@@ -28,10 +28,10 @@ public class TargetPanelView : MonoBehaviour {
 	}
 
 	private void Start() {
-		var changeMC = stagedataVO.gameObject.ObserveEveryValueChanged(_ => stagedataVO.currentMoveCount);//currentMoveCountはパブリックじゃないといけない？
-		changeMC.Subscribe(_ => this.RenewMovecountText(stagedataVO.GetMoveCount().ToString()));
+		var changeMC = stagedataVO.gameObject.ObserveEveryValueChanged(_ => stagedataVO.targetMoveCount );//currentMoveCountはパブリックじゃないといけない？
+		changeMC.Subscribe(_ => this.RenewMovecountText(stagedataVO.GetTargetMoveCount().ToString()));
 
-		var changeCMC = stagedataVO.gameObject.ObserveEveryValueChanged(_ => stagedataVO.currentCaliculationQuantity);//currentMoveCountはパブリックじゃないといけない？
-		changeCMC.Subscribe(_ => this.RenewMovecountText(stagedataVO.GettargetCaliculationQuantity().ToString()));
+		var changeCMC = stagedataVO.gameObject.ObserveEveryValueChanged(_ => stagedataVO.targetSum );//currentMoveCountはパブリックじゃないといけない？
+		changeCMC.Subscribe(_ => this.RenewCountText(stagedataVO.GettargetSum().ToString()));
 	}
 }

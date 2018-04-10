@@ -17,6 +17,10 @@ public class ButtonControllerMethodSetter : MonoBehaviour {
 	[SerializeField]
 	MassMoveDealer massmovedealer;
 
+	void Start() {
+		setControllerMethod();
+	}
+
 	public void setControllerMethod() {//ゲームオブジェクトをシリアライズフィールドで入れて、処理を実装
 		m_upbutton.OnClicked.Subscribe(x => { massmovedealer.pushUpButton() ; });
 		m_downbutton.OnClicked.Subscribe(x => { massmovedealer.pushDownButton(); });

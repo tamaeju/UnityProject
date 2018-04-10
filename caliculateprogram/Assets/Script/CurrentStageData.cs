@@ -11,11 +11,13 @@ using UniRx;
 
 
 public class CurrentStageData : MonoBehaviour {
-	  
-	public int targetMoveCount;
-	public int targetCaliculationQuantity;
+
+	public int currentSum;
 	public int currentMoveCount;
-	public int currentCaliculationQuantity;
+
+	public int targetSum;
+	public int targetMoveCount;
+
 	[SerializeField]
 	CSVManager csvgetter;
 	//データからとってきて、値を更新するメソッド
@@ -33,19 +35,19 @@ public class CurrentStageData : MonoBehaviour {
 	}
 
 
-	public void SetCurrentCaliculationQuantity(int newCount) {
-		currentCaliculationQuantity = newCount;
+	public void SetCurrentSum(int newCount) {
+		currentSum = newCount;
 	}
-	public int GetCurrentCaliculationQuantity() {
-		return currentCaliculationQuantity;
+	public int GetCurrentSum() {
+		return currentSum;
 	}
 
 
-	public void SetTargetCaliculationQuantity(int newCount) {
-		targetCaliculationQuantity = newCount;
+	public void SetTargetSum(int newCount) {
+		targetSum = newCount;
 	}
-	public int GettargetCaliculationQuantity() {
-		return targetCaliculationQuantity;
+	public int GettargetSum() {
+		return targetSum;
 	}
 
 

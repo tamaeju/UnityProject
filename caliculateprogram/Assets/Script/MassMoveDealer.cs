@@ -12,7 +12,7 @@ using UniRx;
 
 public class MassMoveDealer : MonoBehaviour
 {
-	MovingMass movemass;
+	GameObject movemass;
 	GameObject [,] mathmasses;
 	Vector2 rightVector = new Vector2(1, 0);
 	Vector2 leftVector = new Vector2(-1, 0);
@@ -25,14 +25,14 @@ public class MassMoveDealer : MonoBehaviour
 
 	//4秒で1回転するロジック、サイン関数を用いた実装。
 
-	private void setFieldObject() {
-		movemass =  fieldobjectmaker.GetMovingMass().GetComponent<MovingMass>();
+	private void LoadFieldObject() {
+		movemass =  fieldobjectmaker.GetMovingMass();
 		mathmasses = fieldobjectmaker.GetMathMasses();
 	}
 
 	private void unusablepushButton(Vector2 directionpos)
 	{
-		Vector2 checkPos = movemass.GetMyPos() + directionpos;
+		Vector2 checkPos = movemass.GetComponent<MovingMass>().GetMyPos() + directionpos;
 
 		if (!(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoThrough()))
 		{
@@ -42,8 +42,8 @@ public class MassMoveDealer : MonoBehaviour
 
 	private void RenewMoverNum(MathMass mathmass)
 	{
-		int newNum = mathmass.caliculate(movemass.GetMyNumber());
-		movemass.ChangeMyNum(newNum);
+		int newNum = mathmass.caliculate(movemass.GetComponent<MovingMass>().GetMyNumber());
+		movemass.GetComponent<MovingMass>().ChangeMyNum(newNum);
 		mathmass.ChangeThrough();
 	}
 
