@@ -9,28 +9,13 @@ using UnityEngine.UI;
 
 public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;
-	int[][] stagedata;//何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）
 	DataPathManager datapathmanager;
+	int stageNum;
 
 	void Start() {
 		if (datapathmanager == null) {
 			datapathmanager = this.gameObject.AddComponent<DataPathManager>();
 		}
-	}
-
-
-	private int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {//データパスと使用するカラムを入力して使用する。
-		int[][] dataElements;
-		int[,] practicalDataElements;
-		dataElements = getJagDataElement(aDatapassANDname);
-		practicalDataElements = parsePracticalDataElements(dataElements, usingcolumnNum);
-		return practicalDataElements;
-	}
-
-	public int[,] getMapDataElement() {//データパスと使用するカラムを入力して使用する。
-		int usecolomnnum = Config.usecolomn_of_mapdata-1 ;
-		string mapdatapass = datapathmanager.getmapdatapath();
-		return getDataElement(mapdatapass, usecolomnnum);
 	}
 
 
@@ -60,32 +45,23 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	}
 
 
-	private int[][] getMapaDataElement_needtoprocess() {
-		if (datapathmanager == null) {
-			datapathmanager = this.gameObject.AddComponent<DataPathManager>();
-			return getJagDataElement(datapathmanager.getmapdatapath());
-		}
-		else {
-			return getJagDataElement(datapathmanager.getmapdatapath());
-		}
+	private int[][] getDataElement_needtoprocess(string datapath) {
+			return getJagDataElement(datapath);
 	}
 
-	public MassStruct[,] getMapDataElements()
+	public MassStruct[,] getMapDataElements()//現時点でのステージ番目のマップデータパスを取得してくる
 	{
 		DataChangerFromJaG datachanger = gameObject.AddComponent<DataChangerFromJaG>();
-		int[][]origindata  = getMapaDataElement_needtoprocess();
+		int[][]origindata  = getDataElement_needtoprocess(datapathmanager.getmapdatapath());//
 		return datachanger.ParseUsableaMapdatas (origindata);
 	}
 
-	private int[,] parsePracticalDataElements(int[][] oldData, int usingcolumnNum) {//ジャグ配列からグリッド座標毎に1要素を使用するものに対応した2次元配列変換メソッド
-		int[,] practicalDataElements = new int[Config.maxGridNum, Config.maxGridNum];
-		for (int j = 0; j < practicalDataElements.GetLength(1); j++) {
-			for (int i = 0; i < practicalDataElements.GetLength(0); i++) {
-				practicalDataElements[i, j] = oldData[practicalDataElements.GetLength(0) * j + i][usingcolumnNum];
-			}
-		}
-		return practicalDataElements;
+	public ClearConditionStruct[] getClearConditionElements() {
+		DataChangerFromJaG datachanger = gameObject.AddComponent<DataChangerFromJaG>();
+		int[][] origindata = getDataElement_needtoprocess(datapathmanager.getclearConditionpath());
+		return datachanger.ParseUsableaClearCondition(origindata);
 	}
+
 
 
 	private void CSVSave<T>(string aDatapath, T writtendata, Action<T> act) {//アセットフォルダにtest.csvというファイルを作成する。
@@ -114,8 +90,45 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		Debug.Log("MapData was written");
 	}
 
+	public void ChangeStagePathNum(Dropdown dropdown) {
+		datapathmanager.ChangeStagePathNum(dropdown.value);
+	}
 
+	private void ChangeStagePathNumfromNum(int stageNum) {
+		datapathmanager.ChangeStagePathNum(stageNum);
+	}
+
+	public int getStageNum() {
+		return stageNum;
+	}
+
+	public MassStruct[,] getStageMapDataElements(int stageCount) {
+		ChangeStagePathNumfromNum(stageCount);
+		return  getMapDataElements();
+	}
 }
 
 
+//int[][] stagedata;//何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）
+//private int[,] getDataElement(string aDatapassANDname, int usingcolumnNum) {//データパスと使用するカラムを入力して使用する。
+//	int[][] dataElements;
+//	int[,] practicalDataElements;
+//	dataElements = getJagDataElement(aDatapassANDname);
+//	practicalDataElements = parsePracticalDataElements(dataElements, usingcolumnNum);
+//	return practicalDataElements;
+//}
 
+//public int[,] getMapDataElement() {//データパスと使用するカラムを入力して使用する。
+//	int usecolomnnum = Config.usecolomn_of_mapdata-1 ;
+//	string mapdatapass = datapathmanager.getmapdatapath();
+//	return getDataElement(mapdatapass, usecolomnnum);
+//}
+//private int[,] parsePracticalDataElements(int[][] oldData, int usingcolumnNum) {//ジャグ配列からグリッド座標毎に1要素を使用するものに対応した2次元配列変換メソッド
+//	int[,] practicalDataElements = new int[Config.maxGridNum, Config.maxGridNum];
+//	for (int j = 0; j < practicalDataElements.GetLength(1); j++) {
+//		for (int i = 0; i < practicalDataElements.GetLength(0); i++) {
+//			practicalDataElements[i, j] = oldData[practicalDataElements.GetLength(0) * j + i][usingcolumnNum];
+//		}
+//	}
+//	return practicalDataElements;
+//}

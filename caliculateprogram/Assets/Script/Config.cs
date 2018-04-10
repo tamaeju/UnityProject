@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Config : MonoBehaviour {//ゲームのシステムや不変の設定を取り扱うクラス。
 
-	public readonly static float blocklength  = 0.9f;
+	public readonly static float blocklength  = 1f;
+	public readonly static float blockshiftlength = 0.1f;
 	public readonly static int maxGridNum  = 10;
 	public Transform groundtransform;
 	public Vector3 firstblocklocalposition;
@@ -23,6 +24,10 @@ public class Config : MonoBehaviour {//ゲームのシステムや不変の設�
 		return firstblocklocalposition;
 	}
 
+	public static Vector2 settingObjectPos(int x, int y) {
+		Vector2 returnPos = new Vector2((x * blocklength) + x * blockshiftlength, (y * blocklength) + (y * blockshiftlength));
+		return returnPos;
+	}
 
 
 }

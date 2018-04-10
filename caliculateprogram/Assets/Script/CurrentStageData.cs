@@ -12,18 +12,29 @@ using UniRx;
 
 public class CurrentStageData : MonoBehaviour {
 
-	public int currentSum;
-	public int currentMoveCount;
+	public int currentSum;//イベント発火のためにパブリックにしている、メソッドをラッパーすることで、アクセッサをprivateにする事も可能なのだがそれはそれでコードが汚くもなるのでいったん保留中
+	public int currentMoveCount;//同上
 
 	public int targetSum;
 	public int targetMoveCount;
 
 	[SerializeField]
-	CSVManager csvgetter;
+	DataStorage datastorager;
+	[SerializeField]
+	CSVManager csvmanager;//一旦データストレージクラスが完成するまでは代替させるために存在
+	ClearConditionStruct[] clearConditionData;
 	//データからとってきて、値を更新するメソッド
 
-	void Start() {
-		csvgetter.getMapDataElements();
+
+
+	public　void GetClearConditionData() {
+		clearConditionData = datastorager.GetClearConditionElements();
+		Debug.LogFormat("{0}",datastorager.GetClearConditionElements());
+		int stageNum = csvmanager.getStageNum();//一旦データストレージクラスが完成するまでは代替させる。
+		Debug.LogFormat("{0}", csvmanager.getStageNum());
+		Debug.LogFormat("clearConditionData is {0} ,clearConditionData[stageNum].clearcount) is{1}", clearConditionData, clearConditionData[stageNum].clearcount);
+		targetMoveCount = clearConditionData[stageNum].clearcount;
+		targetSum = clearConditionData[stageNum].clearnumber;
 	}
 
 	public void SetMoveCount(int newCount) {

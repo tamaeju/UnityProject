@@ -12,7 +12,7 @@ public class MathMass : MonoBehaviour {
 	int m_number;
 	massstate m_state;
 	Vector2 m_pos;
-	ReactiveProperty<bool> m_isgthrough = new ReactiveProperty<bool>();
+	ReactiveProperty<bool> wasGothrough = new ReactiveProperty<bool>();
 
 	[SerializeField]
 	TextMesh m_masskindtext;
@@ -44,23 +44,31 @@ public class MathMass : MonoBehaviour {
 	}
 
 	public bool isGoThrough() {
-		return m_isgthrough.Value;
+		return wasGothrough.Value;
 	}
 
 	public void ChangeThrough() {
-		m_isgthrough.Value = true;
+		wasGothrough.Value = true;
+		deliteTextObject();
+		this.transform.Rotate(90f,0f,0f);
 	}
 
 
 	public void ChangeDarkColor() {
-		Color newColor = this.GetComponent<Renderer>().material.color;
-		newColor.r = 0.1f;
-		newColor.g = 0.1f;
-		newColor.b = 0.1f;
-		newColor.a = 0.6f;
-		this.GetComponent<Renderer>().material.color= newColor ;
+		if (wasGothrough.Value == true) {//ここでの条件判定をするのではなく、subscribeのところのwhereで判定すべき。注意
+			Color newColor = this.GetComponent<Renderer>().material.color;
+			newColor.r = 0.1f;
+			newColor.g = 0.1f;
+			newColor.b = 0.1f;
+			newColor.a = 0.6f;
+			this.GetComponent<Renderer>().material.color = newColor;
+		}
 	}
 
+	public void deliteTextObject() {
+		Destroy(m_masskindtext.gameObject);
+		Destroy(m_masscounttext);
+}
 
 	public void ChangeNormalColor() {
 		Color newColor = this.GetComponent<Renderer>().material.color;
@@ -72,7 +80,7 @@ public class MathMass : MonoBehaviour {
 	}
 
 	private void Start() {
-		m_isgthrough.AsObservable().Subscribe(_ => ChangeDarkColor());
+		wasGothrough.AsObservable().Subscribe(_ => ChangeDarkColor());
 	}
 
 	private void RenewText() {
@@ -82,10 +90,12 @@ public class MathMass : MonoBehaviour {
 
 	public void ChangeMynumber(int num) {
 		 m_number = num;
+		RenewText();
 
 	}
 	public void ChangeMyKind(int kindnum) {
 		 m_state = (massstate)Enum.ToObject(typeof(massstate), kindnum);
+		RenewText();
 	}
 
 	private String GetMyString() {
