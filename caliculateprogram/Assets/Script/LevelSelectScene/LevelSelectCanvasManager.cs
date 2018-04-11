@@ -30,10 +30,10 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		buttonobjects = new GameObject[arraysizeofUIbutton];
 		for (int i = 0; i < arraysizeofUIbutton; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
-			//SelectsceneButton selectscenebutton = buttonobjects[i].GetComponent<SelectsceneButton>();
-			//selectscenebutton.changeThisText("Level  "+(i+1).ToString());
-			//selectscenebutton.changeMystageCount(i);
-			//selectscenebutton.OnClickedStageButton.Subscribe(stage => { levelselectscene.stageCall(stage); });
+			SelectsceneButton selectscenebutton = buttonobjects[i].GetComponent<SelectsceneButton>();
+			selectscenebutton.changeThisText("Level  "+(i+1).ToString());
+			selectscenebutton.changeMystageCount(i);
+			selectscenebutton.OnClickedStageButton.Subscribe(stage => {  });
 		}
 	}
 

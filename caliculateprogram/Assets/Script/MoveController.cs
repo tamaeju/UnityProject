@@ -19,10 +19,10 @@ public class MoveController : MonoBehaviour {
 
 	private void Start() {
 		m_btn = this.gameObject.GetComponent<Button>();
-		Action act = () => testmethod();
+		Action act = () => clickmethod();
 		m_btn.onClick.AddListener(() => act());
 	}
-	public void testmethod()
+	public void clickmethod()
 	{
 		Debug.Log("clicked");
 		subject.OnNext(1);

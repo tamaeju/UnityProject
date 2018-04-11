@@ -25,15 +25,12 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	ClearConditionStruct[] clearConditionData;
 	int stageNum;
 
-
-
 	public MassStruct[,] GetMapDataElements() {
 		return fieldmapdata;
 	}
 	public ClearConditionStruct[] GetClearConditionElements() {
 		return clearConditionData;
 	}
-
 
 	public void SaveDataStorageClass() {
 		SaveGame.Save("datastrage", this);
@@ -46,22 +43,8 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		allfieldmapdatas = GetAllStageMapData();
 	}
 
-
-	public void LoadfromCsvMapDataElements() {
-		fieldmapdata = csvmanager.getMapDataElements();
-	}
-	public void LoadfromCsvClearConditionElements() {
-		clearConditionData = csvmanager.getClearConditionElements();
-	}
 	public int getStageNum() {
 		return stageNum;
-	}
-
-	public void LoadAllMapDatas() {
-		allfieldmapdatas = new MassStruct[Config.stageCount][,];
-		for (int j = 0; j < Config.stageCount; j++) {
-			allfieldmapdatas[j] = csvmanager.getStageMapDataElements(j);
-		}
 	}
 
 	public MassStruct[,] GetStageMapData(int stageCount) {
@@ -70,5 +53,20 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	public MassStruct[][,] GetAllStageMapData() {
 		return allfieldmapdatas;
 	}
+
+	public void LoadfromCsvMapDataElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+		fieldmapdata = csvmanager.getMapDataElements();
+	}
+	public void LoadfromCsvClearConditionElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+		clearConditionData = csvmanager.getClearConditionElements();
+	}
+
+	public void LoadAllMapDatas() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+		allfieldmapdatas = new MassStruct[Config.stageCount][,];
+		for (int j = 0; j < Config.stageCount; j++) {
+			allfieldmapdatas[j] = csvmanager.getStageMapDataElements(j);
+		}
+	}
+
 }
 //

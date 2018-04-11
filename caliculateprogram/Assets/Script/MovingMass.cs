@@ -11,9 +11,9 @@ using UniRx;
 
 
 public class MovingMass : MonoBehaviour {
-	[SerializeField]//確認用にserializefieldにしている
+	[SerializeField]//確認用にserializefield化
 	int m_number;
-	[SerializeField]//確認用にserializefieldにしている
+	[SerializeField]//確認用にserializefield化
 	int m_movecount;
 	ReactiveProperty<Vector2> m_pos = new ReactiveProperty<Vector2>();
 

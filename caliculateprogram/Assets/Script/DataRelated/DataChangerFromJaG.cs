@@ -11,11 +11,11 @@ using UnityEngine.UI;
 public class DataChangerFromJaG : MonoBehaviour
 {//csvから読み込んだデータを構造体のデータ等に変換するクラス。
 
-	int massCountColoumnNum = 3;
-	int massKindColoumnNum = 2;
+	int massCountColoumnNum = Config.massCountColoumnNum;
+	int massKindColoumnNum = Config.massCountColoumnNum;
 
-	int clearcountColoumnNum = 1;
-	int clearnumberColoumnNum = 2;
+	int clearcountColoumnNum = Config.massCountColoumnNum;
+	int clearnumberColoumnNum = Config.massCountColoumnNum;
 
 	public MassStruct[,] ParseUsableaMapdatas(int[][] jagdata)
 	{

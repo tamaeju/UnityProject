@@ -122,8 +122,8 @@
     <Compile Include="Assets\Script\FieldObjectMaker.cs" />
     <Compile Include="Assets\Script\GameScene.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\LevelSelectCanvasManager.cs" />
-    <Compile Include="Assets\Script\LevelSelectScene\LevelSelectSceneScroller.cs" />
     <Compile Include="Assets\Script\LevelSelectScene\SelectsceneButton.cs" />
+    <Compile Include="Assets\Script\LevelSelectScene\unUse\LevelSelectSceneScroller.cs" />
     <Compile Include="Assets\Script\MassMoveDealer.cs" />
     <Compile Include="Assets\Script\MassStruct.cs" />
     <Compile Include="Assets\Script\MathMass.cs" />

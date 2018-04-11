@@ -12,9 +12,7 @@ public class DataPathManager : MonoBehaviour {//ゲームデータの保存パ�
 	private string filename;//0はマップデータ、1はditemdata,2はclearcondinaldata
 	private string mapdatapath;
 	private string cleardatapath;
-
-	private int filekindlength = Config.filekindlength;
-	private int stageCount = Config.stageCount;
+	
 
 
 	void Start() {
