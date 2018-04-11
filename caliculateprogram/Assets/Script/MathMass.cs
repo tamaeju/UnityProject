@@ -16,29 +16,37 @@ public class MathMass : MonoBehaviour {
 
 	[SerializeField]
 	TextMesh m_masskindtext;
-	[SerializeField]
-	TextMesh m_masscounttext;
+	//[SerializeField]
+	//TextMesh m_masscounttext;
 
-	enum massstate {
+	public enum massstate {
 		add,
 		substract,
 		multiplicate,
 		divide,
+		square,
+		root
 	}
 
 	//値に自分の数字を投げた時に答えを返してほしい
 	public int caliculate(int oldnum) {
 		if(m_state == massstate.add){
-			return oldnum + m_number;
+			return oldnum + 2;
 		}
 		if (m_state == massstate.substract) {
-			return oldnum - m_number;
+			return oldnum - 2;
 		}
 		if (m_state == massstate.multiplicate) {
-			return oldnum * m_number;
+			return oldnum * 2;
 		}
 		if (m_state == massstate.divide) {
-			return oldnum / m_number;
+			return oldnum / 2;
+		}
+		if (m_state == massstate.square) {
+			return oldnum = oldnum* oldnum;
+		}
+		if (m_state == massstate.root) {
+			return oldnum = (int)Math.Sqrt(oldnum);
 		}
 		else return 999999;
 	}
@@ -50,24 +58,24 @@ public class MathMass : MonoBehaviour {
 	public void ChangeThrough() {
 		wasGothrough.Value = true;
 		deliteTextObject();
-		this.transform.Rotate(90f,0f,0f);
+		RoatateSlowly();
 	}
 
 
 	public void ChangeDarkColor() {
 		if (wasGothrough.Value == true) {//ここでの条件判定をするのではなく、subscribeのところのwhereで判定すべき。注意
 			Color newColor = this.GetComponent<Renderer>().material.color;
-			newColor.r = 0.1f;
-			newColor.g = 0.1f;
-			newColor.b = 0.1f;
-			newColor.a = 0.6f;
+			newColor.r = 0.5f;
+			newColor.g = 0.5f;
+			newColor.b = 0.5f;
+			newColor.a = 0.3f;
 			this.GetComponent<Renderer>().material.color = newColor;
 		}
 	}
 
 	public void deliteTextObject() {
 		Destroy(m_masskindtext.gameObject);
-		Destroy(m_masscounttext);
+		//Destroy(m_masscounttext);
 }
 
 	public void ChangeNormalColor() {
@@ -85,7 +93,7 @@ public class MathMass : MonoBehaviour {
 
 	private void RenewText() {
 		m_masskindtext.text = GetMyString();
-		m_masscounttext.text = m_number.ToString();
+		//m_masscounttext.text = m_number.ToString();
 	}
 
 	public void ChangeMynumber(int num) {
@@ -100,19 +108,25 @@ public class MathMass : MonoBehaviour {
 
 	private String GetMyString() {
 		if (m_state == massstate.add) {
-			return "+";
+			return "+2";
 		}
 		if (m_state == massstate.substract) {
-			return "-";
+			return "-2";
 		}
 		if (m_state == massstate.multiplicate) {
-			return "×";
+			return "×2";
 		}
 		if (m_state == massstate.divide) {
-			return "÷";
+			return "÷2";
+		}
+		if (m_state == massstate.square) {
+			return "^2";
+		}
+		if (m_state == massstate.root) {
+			return "√2";
 		}
 		else {
-			return "error";
+			return "err";
 		}
 	}
 
@@ -124,5 +138,18 @@ public class MathMass : MonoBehaviour {
 
 	public Vector2 GetMyPos() {
 		return m_pos;
+	}
+	private void RoatateSlowly() {
+		StartCoroutine(RoatateSlowlyColutin());
+	}
+
+	private IEnumerator RoatateSlowlyColutin() {//指定した距離を1秒かけて動くメソッド
+		int totalRotateNumer = 120;
+		for (int i = 0; i < totalRotateNumer; i++) {
+			float totalRotateAmount = 90f;
+			float eachRotateAmount = totalRotateAmount/ totalRotateNumer;
+			this.transform.Rotate(0f, eachRotateAmount, 0f);
+			yield return null;
+		}
 	}
 }

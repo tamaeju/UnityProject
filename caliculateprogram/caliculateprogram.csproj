@@ -118,6 +118,8 @@
     <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
     <Compile Include="Assets\Script\DataRelated\DataPathManager.cs" />
     <Compile Include="Assets\Script\DataStorage.cs" />
+    <Compile Include="Assets\Script\DebugRelated\FieldObjectEditUI.cs" />
+    <Compile Include="Assets\Script\DebugRelated\FieldObjectEditUICreator.cs" />
     <Compile Include="Assets\Script\DropdownUI.cs" />
     <Compile Include="Assets\Script\FieldObjectMaker.cs" />
     <Compile Include="Assets\Script\GameScene.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Assets\Script\MovingMass.cs" />
     <Compile Include="Assets\Script\PanelView.cs" />
     <Compile Include="Assets\Script\RandamMapDataMaker.cs" />
+    <Compile Include="Assets\Script\ShaderTet\ShaderTest.cs" />
     <Compile Include="Assets\Script\TargetPanelView.cs" />
     <Compile Include="Assets\Script\ViewMethodSetter.cs" />
   </ItemGroup>
@@ -139,6 +142,7 @@
     <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
     <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
+    <None Include="Assets\Shader\TestShader.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

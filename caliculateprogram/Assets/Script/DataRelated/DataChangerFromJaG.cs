@@ -12,10 +12,10 @@ public class DataChangerFromJaG : MonoBehaviour
 {//csvから読み込んだデータを構造体のデータ等に変換するクラス。
 
 	int massCountColoumnNum = Config.massCountColoumnNum;
-	int massKindColoumnNum = Config.massCountColoumnNum;
+	int massKindColoumnNum = Config.massKindColoumnNum ;
 
-	int clearcountColoumnNum = Config.massCountColoumnNum;
-	int clearnumberColoumnNum = Config.massCountColoumnNum;
+	int clearcountColoumnNum = Config.clearMovecountColoumnNum;
+	int clearnumberColoumnNum = Config.clearnumberColoumnNum;
 
 	public MassStruct[,] ParseUsableaMapdatas(int[][] jagdata)
 	{
@@ -33,8 +33,13 @@ public class DataChangerFromJaG : MonoBehaviour
 
 		ClearConditionStruct[] getdata = new ClearConditionStruct[jagdata.Length];
 		for (int j = 0; j < jagdata.Length; j++) {
+			try { //debug用trycatch
 			getdata[j].clearcount = jagdata[j][clearcountColoumnNum];
 			getdata[j].clearnumber = jagdata[j][clearnumberColoumnNum];
+			}
+			catch {
+				Debug.LogFormat("j, getdata.Length, jagdata.Length,jagdata[j][clearcountColoumnNum], jagdata[j][clearnumberColoumnNum]はそれぞれ{0},{1},{2},{3},{4}",  j, getdata.Length, jagdata.Length, jagdata[j][clearcountColoumnNum], jagdata[j][clearnumberColoumnNum]);
+			}
 		}
 		return getdata;
 	}
@@ -54,7 +59,7 @@ public class DataChangerFromJaG : MonoBehaviour
 
 }
 
-//Debug.LogFormat("{0}{1}", jagdata.Length, jagdata.Length);
+//Debug.LogFormat("j, getdata.Length, jagdata.Lengthはそれぞれ{0},{1},{2}",  j, getdata.Length, jagdata.Length);
 
 
 //int xlength = jagdata[0].Length;

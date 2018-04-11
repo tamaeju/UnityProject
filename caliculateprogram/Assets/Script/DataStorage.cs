@@ -43,8 +43,14 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		allfieldmapdatas = GetAllStageMapData();
 	}
 
+
 	public int getStageNum() {
 		return stageNum;
+	}
+
+	public void ChangeStagePathNum(Dropdown dropdown) {
+		stageNum = dropdown.value;
+		csvmanager.ChangeStagePathNum(dropdown);
 	}
 
 	public MassStruct[,] GetStageMapData(int stageCount) {

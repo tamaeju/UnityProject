@@ -9,12 +9,14 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 	int horizontaldivisionNum =5;
 	float horizontalsize;
 	float verticalsize;
-	int arraysizeofUIbutton = 80;
+	int totalButtonCount = Config.stageCount;
 	[SerializeField]
 	GameObject buttonprefabclone;
 	GameObject[] buttonobjects;
 	Vector2 originpos;
 	float buffalength = 45;
+	[SerializeField]
+	GameObject canvasBackGround;
 
 
 	[SerializeField]
@@ -26,9 +28,9 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		verticalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.y;
 
 		var parent = this.transform;
-		originpos = new Vector2((horizontalsize+50),   400f);
-		buttonobjects = new GameObject[arraysizeofUIbutton];
-		for (int i = 0; i < arraysizeofUIbutton; i++) {
+		originpos = new Vector2((horizontalsize+50),   500f);
+		buttonobjects = new GameObject[totalButtonCount];
+		for (int i = 0; i < totalButtonCount; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
 			SelectsceneButton selectscenebutton = buttonobjects[i].GetComponent<SelectsceneButton>();
 			selectscenebutton.changeThisText("Level  "+(i+1).ToString());
@@ -60,6 +62,38 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 	}
 	public void canvasdisplayOff() {
 		levelselectscenecanvaspos.SetActive(false);
+	}
+
+	public void goUPcanvasBackGround() {
+		int movedistance = 470;
+		Transform newtransform = canvasBackGround.transform;
+		if (newtransform.position.y + movedistance < (movedistance * 4)) {
+			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
+			StartCoroutine(moveColutin(newPos));
+		}
+	}
+
+	public void goDowncanvasBackGround() {
+		int movedistance = -470;
+		Transform newtransform = canvasBackGround.transform;
+		if (newtransform.position.y + movedistance > 0) {
+			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
+			StartCoroutine(moveColutin(newPos));
+		}
+	}
+
+	private IEnumerator moveColutin(Vector3 newPos) {
+		//Debug.LogFormat("newTransform.position.x, newTransform.position.y, newTransform.position.zはそれぞれ{0}{1}{2}", newTransform.position.x, newTransform.position.y, newTransform.position.z);
+		int moveinterval = 10;
+		Vector3 totalMoveAmount = newPos - this.transform.position;
+		//Debug.LogFormat("totalMoveAmount.x, totalMoveAmount.y, totalMoveAmount.zはそれぞれ{0}{1}{2}", totalMoveAmount.x, totalMoveAmount.y, totalMoveAmount.z);
+		Vector3 eachMoveAmount = new Vector3(totalMoveAmount.x / (int)moveinterval, totalMoveAmount.y / (int)moveinterval, totalMoveAmount.z / (int)moveinterval);
+		//Debug.LogFormat(" eachMoveAmount.x, eachMoveAmount.y, eachMoveAmount.zはそれぞれ{0}{1}{2}", eachMoveAmount.x, eachMoveAmount.y, eachMoveAmount.z);
+
+		for (int i = 0; i < moveinterval; i++) {
+			canvasBackGround.transform.position = canvasBackGround.transform.position + eachMoveAmount;
+			yield return new WaitForSeconds(1f);
+		}
 	}
 
 

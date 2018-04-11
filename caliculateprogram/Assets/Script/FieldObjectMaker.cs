@@ -40,7 +40,9 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 
 
 	public void InstanciateObject(int i, int j) {
-		if (fieldmapdata[i, j].masskind == 4) {//5はプレイヤー
+		if (fieldmapdata[i, j].masskind >= Enum.GetNames(typeof(MathMass.massstate)).Length) {//5はプレイヤー
+			Debug.LogFormat("Enum.GetNames(typeof(MathMass.massstate)).Lengthはそれぞれ{0}", Enum.GetNames(typeof(MathMass.massstate)).Length);
+
 			moveobject = Instantiate(moveprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
 			moveobject.GetComponent<MovingMass>().SetMyPos(i, j);
 			moveobject.transform.position = settingObjectPos(i, j);
@@ -51,6 +53,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 				massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
+			
 		}
 	}
 
@@ -79,7 +82,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 
 //デバッグ用のtrycatch。デバッグ終了後すぐ消す
 //Debug.LogFormat("i, jは{0},{1}", i, j);
-
+//Debug.LogFormat("i,j, fieldmapdata[i, j].masskind, fieldmapdata[i, j].massnumberはそれぞれ{0},{1},{2},{3}", i,j, fieldmapdata[i, j].masskind, fieldmapdata[i, j].massnumber);
 
 //public void debugArrayLogDispklay() {
 //	for (int j = 0; j < fieldmapdata.GetLength(1); ++j) {

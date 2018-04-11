@@ -94,6 +94,7 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 
 	public void ChangeStagePathNum(Dropdown dropdown) {
 		datapathmanager.ChangeStagePathNum(dropdown.value);
+		stageNum = dropdown.value;
 	}
 
 	private void ChangeStagePathNumfromNum(int stageNum) {

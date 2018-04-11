@@ -17,6 +17,12 @@ public class GameScene : MonoBehaviour {
 	CurrentStageData currentdataholder;
 	[SerializeField]
 	MassMoveDealer movedealer;
+	[SerializeField]
+	CSVManager csvmanager;
+	[SerializeField]
+	FieldObjectEditUICreator editUIcreator;
+	[SerializeField]
+	DataStorage dataholder;
 
 	public void pushStartButton() {
 		objectmaker.LoadMapDatas();
@@ -25,4 +31,24 @@ public class GameScene : MonoBehaviour {
 		movedealer.LoadFieldObject();
 	}
 
+	public void SaveCurrentMapData() {//データホルダーにデータが入りきったらdataholderからとってくるように変更する。
+		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
+		csvmanager.MapCsvSave(savedata);
+	}
+
+	public void ChangeStagePathNum(Dropdown dropdown) {
+		dataholder.ChangeStagePathNum(dropdown);
+	}
+	public void StrageLoadCsvData() {
+		dataholder.LoadFromCSV();
+	}
+	public void deleteDebugUIEditor() {
+		editUIcreator.deleteEditorUIbuttons();
+	}
+	public void LoadFieldEditorData() {
+		dataholder.LoadFromCSV();
+		editUIcreator.ButtonStatusUpdate(dataholder.GetMapDataElements());
+	}
+
 }
+

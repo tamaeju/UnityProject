@@ -368,6 +368,7 @@
     <None Include="Assets\BayatGames\SaveGameFree\Plugins\FullSerializer.xml" />
     <None Include="Assets\BayatGames\SaveGameFree\Readme.txt" />
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
+    <None Include="Assets\Shader\TestShader.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
