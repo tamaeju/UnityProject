@@ -12,6 +12,7 @@ public class MathMass : MonoBehaviour {
 	int m_number;
 	massstate m_state;
 	Vector2 m_pos;
+	bool isGoalMass;
 	ReactiveProperty<bool> wasGothrough = new ReactiveProperty<bool>();
 
 	[SerializeField]
@@ -48,7 +49,7 @@ public class MathMass : MonoBehaviour {
 		if (m_state == massstate.root) {
 			return oldnum = (int)Math.Sqrt(oldnum);
 		}
-		else return 999999;
+		else return oldnum;
 	}
 
 	public bool isGoThrough() {
@@ -107,34 +108,20 @@ public class MathMass : MonoBehaviour {
 	}
 
 	private String GetMyString() {
-		if (m_state == massstate.add) {
-			return "+2";
-		}
-		if (m_state == massstate.substract) {
-			return "-2";
-		}
-		if (m_state == massstate.multiplicate) {
-			return "×2";
-		}
-		if (m_state == massstate.divide) {
-			return "÷2";
-		}
-		if (m_state == massstate.square) {
-			return "^2";
-		}
-		if (m_state == massstate.root) {
-			return "√2";
-		}
-		else {
-			return "err";
-		}
+		if (m_state == massstate.add) { return "+2"; }
+		else if (m_state == massstate.substract) { return "-2"; }
+		else if (m_state == massstate.multiplicate) { return "×2"; }
+		else if (m_state == massstate.divide) { return "÷2"; }
+		else if (m_state == massstate.square) { return "^2"; }
+		else if (m_state == massstate.root) { return "√2"; }
+		else if (isGoalMass == true) { return "Goal"; }
+		else { return "ERR"; }
 	}
 
 	public void SetMyPos(int posX, int posY) {
 		m_pos.x = posX;
 		m_pos.y = posY;
 	}
-
 
 	public Vector2 GetMyPos() {
 		return m_pos;
@@ -152,4 +139,13 @@ public class MathMass : MonoBehaviour {
 			yield return null;
 		}
 	}
+
+	public bool isGoal() {
+		return isGoalMass;
+	}
+
+	public void ChangeisGoal() {
+		isGoalMass = true;
+	}
+
 }

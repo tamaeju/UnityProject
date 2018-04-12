@@ -10,10 +10,9 @@ using UniRx;
 
 
 
-public class MassMoveDealer : MonoBehaviour
-{
+public class MassMoveDealer : MonoBehaviour {
 	MovingMass movemass;
-	GameObject [,] mathmasses;
+	GameObject[,] mathmasses;
 	Vector2 rightVector = new Vector2(1, 0);
 	Vector2 leftVector = new Vector2(-1, 0);
 	Vector2 upVector = new Vector2(0, 1);
@@ -26,48 +25,56 @@ public class MassMoveDealer : MonoBehaviour
 	//4秒で1回転するロジック、サイン関数を用いた実装。
 
 	public void LoadFieldObject() {
-		GameObject  obj = fieldobjectmaker.GetMovingMass();
+		GameObject obj = fieldobjectmaker.GetMovingMass();
 		movemass = obj.GetComponent<MovingMass>();
 		mathmasses = fieldobjectmaker.GetMathMasses();
 	}
 
-	private void unusablepushButton(Vector2 directionpos)
-	{
+	private void BaseMoveMethod(Vector2 directionpos) {
 		Vector2 checkPos = movemass.GetMyPos() + directionpos;
+		//まずやる事としては、次のマスがゴールマスか確認し、
+		//ゴールマスであればクリア可能かを聞いてくる。クリア可能ならクリアメソッドを実行し、可能でないなら何もせずメソッド終了
+		//ゴールマスでないなら、次のマスが既に通過済みかどうかを確認し、通過済みであればなにもせず終了、通過していないなら更新処理を実行
 
-		if (!(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoThrough()))
-		{
+		if (mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoal()) {
+			if (currentdata.canClear()) {
+				ReachGoalMethodTest();
+			}
+			else if (!currentdata.canClear()) {
+			}
+		}
+		else if (!(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoThrough())) {
 			RenewMoverNum(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>());
 			movemass.SetMyPos((int)checkPos.x, (int)checkPos.y);
 			movemass.AddMyCount();
-			currentdata.SetCurrentSum(movemass.GetMyNumber() );
+			currentdata.SetCurrentSum(movemass.GetMyNumber());
 			currentdata.SetMoveCount(movemass.GetMyCount());
 		}
 	}
 
-	private void RenewMoverNum(MathMass mathmass)
-	{
+	private void RenewMoverNum(MathMass mathmass) {
 		int newNum = mathmass.caliculate(movemass.GetMyNumber());
 		movemass.ChangeMyNum(newNum);
-
 		mathmass.ChangeThrough();
 	}
 
 	public void pushRightButton() {
-		unusablepushButton(rightVector);
+		BaseMoveMethod(rightVector);
 	}
 	public void pushLeftButton() {
-		unusablepushButton(leftVector);
+		BaseMoveMethod(leftVector);
 	}
 	public void pushUpButton() {
-		unusablepushButton(upVector);
+		BaseMoveMethod(upVector);
 	}
 	public void pushDownButton() {
-		unusablepushButton(downVector);
+		BaseMoveMethod(downVector);
 	}
 	public void pushBackButton() {
 	}
-
+	public void ReachGoalMethodTest() {//debug
+		Debug.Log("Goaled!!!");
+	}
 
 }
 

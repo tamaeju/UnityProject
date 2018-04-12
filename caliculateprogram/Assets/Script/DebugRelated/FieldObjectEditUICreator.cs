@@ -12,7 +12,7 @@ public class FieldObjectEditUICreator : MonoBehaviour {//マップに何を配�
 
 	private GameObject[,] MapEditorButtons;//マップエディット用のUIボタンの格納用配列
 	[SerializeField]
-	private GameObject _levelbutton;//マップエディット用のUIボタン
+	private GameObject editButtonPrefab;//マップエディット用のUIボタン
 	[SerializeField]
 	private GameObject MapEditorUIInstancePos;//_levelbuttonを表示ONOFFするためのUIの親オブジェクト、レベル選択画面のときはここをnullにしておく。
 	[SerializeField]
@@ -34,10 +34,12 @@ public class FieldObjectEditUICreator : MonoBehaviour {//マップに何を配�
 		var parent = MapEditorUIInstancePos.transform;
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
-				MapEditorButtons[i,j] = Instantiate(_levelbutton, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;
+				MapEditorButtons[i,j] = Instantiate(editButtonPrefab, setUIPos(i, j, 0), Quaternion.identity, parent) as GameObject;
 			}
 		}
 	}
+
+
 
 	public GameObject[,] getUIobjects() {
 		return MapEditorButtons;

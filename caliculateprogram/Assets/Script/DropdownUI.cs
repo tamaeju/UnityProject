@@ -11,7 +11,7 @@ public class DropdownUI : MonoBehaviour {
 			dropdown.ClearOptions();
 			//現在の要素をクリアする
 			List<string> list = new List<string>();
-			for (int i = 0; i < 20; i++) {
+			for (int i = 0; i < Config.stageCount; i++) {
 				list.Add("csv"+i.ToString());
 			}
 			dropdown.AddOptions(list);  //新しく要素のリストを設定する

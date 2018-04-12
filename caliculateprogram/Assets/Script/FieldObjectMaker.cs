@@ -40,9 +40,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 
 
 	public void InstanciateObject(int i, int j) {
-		if (fieldmapdata[i, j].masskind >= Enum.GetNames(typeof(MathMass.massstate)).Length) {//5はプレイヤー
-			Debug.LogFormat("Enum.GetNames(typeof(MathMass.massstate)).Lengthはそれぞれ{0}", Enum.GetNames(typeof(MathMass.massstate)).Length);
-
+		if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.movingobject ) {
 			moveobject = Instantiate(moveprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
 			moveobject.GetComponent<MovingMass>().SetMyPos(i, j);
 			moveobject.transform.position = settingObjectPos(i, j);
@@ -53,7 +51,9 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 				massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
-			
+		}
+		if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {
+			massobjects[i, j].GetComponent<MathMass>().ChangeisGoal();
 		}
 	}
 

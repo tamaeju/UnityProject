@@ -16,7 +16,7 @@ public class DataPathManager : MonoBehaviour {//ゲームデータの保存パ�
 
 
 	void Start() {
-		filename = "mapData";
+		filename = "mapData0";
 		mapdatapath = Application.dataPath + "/data/" + filename + ".csv";
 	}
 

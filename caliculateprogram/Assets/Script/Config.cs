@@ -13,7 +13,6 @@ public class Config : MonoBehaviour {//ゲームのシステムや不変の設�
 	public readonly static int massKindColoumnNum = 2;
 	public readonly static int massCountColoumnNum = 3;
 
-
 	public readonly static int clearMovecountColoumnNum = 1;
 	public readonly static int clearnumberColoumnNum = 2;
 

@@ -109,6 +109,12 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 		ChangeStagePathNumfromNum(stageCount);
 		return  getMapDataElements();
 	}
+	public void DebugsaveAllMapCsvData(MassStruct[,] samedata) {
+		for (int i = 0; i < Config.stageCount; i++) {
+			ChangeStagePathNumfromNum(i);
+			MapCsvSave(samedata);
+		}
+	}
 }
 
 //int[][] stagedata;//何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）

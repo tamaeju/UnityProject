@@ -34,6 +34,7 @@ public class GameScene : MonoBehaviour {
 	public void SaveCurrentMapData() {//データホルダーにデータが入りきったらdataholderからとってくるように変更する。
 		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
 		csvmanager.MapCsvSave(savedata);
+		dataholder.SaveInnerStorageData();
 	}
 
 	public void ChangeStagePathNum(Dropdown dropdown) {
@@ -45,9 +46,20 @@ public class GameScene : MonoBehaviour {
 	public void deleteDebugUIEditor() {
 		editUIcreator.deleteEditorUIbuttons();
 	}
-	public void LoadFieldEditorData() {
+	public void LoadFieldEditorfromCSVData() {
 		dataholder.LoadFromCSV();
-		editUIcreator.ButtonStatusUpdate(dataholder.GetMapDataElements());
+		editUIcreator.ButtonStatusUpdate(dataholder.GetStageMapData(dataholder.getStageNum()));
+	}
+	public void DebugSave100MapCsvData() {
+		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
+		csvmanager.DebugsaveAllMapCsvData(savedata);
+	}
+	public void StorageLoadAllMapDatafromCsv() {
+		dataholder.LoadAllMapDatasfromCSV();
+	}
+	public void StorageLoadAllDatafromEasySave() {
+		dataholder.LoadAllData();
+		editUIcreator.ButtonStatusUpdate(dataholder.GetStageMapData(dataholder.getStageNum()));
 	}
 
 }

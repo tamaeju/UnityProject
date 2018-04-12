@@ -68,4 +68,8 @@ public class CurrentStageData : MonoBehaviour {
 	public int GetTargetMoveCount() {
 		return targetMoveCount;
 	}
+
+	public bool canClear() {
+		return targetMoveCount > currentMoveCount && targetSum == currentSum;
+	}
 }
