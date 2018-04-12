@@ -41,13 +41,13 @@ public class GameScene : MonoBehaviour {
 		dataholder.ChangeStagePathNum(dropdown);
 	}
 	public void StrageLoadCsvData() {
-		dataholder.LoadFromCSV();
+		//dataholder.LoadFromCSV();
 	}
 	public void deleteDebugUIEditor() {
 		editUIcreator.deleteEditorUIbuttons();
 	}
-	public void LoadFieldEditorfromCSVData() {
-		dataholder.LoadFromCSV();
+	public void LoadFieldEditorfromStrage() {
+		//dataholder.LoadFromCSV();
 		editUIcreator.ButtonStatusUpdate(dataholder.GetStageMapData(dataholder.getStageNum()));
 	}
 	public void DebugSave100MapCsvData() {

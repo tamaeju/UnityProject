@@ -18,10 +18,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	ClearConditionStruct[] clearConditionData;
 	int stageNum;
 
-	public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってきて自分の値に上書きする。
-		LoadfromCsvMapDataElements();
-		LoadfromCsvClearConditionElements();
-	}
+
 
 	public MassStruct[,] GetMapDataElements() {//自身の所有する１フィールドデータを取得する
 		return fieldmapdata;
@@ -39,7 +36,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	public void LoadAllData() {//自身の内部クラスをロードし、内部クラスの所有するデータで自身のデータを上書きする（csvmanagerが消失してからはこれしか使わない）
 		var newstragedata = SaveGame.Load<InnerData>("datastrage");
 		Debug.Log("clicked LoadAllData");
-		//allfieldmapdatas = newstragedata.allfieldmapdatas;
+		allfieldmapdatas = newstragedata.Convert1and2DimentionAllayElement(newstragedata.allfieldmapdatas);
 		clearConditionData = newstragedata.clearConditionData;
 	}
 
@@ -50,21 +47,11 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 	public void ChangeStagePathNum(Dropdown dropdown) {//ステージ番号を変更するメソッド。csvマネージャーは最終的に消したい
 		stageNum = dropdown.value;
-		csvmanager.ChangeStagePathNum(dropdown);
+		//csvmanager.ChangeStagePathNum(dropdown);
 	}
 
 	public MassStruct[,] GetStageMapData(int stageCount) {//指定した1ステージのマップデータをゲットするメソッド
 		return allfieldmapdatas[stageCount];
-	}
-	public MassStruct[][,] GetAllStageMapData() {//すべてのマップデータをゲットするメソッド
-		return allfieldmapdatas;
-	}
-
-	public void LoadfromCsvMapDataElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
-		fieldmapdata = csvmanager.getMapDataElements();
-	}
-	public void LoadfromCsvClearConditionElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
-		clearConditionData = csvmanager.getClearConditionElements();
 	}
 
 	public void LoadAllMapDatasfromCSV() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
@@ -73,6 +60,29 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 			allfieldmapdatas[j] = csvmanager.getStageMapDataElements(j);
 		}
 	}
+
+	//public void showDebugWindow(MassStruct[][,] mapdatas) {
+	//	for (int i = 0; i < Config.stageCount; i++) {
+	//		for (int j = 0; j < Config.maxGridNum; j++) {
+	//			for (int k = 0; k < Config.maxGridNum; k++) {
+	//				//Debug.LogFormat("i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString()は{0},{1},{2},{3},{4}", i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString());
+	//			}
+	//		}
+	//	}
+	//}
+	//public void LoadfromCsvMapDataElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+	//	fieldmapdata = csvmanager.getMapDataElements();
+	//}
+	//public void LoadfromCsvClearConditionElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+	//	clearConditionData = csvmanager.getClearConditionElements();
+	//}
+
+	//public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってきて自分の値に上書きする。
+	//	LoadfromCsvMapDataElements();
+	//	LoadfromCsvClearConditionElements();
+	//}
+
+
 	private class InnerData {//内部クラス。セーブ用にデータを代替保持する。
 		public MassStruct[][][] allfieldmapdatas;
 		public ClearConditionStruct[] clearConditionData;
@@ -83,42 +93,50 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		}
 		public InnerData() {
 			allfieldmapdatas = new MassStruct[Config.stageCount][][];
-			for (int i = 0; i < Config.maxGridNum; i++) {
+			for (int i = 0; i < Config.stageCount; i++) {
 				allfieldmapdatas[i] = new MassStruct[Config.maxGridNum][];
 				for (int j = 0; j < Config.maxGridNum; j++) {
 					allfieldmapdatas[i][j] = new MassStruct[Config.maxGridNum];
+						
+					}
 				}
-			}
 			Debug.Log("初期化完了！");
 		}
-		//public void DebugLogAllData() {
-		//	for (int j = 0; j < allfieldmapdatas.Length; j++) {
-		//		//Debug.LogFormat("1,1マスのallfieldmapdatas[j][1, 1].masskind, allfieldmapdatas[j][1, 1].massnumberは{0},{1}", allfieldmapdatas[j][1, 1].masskind, allfieldmapdatas[j][1, 1].massnumber);
-		//	}
-		//}
+		
+
 		public MassStruct[][][] Convert3DimentionAllayElement(MassStruct[][,] mapdatas) {
-			Debug.LogFormat("allfieldmapdatas, mapdatasは{0},{1}", allfieldmapdatas, mapdatas);
-			Debug.LogFormat("allfieldmapdatas[1][1][1].masskind, mapdatas[1][1,1].masskindは{0},{1}", allfieldmapdatas[1][1][1].masskind, mapdatas[1][1,1].masskind);
-			Debug.LogFormat("allfieldmapdatas.Length, mapdatas.Lengthは{0},{1}", allfieldmapdatas.Length, mapdatas.Length);
+
 			for (int i = 0; i < Config.stageCount; i++) {
 				for (int j = 0; j < Config.maxGridNum; j++) {
 					for (int k = 0; k < Config.maxGridNum; k++) {
-						try {
 							allfieldmapdatas[i][j][k] = mapdatas[i][j, k];
-						}
-						catch {
-							Debug.LogFormat(" i,j,kは{0},{1},{2}", i,j,k);
-						}
 					}
 				}
 			}
 			return allfieldmapdatas;
 		}
-		//やりたい事としては、セーブする時に2次元配列ではないために内部で3次元のジャグ配列に変換する必要がある。
-		//ジャグ配列をコンストラクタで生成し、それを最終的に[][,]の次元の配列で変換して返すメソッドを用意する必要がある。。
-		//
-		//
-		//
+
+		public MassStruct[][,] Convert1and2DimentionAllayElement(MassStruct[][][] mapdatas) {
+			MassStruct[][,] get12mapdatas = new MassStruct[Config.stageCount][,];
+			for (int i = 0; i < Config.stageCount; i++) {
+				get12mapdatas[i] = new MassStruct[Config.maxGridNum, Config.maxGridNum];
+			}
+
+			for (int i = 0; i < Config.stageCount; i++) {
+				for (int j = 0; j < Config.maxGridNum; j++) {
+					for (int k = 0; k < Config.maxGridNum; k++) {
+						get12mapdatas[i][j,k] = mapdatas[i][j][ k];
+					}
+				}
+			}
+			return get12mapdatas;
+		}
+		
+
 	}
 }
-//
+
+//Debug.LogFormat("allfieldmapdatas, mapdatasは{0},{1}", allfieldmapdatas, mapdatas);
+//			Debug.LogFormat("allfieldmapdatas[1][1][1].masskind, mapdatas[1][1,1].masskindは{0},{1}", allfieldmapdatas[1][1][1].masskind, mapdatas[1][1, 1].masskind);
+//			Debug.LogFormat(" allfieldmapdatas.Length, allfieldmapdatas[0].Length, allfieldmapdatas[0][0].Length, mapdatas.Length, mapdatas[0].GetLength(0), mapdatas[0].GetLength(1)は{0},{1},{2},{3},{4},{5}", allfieldmapdatas.Length, allfieldmapdatas[0].Length, allfieldmapdatas[0][0].Length, mapdatas.Length, mapdatas[0].GetLength(0), mapdatas[0].GetLength(1));
+//			Debug.Log(mapdatas[99][1, 1].masskind.ToString());
