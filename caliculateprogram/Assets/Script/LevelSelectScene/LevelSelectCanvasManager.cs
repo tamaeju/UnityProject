@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト画面のセレクトボタンを生成するクラス
 
@@ -66,11 +67,13 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 
 	public void goUPcanvasBackGround() {
 		int movedistance = 470;
-		Transform newtransform = canvasBackGround.transform;
+		RectTransform newtransform = canvasBackGround.GetComponent<RectTransform>();
 		if (newtransform.position.y + movedistance < (movedistance * 4)) {
 			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
-			StartCoroutine(moveColutin(newPos));
+			
 		}
+		//クリックした瞬間に該当のボタンオブジェクトをsetActive(false)にして、アニメーションが終わったらsetActive(true)にする。
+
 	}
 
 	public void goDowncanvasBackGround() {
@@ -78,23 +81,10 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		Transform newtransform = canvasBackGround.transform;
 		if (newtransform.position.y + movedistance > 0) {
 			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
-			StartCoroutine(moveColutin(newPos));
+			
 		}
 	}
 
-	private IEnumerator moveColutin(Vector3 newPos) {
-		//Debug.LogFormat("newTransform.position.x, newTransform.position.y, newTransform.position.zはそれぞれ{0}{1}{2}", newTransform.position.x, newTransform.position.y, newTransform.position.z);
-		int moveinterval = 10;
-		Vector3 totalMoveAmount = newPos - this.transform.position;
-		//Debug.LogFormat("totalMoveAmount.x, totalMoveAmount.y, totalMoveAmount.zはそれぞれ{0}{1}{2}", totalMoveAmount.x, totalMoveAmount.y, totalMoveAmount.z);
-		Vector3 eachMoveAmount = new Vector3(totalMoveAmount.x / (int)moveinterval, totalMoveAmount.y / (int)moveinterval, totalMoveAmount.z / (int)moveinterval);
-		//Debug.LogFormat(" eachMoveAmount.x, eachMoveAmount.y, eachMoveAmount.zはそれぞれ{0}{1}{2}", eachMoveAmount.x, eachMoveAmount.y, eachMoveAmount.z);
-
-		for (int i = 0; i < moveinterval; i++) {
-			canvasBackGround.transform.position = canvasBackGround.transform.position + eachMoveAmount;
-			yield return new WaitForSeconds(1f);
-		}
-	}
 
 
 
