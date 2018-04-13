@@ -17,9 +17,7 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	[SerializeField]
 	Button btn;
 
-
 	private Subject<int> subject = new Subject<int>();
-
 
 	public IObservable<int> OnClickedStageButton {
 		get { return subject; }

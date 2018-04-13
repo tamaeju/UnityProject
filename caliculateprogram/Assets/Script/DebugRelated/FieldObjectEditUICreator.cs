@@ -46,7 +46,7 @@ public class FieldObjectEditUICreator : MonoBehaviour {//マップに何を配�
 	}
 
 	public void loadMapCSV() {//指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
-		MassStruct[,] fieldData = dataholder.GetMapDataElements();
+		MassStruct[,] fieldData = dataholder.GetStageMapData(dataholder.getStageNum());
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
 				int objectkind = fieldData[i,j].masskind;

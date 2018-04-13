@@ -35,7 +35,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 
 
 	public void LoadMapDatas() {
-		fieldmapdata = datastorager.GetMapDataElements();
+		fieldmapdata = datastorager.GetStageMapData(datastorager.getStageNum());
 	}
 
 

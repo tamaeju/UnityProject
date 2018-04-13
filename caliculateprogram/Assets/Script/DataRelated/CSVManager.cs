@@ -93,12 +93,12 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	}
 
 	public void ChangeStagePathNum(Dropdown dropdown) {
-		datapathmanager.ChangeStagePathNum(dropdown.value);
-		stageNum = dropdown.value;
+		ChangeStagePathNum(dropdown.value);
 	}
 
-	private void ChangeStagePathNumfromNum(int stageNum) {
-		datapathmanager.ChangeStagePathNum(stageNum);
+	private void ChangeStagePathNum(int aStageNum) {
+		datapathmanager.ChangeStagePathNum(aStageNum);
+		stageNum = aStageNum;
 	}
 
 	public int getStageNum() {
@@ -106,12 +106,12 @@ public class CSVManager : MonoBehaviour {//CSVデータの読み込みと書き�
 	}
 
 	public MassStruct[,] getStageMapDataElements(int stageCount) {
-		ChangeStagePathNumfromNum(stageCount);
+		ChangeStagePathNum(stageCount);
 		return  getMapDataElements();
 	}
 	public void DebugsaveAllMapCsvData(MassStruct[,] samedata) {
 		for (int i = 0; i < Config.stageCount; i++) {
-			ChangeStagePathNumfromNum(i);
+			ChangeStagePathNum(i);
 			MapCsvSave(samedata);
 		}
 	}
