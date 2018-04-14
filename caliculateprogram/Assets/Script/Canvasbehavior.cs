@@ -27,7 +27,10 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	//[SerializeField]
 	//Image backgroundcolor;
 	[SerializeField]
-	Text messagetext;
+	Text m_messagetext;
+	[SerializeField]
+	Button m_backbutton;
+
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
 	RectTransform RTElement1;
@@ -59,10 +62,11 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		element2labeltext.text = label;
 	}
 	public void changeMessagetext(string text) {
-		messagetext.text = text;
+		m_messagetext.text = text;
 	}
 
 	public void OnPointerDown(PointerEventData _data) {
+		clickedEvent.OnNext("end");
 		MoveThisObject();
 		
 	}
@@ -75,16 +79,7 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	}
 
 
-	private IEnumerator moveCoroutine(int movedistance) {//指定した距離を1秒かけて動くメソッド
-		RectTransform background = this.gameObject.GetComponent<RectTransform>();
-		Debug.Log("Calledtap");
-		for (int i = 0; i < 20; i++) {
-			variableVector3 = background.position;
-			variableVector3.y = variableVector3.y + movedistance / 20;
-			this.transform.position = variableVector3;
-			yield return null;
-		}
-	}
+
 
 	public void OnPointerEnter(PointerEventData eventData) {
 	}
@@ -94,32 +89,32 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	private void getRectTransform() {
 		Debug.Log("clicked getRectTransform");
-		RTElement1 = element1labeltext.GetComponent<RectTransform>();
-		RTElement2 = element2labeltext.GetComponent<RectTransform>();
+		RTElementTitle = titletext.GetComponent<RectTransform>();
 	}
 
 	private void Start() {
 	   getRectTransform();
-		RTElement1.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo).Play();
-		RTElement2.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 1f).SetLoops(-1, LoopType.Yoyo).Play();
-		var messageElem = messagetext.text;
-		messagetext.text = "";
-		messagetext.DOText(messageElem, messageElem.Length * 0.3f);
+		RTElementTitle.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 2f).SetLoops(-1, LoopType.Yoyo).Play();
+		var messageElem = m_messagetext.text;
+		m_messagetext.text = "";
+		m_messagetext.DOText(messageElem, messageElem.Length * 0.2f);
 
-		var messageEle1 = element1text.text;
-		element1text.text = "";
-		element1text.DOText(messageEle1, messageEle1.Length * 0.3f);
 
-		var messageEle2 = element2text.text;
-		element2text.text = "";
-		element2text.DOText(messageEle2, messageEle2.Length * 0.3f);
-
+		m_backbutton.onClick.AddListener(()=>Destroy(this.gameObject));
 	}
+	public void buttonActiveOn() {
+		m_backbutton.gameObject.SetActive(true);
+	} 
 
-	void Update() {
-	}
-
-	void scaleChange() {
-		random = new System.Random();
-	}
 }
+//private IEnumerator moveCoroutine(int movedistance) {//指定した距離を1秒かけて動くメソッド
+//	RectTransform background = this.gameObject.GetComponent<RectTransform>();
+//	Debug.Log("Calledtap");
+//	for (int i = 0; i < 20; i++) {
+//		variableVector3 = background.position;
+//		variableVector3.y = variableVector3.y + movedistance / 20;
+//		this.transform.position = variableVector3;
+//		yield return null;
+//	}
+//}
+

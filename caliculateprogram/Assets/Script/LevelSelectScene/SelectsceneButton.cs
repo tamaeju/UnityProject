@@ -36,11 +36,11 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 		myStageCount = stagecount;
 	}
 
-	public void makeEffectPrefab() {
-		Vector3 instancepos;
-		instancepos = this.transform.position;
-		instancepos.z = -10;
-		Instantiate(effectprefab, this.transform.position, Quaternion.identity);
-	}
+	//public void makeEffectPrefab() {
+	//	Vector3 instancepos;
+	//	instancepos = this.transform.position;
+	//	instancepos.z = -10;
+	//	Instantiate(effectprefab, this.transform.position, Quaternion.identity);
+	//}
 
 }

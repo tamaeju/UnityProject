@@ -18,6 +18,8 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 	float buffalength = 45;
 	[SerializeField]
 	GameObject canvasBackGround;
+	[SerializeField]
+	canvasmaker canvasmaker;
 
 
 	[SerializeField]
@@ -36,7 +38,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 			SelectsceneButton selectscenebutton = buttonobjects[i].GetComponent<SelectsceneButton>();
 			selectscenebutton.changeThisText("Level  "+(i+1).ToString());
 			selectscenebutton.changeMystageCount(i);
-			selectscenebutton.OnClickedStageButton.Subscribe(stage => {  });
+			selectscenebutton.OnClickedStageButton.Subscribe(stage => testLoadScene(stage));
 		}
 	}
 
@@ -55,37 +57,54 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		return getpos;//[0,0]は←左上)
 	}
 
-	Vector2 getUIPosfromArraycount(Vector2 arrayNum) {//getUIposで出た2次元情報から、実際の表示座標を出すメソッド
+	Vector2 getUIPosfromArraycount(Vector2 arrayNum) {//getUIposで出た2次元座標位置から、実際の表示座標を出すメソッド
 		Vector2 getpos = new Vector2();
 		getpos.x = arrayNum.x * horizontalsize + buffalength* (arrayNum.x+1);
 		getpos.y = -1*(arrayNum.y * verticalsize + buffalength * (arrayNum.y));
 		return getpos;
 	}
+
+
 	public void canvasdisplayOff() {
 		levelselectscenecanvaspos.SetActive(false);
 	}
 
 	public void goUPcanvasBackGround() {
-		int movedistance = 470;
+		int movedistance = 500;
+		int moveupperlimit = 1400;
+		int canvasposY = 284;//UIのためキャンバスオブジェクトの左下から設定されているため変換のためキャンバスオブジェクトの座標分補正する必要あり
 		RectTransform newtransform = canvasBackGround.GetComponent<RectTransform>();
-		if (newtransform.position.y + movedistance < (movedistance * 4)) {
+		if (newtransform.position.y + movedistance < moveupperlimit) {//現在のy座標プラス移動後のy座標の値が最大移動値よりも小さいならば
 			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
-			
+			newtransform.DOMove(newPos, 0.5f);
 		}
-		//クリックした瞬間に該当のボタンオブジェクトをsetActive(false)にして、アニメーションが終わったらsetActive(true)にする。
+		else {
+			Vector3 newPos = new Vector3(newtransform.position.x, moveupperlimit+ canvasposY, newtransform.position.z);
+			newtransform.DOMove(newPos, 0.5f);
+		}
 
 	}
 
 	public void goDowncanvasBackGround() {
-		int movedistance = -470;
-		Transform newtransform = canvasBackGround.transform;
-		if (newtransform.position.y + movedistance > 0) {
+		int movedistance = -500;
+		int moveunderlimit = 0;
+		int canvasposY = 284;//UIのためキャンバスオブジェクトの左下から設定されているため変換のため
+		RectTransform newtransform = canvasBackGround.GetComponent<RectTransform>();
+		if (newtransform.position.y + movedistance > moveunderlimit) {//現在のy座標プラス移動後のy座標の値が最大移動値よりも小さいならば
 			Vector3 newPos = new Vector3(newtransform.position.x, newtransform.position.y + movedistance, newtransform.position.z);
-			
+			newtransform.DOMove(newPos, 0.5f);
+		}
+		else {
+			Vector3 newPos = new Vector3(newtransform.position.x, moveunderlimit + canvasposY, newtransform.position.z);
+			newtransform.DOMove(newPos, 0.5f);
 		}
 	}
 
+	void testLoadScene(int stage) {
+		Debug.LogFormat("clicked stage{0}", stage);
+	}
 
-
+	//ボタンをタップすると、キャンバスメイカーに命令してウインドウを作成する。
+	//ウインドウに乗っている情報は、
 
 }

@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class PanelView : MonoBehaviour {
 	[SerializeField]
@@ -16,6 +17,11 @@ public class PanelView : MonoBehaviour {
 	Text m_recentcountText;
 	[SerializeField]
 	Text m_recentmovecountText;
+	[SerializeField]
+	Text m_EffectOfcountText;
+	[SerializeField]
+	Text m_EffectOfmovecountText;
+
 
 	private void RenewCountText(String renewtext) {
 		m_recentcountText.text = renewtext.ToString();
@@ -23,6 +29,14 @@ public class PanelView : MonoBehaviour {
 	}
 	private void RenewMovecountText(String renewtext) {
 		m_recentmovecountText.text = renewtext.ToString();
+		addEffectOfmovecountText();
+	}
+
+	private void addEffectOfmovecountText() {
+		m_EffectOfmovecountText.text = "+1";
+		RectTransform rect = m_EffectOfmovecountText.GetComponent<RectTransform>();
+		rect.DOScale(new Vector3(2f, 2f, 2f), 1f).OnComplete(() =>
+		m_EffectOfmovecountText.text = "");
 	}
 
 	private void Start() {
@@ -38,4 +52,5 @@ public class PanelView : MonoBehaviour {
 
 //public IObservable<string> CanvasScrolled {
 //	get { return actionsubject; }
-//}
+//)
+//パットでかくなって消える感じ。

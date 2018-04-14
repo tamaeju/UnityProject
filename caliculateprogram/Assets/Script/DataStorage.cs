@@ -11,8 +11,8 @@ using BayatGames.SaveGameFree;
 
 
 public class DataStorage : MonoBehaviour {//最終的にこのクラスがステージデータを所持している状態になったら、このクラスがステージ番号を変更し、ステージに応じたマップデータを返せるように修正する。現状csvマネージャーから読み込んでいる部分も改修する。
-	//[SerializeField]
-	//CSVManager csvmanager;
+	[SerializeField]
+	CSVManager csvmanager;
 	MassStruct[][,] m_fieldMapDatas;
 	ClearConditionStruct[] m_clearConditionData;
 	bool[] m_isStageCleared;
@@ -49,6 +49,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 	public void ChangeStagePathNum(Dropdown dropdown) {//ステージ番号を変更するメソッド。
 		m_stageNum = dropdown.value;
+		csvmanager.ChangeStagePathNum(dropdown);//
 	}
 
 	public MassStruct[,] GetStageMapData(int stageCount) {//指定した1ステージのマップデータをゲットするメソッド
@@ -76,6 +77,36 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 	//		public bool[] isStageCleared;
 	//public int[] MinClearMoveCount;
+
+	public void LoadfromCsvClearConditionElements() {//csvを作成したらこれでデータを読み込んでから上書きする必要がある。
+		m_clearConditionData = csvmanager.getClearConditionElements();
+	}
+
+	public void LoadAllMapDatasfromCSV() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+		m_fieldMapDatas = new MassStruct[Config.stageCount][,];
+		for (int j = 0; j < Config.stageCount; j++) {
+			m_fieldMapDatas[j] = csvmanager.getStageMapDataElements(j);
+		}
+	}
+
+	private void showDebugWindow(MassStruct[][,] mapdatas) {
+		for (int i = 0; i < Config.stageCount; i++) {
+			for (int j = 0; j < Config.maxGridNum; j++) {
+				for (int k = 0; k < Config.maxGridNum; k++) {
+					//Debug.LogFormat("i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString()は{0},{1},{2},{3},{4}", i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString());
+				}
+			}
+		}
+	}
+	private void LoadfromCsvMapDataElements() {
+		m_fieldMapDatas[m_stageNum] = csvmanager.getMapDataElements();
+	}
+
+
+	public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってくる
+		LoadfromCsvMapDataElements();
+		LoadfromCsvClearConditionElements();
+	}
 
 	private class InnerData {//内部クラス。セーブ用にデータを代替保持する。
 		public MassStruct[][][] i_allfieldmapdatas;
@@ -145,32 +176,3 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 
 
-//public void LoadfromCsvClearConditionElements() {//csvを作成したらこれでデータを読み込んでから上書きする必要がある。
-//	m_clearConditionData = csvmanager.getClearConditionElements();
-//}
-
-//public void LoadAllMapDatasfromCSV() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
-//	m_fieldMapDatas = new MassStruct[Config.stageCount][,];
-//	for (int j = 0; j < Config.stageCount; j++) {
-//		m_fieldMapDatas[j] = csvmanager.getStageMapDataElements(j);
-//	}
-//}
-
-//public void showDebugWindow(MassStruct[][,] mapdatas) {
-//	for (int i = 0; i < Config.stageCount; i++) {
-//		for (int j = 0; j < Config.maxGridNum; j++) {
-//			for (int k = 0; k < Config.maxGridNum; k++) {
-//				//Debug.LogFormat("i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString()は{0},{1},{2},{3},{4}", i,j,k,mapdatas[i][j, k].masskind.ToString(), mapdatas[i][j, k].massnumber.ToString());
-//			}
-//		}
-//	}
-//}
-//public void LoadfromCsvMapDataElements() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
-//	fieldmapdata = csvmanager.getMapDataElements();
-//}
-
-
-//public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってきて自分の値に上書きする。
-//	LoadfromCsvMapDataElements();
-//	LoadfromCsvClearConditionElements();
-//}
