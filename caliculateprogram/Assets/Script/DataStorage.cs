@@ -78,11 +78,11 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	//		public bool[] isStageCleared;
 	//public int[] MinClearMoveCount;
 
-	public void LoadfromCsvClearConditionElements() {//csvを作成したらこれでデータを読み込んでから上書きする必要がある。
+	public void LoadfromCsvClearConditionElements(){//m_clearConditionDataを初期化し、洗濯中ステージのデータをロードし上書きするメソッド。
 		m_clearConditionData = csvmanager.getClearConditionElements();
 	}
 
-	public void LoadAllMapDatasfromCSV() {//csvmanagerからデータを抽出した後はこのメソッドは使用しなくなる。
+	public void LoadAllMapDatasfromCSV(){//m_fieldMapDatasを初期化し、選択中ステージのデータをロードし上書きするメソッド。
 		m_fieldMapDatas = new MassStruct[Config.stageCount][,];
 		for (int j = 0; j < Config.stageCount; j++) {
 			m_fieldMapDatas[j] = csvmanager.getStageMapDataElements(j);
@@ -103,10 +103,15 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	}
 
 
-	public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってくる
+	public void LoadFromCSV() {//csvから今のステージのクリア必要データと、フィールドデータをとってくる、データの初期化ができてない場合はこのメソッドを先に呼んではいけない。
 		LoadfromCsvMapDataElements();
 		LoadfromCsvClearConditionElements();
 	}
+
+	//必要な工程は2面とかのデータをcsvmanagerからとってくる
+	//そのデータをストレージに上書き。（全マップ分）
+	//上書きしたストレージの状態でEASYSAVEにセーブする。
+	//EASYSAVEからデータをロードする。
 
 	private class InnerData {//内部クラス。セーブ用にデータを代替保持する。
 		public MassStruct[][][] i_allfieldmapdatas;
@@ -175,4 +180,19 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 //			Debug.Log(mapdatas[99][1, 1].masskind.ToString());
 
 
-
+//もしクリアコンディションデータもしくはマップデータが消失したときは
+//初期化→csvからの代入→ストレージへの保存→EASYSAVEへの保存という流れが必要となる。
+//そのため下記手順での実行が必要となる。
+//ChangeStagePathNum
+//↓
+//LoadAllMapDatasfromCSV
+//↓
+//LoadfromCsvClearConditionElements
+//↓
+//LoadFieldEditorfromStrage//本当にストレージにデータができているかの確認用
+//↓
+//SaveCurrentMapData
+//↓
+//SaveStrageALLMapData
+//の順での実行が必要
+//最後にdebug start buttonを実行してみて試す。

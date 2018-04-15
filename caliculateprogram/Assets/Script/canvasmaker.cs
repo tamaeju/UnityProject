@@ -79,11 +79,6 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		//SceneManager.LoadScene(x);
 	}
 
-	private void Start() {
-		showclearcanvas(1, 1);
-		showstartcanvas(1, 1);
-		showGameovercanvas(1, 1);
-		showLevelDisplaycanvas(1,1,1);
-	}
+
 
 }

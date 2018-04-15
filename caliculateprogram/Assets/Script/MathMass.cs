@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class MathMass : MonoBehaviour {
 	int m_number;
@@ -58,18 +59,16 @@ public class MathMass : MonoBehaviour {
 
 	public void ChangeThrough() {
 		wasGothrough.Value = true;
-		deliteTextObject();
-		RoatateSlowly();
+		this.gameObject.transform.DOPunchScale(new Vector3(0.5f, 0.5f),0.5f);
 	}
-
 
 	public void ChangeDarkColor() {
 		if (wasGothrough.Value == true) {//ここでの条件判定をするのではなく、subscribeのところのwhereで判定すべき。注意
 			Color newColor = this.GetComponent<Renderer>().material.color;
-			newColor.r = 0.5f;
-			newColor.g = 0.5f;
-			newColor.b = 0.5f;
-			newColor.a = 0.3f;
+			newColor.r = 0.6f;
+			newColor.g = 0.6f;
+			newColor.b = 0.6f;
+			newColor.a = 0.5f;
 			this.GetComponent<Renderer>().material.color = newColor;
 		}
 	}
