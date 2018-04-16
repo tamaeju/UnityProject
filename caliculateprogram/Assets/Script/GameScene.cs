@@ -21,6 +21,10 @@ public class GameScene : MonoBehaviour {
 	FieldObjectEditUICreator editUIcreator;
 	[SerializeField]
 	DataStorage dataholder;
+	[SerializeField]
+	canvasmaker canvasmaker;
+	[SerializeField]
+	PanelView panelview;
 	//[SerializeField]
 	//CSVManager csvmanager;
 
@@ -29,12 +33,14 @@ public class GameScene : MonoBehaviour {
 		currentdataholder.GetClearConditionData();
 		objectmaker.instanciateAllMapObject();
 		movedealer.LoadFieldObject();
+		SetGameEndEvent();
+		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());
+		panelview.registRenewCountEvent();
 	}
 
 	public void SaveCurrentMapData() {//現在のエディットボタンのデータを取得し、現在のステージのデータに上書きし、セーブする機能。（注意としてはメンバー変数にデータが乗るだけである事に注意）
 		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
 		dataholder.UpdataStageData(savedata);
-
 	}
 
 	public void LoadFieldEditorfromStrage() {//ストレージデータの保有するステージデータを元にエディットボタンのステータスを更新する
@@ -54,37 +60,47 @@ public class GameScene : MonoBehaviour {
 		editUIcreator.deleteEditorUIbuttons();
 	}
 
-	public void SaveStrageALLMapData() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
+	public void SaveStrageALLMapDataandClearConditionData() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
 		dataholder.SaveStorageData();
 	}
 
-
-	public void initializaClearStatusData() {//クリアした後に保存されるデータの初期化（消去メソッド）実データへの保存を行うためにはこの後saveStrageメソッドを叩く必要がある。単純な初期化処理としても利用可能
+	public void initializaClearStatusData() {//クリアした後に保存されるデータの初期化（消去メソッド）実データへの保存を行うためにはこの後saveStrageメソッドを叩く必要がある。単純な初期化処理としても利用可能、これを実行した後UpdateClearedData、SaveStorageDataを行うとデータがEASYSAVEへ保存される。
 		dataholder.initializaClearStatusData();
 	}
 
-		//ステージを開始時は
-		//StorageLoadAllDatafromEasySave　でデータ読み込み
-		//↓
-		//ChangeStagePathNum　でステージ選択
-		//↓
-		//pushStartButton　でステージ開始
-
-
-		//ステージEdit時は
-		//StorageLoadAllDatafromEasySave　でデータ読み込み
-		//↓
-		//ChangeStagePathNum　でステージ選択
-		//↓
-		//LoadFieldEditorfromStrage　でデータをGUI化
-		//↓
-		//GUIいじる
-		//↓
-		//SaveCurrentMapData　で現在データをストレージのメンバ変数化
-		//↓
-		//SaveStrageALLMapData　でストレージのメンバ変数を実データ化
-		
+	public void UpdateClearedData() {//セーブするのはストレージにだけなので、実際にセーブするにはsaveStorageDataを叩く必要がある。
+		dataholder.UpdateClearedData();
 	}
+
+	public void SetGameEndEvent() {
+		movedealer.OnCleared.Subscribe(_ => canvasmaker.showclearcanvas (currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
+		movedealer.OnGameOvered.Subscribe(_ =>  canvasmaker.showGameovercanvas(currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
+	}
+
+	
+
+
+	//ステージを開始時は
+	//StorageLoadAllDatafromEasySave　でデータ読み込み
+	//↓
+	//ChangeStagePathNum　でステージ選択
+	//↓
+	//pushStartButton　でステージ開始
+
+	//ステージEdit時は
+	//StorageLoadAllDatafromEasySave　でデータ読み込み
+	//↓
+	//ChangeStagePathNum　でステージ選択
+	//↓
+	//LoadFieldEditorfromStrage　でデータをGUI化
+	//↓
+	//GUIいじる
+	//↓
+	//SaveCurrentMapData　で現在データをストレージのメンバ変数化
+	//↓
+	//SaveStrageALLMapData　でストレージのメンバ変数を実データ化
+
+}
 
 
 

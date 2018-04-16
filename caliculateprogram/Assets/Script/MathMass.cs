@@ -125,19 +125,19 @@ public class MathMass : MonoBehaviour {
 	public Vector2 GetMyPos() {
 		return m_pos;
 	}
-	private void RoatateSlowly() {
-		StartCoroutine(RoatateSlowlyColutin());
-	}
+	//private void RoatateSlowly() {
+	//	StartCoroutine(RoatateSlowlyColutin());
+	//}
 
-	private IEnumerator RoatateSlowlyColutin() {//指定した距離を1秒かけて動くメソッド
-		int totalRotateNumer = 120;
-		for (int i = 0; i < totalRotateNumer; i++) {
-			float totalRotateAmount = 90f;
-			float eachRotateAmount = totalRotateAmount/ totalRotateNumer;
-			this.transform.Rotate(0f, eachRotateAmount, 0f);
-			yield return null;
-		}
-	}
+	//private IEnumerator RoatateSlowlyColutin() {//指定した距離を1秒かけて動くメソッド
+	//	int totalRotateNumer = 120;
+	//	for (int i = 0; i < totalRotateNumer; i++) {
+	//		float totalRotateAmount = 90f;
+	//		float eachRotateAmount = totalRotateAmount/ totalRotateNumer;
+	//		this.transform.Rotate(0f, eachRotateAmount, 0f);
+	//		yield return null;
+	//	}
+	//}
 
 	public bool isGoal() {
 		return isGoalMass;

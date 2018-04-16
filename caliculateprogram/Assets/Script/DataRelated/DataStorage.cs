@@ -18,6 +18,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	bool[] m_isStageCleared;
 	int[] m_MinClearMoveCount;
 	int m_stageNum;
+	InnerData data;
 
 	public ClearConditionStruct[] GetClearConditionElements() {//自身の所有するクリア条件データを取得する
 		return m_clearConditionData;
@@ -27,14 +28,21 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		m_fieldMapDatas[m_stageNum] = savedata;
 	}
 
+	public void UpdateClearedData() {//ストレージへのセーブだけであり、EasySaveへのセーブはSaveStrageDataメソッドを使用する必要がある。
+		if (data == null) {
+			Debug.Log("data is null");
+		}
+		data.UpdateClearedData(m_isStageCleared, m_MinClearMoveCount);
+	}
+
 	public void SaveStorageData() {//自身の内部クラスに実データをセーブする
-		InnerData data = new InnerData();
-		data.UpdataAllData(m_fieldMapDatas, m_clearConditionData, m_isStageCleared, m_MinClearMoveCount);
+		data.UpdataMapandClearconditionData(m_fieldMapDatas, m_clearConditionData);
 		SaveGame.Save("datastrage", data);
 	}
 
 	public void LoadAllData() {//自身の内部クラスをロードし、内部クラスの所有するデータで自身のデータを上書きする
 		var newstragedata = SaveGame.Load<InnerData>("datastrage");
+		data = newstragedata;
 		Debug.Log("clicked LoadAllData");
 		m_fieldMapDatas = newstragedata.Convert1and2DimentionAllayElement(newstragedata.i_allfieldmapdatas);
 		m_clearConditionData = newstragedata.i_clearConditionData;
@@ -121,13 +129,14 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		public int[] i_MinClearMoveCount;
 
 
-		public void UpdataAllData( MassStruct[][,] mapdatas, ClearConditionStruct[] clearCondition, bool[] isStageCleared, int[] MinClearMoveCount) {
+		public void UpdataMapandClearconditionData(MassStruct[][,] mapdatas, ClearConditionStruct[] clearCondition) {
 			i_clearConditionData = clearCondition;
 			i_allfieldmapdatas = Convert3DimentionAllayElement(mapdatas);
-			i_isStageCleared = isStageCleared;
-			i_MinClearMoveCount = MinClearMoveCount;
-
-	}
+		}
+		public void UpdateClearedData(bool[] stagecleared, int[] minClearMoveCount) {
+			i_isStageCleared = stagecleared;
+			i_MinClearMoveCount = minClearMoveCount;
+		}
 		public InnerData() {
 			i_allfieldmapdatas = new MassStruct[Config.stageCount][][];
 			for (int i = 0; i < Config.stageCount; i++) {
@@ -172,6 +181,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		
 
 	}
+
 }
 
 //Debug.LogFormat("allfieldmapdatas, mapdatasは{0},{1}", allfieldmapdatas, mapdatas);
@@ -196,3 +206,8 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 //SaveStrageALLMapData
 //の順での実行が必要
 //最後にdebug start buttonを実行してみて試す。
+
+
+//ロードの時に、インナークラスを作ってそれから全データをとってくる→OK
+//セーブの時に、インナークラスを作ってそれでデータを保存する。
+

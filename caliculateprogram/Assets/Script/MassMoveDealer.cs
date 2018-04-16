@@ -21,6 +21,17 @@ public class MassMoveDealer : MonoBehaviour {
 	CurrentStageData currentdata;
 	[SerializeField]
 	FieldObjectMaker fieldobjectmaker;
+	Subject<int> Clearedsubject = new Subject<int> ();
+	public IObservable<int> OnCleared {
+		get { return Clearedsubject; }
+	}
+
+	Subject<int> GameOveredsubject = new Subject<int>();
+	public IObservable<int> OnGameOvered {
+		get { return GameOveredsubject; }
+	}
+
+
 
 	//4秒で1回転するロジック、サイン関数を用いた実装。
 
@@ -75,6 +86,16 @@ public class MassMoveDealer : MonoBehaviour {
 	public void ReachGoalMethodTest() {//debug
 		Debug.Log("Goaled!!!");
 	}
+	private void OnclearedEvent() {
+		Clearedsubject.OnNext(1);
+	}
+
+	private void OnGameoverEvent() {
+		GameOveredsubject.OnNext(1);
+	}
+
+	//OnNext自体はこのクラスが実行する。
+	//ゲームシーンがこのクラスのsubjectをとってきて、ゲームシーンのメソッドをsubscribeする。
 
 }
 
@@ -85,3 +106,10 @@ public class MassMoveDealer : MonoBehaviour {
 //		}
 //	return
 //	}
+
+
+//ゲームクリア時の処理として適切なものとしては、
+//ムーブマスディーラーにゲームシーンが終了時の処理を記載、
+//クリア→ムーブマスディーラーがカレントデータクラスから現状のデータをとってくる→ゲームシーンクラスに
+
+//最初にmoveCountにエフェクトが乗るのが許せない。→
