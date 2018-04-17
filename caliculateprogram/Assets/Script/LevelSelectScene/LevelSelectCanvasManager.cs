@@ -31,7 +31,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		verticalsize = buttonprefabclone.GetComponent<RectTransform>().sizeDelta.y;
 
 		var parent = this.transform;
-		originpos = new Vector2((horizontalsize+50),   500f);
+		originpos = new Vector2((horizontalsize+50),   450f);
 		buttonobjects = new GameObject[totalButtonCount];
 		for (int i = 0; i < totalButtonCount; i++) {
 			buttonobjects[i] = Instantiate(buttonprefabclone, getUIPos(i),Quaternion.identity, parent) as GameObject;
@@ -71,7 +71,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 
 	public void goUPcanvasBackGround() {
 		int movedistance = 500;
-		int moveupperlimit = 1400;
+		int moveupperlimit = 2200;
 		int canvasposY = 284;//UIのためキャンバスオブジェクトの左下から設定されているため変換のためキャンバスオブジェクトの座標分補正する必要あり
 		RectTransform newtransform = canvasBackGround.GetComponent<RectTransform>();
 		if (newtransform.position.y + movedistance < moveupperlimit) {//現在のy座標プラス移動後のy座標の値が最大移動値よりも小さいならば

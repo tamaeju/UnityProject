@@ -36,8 +36,8 @@ public class FieldObjectEditUI : MonoBehaviour {//レベルデザインデータ
 
 
 	public void changeState(int astateNum) {
-		if (stateNum < Enum.GetNames(typeof(MathMass.massstate)).Length + Enum.GetNames(typeof(DebugUIkind)).Length) {
-			stateNum = astateNum++;
+		if (astateNum < Enum.GetNames(typeof(MathMass.massstate)).Length) {
+			stateNum = astateNum;
 		}
 		else { stateNum = 0; }
 		changeButtonColor();
@@ -84,7 +84,7 @@ public class FieldObjectEditUI : MonoBehaviour {//レベルデザインデータ
 		else if (stateNum == (int)MathMass.massstate.multiplicate)
 			gameObject.GetComponent<Image>().color = Color.green;
 		else if (stateNum == (int)MathMass.massstate.divide)
-			gameObject.GetComponent<Image>().color = Color.yellow;
+			gameObject.GetComponent<Image>().color = new Vector4(1f,1f,0f,1f);
 		else if (stateNum == (int)MathMass.massstate.square)
 			gameObject.GetComponent<Image>().color = Color.blue;
 		else if (stateNum == (int)MathMass.massstate.root)

@@ -77,9 +77,11 @@ public class GameScene : MonoBehaviour {
 		movedealer.OnGameOvered.Subscribe(_ =>  canvasmaker.showGameovercanvas(currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
 	}
 
-	
+	public void EditorUISetRandamKind() {
+		editUIcreator.EditorUISetRandamKind();
+	}
 
-
+	//EditorUISetRandamKind
 	//ステージを開始時は
 	//StorageLoadAllDatafromEasySave　でデータ読み込み
 	//↓

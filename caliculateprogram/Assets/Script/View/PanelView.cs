@@ -24,7 +24,8 @@ public class PanelView : MonoBehaviour {
 	Text m_EffectOfmovecountText;
 	IObservable<int> changeMC;
 	IObservable<int> changeCMC;
-	int Countdefference;
+	int beforeCount;
+	int countDifference;
 
 	private void Start() {
 		normalposSumEffectpos = m_EffectOfcountText.GetComponent<RectTransform>().anchoredPosition;
@@ -34,7 +35,9 @@ public class PanelView : MonoBehaviour {
 	}
 
 	private void RenewCountText(int renewcount) {
-		Countdefference = Countdefference + renewcount;
+		//出したいものとしては前回の数値との差分。
+		countDifference = renewcount - beforeCount;//前回の入力値と今回の値の差分を取る（前回が5で今回が3なら差分は3）
+		beforeCount = renewcount;
 		m_recentcountText.text = renewcount.ToString();
 	}
 
@@ -44,35 +47,20 @@ public class PanelView : MonoBehaviour {
 	}
 
 	private void createEffectOfCountText() {
-		if (Countdefference > 0) {
-			m_EffectOfcountText.text = "+"+ Countdefference.ToString();
+		if (countDifference > 0) {
+			m_EffectOfcountText.text = "+"+ countDifference.ToString();
 				}
 		else  {
-			m_EffectOfcountText.text = "-" + Countdefference.ToString();
-			RectTransform rect = m_EffectOfcountText.GetComponent<RectTransform>();
-			//rect.position = normalpos;//trial
-			rect.DOJumpAnchorPos(
-		normalposSumEffectpos,      // 移動終了地点
-		1,               // ジャンプする力
-		2,               // ジャンプする回数
-		1.0f              // アニメーション時間
-	).OnComplete(() =>
-			m_EffectOfcountText.text = "");
+			m_EffectOfcountText.text =  countDifference.ToString();
 		}
+		RectTransform rect = m_EffectOfcountText.GetComponent<RectTransform>();//rect.position = normalpos;//trial
+		rect.DOJumpAnchorPos(normalposSumEffectpos,1.5f, 2, 3f).OnComplete(() => m_EffectOfcountText.text = "");
 	}
 
 	private void createEffectOfmovecountText() {
-		//m_EffectOfmovecountText.GetComponent<RectTransform>().position = normalpos;//連続動作による位置ずれを避けるため。
 		m_EffectOfmovecountText.text = "+1";
 		RectTransform rect = m_EffectOfmovecountText.GetComponent<RectTransform>();
-		//rect.position = normalpos;//trial
-		rect.DOJumpAnchorPos(
-	normalposMoveEffectpos,      // 移動終了地点
-	1,               // ジャンプする力
-	2,               // ジャンプする回数
-	1.0f              // アニメーション時間
-).OnComplete(() =>
-		m_EffectOfmovecountText.text = "");
+		rect.DOJumpAnchorPos(normalposMoveEffectpos,1.5f, 2,3f).OnComplete(() =>m_EffectOfmovecountText.text = "");
 	}
 
 	public void registRenewCountEvent() {//currentデータの値を見て、イベント実行をするよう指定するメソッド

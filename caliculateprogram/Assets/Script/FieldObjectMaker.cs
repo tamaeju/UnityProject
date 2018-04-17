@@ -51,6 +51,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 				massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
 				massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
+			massobjects[i, j].GetComponent<MathMass>().changeObjectColor();
 		}
 		if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {
 			massobjects[i, j].GetComponent<MathMass>().ChangeisGoal();

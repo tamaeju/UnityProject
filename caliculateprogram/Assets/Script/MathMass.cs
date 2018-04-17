@@ -74,18 +74,8 @@ public class MathMass : MonoBehaviour {
 	}
 
 	public void deliteTextObject() {
-		Destroy(m_masskindtext.gameObject);
-		//Destroy(m_masscounttext);
-}
+		Destroy(m_masskindtext.gameObject);}
 
-	public void ChangeNormalColor() {
-		Color newColor = this.GetComponent<Renderer>().material.color;
-		newColor.r = 1f;
-		newColor.g = 1f;
-		newColor.b = 1f;
-		newColor.a = 1f;
-		this.GetComponent<Renderer>().material.color = newColor;
-	}
 
 	private void Start() {
 		wasGothrough.AsObservable().Subscribe(_ => ChangeDarkColor());
@@ -145,6 +135,22 @@ public class MathMass : MonoBehaviour {
 
 	public void ChangeisGoal() {
 		isGoalMass = true;
+		RenewText();
 	}
+	public void changeObjectColor() {
+		if (m_state == MathMass.massstate.add)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.cyan;
+		else if (m_state == MathMass.massstate.substract)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+		else if (m_state == MathMass.massstate.multiplicate)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.green;
+		else if (m_state == MathMass.massstate.divide)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+		else if (m_state == MathMass.massstate.square)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+		else if (m_state == MathMass.massstate.root)
+			this.gameObject.GetComponent<Renderer>().material.color = Color.red;
+	}
+	
 
 }

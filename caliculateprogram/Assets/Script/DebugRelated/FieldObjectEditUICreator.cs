@@ -79,4 +79,14 @@ public class FieldObjectEditUICreator : MonoBehaviour {//マップに何を配�
 		foreach(var item in MapEditorButtons)
 		Destroy(item);
 	}
+
+	public void EditorUISetRandamKind() {
+		for (int j = 0; j < Config.maxGridNum; ++j) {
+			for (int i = 0; i < Config.maxGridNum; ++i) {
+				int radomValue = UnityEngine.Random.Range(0, Enum.GetNames(typeof(MathMass.massstate)).Length);//float型を引数にとるときと、int型を引数にとるときで挙動が変わる事に注意
+					MapEditorButtons[i, j].GetComponent<FieldObjectEditUI>().changeState(radomValue);
+			}
+		}
+	}
 }
+

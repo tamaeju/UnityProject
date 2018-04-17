@@ -131,8 +131,8 @@
     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
     <Compile Include="Assets\Script\ButtonControllerMethodSetter.cs" />
-    <Compile Include="Assets\Script\Canvas Related\Canvasbehavior.cs" />
-    <Compile Include="Assets\Script\Canvas Related\canvasmaker.cs" />
+    <Compile Include="Assets\Script\CanvasMakerRelated\Canvasbehavior.cs" />
+    <Compile Include="Assets\Script\CanvasMakerRelated\canvasmaker.cs" />
     <Compile Include="Assets\Script\CurrentStageData.cs" />
     <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
     <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
