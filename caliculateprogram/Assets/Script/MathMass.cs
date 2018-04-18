@@ -145,7 +145,7 @@ public class MathMass : MonoBehaviour {
 		else if (m_state == MathMass.massstate.multiplicate)
 			this.gameObject.GetComponent<Renderer>().material.color = Color.green;
 		else if (m_state == MathMass.massstate.divide)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.yellow;
+			this.gameObject.GetComponent<Renderer>().material.color = new Color(0.7f,0.7f,0f,1f);
 		else if (m_state == MathMass.massstate.square)
 			this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
 		else if (m_state == MathMass.massstate.root)

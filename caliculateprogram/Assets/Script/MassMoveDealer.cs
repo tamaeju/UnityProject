@@ -46,10 +46,10 @@ public class MassMoveDealer : MonoBehaviour {
 		//まずやる事としては、次のマスがゴールマスか確認し、
 		//ゴールマスであればクリア可能かを聞いてくる。クリア可能ならクリアメソッドを実行し、可能でないなら何もせずメソッド終了
 		//ゴールマスでないなら、次のマスが既に通過済みかどうかを確認し、通過済みであればなにもせず終了、通過していないなら更新処理を実行
-
+		if (currentdata.GetMoveCount()> currentdata.GetTargetMoveCount()) { GameOveredsubject.OnNext(1); }
 		if (mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoal()) {
 			if (currentdata.canClear()) {
-				ReachGoalMethodTest();
+				Clearedsubject.OnNext(1);
 			}
 			else if (!currentdata.canClear()) {
 			}
@@ -61,6 +61,7 @@ public class MassMoveDealer : MonoBehaviour {
 			currentdata.SetCurrentSum(movemass.GetMyNumber());
 			currentdata.SetMoveCount(movemass.GetMyCount());
 		}
+		
 	}
 
 	private void RenewMoverNum(MathMass mathmass) {
@@ -86,13 +87,11 @@ public class MassMoveDealer : MonoBehaviour {
 	public void ReachGoalMethodTest() {//debug
 		Debug.Log("Goaled!!!");
 	}
-	private void OnclearedEvent() {
-		Clearedsubject.OnNext(1);
-	}
 
-	private void OnGameoverEvent() {
-		GameOveredsubject.OnNext(1);
-	}
+
+	
+	//もし現在のmovecountがターゲットmovecountより少ない場合、ゲームオーバーメソッドを呼び出す。
+	//
 
 	//OnNext自体はこのクラスが実行する。
 	//ゲームシーンがこのクラスのsubjectをとってきて、ゲームシーンのメソッドをsubscribeする。

@@ -15,6 +15,8 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 	GameObject moveprefab;
 	[SerializeField]
 	GameObject massprefab;
+	[SerializeField]
+	GameObject goalprefab;
 	//実生成するオブジェクト
 
 	GameObject moveobject;
@@ -46,15 +48,21 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 			moveobject.transform.position = settingObjectPos(i, j);
 		}
 
-		else {
-				massobjects[i, j] = Instantiate(massprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
-				massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
-				massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
-				massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
-			massobjects[i, j].GetComponent<MathMass>().changeObjectColor();
-		}
-		if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {
+		else if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {
+			Vector3 goalpos = new Vector3(settingObjectPos(i, j).x, settingObjectPos(i, j).y-0.3f, 0f);
+			massobjects[i, j] = Instantiate(goalprefab, goalpos, Quaternion.identity) as GameObject;
 			massobjects[i, j].GetComponent<MathMass>().ChangeisGoal();
+			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
+			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
+
+			
+		}
+		else {
+			massobjects[i, j] = Instantiate(massprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
+			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
+			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
+			massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
+			massobjects[i, j].GetComponent<MathMass>().changeObjectColor();
 		}
 	}
 
