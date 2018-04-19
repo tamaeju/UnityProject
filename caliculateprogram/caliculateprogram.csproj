@@ -136,6 +136,11 @@
     <Compile Include="Assets\OuterResorce\CasualGameUI\Demo\ShowNextOnClick.cs" />
     <Compile Include="Assets\OuterResorce\Demigiant\DOTween\Examples\Basics.cs" />
     <Compile Include="Assets\OuterResorce\Demigiant\DOTween\Examples\Sequences.cs" />
+    <Compile Include="Assets\OuterResorce\Fade\Samples\FadeTest.cs" />
+    <Compile Include="Assets\OuterResorce\Fade\Scripts\Fade.cs" />
+    <Compile Include="Assets\OuterResorce\Fade\Scripts\FadeImage.cs" />
+    <Compile Include="Assets\OuterResorce\Fade\Scripts\FadeUI.cs" />
+    <Compile Include="Assets\OuterResorce\Fade\Scripts\IFade.cs" />
     <Compile Include="Assets\OuterResorce\ProtoPack\Scripts\OpenAnimTest.cs" />
     <Compile Include="Assets\OuterResorce\ProtoPack\Scripts\PlatformLiftTest.cs" />
     <Compile Include="Assets\OuterResorce\ProtoPack\Scripts\PlayerJumpTest.cs" />
@@ -217,6 +222,7 @@
     <Compile Include="Assets\Script\CanvasMakerRelated\TitleCanvasMover.cs" />
     <Compile Include="Assets\Script\CanvasMakerRelated\canvasmaker.cs" />
     <Compile Include="Assets\Script\CurrentStageData.cs" />
+    <Compile Include="Assets\Script\DGScale.cs" />
     <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
     <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
     <Compile Include="Assets\Script\DataRelated\DataPathManager.cs" />
@@ -237,9 +243,11 @@
     <Compile Include="Assets\Script\ShaderTet\ShaderTest.cs" />
     <Compile Include="Assets\Script\Struct\ClearConditionStruct.cs" />
     <Compile Include="Assets\Script\Struct\MassStruct.cs" />
+    <Compile Include="Assets\Script\Unuse\WindowScroller.cs" />
     <Compile Include="Assets\Script\View\PanelView.cs" />
     <Compile Include="Assets\Script\View\TargetPanelView.cs" />
     <Compile Include="Assets\Script\config\Config.cs" />
+    <Compile Include="Assets\Script\testFade.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\OuterResorce\BayatGames\SaveGameFree\Documentation\Save Game Free Documentation - Plain Text Version.txt" />
@@ -252,6 +260,9 @@
     <None Include="Assets\OuterResorce\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\OuterResorce\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\OuterResorce\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Fade-Alpha.shader" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Fade-Cutout.shader" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Mask.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

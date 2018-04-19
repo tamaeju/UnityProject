@@ -26,8 +26,7 @@ public class MathMass : MonoBehaviour {
 		substract,
 		multiplicate,
 		divide,
-		square,
-		root
+		square
 	}
 
 	//値に自分の数字を投げた時に答えを返してほしい
@@ -46,9 +45,6 @@ public class MathMass : MonoBehaviour {
 		}
 		if (m_state == massstate.square) {
 			return oldnum = oldnum* oldnum;
-		}
-		if (m_state == massstate.root) {
-			return oldnum = (int)Math.Sqrt(oldnum);
 		}
 		else return oldnum;
 	}
@@ -82,7 +78,7 @@ public class MathMass : MonoBehaviour {
 	}
 
 	private void RenewText() {
-		m_masskindtext.text = GetMyString();
+		//m_masskindtext.text = GetMyString();
 		//m_masscounttext.text = m_number.ToString();
 	}
 
@@ -102,7 +98,6 @@ public class MathMass : MonoBehaviour {
 		else if (m_state == massstate.multiplicate) { return "×2"; }
 		else if (m_state == massstate.divide) { return "÷2"; }
 		else if (m_state == massstate.square) { return "^2"; }
-		else if (m_state == massstate.root) { return "√2"; }
 		else if (isGoalMass == true) { return "Goal"; }
 		else { return "ERR"; }
 	}
@@ -137,20 +132,7 @@ public class MathMass : MonoBehaviour {
 		isGoalMass = true;
 		RenewText();
 	}
-	public void changeObjectColor() {
-		if (m_state == MathMass.massstate.add)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.cyan;
-		else if (m_state == MathMass.massstate.substract)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.magenta;
-		else if (m_state == MathMass.massstate.multiplicate)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.green;
-		else if (m_state == MathMass.massstate.divide)
-			this.gameObject.GetComponent<Renderer>().material.color = new Color(0.7f,0.7f,0f,1f);
-		else if (m_state == MathMass.massstate.square)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-		else if (m_state == MathMass.massstate.root)
-			this.gameObject.GetComponent<Renderer>().material.color = Color.red;
-	}
+
 	
 
 }

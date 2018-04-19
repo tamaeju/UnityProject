@@ -2,6 +2,7 @@
 using UniRx;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonControllerMethodSetter : MonoBehaviour {
 	[SerializeField]
@@ -26,7 +27,7 @@ public class ButtonControllerMethodSetter : MonoBehaviour {
 		m_downbutton.OnClicked.Subscribe(x => { massmovedealer.pushDownButton(); });
 		m_rightbutton.OnClicked.Subscribe(x => { massmovedealer.pushRightButton(); });
 		m_leftbutton.OnClicked.Subscribe(x => { massmovedealer.pushLeftButton(); });
-		m_backbutton.OnClicked.Subscribe(x => { massmovedealer.pushBackButton(); });
+		m_backbutton.OnClicked.Subscribe(x => { SceneManager.LoadScene("LevelSelectScene"); ; });
 	}
 
 

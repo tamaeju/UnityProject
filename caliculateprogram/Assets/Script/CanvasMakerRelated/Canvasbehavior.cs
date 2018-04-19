@@ -48,14 +48,14 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	public void changeTitleText(string title) {
 		titletext.text = title;
 	}
-	public void changeElement1Text(int score) {
+	public void changeElement1Text(long score) {
 		element1text.text = score.ToString();
 	}
 	public void changeElement1label(string label) {
 		element1labeltext.text = label;
 	}
 
-	public void changeElement2Text(int score) {
+	public void changeElement2Text(long score) {
 		element2text.text = score.ToString();
 	}
 	public void changeElement2label(string label) {

@@ -22,10 +22,10 @@ public class PanelView : MonoBehaviour {
 	Text m_EffectOfcountText;
 	[SerializeField]
 	Text m_EffectOfmovecountText;
-	IObservable<int> changeMC;
-	IObservable<int> changeCMC;
-	int beforeCount;
-	int countDifference;
+	IObservable<long> changeMC;
+	IObservable<long> changeCMC;
+	long beforeCount;
+	long countDifference;
 
 	private void Start() {
 		normalposSumEffectpos = m_EffectOfcountText.GetComponent<RectTransform>().anchoredPosition;
@@ -34,14 +34,14 @@ public class PanelView : MonoBehaviour {
 		Debug.LogFormat("{0}{1}", normalposMoveEffectpos.x, normalposMoveEffectpos.y);
 	}
 
-	private void RenewCountText(int renewcount) {
+	public void RenewCountText(long renewcount) {
 		//出したいものとしては前回の数値との差分。
 		countDifference = renewcount - beforeCount;//前回の入力値と今回の値の差分を取る（前回が5で今回が3なら差分は3）
 		beforeCount = renewcount;
 		m_recentcountText.text = renewcount.ToString();
 	}
 
-	private void RenewMovecountText(int renewcount) {
+	public void RenewMovecountText(long renewcount) {
 
 		m_recentmovecountText.text = renewcount.ToString();
 	}

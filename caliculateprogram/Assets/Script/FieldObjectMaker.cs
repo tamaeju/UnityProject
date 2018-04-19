@@ -14,7 +14,18 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 	[SerializeField]
 	GameObject moveprefab;
 	[SerializeField]
-	GameObject massprefab;
+	GameObject plusPrefab;
+	[SerializeField]
+	GameObject substractPrefab;
+	[SerializeField]
+	GameObject multiplePrefab;
+	[SerializeField]
+	GameObject dividePrefab;
+	[SerializeField]
+	GameObject squarePrefab;
+
+
+
 	[SerializeField]
 	GameObject goalprefab;
 	//実生成するオブジェクト
@@ -47,22 +58,21 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 			moveobject.GetComponent<MovingMass>().SetMyPos(i, j);
 			moveobject.transform.position = settingObjectPos(i, j);
 		}
-
+		
 		else if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {
-			Vector3 goalpos = new Vector3(settingObjectPos(i, j).x, settingObjectPos(i, j).y-0.3f, 0f);
-			massobjects[i, j] = Instantiate(goalprefab, goalpos, Quaternion.identity) as GameObject;
+			massobjects[i, j] = Instantiate(goalprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
 			massobjects[i, j].GetComponent<MathMass>().ChangeisGoal();
 			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
 			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 
 			
 		}
-		else {
-			massobjects[i, j] = Instantiate(massprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
+		else{
+			int mathmasskind = fieldmapdata[i, j].masskind;
+			massobjects[i, j] = Instantiate(instanceMathMass(mathmasskind), settingObjectPos(i, j), Quaternion.Euler(0, 0, 180)) as GameObject;
 			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);
 			massobjects[i, j].GetComponent<MathMass>().ChangeMynumber(fieldmapdata[i, j].massnumber);
-			massobjects[i, j].GetComponent<MathMass>().changeObjectColor();
 		}
 	}
 
@@ -74,6 +84,26 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 		}
 	}
 
+	public GameObject instanceMathMass(int masskind) {
+		switch (masskind) {
+			case (int)MathMass.massstate.add:
+				return plusPrefab;
+			case (int)MathMass.massstate.divide:
+				return dividePrefab;
+			case (int)MathMass.massstate.multiplicate:
+				return multiplePrefab;
+			case (int)MathMass.massstate.square:
+				return squarePrefab;
+			case (int)MathMass.massstate.substract:
+				return substractPrefab;
+			default:
+				Debug.Log("There is no match prefab");
+				return null;
+		}
+		
+
+
+	}
 
 
 	public GameObject GetMovingMass() {

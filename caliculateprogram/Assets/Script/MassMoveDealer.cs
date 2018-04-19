@@ -82,8 +82,7 @@ public class MassMoveDealer : MonoBehaviour {
 	public void pushDownButton() {
 		BaseMoveMethod(downVector);
 	}
-	public void pushBackButton() {
-	}
+
 	public void ReachGoalMethodTest() {//debug
 		Debug.Log("Goaled!!!");
 	}

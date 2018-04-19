@@ -35,7 +35,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		data.UpdateClearedData(m_isStageCleared, m_MinClearMoveCount);
 	}
 
-	public void SaveStorageData() {//自身の内部クラスに実データをセーブする
+	public void StorageSaveEasySave() {//自身の内部クラスに実データをセーブする
 		data.UpdataMapandClearconditionData(m_fieldMapDatas, m_clearConditionData);
 		SaveGame.Save("datastrage", data);
 	}
@@ -58,6 +58,10 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	public void ChangeStagePathNum(Dropdown dropdown) {//ステージ番号を変更するメソッド。
 		m_stageNum = dropdown.value;
 		csvmanager.ChangeStagePathNum(dropdown);//
+	}
+
+	public void ChangeStagePathNum(int stageNum) {//ステージ番号を変更するメソッド。
+		m_stageNum = stageNum;
 	}
 
 	public MassStruct[,] GetStageMapData(int stageCount) {//指定した1ステージのマップデータをゲットするメソッド

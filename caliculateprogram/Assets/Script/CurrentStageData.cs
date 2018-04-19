@@ -12,11 +12,11 @@ using UniRx;
 
 public class CurrentStageData : MonoBehaviour {
 
-	public int currentSum;//イベント発火のためにパブリックにしている、メソッドをラッパーすることで、アクセッサをprivateにする事も可能なのだがそれはそれでコードが汚くもなるのでいったん保留中
-	public int currentMoveCount;//同上
+	public long currentSum;//イベント発火のためにパブリックにしている、メソッドをラッパーすることで、アクセッサをprivateにする事も可能なのだがそれはそれでコードが汚くもなるのでいったん保留中
+	public long currentMoveCount;//同上
 
-	public int targetSum;
-	public int targetMoveCount;
+	public long targetSum;
+	public long targetMoveCount;
 
 	[SerializeField]
 	DataStorage datastorager;
@@ -26,6 +26,9 @@ public class CurrentStageData : MonoBehaviour {
 	//データからとってきて、値を更新するメソッド
 
 
+	private void Start() {
+		currentSum = 2;
+	}
 
 	public　void GetClearConditionData() {
 		clearConditionData = datastorager.GetClearConditionElements();
@@ -41,7 +44,7 @@ public class CurrentStageData : MonoBehaviour {
 		currentMoveCount = newCount;
 	}
 
-	public int GetMoveCount() {
+	public long GetMoveCount() {
 		return currentMoveCount;
 	}
 
@@ -49,7 +52,7 @@ public class CurrentStageData : MonoBehaviour {
 	public void SetCurrentSum(int newCount) {
 		currentSum = newCount;
 	}
-	public int GetCurrentSum() {
+	public long GetCurrentSum() {
 		return currentSum;
 	}
 
@@ -57,7 +60,7 @@ public class CurrentStageData : MonoBehaviour {
 	public void SetTargetSum(int newCount) {
 		targetSum = newCount;
 	}
-	public int GettargetSum() {
+	public long GettargetSum() {
 		return targetSum;
 	}
 
@@ -65,7 +68,7 @@ public class CurrentStageData : MonoBehaviour {
 	public void SetTargetMoveCount(int newCount) {
 		targetMoveCount = newCount;
 	}
-	public int GetTargetMoveCount() {
+	public long GetTargetMoveCount() {
 		return targetMoveCount;
 	}
 

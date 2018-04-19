@@ -181,6 +181,9 @@
     <None Include="Assets\OuterResorce\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\OuterResorce\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\OuterResorce\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Fade-Alpha.shader" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Fade-Cutout.shader" />
+    <None Include="Assets\OuterResorce\Fade\Materials\UI-Mask.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\OuterResorce\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

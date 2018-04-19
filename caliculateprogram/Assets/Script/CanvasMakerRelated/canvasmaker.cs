@@ -22,7 +22,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 	//クリアキャンバスをタップした時はレベル選択画面へ移動する処理を行う。
 	//そのためキャンバスの作成、そのキャンバスにイベントの設定を行う必要がある。
 	//
-	public void showclearcanvas(int currentMoveCount,int TargetCount) {//クリア時には目標ターゲット数と現在移動数
+	public void showclearcanvas(long currentMoveCount, long TargetCount) {//クリア時には目標ターゲット数と現在移動数
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -34,7 +34,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement2Text(TargetCount);
 		canvas.CanvasTouched.Subscribe(x=> testMethod(x));
 	}
-	public void showstartcanvas(int TargetCount, int TargetMoveCount) {
+	public void showstartcanvas(long TargetCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -46,7 +46,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement2Text(TargetMoveCount);
 	}
 
-	public void showGameovercanvas(int currentMoveCount, int TargetMoveCount) {
+	public void showGameovercanvas(long currentMoveCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -59,7 +59,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.CanvasTouched.Subscribe(x => testMethod(x));
 	}
 
-	public void showLevelDisplaycanvas(int stageCount, int TargetCount, int TargetMoveCount) {
+	public void showLevelDisplaycanvas(long stageCount, long TargetCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();

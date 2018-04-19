@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタンクラス
 	Text mytext;
@@ -25,15 +26,22 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 
 	private void Start() {
 		btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });
+		btn.onClick.AddListener(() => { MoveParentsRect(); });
 	}
 
-	public  void changeThisText(string textname) {
+	public  void changeThisText(int stage) {
 		mytext = this.gameObject.GetComponentInChildren<Text>();
-		mytext.text = textname;
+		mytext.text = (stage+1).ToString();
 	}
 
 	public void changeMystageCount(int stagecount) {
 		myStageCount = stagecount;
+	}
+	private void MoveParentsRect() {
+		RectTransform  rectform = this.gameObject.transform.parent.parent.GetComponent<RectTransform>();
+		rectform.DOMove(new Vector3(rectform.position.x, 2000f, rectform.position.z),
+	2.0f
+	).OnComplete(() => Destroy(this.gameObject));
 	}
 
 	//public void makeEffectPrefab() {

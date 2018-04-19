@@ -25,18 +25,30 @@ public class GameScene : MonoBehaviour {
 	canvasmaker canvasmaker;
 	[SerializeField]
 	PanelView panelview;
+	[SerializeField]
+	LevelSelectCanvasManager selectButtonCreator;
 	//[SerializeField]
 	//CSVManager csvmanager;
 
 	public void pushStartButton() {
-		objectmaker.LoadMapDatas();
-		currentdataholder.GetClearConditionData();
-		objectmaker.instanciateAllMapObject();
-		movedealer.LoadFieldObject();
-		SetGameEndEvent();
-		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());
-		panelview.registRenewCountEvent();
+		objectmaker.LoadMapDatas();//オブジェクトメイカーがマップデータを読み込む
+		objectmaker.instanciateAllMapObject();//データからオブジェクトを生成する
+
+		currentdataholder.GetClearConditionData();//現在データホルダークラスが全ステージ分のクリア条件を読み込む
+
+		movedealer.LoadFieldObject();//オブジェクトの移動を扱うクラスがブジェクトメイカーが作成したデータを取得する。
+
+		SetGameEndEvent();//movedealerにゲーム終了時のイベントハンドラを設定する。
+
+		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
+
+		panelview.registRenewCountEvent();//パネルビュークラスとカレントデータのイベント紐づけ
+
+		panelview.RenewMovecountText(currentdataholder.GetMoveCount());//パネルビューの値を初期化
+		panelview.RenewCountText(currentdataholder.GetCurrentSum());//パネルビューの値を初期化
 	}
+
+
 
 	public void SaveCurrentMapData() {//現在のエディットボタンのデータを取得し、現在のステージのデータに上書きし、セーブする機能。（注意としてはメンバー変数にデータが乗るだけである事に注意）
 		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
@@ -60,8 +72,8 @@ public class GameScene : MonoBehaviour {
 		editUIcreator.deleteEditorUIbuttons();
 	}
 
-	public void SaveStrageALLMapDataandClearConditionData() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
-		dataholder.SaveStorageData();
+	public void StrageSaveALLMapandClearConditionData() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
+		dataholder.StorageSaveEasySave();
 	}
 
 	public void initializaClearStatusData() {//クリアした後に保存されるデータの初期化（消去メソッド）実データへの保存を行うためにはこの後saveStrageメソッドを叩く必要がある。単純な初期化処理としても利用可能、これを実行した後UpdateClearedData、SaveStorageDataを行うとデータがEASYSAVEへ保存される。
@@ -80,6 +92,30 @@ public class GameScene : MonoBehaviour {
 	public void EditorUISetRandamKind() {
 		editUIcreator.EditorUISetRandamKind();
 	}
+
+	public void startStage(int stagenum) {
+		dataholder.ChangeStagePathNum(stagenum);
+		objectmaker.LoadMapDatas();//オブジェクトメイカーがマップデータを読み込む
+		objectmaker.instanciateAllMapObject();//データからオブジェクトを生成する
+
+		currentdataholder.GetClearConditionData();//現在データホルダークラスが全ステージ分のクリア条件を読み込む
+
+		movedealer.LoadFieldObject();//オブジェクトの移動を扱うクラスがブジェクトメイカーが作成したデータを取得する。
+
+		SetGameEndEvent();//movedealerにゲーム終了時のイベントハンドラを設定する。
+
+		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
+
+		panelview.registRenewCountEvent();//パネルビュークラスとカレントデータのイベント紐づけ
+
+		panelview.RenewMovecountText(currentdataholder.GetMoveCount());//パネルビューの値を初期化
+		panelview.RenewCountText(currentdataholder.GetCurrentSum());//パネルビューの値を初期化
+	}
+	private void Start() {
+		selectButtonCreator.instanceButtonPrefab(startStage);
+	}
+
+
 
 	//EditorUISetRandamKind
 	//ステージを開始時は

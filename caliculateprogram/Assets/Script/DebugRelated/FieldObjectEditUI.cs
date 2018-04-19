@@ -87,8 +87,6 @@ public class FieldObjectEditUI : MonoBehaviour {//レベルデザインデータ
 			gameObject.GetComponent<Image>().color = new Vector4(1f,1f,0f,1f);
 		else if (stateNum == (int)MathMass.massstate.square)
 			gameObject.GetComponent<Image>().color = Color.blue;
-		else if (stateNum == (int)MathMass.massstate.root)
-			gameObject.GetComponent<Image>().color = Color.red;
 		else if (stateNum == Enum.GetNames(typeof(MathMass.massstate)).Length+(int)DebugUIkind.movingobject)
 			gameObject.GetComponent<Image>().color = Color.white;
 		else if (stateNum == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)DebugUIkind.goal)
