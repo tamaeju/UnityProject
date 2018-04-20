@@ -222,7 +222,7 @@
     <Compile Include="Assets\Script\CanvasMakerRelated\TitleCanvasMover.cs" />
     <Compile Include="Assets\Script\CanvasMakerRelated\canvasmaker.cs" />
     <Compile Include="Assets\Script\CurrentStageData.cs" />
-    <Compile Include="Assets\Script\DGScale.cs" />
+    <Compile Include="Assets\Script\DGScaleColor.cs" />
     <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
     <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
     <Compile Include="Assets\Script\DataRelated\DataPathManager.cs" />

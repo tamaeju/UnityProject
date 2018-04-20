@@ -104,6 +104,7 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void startStage(int stageNum) {
+		deleteDebugUIEditor();
 		ChangeStagePathNum(stageNum);
 		objectmaker.LoadMapDatas();//オブジェクトメイカーがマップデータを読み込む
 		objectmaker.instanciateAllMapObject();//データからオブジェクトを生成する
@@ -123,6 +124,7 @@ public class GameScene : MonoBehaviour {
 	}
 	private void Start() {
 		if (selectButtonCreator != null) {
+			StorageLoadAllDatafromEasySave();//easySaveからデータを読み込む。
 			selectButtonCreator.instanceButtonPrefab(ShowLevelDisplayWindow);
 		}
 	}

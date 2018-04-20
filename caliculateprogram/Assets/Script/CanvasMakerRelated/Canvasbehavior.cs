@@ -28,6 +28,8 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	Text m_messagetext;
 	[SerializeField]
 	Button m_backbutton;
+	int m_stageNum;
+	//メンバー変数にステージ番号をもらい、onnextはそれで実行する。
 
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
@@ -38,6 +40,10 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	public IObservable<int> CanvasTouched {
 		get { return clickedEvent; }
+	}
+
+	public void setStageNum(int stageNUm) {
+		m_stageNum = stageNUm;
 	}
 
 	public void changeTitleText(string title) {
@@ -61,9 +67,8 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	}
 
 	public void OnPointerDown(PointerEventData _data) {
-		clickedEvent.OnNext(1);
+		clickedEvent.OnNext(m_stageNum);//ここで１を渡している事が問題。どうしたものか。
 		MoveThisObject();
-		
 	}
 
 	private void MoveThisObject() {

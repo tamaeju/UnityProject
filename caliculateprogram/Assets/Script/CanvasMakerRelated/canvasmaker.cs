@@ -59,7 +59,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.CanvasTouched.Subscribe(_ => testMethod());
 	}
 
-	public void showLevelDisplaycanvas(long stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent) {
+	public void showLevelDisplaycanvas(int stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -70,6 +70,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement2label("TARGET MOVECOUNT");
 		canvas.changeElement2Text(TargetMoveCount);
 		canvas.buttonActiveOn();
+		canvas.setStageNum(stageCount);
 		canvas.CanvasTouched.Subscribe(stage => gamestartEvent(stage));
 		canvas.CanvasTouched.Subscribe(_ => deletewindowEvent());
 

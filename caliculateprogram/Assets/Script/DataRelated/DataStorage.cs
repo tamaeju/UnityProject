@@ -37,6 +37,9 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	}
 
 	public void StorageSaveEasySave() {//自身の内部クラスに実データをセーブする
+		if (data == null) {
+			data = new InnerData();
+		}
 		data.UpdataMapandClearconditionData(m_fieldMapDatas, m_clearConditionData);
 		SaveGame.Save("datastrage", data);
 		Debug.Log("finished StorageSaveEasySave");
