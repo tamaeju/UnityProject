@@ -36,7 +36,7 @@ public class FieldObjectEditUI : MonoBehaviour {//レベルデザインデータ
 
 
 	public void changeState(int astateNum) {
-		if (astateNum < Enum.GetNames(typeof(MathMass.massstate)).Length) {
+		if (astateNum < Enum.GetNames(typeof(MathMass.massstate)).Length + Enum.GetNames(typeof(DebugUIkind)).Length) {//判定式がおかしい。
 			stateNum = astateNum;
 		}
 		else { stateNum = 0; }

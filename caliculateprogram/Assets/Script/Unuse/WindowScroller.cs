@@ -16,7 +16,6 @@ public class WindowScroller : MonoBehaviour,IPointerDownHandler {
 
 	public void OnPointerDown(PointerEventData _data) {
 		MoveThisObject();
-
 	}
 
 	private void MoveThisObject() {

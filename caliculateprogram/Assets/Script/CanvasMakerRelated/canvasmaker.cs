@@ -32,7 +32,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement1Text(currentMoveCount);
 		canvas.changeElement2label("TargetCount");
 		canvas.changeElement2Text(TargetCount);
-		canvas.CanvasTouched.Subscribe(x=> testMethod(x));
+		canvas.CanvasTouched.Subscribe(_=> testMethod());
 	}
 	public void showstartcanvas(long TargetCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
@@ -56,10 +56,10 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement1Text(currentMoveCount);
 		canvas.changeElement2label("TargetMoveCount");
 		canvas.changeElement2Text(TargetMoveCount);
-		canvas.CanvasTouched.Subscribe(x => testMethod(x));
+		canvas.CanvasTouched.Subscribe(_ => testMethod());
 	}
 
-	public void showLevelDisplaycanvas(long stageCount, long TargetCount, long TargetMoveCount) {
+	public void showLevelDisplaycanvas(long stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -70,11 +70,12 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement2label("TARGET MOVECOUNT");
 		canvas.changeElement2Text(TargetMoveCount);
 		canvas.buttonActiveOn();
-		canvas.CanvasTouched.Subscribe(x => testMethod(x));
+		canvas.CanvasTouched.Subscribe(stage => gamestartEvent(stage));
+		canvas.CanvasTouched.Subscribe(_ => deletewindowEvent());
 
 	}
 
-	void testMethod(string x) {
+	void testMethod() {
 		Debug.Log("clicked");
 		//SceneManager.LoadScene(x);
 	}

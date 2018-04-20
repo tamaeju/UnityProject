@@ -27,8 +27,11 @@ public class GameScene : MonoBehaviour {
 	PanelView panelview;
 	[SerializeField]
 	LevelSelectCanvasManager selectButtonCreator;
-	//[SerializeField]
-	//CSVManager csvmanager;
+	[SerializeField]
+	GameObject levelSelectCanvas;
+
+	[SerializeField]
+	CSVManager csvmanager;
 
 	public void pushStartButton() {
 		objectmaker.LoadMapDatas();//オブジェクトメイカーがマップデータを読み込む
@@ -40,7 +43,7 @@ public class GameScene : MonoBehaviour {
 
 		SetGameEndEvent();//movedealerにゲーム終了時のイベントハンドラを設定する。
 
-		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
+		canvasmaker.showstartcanvas(currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
 
 		panelview.registRenewCountEvent();//パネルビュークラスとカレントデータのイベント紐づけ
 
@@ -67,12 +70,15 @@ public class GameScene : MonoBehaviour {
 	public void ChangeStagePathNum(Dropdown dropdown) {//ステージ選択をする機能
 		dataholder.ChangeStagePathNum(dropdown);
 	}
+	private void ChangeStagePathNum(int stageNum) {//ステージ選択をする機能
+		dataholder.ChangeStagePathNum(stageNum);
+	}
 
 	public void deleteDebugUIEditor() {//エディットボタンを消すだけの機能
 		editUIcreator.deleteEditorUIbuttons();
 	}
 
-	public void StrageSaveALLMapandClearConditionData() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
+	public void StrageSaveALLMapandClearConditionDatatoEasySave() {//ストレージのデータをセーブするメソッド。SaveCurrentMapDataの後に実行する必要あり。
 		dataholder.StorageSaveEasySave();
 	}
 
@@ -93,8 +99,12 @@ public class GameScene : MonoBehaviour {
 		editUIcreator.EditorUISetRandamKind();
 	}
 
-	public void startStage(int stagenum) {
-		dataholder.ChangeStagePathNum(stagenum);
+	public void DeliteLevelSelectCanvas() {
+		levelSelectCanvas.SetActive(false);
+	}
+
+	public void startStage(int stageNum) {
+		ChangeStagePathNum(stageNum);
 		objectmaker.LoadMapDatas();//オブジェクトメイカーがマップデータを読み込む
 		objectmaker.instanciateAllMapObject();//データからオブジェクトを生成する
 
@@ -104,7 +114,7 @@ public class GameScene : MonoBehaviour {
 
 		SetGameEndEvent();//movedealerにゲーム終了時のイベントハンドラを設定する。
 
-		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
+		canvasmaker.showstartcanvas(currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
 
 		panelview.registRenewCountEvent();//パネルビュークラスとカレントデータのイベント紐づけ
 
@@ -112,7 +122,21 @@ public class GameScene : MonoBehaviour {
 		panelview.RenewCountText(currentdataholder.GetCurrentSum());//パネルビューの値を初期化
 	}
 	private void Start() {
-		selectButtonCreator.instanceButtonPrefab(startStage);
+		if (selectButtonCreator != null) {
+			selectButtonCreator.instanceButtonPrefab(ShowLevelDisplayWindow);
+		}
+	}
+
+	private void ShowLevelDisplayWindow(int stagenum) {
+		Action<int> startAct = startStage;
+		Action deletedisplayact = DeliteLevelSelectCanvas;
+		dataholder.ChangeStagePathNum(stagenum);
+		currentdataholder.GetClearConditionData();
+		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount(), startAct, deletedisplayact);
+	}
+	public void DebugSave100MapCsvData() {//デバッグ用。現在のエディットボタンのステータスで100ステージ分上書きする。
+		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
+		csvmanager.DebugsaveAllMapCsvData(savedata);
 	}
 
 
@@ -155,7 +179,4 @@ public class GameScene : MonoBehaviour {
 
 
 
-//public void DebugSave100MapCsvData() {//デバッグ用。現在のエディットボタンのステータスで100ステージ分上書きする。
-//	MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
-//	csvmanager.DebugsaveAllMapCsvData(savedata);
-//}
+

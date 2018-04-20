@@ -25,8 +25,8 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	}
 
 	private void Start() {
-		btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });
-		btn.onClick.AddListener(() => { MoveParentsRect(); });
+		btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });//自身のステージを
+		
 	}
 
 	public  void changeThisText(int stage) {
@@ -35,14 +35,14 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	}
 
 	public void changeMystageCount(int stagecount) {
-		myStageCount = stagecount;
+		myStageCount = stagecount+1;
 	}
-	private void MoveParentsRect() {
-		RectTransform  rectform = this.gameObject.transform.parent.parent.GetComponent<RectTransform>();
-		rectform.DOMove(new Vector3(rectform.position.x, 2000f, rectform.position.z),
-	2.0f
-	).OnComplete(() => Destroy(this.gameObject));
-	}
+	//private void MoveParentsRect() {
+	//	RectTransform  rectform = this.gameObject.transform.parent.parent.GetComponent<RectTransform>();
+	//	rectform.DOMove(new Vector3(rectform.position.x, 2000f, rectform.position.z),
+	//2.0f
+	//).OnComplete(() => Destroy(this.gameObject));
+	//}
 
 	//public void makeEffectPrefab() {
 	//	Vector3 instancepos;
@@ -51,4 +51,6 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	//	Instantiate(effectprefab, this.transform.position, Quaternion.identity);
 	//}
 
+//	btn.onClick.AddListener(() => { MoveParentsRect();
+//});//自身のオブジェクトの移動メソッド
 }

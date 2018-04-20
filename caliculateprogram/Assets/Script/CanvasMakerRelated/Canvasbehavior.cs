@@ -24,8 +24,6 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	Text element2labeltext;
 	[SerializeField]
 	Text element2text;
-	//[SerializeField]
-	//Image backgroundcolor;
 	[SerializeField]
 	Text m_messagetext;
 	[SerializeField]
@@ -33,15 +31,12 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	Vector3 variableVector3 = new Vector3();
 	RectTransform rectform;
-	RectTransform RTElement1;
-	RectTransform RTElement2;
 	RectTransform RTElementTitle;
-	System.Random random;
 
 
-	private Subject<string> clickedEvent = new Subject<string>();
+	private Subject<int> clickedEvent = new Subject<int>();
 
-	public IObservable<string> CanvasTouched {
+	public IObservable<int> CanvasTouched {
 		get { return clickedEvent; }
 	}
 
@@ -66,7 +61,7 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	}
 
 	public void OnPointerDown(PointerEventData _data) {
-		clickedEvent.OnNext("end");
+		clickedEvent.OnNext(1);
 		MoveThisObject();
 		
 	}

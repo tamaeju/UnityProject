@@ -26,6 +26,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 	public void UpdataStageData(MassStruct[,] savedata) {
 		m_fieldMapDatas[m_stageNum] = savedata;
+		Debug.Log("finished UpdataStageData");
 	}
 
 	public void UpdateClearedData() {//ストレージへのセーブだけであり、EasySaveへのセーブはSaveStrageDataメソッドを使用する必要がある。
@@ -38,16 +39,18 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 	public void StorageSaveEasySave() {//自身の内部クラスに実データをセーブする
 		data.UpdataMapandClearconditionData(m_fieldMapDatas, m_clearConditionData);
 		SaveGame.Save("datastrage", data);
+		Debug.Log("finished StorageSaveEasySave");
 	}
 
 	public void LoadAllData() {//自身の内部クラスをロードし、内部クラスの所有するデータで自身のデータを上書きする
 		var newstragedata = SaveGame.Load<InnerData>("datastrage");
 		data = newstragedata;
-		Debug.Log("clicked LoadAllData");
+		
 		m_fieldMapDatas = newstragedata.Convert1and2DimentionAllayElement(newstragedata.i_allfieldmapdatas);
 		m_clearConditionData = newstragedata.i_clearConditionData;
 		m_isStageCleared = newstragedata.i_isStageCleared;
 		m_MinClearMoveCount = newstragedata.i_MinClearMoveCount;
+		Debug.Log("finished LoadAllData");
 	}
 
 
