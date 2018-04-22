@@ -32,7 +32,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement1Text(currentMoveCount);
 		canvas.changeElement2label("TargetCount");
 		canvas.changeElement2Text(TargetCount);
-		canvas.CanvasTouched.Subscribe(_=> testMethod());
+		canvas.CanvasTouched.Subscribe(_ => SceneManager.LoadScene("LevelSelectScene"));
 	}
 	public void showstartcanvas(long TargetCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
@@ -56,23 +56,27 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement1Text(currentMoveCount);
 		canvas.changeElement2label("TargetMoveCount");
 		canvas.changeElement2Text(TargetMoveCount);
-		canvas.CanvasTouched.Subscribe(_ => testMethod());
+		canvas.CanvasTouched.Subscribe(_ => SceneManager.LoadScene("LevelSelectScene"));
 	}
 
-	public void showLevelDisplaycanvas(int stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent) {
+	public void showLevelDisplaycanvas(int stageCount,DataStorage dataStorage, CurrentStageData currentData ,Action<int> gamestartEvent, Action deletewindowEvent) {
+		//(int stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent)
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
 		canvas.changeTitleText("STAGE"+ stageCount.ToString());
 		canvas.changeMessagetext("Play this stage?");
 		canvas.changeElement1label("TARGET COUNT");
-		canvas.changeElement1Text(TargetCount);
+		canvas.changeElement1Text(currentData.GettargetSum());
 		canvas.changeElement2label("TARGET MOVECOUNT");
-		canvas.changeElement2Text(TargetMoveCount);
-		canvas.buttonActiveOn();
+		canvas.changeElement2Text(currentData.GetTargetMoveCount());
+		canvas.backButtonActiveOn();
+
 		canvas.setStageNum(stageCount);
 		canvas.CanvasTouched.Subscribe(stage => gamestartEvent(stage));
 		canvas.CanvasTouched.Subscribe(_ => deletewindowEvent());
+		if (dataStorage.isStageClear(stageCount)) { canvas.ClearedIconGetActive(); }
+		//dataStorage.getMaxStageScore(stageCount);
 
 	}
 

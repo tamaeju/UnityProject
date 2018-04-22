@@ -74,12 +74,13 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		return m_fieldMapDatas[stageCount];
 	}
 
-	public bool isStageClear() {
-		return m_isStageCleared[m_stageNum];
+	public bool isStageClear(int stageNum) {
+		return m_isStageCleared[stageNum];//取得するのはステージ変更前なので
 	}
-	public int getMaxStageScore() {
-		return m_MinClearMoveCount[m_stageNum];
+	public int getMaxStageScore(int stageNum) {
+		return m_MinClearMoveCount[stageNum];
 	}
+
 
 	public void  setStageClear() {
 		m_isStageCleared[m_stageNum]  = true;

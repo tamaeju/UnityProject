@@ -18,6 +18,7 @@ public class CurrentStageData : MonoBehaviour {
 	public long targetSum;
 	public long targetMoveCount;
 
+
 	[SerializeField]
 	DataStorage datastorager;
 	[SerializeField]
@@ -74,5 +75,10 @@ public class CurrentStageData : MonoBehaviour {
 
 	public bool canClear() {
 		return targetMoveCount > currentMoveCount && targetSum == currentSum;
+	}
+
+	public void saveClearedDatatoDataStrage() {
+		datastorager.setMaxStageScore((int)currentMoveCount);
+		datastorager.setStageClear();
 	}
 }

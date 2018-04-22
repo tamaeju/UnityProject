@@ -28,6 +28,9 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	Text m_messagetext;
 	[SerializeField]
 	Button m_backbutton;
+	[SerializeField]
+	Image clearedsign;
+
 	int m_stageNum;
 	//メンバー変数にステージ番号をもらい、onnextはそれで実行する。
 
@@ -102,9 +105,12 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 		m_backbutton.onClick.AddListener(()=>Destroy(this.gameObject));
 	}
-	public void buttonActiveOn() {
+	public void backButtonActiveOn() {
 		m_backbutton.gameObject.SetActive(true);
-	} 
+	}
+	public void ClearedIconGetActive() {
+		clearedsign.gameObject.SetActive(true);
+	}
 
 }
 //private IEnumerator moveCoroutine(int movedistance) {//指定した距離を1秒かけて動くメソッド

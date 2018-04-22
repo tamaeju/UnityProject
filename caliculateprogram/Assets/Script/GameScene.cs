@@ -134,7 +134,8 @@ public class GameScene : MonoBehaviour {
 		Action deletedisplayact = DeliteLevelSelectCanvas;
 		dataholder.ChangeStagePathNum(stagenum);
 		currentdataholder.GetClearConditionData();
-		canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount(), startAct, deletedisplayact);
+		canvasmaker.showLevelDisplaycanvas(stagenum,dataholder, currentdataholder, startAct, deletedisplayact);
+		//canvasmaker.showLevelDisplaycanvas(dataholder.getStageNum(), currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount(), startAct, deletedisplayact);
 	}
 	public void DebugSave100MapCsvData() {//デバッグ用。現在のエディットボタンのステータスで100ステージ分上書きする。
 		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();

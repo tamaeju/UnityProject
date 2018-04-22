@@ -243,6 +243,7 @@
     <Compile Include="Assets\Script\ShaderTet\ShaderTest.cs" />
     <Compile Include="Assets\Script\Struct\ClearConditionStruct.cs" />
     <Compile Include="Assets\Script\Struct\MassStruct.cs" />
+    <Compile Include="Assets\Script\Unuse\TestAsyenc.cs" />
     <Compile Include="Assets\Script\Unuse\WindowScroller.cs" />
     <Compile Include="Assets\Script\View\PanelView.cs" />
     <Compile Include="Assets\Script\View\TargetPanelView.cs" />

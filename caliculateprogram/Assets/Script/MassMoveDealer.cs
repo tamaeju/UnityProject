@@ -46,23 +46,28 @@ public class MassMoveDealer : MonoBehaviour {
 		//まずやる事としては、次のマスがゴールマスか確認し、
 		//ゴールマスであればクリア可能かを聞いてくる。クリア可能ならクリアメソッドを実行し、可能でないなら何もせずメソッド終了
 		//ゴールマスでないなら、次のマスが既に通過済みかどうかを確認し、通過済みであればなにもせず終了、通過していないなら更新処理を実行
-		if (currentdata.GetMoveCount()> currentdata.GetTargetMoveCount()) { GameOveredsubject.OnNext(1); }
-		if (mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoal()) {
+		if (!isInRange(checkPos)){
+			
+			return; }//レンジ内でないなら終了
+		if (currentdata.GetMoveCount()> currentdata.GetTargetMoveCount()) { GameOveredsubject.OnNext(1); }//gameoverならゲームオーバー処理を行う。
+		if (mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoal()) {//次のマスがゴールなら判定を行い、可ならクリア処理を走らせる
 			if (currentdata.canClear()) {
 				Clearedsubject.OnNext(1);
+				updateClearedData();
 			}
 			else if (!currentdata.canClear()) {
+				Debug.Log("can't goal yet!");
 			}
 		}
-		else if (!(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoThrough())) {
+		else if (!(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoThrough())) {//次のマスがゴールでない場合、通過済みでないなら処理を行う。
 			RenewMoverNum(mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>());
 			movemass.SetMyPos((int)checkPos.x, (int)checkPos.y);
 			movemass.AddMyCount();
 			currentdata.SetCurrentSum(movemass.GetMyNumber());
 			currentdata.SetMoveCount(movemass.GetMyCount());
 		}
-		
 	}
+
 
 	private void RenewMoverNum(MathMass mathmass) {
 		int newNum = mathmass.caliculate(movemass.GetMyNumber());
@@ -71,24 +76,54 @@ public class MassMoveDealer : MonoBehaviour {
 	}
 
 	public void pushRightButton() {
-		BaseMoveMethod(rightVector);
+		if (hasNextMass()) {
+			BaseMoveMethod(rightVector);
+		}
 	}
 	public void pushLeftButton() {
-		BaseMoveMethod(leftVector);
+		if (hasNextMass()) {
+			BaseMoveMethod(leftVector);
+		}
 	}
 	public void pushUpButton() {
-		BaseMoveMethod(upVector);
+		if (hasNextMass()) {
+			BaseMoveMethod(upVector);
+		}
 	}
 	public void pushDownButton() {
-		BaseMoveMethod(downVector);
+		if (hasNextMass()) {
+			BaseMoveMethod(downVector);
+		}
 	}
 
 	public void ReachGoalMethodTest() {//debug
 		Debug.Log("Goaled!!!");
 	}
 
+	private bool isInRange(Vector2 checknextmass) {
+		if (0<checknextmass.x&0 < checknextmass.y& checknextmass.x< Config.maxGridNum & checknextmass.y < Config.maxGridNum) {
+				return true;
+			}
+		else {
+			Debug.LogWarning("NextMass is Out of Range");
+			return false;
+		}
+	}
 
-	
+	private bool hasNextMass() {
+		if (movemass != null & mathmasses != null) {
+			return true;
+		}
+		else {
+			Debug.LogWarning("No Applicable Mass");
+			return false;
+		}
+	}
+
+	private void updateClearedData() {//ベストスコアと、クリア済みフラグを立てる処理
+		currentdata.saveClearedDatatoDataStrage();
+	}
+
 	//もし現在のmovecountがターゲットmovecountより少ない場合、ゲームオーバーメソッドを呼び出す。
 	//
 
