@@ -15,15 +15,18 @@ public class DGScaleColor : MonoBehaviour {
 	Transform transform;
 	[SerializeField]
 	TextMesh textmesh;
+	[SerializeField]
+	TextMesh goalMassEffect;
 	private void Start() {
 		transform = this.gameObject.GetComponent<Transform>();
 		changeScale();
-		changRamdomColor();
+		changTextRamdomColor();
+		goalMassEffectRamdomColor();
 	}
 	private void changeScale() {
 		transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 2f).SetLoops(-1, LoopType.Yoyo).Play();
 	}
-	private void changRamdomColor() {
+	private void changTextRamdomColor() {
 		Color rmdColor = new Color(UnityEngine.Random.Range(0f,1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), 1f);
 		// Imageの色変更
 		DOTween.To(
@@ -31,14 +34,17 @@ public class DGScaleColor : MonoBehaviour {
 			color => textmesh.color = color,    // 値の更新
 			rmdColor,                    // 最終的な値
 			1f
-		// アニメーション時間
-		).OnComplete(() => changRamdomColor());
+		).OnComplete(() => changTextRamdomColor());
+	}
+	private void goalMassEffectRamdomColor() {
+		Color rmdColor = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), 1f);
+		// Imageの色変更
+		DOTween.To(
+			() => goalMassEffect.color,                // 何を対象にするのか
+			color => goalMassEffect.color = color,    // 値の更新
+			rmdColor,                    // 最終的な値
+			1f
+		).OnComplete(() => goalMassEffectRamdomColor());
 	}
 
 }
-//.onComplete(
-//			() => image.color,                // 何を対象にするのか
-//			color => image.color = color,    // 値の更新
-//			Color.yellow,                    // 最終的な値
-//			3f
-//			);

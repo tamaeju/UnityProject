@@ -56,7 +56,6 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 		if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.movingobject ) {
 			moveobject = Instantiate(moveprefab, settingObjectPos(i, j), Quaternion.identity) as GameObject;
 			moveobject.GetComponent<MovingMass>().SetMyPos(i, j);
-			moveobject.transform.position = settingObjectPos(i, j);
 		}
 		
 		else if (fieldmapdata[i, j].masskind == Enum.GetNames(typeof(MathMass.massstate)).Length + (int)FieldObjectEditUI.DebugUIkind.goal) {

@@ -30,6 +30,8 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	Button m_backbutton;
 	[SerializeField]
 	Image clearedsign;
+	[SerializeField]
+	Text m_highscoreText;
 
 	int m_stageNum;
 	//メンバー変数にステージ番号をもらい、onnextはそれで実行する。
@@ -69,6 +71,11 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		m_messagetext.text = text;
 	}
 
+	public void changeHightScoreText(int highscore) {
+		m_highscoreText.text = highscore.ToString();
+	}
+
+
 	public void OnPointerDown(PointerEventData _data) {
 		clickedEvent.OnNext(m_stageNum);//ここで１を渡している事が問題。どうしたものか。
 		MoveThisObject();
@@ -100,7 +107,7 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 		RTElementTitle.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 2f).SetLoops(-1, LoopType.Yoyo).Play();
 		var messageElem = m_messagetext.text;
 		m_messagetext.text = "";
-		m_messagetext.DOText(messageElem, messageElem.Length * 0.2f);
+		m_messagetext.DOText(messageElem, messageElem.Length * 0.14f);
 
 
 		m_backbutton.onClick.AddListener(()=>Destroy(this.gameObject));

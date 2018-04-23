@@ -91,7 +91,7 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void SetGameEndEvent() {
-		movedealer.OnCleared.Subscribe(_ => canvasmaker.showclearcanvas (currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
+		movedealer.OnCleared.Subscribe(_ => canvasmaker.showclearcanvas (currentdataholder.GetMoveCount(), currentdataholder.GettargetSum ()));
 		movedealer.OnGameOvered.Subscribe(_ =>  canvasmaker.showGameovercanvas(currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
 	}
 
@@ -115,7 +115,11 @@ public class GameScene : MonoBehaviour {
 
 		SetGameEndEvent();//movedealerにゲーム終了時のイベントハンドラを設定する。
 
-		canvasmaker.showstartcanvas(currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount());//LevelDisplayCanvasを生成する。
+		Action tutorialAction = null;
+		if (!dataholder.isStageClear(1)) {//ステージ1をクリアしていなかったらチュートリアルを表示する。
+			tutorialAction = testTutorialAction;
+		}
+		canvasmaker.showstartcanvas(currentdataholder.GettargetSum(), currentdataholder.GetTargetMoveCount(), tutorialAction);//LevelDisplayCanvasを生成する。
 
 		panelview.registRenewCountEvent();//パネルビュークラスとカレントデータのイベント紐づけ
 
@@ -125,7 +129,7 @@ public class GameScene : MonoBehaviour {
 	private void Start() {
 		if (selectButtonCreator != null) {
 			StorageLoadAllDatafromEasySave();//easySaveからデータを読み込む。
-			selectButtonCreator.instanceButtonPrefab(ShowLevelDisplayWindow);
+			selectButtonCreator.instanceButtonPrefab(ShowLevelDisplayWindow,dataholder);
 		}
 	}
 
@@ -141,7 +145,13 @@ public class GameScene : MonoBehaviour {
 		MassStruct[,] savedata = editUIcreator.getCurrentFieldDatas();
 		csvmanager.DebugsaveAllMapCsvData(savedata);
 	}
+	private void testTutorialAction() {
+		Debug.Log("tutorialAction");//tutorialウインドウを作成し、gameobjectをonにするような形で多分問題ない。
+	}
 
+	private void instanceLevelSelectButton() {
+		//selectButtonCreator
+	}
 
 
 	//EditorUISetRandamKind

@@ -17,6 +17,12 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	int myStageCount;
 	[SerializeField]
 	Button btn;
+	[SerializeField]
+	GameObject m_clearedIconprefab;
+	[SerializeField]
+	GameObject m_Unplayblelaconprefab;
+
+
 
 	private Subject<int> subject = new Subject<int>();
 
@@ -37,6 +43,12 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	public void changeMystageCount(int stagecount) {
 		myStageCount = stagecount+1;
 	}
+	public void ActiveClearedIcon() {
+		m_clearedIconprefab.SetActive(true);
+	}
+	public void ActiveUplaybleIcon() {
+		m_Unplayblelaconprefab.SetActive(true);
+	}
 	//private void MoveParentsRect() {
 	//	RectTransform  rectform = this.gameObject.transform.parent.parent.GetComponent<RectTransform>();
 	//	rectform.DOMove(new Vector3(rectform.position.x, 2000f, rectform.position.z),
@@ -51,6 +63,6 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	//	Instantiate(effectprefab, this.transform.position, Quaternion.identity);
 	//}
 
-//	btn.onClick.AddListener(() => { MoveParentsRect();
-//});//自身のオブジェクトの移動メソッド
+	//	btn.onClick.AddListener(() => { MoveParentsRect();
+	//});//自身のオブジェクトの移動メソッド
 }

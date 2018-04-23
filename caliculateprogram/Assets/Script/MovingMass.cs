@@ -43,7 +43,7 @@ public class MovingMass : MonoBehaviour {
 
 	void MovePosition(Vector2 afterpos) {
 		Vector2 newsetPos = settingObjectPos(afterpos);
-		Vector3 afterpos3 = new Vector3(newsetPos.x, newsetPos.y,-0.5f);
+		Vector3 afterpos3 = new Vector3(newsetPos.x, newsetPos.y,0f);
 		this.transform.position = afterpos3;
 	}  
 	public void ChangeMyNum(int num) {

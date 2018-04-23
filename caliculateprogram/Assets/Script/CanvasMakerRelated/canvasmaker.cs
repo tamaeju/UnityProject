@@ -34,7 +34,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement2Text(TargetCount);
 		canvas.CanvasTouched.Subscribe(_ => SceneManager.LoadScene("LevelSelectScene"));
 	}
-	public void showstartcanvas(long TargetCount, long TargetMoveCount) {
+	public void showstartcanvas(long TargetCount, long TargetMoveCount,Action tutorialAction = null) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
@@ -44,6 +44,10 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeElement1Text(TargetCount);
 		canvas.changeElement2label("TARGET MOVECOUNT");
 		canvas.changeElement2Text(TargetMoveCount);
+		if (tutorialAction != null) {
+			canvas.CanvasTouched.Subscribe(_ => tutorialAction());//チュートリアルの実行メソッドをもらっていれば実行。
+		}
+
 	}
 
 	public void showGameovercanvas(long currentMoveCount, long TargetMoveCount) {
@@ -75,8 +79,10 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.setStageNum(stageCount);
 		canvas.CanvasTouched.Subscribe(stage => gamestartEvent(stage));
 		canvas.CanvasTouched.Subscribe(_ => deletewindowEvent());
-		if (dataStorage.isStageClear(stageCount)) { canvas.ClearedIconGetActive(); }
-		//dataStorage.getMaxStageScore(stageCount);
+		if (dataStorage.isStageClear(stageCount)) {
+			canvas.ClearedIconGetActive();
+			canvas.changeHightScoreText(dataStorage.getMaxStageScore(stageCount));
+		}
 
 	}
 
@@ -88,3 +94,7 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 
 
 }
+
+		//if (dataStorage.isStageClear(stageCount)) {
+
+		//}
