@@ -222,6 +222,8 @@
     <Compile Include="Assets\Script\CanvasMakerRelated\TitleCanvasMover.cs" />
     <Compile Include="Assets\Script\CanvasMakerRelated\canvasmaker.cs" />
     <Compile Include="Assets\Script\CurrentStageData.cs" />
+    <Compile Include="Assets\Script\DGtweenerSimple\DGScale.cs" />
+    <Compile Include="Assets\Script\DGtweenerSimple\DGScaleColor.cs" />
     <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
     <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
     <Compile Include="Assets\Script\DataRelated\DataPathManager.cs" />
@@ -240,8 +242,6 @@
     <Compile Include="Assets\Script\MovingMass.cs" />
     <Compile Include="Assets\Script\RandamMapDataMaker.cs" />
     <Compile Include="Assets\Script\ShaderTet\ShaderTest.cs" />
-    <Compile Include="Assets\Script\SimpleDGtweener\DGScale.cs" />
-    <Compile Include="Assets\Script\SimpleDGtweener\DGScaleColor.cs" />
     <Compile Include="Assets\Script\Struct\ClearConditionStruct.cs" />
     <Compile Include="Assets\Script\Struct\MassStruct.cs" />
     <Compile Include="Assets\Script\Unuse\TestAsyenc.cs" />

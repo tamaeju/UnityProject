@@ -31,7 +31,8 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	}
 
 	private void Start() {
-		btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });//自身のステージを
+		btn.onClick.AddListener(() => { changeScale(subject.OnNext); });
+		//btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });
 		
 	}
 
@@ -48,6 +49,12 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	}
 	public void ActiveUplaybleIcon() {
 		m_Unplayblelaconprefab.SetActive(true);
+	}
+	private void changeScale(Action<int> act) {
+		RectTransform recttrans = GetComponent<RectTransform>();
+		Sequence sequence = DOTween.Sequence().OnStart(() => {
+			recttrans.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.1f);
+		}).Append(recttrans.DOScale(new Vector3(1f, 1f, 1f), 0.2f)) .OnComplete(() => act(myStageCount));
 	}
 	//private void MoveParentsRect() {
 	//	RectTransform  rectform = this.gameObject.transform.parent.parent.GetComponent<RectTransform>();

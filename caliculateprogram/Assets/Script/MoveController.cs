@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using DG.Tweening;
 
 public class MoveController : MonoBehaviour {
 	
@@ -19,13 +20,19 @@ public class MoveController : MonoBehaviour {
 
 	private void Start() {
 		m_btn = this.gameObject.GetComponent<Button>();
-		Action act = () => clickmethod();
-		m_btn.onClick.AddListener(() => act());
+		m_btn.onClick.AddListener(() => clickmethod());
 	}
 	public void clickmethod()
 	{
+		//changeScale();
 		Debug.Log("clicked");
 		subject.OnNext(1);
+	}
+	private void changeScale() {
+		RectTransform recttrans = GetComponent<RectTransform>();
+		Sequence sequence = DOTween.Sequence().OnStart(() => {
+			recttrans.DOScale(new Vector3(1f, 1f, 1f), 0.1f);
+		}).Append(recttrans.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f));
 	}
 }
 

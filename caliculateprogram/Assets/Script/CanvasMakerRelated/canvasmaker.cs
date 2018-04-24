@@ -27,10 +27,10 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
 		canvas.changeTitleText("clear!");
-		canvas.changeMessagetext("CONGLATULATION!");
-		canvas.changeElement1label("MOVECOUNT");
+		canvas.changeMessagetext("ステージクリア!");//canvas.changeMessagetext("CONGLATULATION!");
+		canvas.changeElement1label("移動回数");//MOVECOUNT
 		canvas.changeElement1Text(currentMoveCount);
-		canvas.changeElement2label("TargetCount");
+		canvas.changeElement2label("目標数");//TargetCount
 		canvas.changeElement2Text(TargetCount);
 		canvas.CanvasTouched.Subscribe(_ => SceneManager.LoadScene("LevelSelectScene"));
 	}
@@ -38,11 +38,11 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
-		canvas.changeTitleText("STAGE START!");
-		canvas.changeMessagetext("ゴールと同じ数でゴールにぶつかろう！");
-		canvas.changeElement1label("TARGET COUNT");
+		canvas.changeTitleText("STAGE START!");//STAGE START
+		canvas.changeMessagetext("ゴールと同じ数でゴールにぶつかろう！");//ゴールと同じ数でゴールにぶつかろう
+		canvas.changeElement1label("目標数");//TARGET COUNT
 		canvas.changeElement1Text(TargetCount);
-		canvas.changeElement2label("TARGET MOVECOUNT");
+		canvas.changeElement2label("移動回数");//TARGET MOVECOUNT
 		canvas.changeElement2Text(TargetMoveCount);
 		if (tutorialAction != null) {
 			canvas.CanvasTouched.Subscribe(_ => tutorialAction());//チュートリアルの実行メソッドをもらっていれば実行。
@@ -54,11 +54,11 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
-		canvas.changeTitleText("GAMEOVER");
-		canvas.changeMessagetext("MOVECOUNT OVER!");
-		canvas.changeElement1label("MOVECOUNT");
+		canvas.changeTitleText("GAMEOVER");//GAMEOVER
+		canvas.changeMessagetext("MOVECOUNT OVER!");//MOVECOUNT OVER!
+		canvas.changeElement1label("移動回数");//MOVECOUNT
 		canvas.changeElement1Text(currentMoveCount);
-		canvas.changeElement2label("TargetMoveCount");
+		canvas.changeElement2label("移動回数上限");//TargetMoveCount
 		canvas.changeElement2Text(TargetMoveCount);
 		canvas.CanvasTouched.Subscribe(_ => SceneManager.LoadScene("LevelSelectScene"));
 	}
@@ -69,10 +69,10 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		GameObject clearcanvasobject = Instantiate(scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior>();
 		canvas.changeTitleText("STAGE"+ stageCount.ToString());
-		canvas.changeMessagetext("Play this stage?");
-		canvas.changeElement1label("TARGET COUNT");
+		canvas.changeMessagetext("Play this stage?");//Play this stage?
+		canvas.changeElement1label("目標数");//TARGET COUNT
 		canvas.changeElement1Text(currentData.GettargetSum());
-		canvas.changeElement2label("TARGET MOVECOUNT");
+		canvas.changeElement2label("移動回数上限");//TARGET MOVECOUNT
 		canvas.changeElement2Text(currentData.GetTargetMoveCount());
 		canvas.backButtonActiveOn();
 
