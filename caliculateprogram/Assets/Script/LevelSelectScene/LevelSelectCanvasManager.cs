@@ -37,26 +37,22 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 		}
 		else { return Color.white; }
 	}
-	private void setClearedIcon(int stageNum) {
-		//stage[1]はボタンオブジェクト[i-1]に格納されており、stage[0]を遊ぶ術はない。stage[1]に対応したボタンオブジェクトはステージカウント1をもつボタンオブジェクト[0]
-		if (stageNum  > 0) {
-			setbutton[stageNum - 1].GetComponent<SelectsceneButton>().ActiveClearedIcon();
-		}
-	}
-	private void setUnplayblelacon(int stageNum) {
-		if (stageNum  > 0) {
-			setbutton[stageNum - 1].GetComponent<SelectsceneButton>().ActiveUplaybleIcon();
-		}
-	}
+
+
 	public void setClearedIcons(DataStorage dataholder) {//clear済みであればクリア済みアイコンとunplaybleiconをくっつける。
 		for (int i = 0; i < objectSetPoint.Length; i++) {
 			if (setbutton[i] = null) {
 				Debug.Log("setbutton is null");
 				return;
 			}
-			if (dataholder.isStageClear(i)) {
-				setClearedIcon(i-1);
+			if (dataholder.isStageClear(i+1)) {//2ステージ目をクリアしていたらステージ目のボタンにクリアドアイコンを表示
+				setClearedIcon(i);
 			}
+		}
+	}
+	private void setClearedIcon(int stageNum) {//stage[1]はボタンオブジェクト[i-1]に格納されており、stage[0]を遊ぶ術はない。stage[1]に対応したボタンオブジェクトはステージカウント1をもつボタンオブジェクト[0]
+		if (stageNum  > 0) {
+			setbutton[stageNum].GetComponent<SelectsceneButton>().ActiveClearedIcon();
 		}
 	}
 
@@ -66,11 +62,17 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 				Debug.Log("setbutton is null");
 				return;
 			}
-			if (!dataholder.isStageClear(i)) {
-				for (int j = i; j < objectSetPoint.Length-1; i++) {
-					setbutton[j+1].GetComponent<SelectsceneButton>().ActiveUplaybleIcon();
+			if (!dataholder.isStageClear(i)) {//3ステージ目をクリアしていないかったら、4ステージ目以降のボタンオブジェクトのunplaybleIconをアクティブにする。
+				for (int j = i; j < objectSetPoint.Length-1; i++) {//ステージの要素番号とボタンの要素番号はずれがあるので
+					setbutton[j].GetComponent<SelectsceneButton>().ActiveUplaybleIcon();
 				}
+				return;
 			}
+		}
+	}
+	private void setUnplayblelacon(int stageNum) {
+		if (stageNum  > 0) {
+			setbutton[stageNum-1].GetComponent<SelectsceneButton>().ActiveUplaybleIcon();
 		}
 	}
 

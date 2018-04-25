@@ -68,7 +68,7 @@ public class FieldObjectMaker : MonoBehaviour {//オブジェクト生成を行�
 		}
 		else{
 			int mathmasskind = fieldmapdata[i, j].masskind;
-			Debug.LogFormat("i, j,fieldmapdata[i, j],massobjects[i, j]は{0},{1},{2},{3}", i, j, fieldmapdata[i, j], massobjects[i, j]);
+			//Debug.LogFormat("i, j,fieldmapdata[i, j],massobjects[i, j]は{0},{1},{2},{3}", i, j, fieldmapdata[i, j], massobjects[i, j]);
 			massobjects[i, j] = Instantiate(instanceMathMass(mathmasskind), settingObjectPos(i, j), Quaternion.Euler(0, 0, 180)) as GameObject;
 			massobjects[i, j].GetComponent<MathMass>().SetMyPos(i, j);
 			massobjects[i, j].GetComponent<MathMass>().ChangeMyKind(fieldmapdata[i, j].masskind);

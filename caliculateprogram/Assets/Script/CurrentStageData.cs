@@ -33,9 +33,8 @@ public class CurrentStageData : MonoBehaviour {
 
 	public　void GetClearConditionData() {
 		clearConditionData = datastorager.GetClearConditionElements();
-		Debug.LogFormat("{0}",datastorager.GetClearConditionElements());
 		int stageNum = csvmanager.getStageNum();//一旦データストレージクラスが完成するまでは代替させる。
-		Debug.LogFormat("{0}", csvmanager.getStageNum());
+		Debug.LogFormat("csvmanager.getStageNum()は{0}", csvmanager.getStageNum());
 		Debug.LogFormat("clearConditionData is {0} ,clearConditionData[stageNum].clearcount) is{1}", clearConditionData, clearConditionData[stageNum].clearcount);
 		targetMoveCount = clearConditionData[stageNum].clearcount;
 		targetSum = clearConditionData[stageNum].clearnumber;
