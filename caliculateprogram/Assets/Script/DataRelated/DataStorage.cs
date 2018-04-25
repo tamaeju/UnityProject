@@ -41,6 +41,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 			data = new InnerData();
 		}
 		data.UpdataMapandClearconditionData(m_fieldMapDatas, m_clearConditionData);
+		data.UpdateClearedData(m_isStageCleared, m_MinClearMoveCount);
 		SaveGame.Save("datastrage", data);
 		Debug.Log("finished StorageSaveEasySave");
 	}
@@ -148,6 +149,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 
 
 		public void UpdataMapandClearconditionData(MassStruct[][,] mapdatas, ClearConditionStruct[] clearCondition) {
+			//m_isStageCleared, m_MinClearMoveCount
 			i_clearConditionData = clearCondition;
 			i_allfieldmapdatas = Convert3DimentionAllayElement(mapdatas);
 		}
