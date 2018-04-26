@@ -74,6 +74,7 @@ public class LevelSelectCanvasManager : MonoBehaviour {//レベルセレクト�
 	private void setUnplayblelacon(int stageNum) {
 		Debug.Log(stageNum);
 		setbutton[stageNum].ActiveUnplaybleIcon();
+		setbutton[stageNum].RemoveButtonEvent();
 	}
 
 }

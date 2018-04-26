@@ -8,8 +8,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
 
-
-
 public class GameScene : MonoBehaviour {
 	[SerializeField]
 	FieldObjectMaker objectmaker;
@@ -150,8 +148,6 @@ public class GameScene : MonoBehaviour {
 	private void testTutorialAction() {
 		Debug.Log("tutorialAction");//tutorialウインドウを作成し、gameobjectをonにするような形で多分問題ない。
 	}
-
-
 }
 
 	//EditorUISetRandamKind

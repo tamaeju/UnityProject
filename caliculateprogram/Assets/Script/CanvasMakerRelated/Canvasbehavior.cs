@@ -32,6 +32,8 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	Image clearedsign;
 	[SerializeField]
 	Text m_highscoreText;
+	[SerializeField]
+	
 
 	int m_stageNum;
 	//メンバー変数にステージ番号をもらい、onnextはそれで実行する。
@@ -105,12 +107,14 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	private void Start() {
 	   getRectTransform();
 		RTElementTitle.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 2f).SetLoops(-1, LoopType.Yoyo).Play();
+		if(m_messagetext !=null){
 		var messageElem = m_messagetext.text;
 		m_messagetext.text = "";
 		m_messagetext.DOText(messageElem, messageElem.Length * 0.14f);
-
-
+		}
+		if(m_backbutton !=null){
 		m_backbutton.onClick.AddListener(()=>Destroy(this.gameObject));
+		}
 	}
 	public void backButtonActiveOn() {
 		m_backbutton.gameObject.SetActive(true);

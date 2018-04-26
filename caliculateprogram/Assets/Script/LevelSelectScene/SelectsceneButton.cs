@@ -36,6 +36,10 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 		
 	}
 
+	public void RemoveButtonEvent(){
+		Destroy(this);
+	}
+
 	public  void changeThisText(int stage) {
 		mytext = this.gameObject.GetComponentInChildren<Text>();
 		mytext.text = (stage).ToString();
