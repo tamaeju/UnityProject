@@ -97,7 +97,7 @@ public class DataStorage : MonoBehaviour {//最終的にこのクラスがステ
 		m_MinClearMoveCount[m_stageNum] = newScore;
 	}
 
-	public void initializaClearStatusData() {
+	public void initializaClearStatusDataofStrage() {
 		m_isStageCleared = new bool[Config.stageCount];
 		m_MinClearMoveCount = new int[Config.stageCount];
 	}

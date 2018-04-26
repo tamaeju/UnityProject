@@ -83,7 +83,7 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void initializaClearStatusData() {//クリアした後に保存されるデータの初期化（消去メソッド）実データへの保存を行うためにはこの後saveStrageメソッドを叩く必要がある。単純な初期化処理としても利用可能、これを実行した後UpdateClearedData、SaveStorageDataを行うとデータがEASYSAVEへ保存される。
-		dataholder.initializaClearStatusData();
+		dataholder.initializaClearStatusDataofStrage();
 	}
 
 	public void UpdateClearedData() {//セーブするのはストレージにだけなので、実際にセーブするにはsaveStorageDataを叩く必要がある。
@@ -92,6 +92,7 @@ public class GameScene : MonoBehaviour {
 
 	public void SetGameEndEvent() {
 		movedealer.OnCleared.Subscribe(_ => canvasmaker.showclearcanvas (currentdataholder.GetMoveCount(), currentdataholder.GettargetSum ()));
+		movedealer.OnCleared.Subscribe(_ => StrageSaveALLMapandClearConditionDatatoEasySave());
 		movedealer.OnGameOvered.Subscribe(_ =>  canvasmaker.showGameovercanvas(currentdataholder.GetMoveCount(), currentdataholder.GetTargetMoveCount()));
 	}
 
@@ -126,6 +127,7 @@ public class GameScene : MonoBehaviour {
 		panelview.RenewMovecountText(currentdataholder.GetMoveCount());//パネルビューの値を初期化
 		panelview.RenewCountText(currentdataholder.GetCurrentSum());//パネルビューの値を初期化
 	}
+
 	private void Start() {
 		if (selectButtonCreator != null) {
 			StorageLoadAllDatafromEasySave();//easySaveからデータを読み込む。
@@ -149,10 +151,8 @@ public class GameScene : MonoBehaviour {
 		Debug.Log("tutorialAction");//tutorialウインドウを作成し、gameobjectをonにするような形で多分問題ない。
 	}
 
-	private void instanceLevelSelectButton() {
-		//selectButtonCreator
-	}
 
+}
 
 	//EditorUISetRandamKind
 	//ステージを開始時は
@@ -175,7 +175,7 @@ public class GameScene : MonoBehaviour {
 	//↓
 	//SaveStrageALLMapData　でストレージのメンバ変数を実データ化
 
-}
+
 
 
 

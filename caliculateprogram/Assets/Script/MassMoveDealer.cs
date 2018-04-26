@@ -52,8 +52,9 @@ public class MassMoveDealer : MonoBehaviour {
 		if (currentdata.GetMoveCount()> currentdata.GetTargetMoveCount()) { GameOveredsubject.OnNext(1); }//gameoverならゲームオーバー処理を行う。
 		if (mathmasses[(int)checkPos.x, (int)checkPos.y].GetComponent<MathMass>().isGoal()) {//次のマスがゴールなら判定を行い、可ならクリア処理を走らせる
 			if (currentdata.canClear()) {
-				Clearedsubject.OnNext(1);
 				updateClearedData();
+				Clearedsubject.OnNext(1);
+				
 			}
 			else if (!currentdata.canClear()) {
 				Debug.Log("can't goal yet!");

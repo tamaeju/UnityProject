@@ -38,16 +38,16 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 
 	public  void changeThisText(int stage) {
 		mytext = this.gameObject.GetComponentInChildren<Text>();
-		mytext.text = (stage+1).ToString();
+		mytext.text = (stage).ToString();
 	}
 
 	public void changeMystageCount(int stagecount) {
-		myStageCount = stagecount+1;
+		myStageCount = stagecount;
 	}
 	public void ActiveClearedIcon() {
 		m_clearedIconprefab.SetActive(true);
 	}
-	public void ActiveUplaybleIcon() {
+	public void ActiveUnplaybleIcon() {
 		m_Unplayblelaconprefab.SetActive(true);
 	}
 	private void changeScale(Action<int> act) {
