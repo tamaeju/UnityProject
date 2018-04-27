@@ -33,9 +33,9 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	[SerializeField]
 	Text m_highscoreText;
 	[SerializeField]
-	
-
 	int m_stageNum;
+	[SerializeField]
+	GameObject cleardecolation;
 	//メンバー変数にステージ番号をもらい、onnextはそれで実行する。
 
 	Vector3 variableVector3 = new Vector3();
@@ -48,11 +48,9 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	public IObservable<int> CanvasTouched {
 		get { return clickedEvent; }
 	}
-
 	public void setStageNum(int stageNUm) {
 		m_stageNum = stageNUm;
 	}
-
 	public void changeTitleText(string title) {
 		titletext.text = title;
 	}
@@ -105,9 +103,10 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	}
 
 	private void Start() {
+		if(m_messagetext !=null){
 	   getRectTransform();
 		RTElementTitle.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 2f).SetLoops(-1, LoopType.Yoyo).Play();
-		if(m_messagetext !=null){
+		
 		var messageElem = m_messagetext.text;
 		m_messagetext.text = "";
 		m_messagetext.DOText(messageElem, messageElem.Length * 0.14f);
@@ -121,6 +120,9 @@ public class Canvasbehavior : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	}
 	public void ClearedIconGetActive() {
 		clearedsign.gameObject.SetActive(true);
+	}
+		public void ClearedDecolateImage() {
+		cleardecolation.gameObject.SetActive(true);
 	}
 
 }

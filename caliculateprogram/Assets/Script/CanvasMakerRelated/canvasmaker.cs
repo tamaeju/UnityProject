@@ -35,20 +35,21 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement1Text (currentMoveCount);
 		canvas.changeElement2label ("目標数"); //TargetCount
 		canvas.changeElement2Text (TargetCount);
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelectScene"));
+		canvas.ClearedDecolateImage();
+		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelect"));
 	}
 	public void showstartcanvas (long TargetCount, long TargetMoveCount, Action tutorialAction = null) {
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate (startcanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior> ();
-		canvas.changeTitleText ("STAGE START!"); //STAGE START
-		canvas.changeMessagetext ("ゴールと同じ数でゴールにぶつかろう！"); //ゴールと同じ数でゴールにぶつかろう
-		canvas.changeElement1label ("目標数"); //TARGET COUNT
-		canvas.changeElement1Text (TargetCount);
-		canvas.changeElement2label ("移動回数"); //TARGET MOVECOUNT
-		canvas.changeElement2Text (TargetMoveCount);
+		// canvas.changeTitleText ("STAGE START!"); //STAGE START
+		// canvas.changeMessagetext ("ゴールと同じ数でゴールにぶつかろう！"); //ゴールと同じ数でゴールにぶつかろう
+		// canvas.changeElement1label ("目標数"); //TARGET COUNT
+		// canvas.changeElement1Text (TargetCount);
+		// canvas.changeElement2label ("移動回数"); //TARGET MOVECOUNT
+		// canvas.changeElement2Text (TargetMoveCount);
 		if (tutorialAction != null) {
-			canvas.CanvasTouched.Subscribe (_ => tutorialAction ()); //チュートリアルの実行メソッドをもらっていれば実行。
+		canvas.CanvasTouched.Subscribe (_ => showTutorialcanvas ()); //チュートリアルの実行メソッドをもらっていれば実行。
 		}
 
 	}
@@ -63,7 +64,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement1Text (currentMoveCount);
 		canvas.changeElement2label ("移動回数上限"); //TargetMoveCount
 		canvas.changeElement2Text (TargetMoveCount);
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelectScene"));
+		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelect"));
 	}
 
 	public void showLevelDisplaycanvas (int stageCount, DataStorage dataStorage, CurrentStageData currentData, Action<int> gamestartEvent, Action deletewindowEvent) {
@@ -88,7 +89,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		}
 
 	}
-	public void showTutorialcanvas (int stageCount, DataStorage dataStorage, CurrentStageData currentData, Action<int> gamestartEvent, Action deletewindowEvent) {
+	public void showTutorialcanvas () {
 		//(int stageCount, long TargetCount, long TargetMoveCount ,Action<int> gamestartEvent, Action deletewindowEvent)
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate (tutorialcanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;

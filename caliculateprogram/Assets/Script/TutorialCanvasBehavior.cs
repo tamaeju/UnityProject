@@ -33,8 +33,6 @@ public class TutorialCanvasBehavior : MonoBehaviour, IPointerDownHandler { //タ
 
 	private void Start () {
 		m_stockImageNum = 0;
-		getRectTransform ();
-		RTElementTitle.DOScale (new Vector3 (1.1f, 1.1f, 1.1f), 2f).SetLoops (-1, LoopType.Yoyo).Play ();
 	}
 	public void setStageNum (int stageNUm) {
 		m_stageNum = stageNUm;
@@ -67,10 +65,6 @@ public class TutorialCanvasBehavior : MonoBehaviour, IPointerDownHandler { //タ
 
 	}
 
-	private void getRectTransform () {
-		Debug.Log ("clicked getRectTransform");
-		RTElementTitle = titletext.GetComponent<RectTransform> ();
-	}
 
 
 
