@@ -59,7 +59,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		GameObject clearcanvasobject = Instantiate (scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior> ();
 		canvas.changeTitleText ("GAMEOVER"); //GAMEOVER
-		canvas.changeMessagetext ("MOVECOUNT OVER!"); //MOVECOUNT OVER!
+		canvas.changeMessagetext (""); //MOVECOUNT OVER!
 		canvas.changeElement1label ("移動回数"); //MOVECOUNT
 		canvas.changeElement1Text (currentMoveCount);
 		canvas.changeElement2label ("移動回数上限"); //TargetMoveCount
@@ -73,7 +73,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		GameObject clearcanvasobject = Instantiate (scenecanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
 		Canvasbehavior canvas = clearcanvasobject.GetComponent<Canvasbehavior> ();
 		canvas.changeTitleText ("STAGE" + stageCount.ToString ());
-		canvas.changeMessagetext ("Play this stage?"); //Play this stage?
+		canvas.changeMessagetext (""); //Play this stage?
 		canvas.changeElement1label ("目標数"); //TARGET COUNT
 		canvas.changeElement1Text (currentData.GettargetSum ());
 		canvas.changeElement2label ("移動回数上限"); //TARGET MOVECOUNT

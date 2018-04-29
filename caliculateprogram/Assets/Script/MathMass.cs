@@ -1,26 +1,31 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Collections;
+using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
-using DG.Tweening;
 
 public class MathMass : MonoBehaviour {
 	int m_number;
 	massstate m_state;
 	Vector2 m_pos;
 	bool isGoalMass;
-	ReactiveProperty<bool> wasGothrough = new ReactiveProperty<bool>();
+	ReactiveProperty<bool> wasGothrough = new ReactiveProperty<bool> ();
 
 	[SerializeField]
 	TextMesh m_masskindtext;
-	//[SerializeField]
-	//TextMesh m_masscounttext;
 
+	[SerializeField]
+	Material[] massMaterials;
+
+	private void Start () {
+		wasGothrough.AsObservable ().Subscribe (_ => ChangeDarkColor ());
+
+	}
 	public enum massstate {
 		add,
 		substract,
@@ -30,8 +35,8 @@ public class MathMass : MonoBehaviour {
 	}
 
 	//値に自分の数字を投げた時に答えを返してほしい
-	public int caliculate(int oldnum) {
-		if(m_state == massstate.add){
+	public int caliculate (int oldnum) {
+		if (m_state == massstate.add) {
 			return oldnum + 2;
 		}
 		if (m_state == massstate.substract) {
@@ -44,95 +49,76 @@ public class MathMass : MonoBehaviour {
 			return oldnum / 2;
 		}
 		if (m_state == massstate.square) {
-			return oldnum = oldnum* oldnum;
-		}
-		else return oldnum;
+			return oldnum = oldnum * oldnum;
+		} else return oldnum;
 	}
 
-	public bool isGoThrough() {
+	public bool isGoThrough () {
 		return wasGothrough.Value;
 	}
 
-	public void ChangeThrough() {
+	public void ChangeThrough () {
 		wasGothrough.Value = true;
-		this.gameObject.transform.DORotate(new Vector3(0f, 0f, 540f),1.5f, RotateMode.FastBeyond360);
+		this.gameObject.transform.DORotate (new Vector3 (0f, 0f, 540f), 1.5f, RotateMode.FastBeyond360);
 	}
 
-	public void ChangeDarkColor() {
-		if (wasGothrough.Value == true) {//ここでの条件判定をするのではなく、subscribeのところのwhereで判定すべき。注意
-			Color newColor = this.GetComponent<Renderer>().material.color;
+	public void ChangeDarkColor () {
+		if (wasGothrough.Value == true) { //ここでの条件判定をするのではなく、subscribeのところのwhereで判定すべき。注意
+			Color newColor = this.GetComponent<Renderer> ().material.color;
 			newColor.r = 0.6f;
 			newColor.g = 0.6f;
 			newColor.b = 0.6f;
 			newColor.a = 0.5f;
-			this.GetComponent<Renderer>().material.color = newColor;
+			this.GetComponent<Renderer> ().material.color = newColor;
 		}
 	}
 
-	public void deliteTextObject() {
-		Destroy(m_masskindtext.gameObject);}
-
-
-	private void Start() {
-		wasGothrough.AsObservable().Subscribe(_ => ChangeDarkColor());
+	public void deliteTextObject () {
+		Destroy (m_masskindtext.gameObject);
 	}
 
-	private void RenewText() {
+	private void RenewText () {
 		//m_masskindtext.text = GetMyString();
 		//m_masscounttext.text = m_number.ToString();
 	}
 
-	public void ChangeMynumber(int num) {
-		 m_number = num;
-		RenewText();
+	public void ChangeMynumber (int num) {
+		m_number = num;
+		RenewText ();
 
 	}
-	public void ChangeMyKind(int kindnum) {
-		 m_state = (massstate)Enum.ToObject(typeof(massstate), kindnum);
-		RenewText();
+	public void ChangeMyKind (int kindnum) {
+		m_state = (massstate) Enum.ToObject (typeof (massstate), kindnum);
+		RenewText ();
 	}
 
-	private String GetMyString() {
-		if (m_state == massstate.add) { return "+2"; }
-		else if (m_state == massstate.substract) { return "-2"; }
-		else if (m_state == massstate.multiplicate) { return "×2"; }
-		else if (m_state == massstate.divide) { return "÷2"; }
-		else if (m_state == massstate.square) { return "^2"; }
-		else if (isGoalMass == true) { return "Goal"; }
-		else { return "ERR"; }
+	private String GetMyString () {
+		if (m_state == massstate.add) { return "+2"; } else if (m_state == massstate.substract) { return "-2"; } else if (m_state == massstate.multiplicate) { return "×2"; } else if (m_state == massstate.divide) { return "÷2"; } else if (m_state == massstate.square) { return "^2"; } else if (isGoalMass == true) { return "Goal"; } else { return "ERR"; }
 	}
 
-	public void SetMyPos(int posX, int posY) {
+	public void SetMyPos (int posX, int posY) {
 		m_pos.x = posX;
 		m_pos.y = posY;
 	}
 
-	public Vector2 GetMyPos() {
+	public Vector2 GetMyPos () {
 		return m_pos;
 	}
-	//private void RoatateSlowly() {
-	//	StartCoroutine(RoatateSlowlyColutin());
-	//}
 
-	//private IEnumerator RoatateSlowlyColutin() {//指定した距離を1秒かけて動くメソッド
-	//	int totalRotateNumer = 120;
-	//	for (int i = 0; i < totalRotateNumer; i++) {
-	//		float totalRotateAmount = 90f;
-	//		float eachRotateAmount = totalRotateAmount/ totalRotateNumer;
-	//		this.transform.Rotate(0f, eachRotateAmount, 0f);
-	//		yield return null;
-	//	}
-	//}
+	public void ChangeMyMaterial () {
+		GetComponent<Renderer> ().material　 = massMaterials[(int) m_state];
+	}
 
-	public bool isGoal() {
+	public bool isGoal () {
 		return isGoalMass;
 	}
 
-	public void ChangeisGoal() {
+	public void ChangeisGoal () {
 		isGoalMass = true;
-		RenewText();
+		RenewText ();
 	}
-
-	
+	public int GetMyKind () {
+		return (int) m_state;
+	}
 
 }
