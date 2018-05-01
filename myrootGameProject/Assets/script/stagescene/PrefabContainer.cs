@@ -1,17 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PrefabContainer : MonoBehaviour {
 
 	[SerializeField]
-	GameObject mapmassuipositionObject;//setbuttonsを入れる。UIを表示ONOFFするため
+	GameObject mapmassuipositionObject; //setbuttonsを入れる。UIを表示ONOFFするため
 	[SerializeField]
-	GameObject canvasposition;//leftcountをキャンバスにおくためだけのもの
+	GameObject canvasposition; //leftcountをキャンバスにおくためだけのもの
 	[SerializeField]
-	GameObject ground;//groundの座標から設置位置を調整するため
+	GameObject ground; //groundの座標から設置位置を調整するため
 	[SerializeField]
-	GameObject[] instanceObjects = new GameObject[Config.blockkindlength];
+	GameObject[] instanceObjects = new GameObject[Enum.GetNames (typeof (MapEditorbutton.blockkind)).Length];
 	[SerializeField]
 	GameObject[] itemObjects = new GameObject[Config.itemkindlength];
 	[SerializeField]
@@ -22,30 +23,30 @@ public class PrefabContainer : MonoBehaviour {
 	[SerializeField]
 	GameObject instancecanvas;
 
-	public GameObject getobjectleftCount() {
+	public GameObject getobjectleftCount () {
 		return dragobjectleftcount;
 	}
-	public GameObject getdragobjectmaker() {
+	public GameObject getdragobjectmaker () {
 		return dragobjectmaker;
 	}
-	public GameObject[] getitemObjects() {
+	public GameObject[] getitemObjects () {
 		return itemObjects;
 	}
-	public GameObject[] getinstanceObjects() {
+	public GameObject[] getinstanceObjects () {
 		return instanceObjects;
 	}
 
-	public GameObject getground() {
+	public GameObject getground () {
 		return ground;
 	}
-	public GameObject getmapmassuipositionObject() {
+	public GameObject getmapmassuipositionObject () {
 		return mapmassuipositionObject;
 	}
-	public GameObject getcanvasposition() {
+	public GameObject getcanvasposition () {
 		return canvasposition;
 	}
 
-	public GameObject getinstancecanvas() {
+	public GameObject getinstancecanvas () {
 		return instancecanvas;
 	}
 }

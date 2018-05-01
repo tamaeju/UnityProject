@@ -56,8 +56,6 @@ public class LevelSelectScene : MonoBehaviour {
 		mapdatamanager.changeStageNum(dropdown.value);
 	}
 
-
-
 	public void makeObjectFromMapCsvButton() {
 		makeItemMaker(mapdatamanager.getStageNum());
 		meditator.getclearmanager().clearConditionSet();
