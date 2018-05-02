@@ -50,13 +50,7 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 			mytext.text = stringname[0].ToString () + stringname[1].ToString () + stringname[2].ToString ();
 		}
 
-		if (stateNum == mathMassKindLength + (int) DebugUIkind.movingobject) {
-			var state = (DebugUIkind) Enum.ToObject (typeof (DebugUIkind), stateNum - mathMassKindLength);
-			var stringname = Enum.GetName (typeof (DebugUIkind), state);
-			mytext.text = stringname[0].ToString () + stringname[1].ToString () + stringname[2].ToString ();
-		}
-
-		if (stateNum == mathMassKindLength + (int) DebugUIkind.goal) {
+		if (stateNum >= mathMassKindLength) {
 			var state = (DebugUIkind) Enum.ToObject (typeof (DebugUIkind), stateNum - mathMassKindLength);
 			var stringname = Enum.GetName (typeof (DebugUIkind), state);
 			mytext.text = stringname[0].ToString () + stringname[1].ToString () + stringname[2].ToString ();
@@ -87,17 +81,19 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 			GetComponent<Image> ().color = Color.white;
 		else if (stateNum == Enum.GetNames (typeof (MathMass.massstate)).Length + (int) DebugUIkind.goal)
 			GetComponent<Image> ().color = Color.black;
+		else if (stateNum > Enum.GetNames (typeof (MathMass.massstate)).Length + (int) DebugUIkind.goal)
+			GetComponent<Image> ().color = Color.gray;
 	}
 
 	//ブロックなら青系、プレイヤーなら緑系、ゴールは黄色系,アイテム系は黒系で透明度をあげていく感じか。
 	public enum DebugUIkind {
 		movingobject,
 		goal,
-		ReplacerAddtoSub,
-		ReplacerSubtoDiv,
-		ReplacerMultodive,
-		ReplacerdivetoMul,
-		ReplacerIncreasetoDecrease
+		SAddtoSub,
+		SSubtoDiv,
+		SMultodive,
+		SdivetoMul,
+		SIncreasetoDecrease
 	}
 
 }
