@@ -139,6 +139,7 @@
      <Compile Include="Assets\script\CharactorManager\AidCharactor.cs" />
      <Compile Include="Assets\script\CharactorManager\CharactorMove.cs" />
      <Compile Include="Assets\script\CharactorManager\TargetMove.cs" />
+     <Compile Include="Assets\script\CharactorManager\distinationSetter.cs" />
      <Compile Include="Assets\script\Config\Config.cs" />
      <Compile Include="Assets\script\Data\CSVManager.cs" />
      <Compile Include="Assets\script\Data\ClearDataManager.cs" />
@@ -163,7 +164,6 @@
      <Compile Include="Assets\script\Objectbehavior\RayEmit.cs" />
      <Compile Include="Assets\script\Objectbehavior\ScrollObject.cs" />
      <Compile Include="Assets\script\Objectbehavior\TiltObject.cs" />
-     <Compile Include="Assets\script\Objectbehavior\distinationSetter.cs" />
      <Compile Include="Assets\script\Objectbehavior\instance3Dword.cs" />
      <Compile Include="Assets\script\UIrelated\ButtonEventManager.cs" />
      <Compile Include="Assets\script\UIrelated\Canvasbehavior.cs" />
@@ -173,6 +173,7 @@
      <Compile Include="Assets\script\levelselectscene related\LevelSelectCanvasManager.cs" />
      <Compile Include="Assets\script\levelselectscene related\SelectsceneButton.cs" />
      <Compile Include="Assets\script\pettythings\BomberWick.cs" />
+     <Compile Include="Assets\script\stagescene\BaseGameScene.cs" />
      <Compile Include="Assets\script\stagescene\ClearConditionManager.cs" />
      <Compile Include="Assets\script\stagescene\DataCreateScene.cs" />
      <Compile Include="Assets\script\stagescene\LevelSelectScene.cs" />
