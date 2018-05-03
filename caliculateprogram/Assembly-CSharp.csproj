@@ -163,8 +163,10 @@
      <Compile Include="Assets\Script\CanvasMakerRelated\TitleCanvasMover.cs" />
      <Compile Include="Assets\Script\CanvasMakerRelated\canvasmaker.cs" />
      <Compile Include="Assets\Script\DGtweenerSimple\DGFadeIn.cs" />
+     <Compile Include="Assets\Script\DGtweenerSimple\DGRotateSmall.cs" />
      <Compile Include="Assets\Script\DGtweenerSimple\DGScale.cs" />
      <Compile Include="Assets\Script\DGtweenerSimple\DGScaleColor.cs" />
+     <Compile Include="Assets\Script\DGtweenerSimple\DGScaleOnlyY.cs" />
      <Compile Include="Assets\Script\DataRelated\CSVManager.cs" />
      <Compile Include="Assets\Script\DataRelated\CurrentStageData.cs" />
      <Compile Include="Assets\Script\DataRelated\DataChangerFromJaG.cs" />
@@ -176,6 +178,7 @@
      <Compile Include="Assets\Script\DropdownUI.cs" />
      <Compile Include="Assets\Script\FieldObjectMaker.cs" />
      <Compile Include="Assets\Script\GameScene.cs" />
+     <Compile Include="Assets\Script\KindChangerOFMathMass.cs" />
      <Compile Include="Assets\Script\LevelSelectScene\LevelSelectCanvasManager.cs" />
      <Compile Include="Assets\Script\LevelSelectScene\SelectsceneButton.cs" />
      <Compile Include="Assets\Script\LevelSelectScene\unUse\LevelSelectSceneScroller.cs" />

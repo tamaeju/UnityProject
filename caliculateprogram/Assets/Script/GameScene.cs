@@ -39,7 +39,7 @@ public class GameScene : MonoBehaviour {
 			StrageSaveALLMapandClearConditionDatatoEasySave ();
 		}
 		StorageLoadAllDatafromEasySave ();
-		if (selectButtonCreator != null) {//clearしたか否かのデータが必要なので、この処理はデータ読み込み後である必要がある。
+		if (selectButtonCreator != null) { //clearしたか否かのデータが必要なので、この処理はデータ読み込み後である必要がある。
 			selectButtonCreator.instanceButtonPrefab (ShowLevelDisplayWindow, dataholder);
 		}
 	}
@@ -99,7 +99,7 @@ public class GameScene : MonoBehaviour {
 	}
 
 	public void SetGameEndEvent () {
-		movedealer.OnCleared.Subscribe (_ => canvasmaker.showclearcanvas (currentdataholder.GetMoveCount (), currentdataholder.GettargetSum ()));
+		movedealer.OnCleared.Subscribe (_ => canvasmaker.showClearEffect (currentdataholder.GetMoveCount (), currentdataholder.GettargetSum ()));
 		movedealer.OnCleared.Subscribe (_ => StrageSaveALLMapandClearConditionDatatoEasySave ());
 		movedealer.OnGameOvered.Subscribe (_ => canvasmaker.showGameovercanvas (currentdataholder.GetMoveCount (), currentdataholder.GetTargetMoveCount ()));
 	}
