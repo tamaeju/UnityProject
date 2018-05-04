@@ -31,7 +31,14 @@ public class MathMass : MonoBehaviour {
 		substract,
 		multiplicate,
 		divide,
-		square
+		square,
+		movingobject,
+		goal,
+		SAddtoSub,
+		SSubtoDiv,
+		SMultodive,
+		SdivetoMul,
+		SIncreasetoDecrease
 	}
 
 	//値に自分の数字を投げた時に答えを返してほしい

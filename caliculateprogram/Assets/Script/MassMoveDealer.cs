@@ -19,6 +19,8 @@ public class MassMoveDealer : MonoBehaviour {
 	CurrentStageData currentdata;
 	[SerializeField]
 	FieldObjectMaker fieldobjectmaker;
+	[SerializeField]
+	KindChangerOFMathMass kindChanger;
 	Subject<int> Clearedsubject = new Subject<int> ();
 	public IObservable<int> OnCleared {
 		get { return Clearedsubject; }
@@ -47,7 +49,8 @@ public class MassMoveDealer : MonoBehaviour {
 			return;
 		} //レンジ内でないなら終了
 		if (currentdata.GetMoveCount () > currentdata.GetTargetMoveCount ()) { GameOveredsubject.OnNext (1); } //gameoverならゲームオーバー処理を行う。
-		if (mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ().isGoal ()) { //次のマスがゴールなら判定を行い、可ならクリア処理を走らせる
+		MathMass checkMathMass = mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ();
+		if (checkMathMass.isGoal ()) { //次のマスがゴールなら判定を行い、可ならクリア処理を走らせる
 			if (currentdata.canClear ()) {
 				updateClearedData ();
 				Clearedsubject.OnNext (1);
@@ -55,12 +58,16 @@ public class MassMoveDealer : MonoBehaviour {
 			} else if (!currentdata.canClear ()) {
 				Debug.Log ("can't goal yet!");
 			}
-		} else if (!(mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ().isGoThrough ())) { //次のマスがゴールでない場合、通過済みでないなら処理を行う。
+		} else if (!(checkMathMass.isGoThrough ())) { //次のマスがゴールでない場合、通過済みでないなら処理を行う。
 			RenewMoverNum (mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ());
 			movemass.SetMyPos ((int) checkPos.x, (int) checkPos.y);
 			movemass.AddMyCount ();
 			currentdata.SetCurrentSum (movemass.GetMyNumber ());
 			currentdata.SetMoveCount (movemass.GetMyCount ());
+			//もしmathmasses[(int) checkPos.x, (int) checkPos.y]のマス種類がスペシャルマスの領域であれば、kindchangerに特殊メソッドの準備をONさせる。
+			if (checkMathMass.GetMyKind () > (int) MathMass.massstate.goal) {
+				kindChanger.setChangeMassMethod (checkMathMass.GetMyKind ());
+			}
 		}
 	}
 
@@ -121,41 +128,10 @@ public class MassMoveDealer : MonoBehaviour {
 		return mathmasses;
 	}
 
-	public void testChange () {
-		ReplaceMathKind (MathMass.massstate.divide, MathMass.massstate.add);
-	}
-	public void ReplaceMathKind (MathMass.massstate beforestate, MathMass.massstate afterstate) {
-		MassKindChanger kindchanger = new MassKindChanger (mathmasses);
-		kindchanger.ChangeMassKind ((int) beforestate, (int) afterstate);
-	}
-
-	public class MassKindChanger {
-		GameObject[, ] m_mathmasses;
-
-		public void ChangeMassKind (int　 beforeKind, int afterKind) {
-			MathMass mathMass;
-			for (int j = 0; j < m_mathmasses.GetLength (1); ++j) {
-				for (int i = 0; i < m_mathmasses.GetLength (0); ++i) {
-					if (mathMass = m_mathmasses[i, j].GetComponent<MathMass> ()) {
-						if (mathMass.GetMyKind () == beforeKind) {
-							mathMass.ChangeMyKind (afterKind);
-							mathMass.ChangeMyMaterial ();
-						}
-					}
-				}
-			}
-		}
-		public MassKindChanger (GameObject[, ] mathmasses) {
-			Debug.Log ("calledCOnstracta");
-			m_mathmasses = mathmasses;
-		}
-	}
-
-	//もし現在のmovecountがターゲットmovecountより少ない場合、ゲームオーバーメソッドを呼び出す。
-	//
-
-	//OnNext自体はこのクラスが実行する。
-	//ゲームシーンがこのクラスのsubjectをとってきて、ゲームシーンのメソッドをsubscribeする。
+	// public void ReplaceMathKind (MathMass.massstate beforestate, MathMass.massstate afterstate) {
+	// 	KindChangerOFMathMass kindchanger = new KindChangerOFMathMass (mathmasses);
+	// 	//kindchanger.ChangeMassKind ((int) beforestate, (int) afterstate);
+	// }
 
 }
 

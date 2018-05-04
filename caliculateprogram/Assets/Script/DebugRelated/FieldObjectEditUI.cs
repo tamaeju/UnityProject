@@ -25,7 +25,7 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 	}
 
 	public void addState () {
-		if (stateNum + 1 < Enum.GetNames (typeof (MathMass.massstate)).Length + Enum.GetNames (typeof (DebugUIkind)).Length) {
+		if (stateNum + 1 < (int) MathMass.massstate.movingobject) {
 			stateNum++;
 		} else { stateNum = 0; }
 		changemychar ();
@@ -33,7 +33,7 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 	}
 
 	public void changeState (int astateNum) {
-		if (astateNum < Enum.GetNames (typeof (MathMass.massstate)).Length + Enum.GetNames (typeof (DebugUIkind)).Length) { //判定式がおかしい。
+		if (astateNum < (int) MathMass.massstate.movingobject) {
 			stateNum = astateNum;
 		} else { stateNum = 0; }
 		changeButtonColor ();
@@ -47,12 +47,6 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 		if (stateNum < mathMassKindLength) { //ムーブオブジェクトのマスはMathMass.massstateの範囲内にないので、stringnameがnullになる、その対応のnullチェック
 			var state = (MathMass.massstate) Enum.ToObject (typeof (MathMass.massstate), stateNum);
 			var stringname = Enum.GetName (typeof (MathMass.massstate), state);
-			mytext.text = stringname[0].ToString () + stringname[1].ToString () + stringname[2].ToString ();
-		}
-
-		if (stateNum >= mathMassKindLength) {
-			var state = (DebugUIkind) Enum.ToObject (typeof (DebugUIkind), stateNum - mathMassKindLength);
-			var stringname = Enum.GetName (typeof (DebugUIkind), state);
 			mytext.text = stringname[0].ToString () + stringname[1].ToString () + stringname[2].ToString ();
 		}
 
@@ -77,23 +71,14 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 			GetComponent<Image> ().color = new Vector4 (1f, 1f, 0f, 1f);
 		else if (stateNum == (int) MathMass.massstate.square)
 			GetComponent<Image> ().color = Color.blue;
-		else if (stateNum == Enum.GetNames (typeof (MathMass.massstate)).Length + (int) DebugUIkind.movingobject)
+		else if (stateNum == (int) MathMass.massstate.movingobject)
 			GetComponent<Image> ().color = Color.white;
-		else if (stateNum == Enum.GetNames (typeof (MathMass.massstate)).Length + (int) DebugUIkind.goal)
+		else if (stateNum == (int) MathMass.massstate.goal)
 			GetComponent<Image> ().color = Color.black;
-		else if (stateNum > Enum.GetNames (typeof (MathMass.massstate)).Length + (int) DebugUIkind.goal)
+		else if (stateNum > (int) MathMass.massstate.goal)
 			GetComponent<Image> ().color = Color.gray;
 	}
 
 	//ブロックなら青系、プレイヤーなら緑系、ゴールは黄色系,アイテム系は黒系で透明度をあげていく感じか。
-	public enum DebugUIkind {
-		movingobject,
-		goal,
-		SAddtoSub,
-		SSubtoDiv,
-		SMultodive,
-		SdivetoMul,
-		SIncreasetoDecrease
-	}
 
 }

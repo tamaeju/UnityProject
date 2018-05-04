@@ -26,8 +26,11 @@ public class FieldObjectMaker : MonoBehaviour { //オブジェクト生成を行
 
 	[SerializeField]
 	GameObject goalprefab;
+	[SerializeField]
+	GameObject specialprefab;
 	//実生成するオブジェクト
-
+	[SerializeField]
+	KindChangerOFMathMass　 kindChanger;
 	GameObject moveobject;
 	GameObject[, ] massobjects;
 	GameObject goalobject;
@@ -47,23 +50,31 @@ public class FieldObjectMaker : MonoBehaviour { //オブジェクト生成を行
 	}
 
 	public void InstanciateObject (int i, int j) {
-		if (fieldmapdata[i, j].masskind == Enum.GetNames (typeof (MathMass.massstate)).Length + (int) FieldObjectEditUI.DebugUIkind.movingobject) {
+		if (fieldmapdata[i, j].masskind == (int) MathMass.massstate.movingobject) { //moveobjectの場合
 			moveobject = Instantiate (moveprefab, settingObjectPos (i, j), Quaternion.identity) as GameObject;
 			moveobject.GetComponent<MovingMass> ().SetMyPos (i, j);
 			massobjects[i, j] = new GameObject ();
-		} else if (fieldmapdata[i, j].masskind == Enum.GetNames (typeof (MathMass.massstate)).Length + (int) FieldObjectEditUI.DebugUIkind.goal) {
+		} else if (fieldmapdata[i, j].masskind == (int) MathMass.massstate.goal) { //goalobjectの場合
 			massobjects[i, j] = Instantiate (goalprefab, settingObjectPos (i, j), Quaternion.identity) as GameObject;
-			massobjects[i, j].GetComponent<MathMass> ().ChangeisGoal ();
-			massobjects[i, j].GetComponent<MathMass> ().ChangeMyKind (fieldmapdata[i, j].masskind);
-			massobjects[i, j].GetComponent<MathMass> ().SetMyPos (i, j);
+			MathMass checkmass = massobjects[i, j].GetComponent<MathMass> ();
+			checkmass.SetMyPos (i, j);
+			checkmass.ChangeMyKind (fieldmapdata[i, j].masskind);
+			checkmass.ChangeisGoal ();
 
-		} else {
+		} else if (fieldmapdata[i, j].masskind > 　(int) MathMass.massstate.goal) { //スペシャルマスの場合
+			massobjects[i, j] = Instantiate (specialprefab, settingObjectPos (i, j), Quaternion.identity) as GameObject;
+			MathMass checkmass = massobjects[i, j].GetComponent<MathMass> ();
+			checkmass.SetMyPos (i, j);
+			checkmass.ChangeMyKind (fieldmapdata[i, j].masskind);
+			kindChanger.makeKindChangeButton (checkmass.GetMyKind ());
+
+		} else { //普通のマス種類の場合
 			int mathmasskind = fieldmapdata[i, j].masskind;
-			//Debug.LogFormat("i, j,fieldmapdata[i, j],massobjects[i, j]は{0},{1},{2},{3}", i, j, fieldmapdata[i, j], massobjects[i, j]);
 			massobjects[i, j] = Instantiate (instanceMathMass (mathmasskind), settingObjectPos (i, j), Quaternion.Euler (0, 0, 180)) as GameObject;
-			massobjects[i, j].GetComponent<MathMass> ().SetMyPos (i, j);
-			massobjects[i, j].GetComponent<MathMass> ().ChangeMyKind (fieldmapdata[i, j].masskind);
-			massobjects[i, j].GetComponent<MathMass> ().ChangeMynumber (fieldmapdata[i, j].massnumber);
+			MathMass checkmass = massobjects[i, j].GetComponent<MathMass> ();
+			checkmass.SetMyPos (i, j);
+			checkmass.ChangeMyKind (fieldmapdata[i, j].masskind);
+			checkmass.ChangeMynumber (fieldmapdata[i, j].massnumber);
 		}
 	}
 
