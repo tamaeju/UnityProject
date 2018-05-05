@@ -58,7 +58,7 @@ public class MassMoveDealer : MonoBehaviour {
 			} else if (!currentdata.canClear ()) {
 				Debug.Log ("can't goal yet!");
 			}
-		} else if (!(checkMathMass.isGoThrough ())) { //次のマスがゴールでない場合、通過済みでないなら処理を行う。
+		} else if (!(checkMathMass.isGoThrough ())) { //次のマスが通過済みでないなら下記処理を行う。
 			RenewMoverNum (mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ());
 			movemass.SetMyPos ((int) checkPos.x, (int) checkPos.y);
 			movemass.AddMyCount ();

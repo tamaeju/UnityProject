@@ -84,6 +84,7 @@ public class FieldObjectMaker : MonoBehaviour { //オブジェクト生成を行
 				InstanciateObject (i, j);
 			}
 		}
+		kindChanger.setMathMasses (massobjects);
 	}
 
 	public GameObject instanceMathMass (int masskind) {

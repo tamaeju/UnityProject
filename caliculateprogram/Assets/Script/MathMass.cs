@@ -66,7 +66,7 @@ public class MathMass : MonoBehaviour {
 
 	public void ChangeThrough () {
 		wasGothrough.Value = true;
-		this.gameObject.transform.DORotate (new Vector3 (0f, 0f, 540f), 1.5f, RotateMode.FastBeyond360);
+		this.gameObject.transform.DORotate (new Vector3 (0f, 0f, 360f), 1.5f, RotateMode.FastBeyond360);
 	}
 
 	public void ChangeDarkColor () {

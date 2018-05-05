@@ -25,7 +25,7 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 	}
 
 	public void addState () {
-		if (stateNum + 1 < (int) MathMass.massstate.movingobject) {
+		if (stateNum + 1 < Enum.GetNames (typeof (MathMass.massstate)).Length) {
 			stateNum++;
 		} else { stateNum = 0; }
 		changemychar ();
@@ -33,10 +33,9 @@ public class FieldObjectEditUI : MonoBehaviour { //レベルデザインデー�
 	}
 
 	public void changeState (int astateNum) {
-		if (astateNum < (int) MathMass.massstate.movingobject) {
+		if (astateNum < Enum.GetNames (typeof (MathMass.massstate)).Length) {
 			stateNum = astateNum;
-		} else { stateNum = 0; }
-		changeButtonColor ();
+		} else { stateNum = 0; } changeButtonColor ();
 		changemychar ();
 	}
 

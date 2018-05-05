@@ -13,7 +13,13 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 	[SerializeField]
 	Button methodDealButton; //所持しているボタンでオブジェクトの実行をつかさどる。
 	[SerializeField]
-	GameObject buttonPrefab; //所持しているボタンでオブジェクトの実行をつかさどる。
+	GameObject buttonObject; //所持しているボタンでオブジェクトの実行をつかさどる。
+
+	[SerializeField]
+	Text buttontext;
+	public void Start () {
+		buttonObject.SetActive (false); //不可視にするためだけの処理
+	}
 	private void ChangeMassKind (MathMass.massstate beforeKind, MathMass.massstate afterKind) {
 		MathMass mathMass;
 		for (int j = 0; j < m_mathmasses.GetLength (1); ++j) {
@@ -27,12 +33,13 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 			}
 		}
 	}
-	public KindChangerOFMathMass (GameObject[, ] mathmasses) {
+	public void setMathMasses (GameObject[, ] mathmasses) {
 		Debug.Log ("calledCOnstracta");
 		m_mathmasses = mathmasses;
 	}
 	public void setChangeMassMethod (int massstate) { //自身の所持するボタンオブジェクトにメソッドの登録を行う処理
 		methodDealButton.onClick.RemoveAllListeners ();
+
 		if (massstate == (int) MathMass.massstate.SAddtoSub) {
 			methodDealButton.onClick.AddListener (() => ChangeMassKind (MathMass.massstate.add, MathMass.massstate.substract));
 		} else if (massstate == (int) MathMass.massstate.SdivetoMul) {
@@ -44,13 +51,32 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 		} else if (massstate == (int) MathMass.massstate.SSubtoDiv) {
 			methodDealButton.onClick.AddListener (() => ChangeMassKind (MathMass.massstate.substract, MathMass.massstate.divide));
 		}
+		Color oldcolor = buttonObject.GetComponent<Image> ().color;
+		buttonObject.GetComponent<Image> ().color = new Color (oldcolor.r, oldcolor.g, oldcolor.b, 1f);
 	}
 	public void makeKindChangeButton (int buttonkind) { //ボタンオブジェクトを生成し、メソッド種類の名前を設定、メソッドの設定はsetChangeMassMethodで後で実行する。
-		Text buttontext;
+		buttonObject.SetActive (true);
+		Color oldcolor = buttonObject.GetComponent<Image> ().color;
+		buttonObject.GetComponent<Image> ().color = new Color (oldcolor.r, oldcolor.g, oldcolor.b, 0.3f);
+		MathMass.massstate enmVal = (MathMass.massstate) Enum.ToObject (typeof (MathMass.massstate), buttonkind); //ボタン種類に応じたmassstateを取得。
 
-		MathMass.massstate enmVal = (MathMass.massstate) Enum.ToObject (typeof (MathMass.massstate), buttonkind);
-		string strVal = Enum.GetName (typeof (MathMass.massstate), enmVal);
-		buttontext = instancedObj.GetComponentInChildren<Text> ();
+		string strVal = GetButtonName (enmVal); //Enum.GetName (typeof (MathMass.massstate), enmVal)//適応するオブジェクトを表示
 		buttontext.text = strVal;
 	}
+
+	private string GetButtonName (MathMass.massstate kind) {
+		if (kind == MathMass.massstate.SAddtoSub) {
+			return "+を−にチェンジ";
+		} else if (kind == MathMass.massstate.SdivetoMul) {
+			return "÷を×にチェンジ";
+		} else if (kind == MathMass.massstate.SMultodive) {
+			return "×を÷にチェンジ";
+		} else if (kind == MathMass.massstate.SSubtoDiv) {
+			return "-を÷にチェンジ";
+		} else {
+			return "異常値がセットされています";
+		}
+
+	}
+	//この後必要となるのは、表示されたオブジェクト
 }
