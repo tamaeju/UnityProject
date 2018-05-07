@@ -21,6 +21,8 @@ public class MassMoveDealer : MonoBehaviour {
 	FieldObjectMaker fieldobjectmaker;
 	[SerializeField]
 	KindChangerOFMathMass kindChanger;
+	[SerializeField]
+	PanelView effectcreator; //パネルビューが機能を内包しているため参照しているが、後ほどパネルビュー内部の実装を単一に分割する必要がある。
 	Subject<int> Clearedsubject = new Subject<int> ();
 	public IObservable<int> OnCleared {
 		get { return Clearedsubject; }
@@ -57,6 +59,7 @@ public class MassMoveDealer : MonoBehaviour {
 
 			} else if (!currentdata.canClear ()) {
 				Debug.Log ("can't goal yet!");
+				effectcreator.createEffectOfnotMatchGoalValue ();
 			}
 		} else if (!(checkMathMass.isGoThrough ())) { //次のマスが通過済みでないなら下記処理を行う。
 			RenewMoverNum (mathmasses[(int) checkPos.x, (int) checkPos.y].GetComponent<MathMass> ());
@@ -67,6 +70,9 @@ public class MassMoveDealer : MonoBehaviour {
 			//もしmathmasses[(int) checkPos.x, (int) checkPos.y]のマス種類がスペシャルマスの領域であれば、kindchangerに特殊メソッドの準備をONさせる。
 			if (checkMathMass.GetMyKind () > (int) MathMass.massstate.goal) {
 				kindChanger.setChangeMassMethod (checkMathMass.GetMyKind ());
+			}
+			if (currentdata.GettargetSum () == currentdata.GetCurrentSum ()) {
+				effectcreator.createEffectOfCanGoal ();
 			}
 		}
 	}

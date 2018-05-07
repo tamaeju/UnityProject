@@ -38,6 +38,10 @@ public class PanelView : MonoBehaviour {
 		m_recentcountText.text = renewcount.ToString ();
 	}
 
+	public void Start () {
+		canGoalText.gameObject.SetActive (false);
+		notMatchGoalText.gameObject.SetActive (false);
+	}
 	public void RenewMovecountText (long renewcount) {
 
 		m_recentmovecountText.text = renewcount.ToString ();
@@ -61,14 +65,14 @@ public class PanelView : MonoBehaviour {
 		rect.DOJumpAnchorPos (normalposMoveEffectpos, 1.5f, 2, 3f).OnComplete (() => m_EffectOfmovecountText.text = "");
 	}
 
-	private void createEffectOfCanGoal () {
+	public void createEffectOfCanGoal () {
 		canGoalText.gameObject.SetActive (true);
-		//数秒後に消す処理
+		DOVirtual.DelayedCall (1f, () => canGoalText.gameObject.SetActive (false));
 	}
 
-	private void createEffectOfnotMatchGoalValue () {
+	public void createEffectOfnotMatchGoalValue () {
 		notMatchGoalText.gameObject.SetActive (true);
-		//数秒後に消す処理
+		DOVirtual.DelayedCall (1f, () => notMatchGoalText.gameObject.SetActive (false));
 	}
 
 	public void registRenewCountEvent () { //currentデータの値を見て、イベント実行をするよう指定するメソッド

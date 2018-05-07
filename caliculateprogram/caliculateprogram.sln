@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "caliculateprogram", "Assembly-CSharp-firstpass.csproj", "{579EE514-6C43-BE46-18AF-5C379AF3F4C6}"
@@ -25,9 +24,6 @@ Global
 		{734C7082-090D-D237-8124-A95ADE0671EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734C7082-090D-D237-8124-A95ADE0671EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734C7082-090D-D237-8124-A95ADE0671EF}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
