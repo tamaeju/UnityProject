@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 492}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -88,10 +88,10 @@ MonoBehaviour:
     y: 30
     width: 1842
     height: 931
-  m_MinSize: {x: 913, y: 442}
-  m_MaxSize: {x: 22008, y: 10021}
+  m_MinSize: {x: 917, y: 442}
+  m_MaxSize: {x: 22012, y: 10021}
   vertical: 0
-  controlID: 23
+  controlID: 11
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 24
+  controlID: 12
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -154,8 +154,8 @@ MonoBehaviour:
     y: 0
     width: 204
     height: 931
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 221}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -231,8 +231,8 @@ MonoBehaviour:
     y: 0
     width: 945
     height: 412
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -258,8 +258,8 @@ MonoBehaviour:
     y: 412
     width: 945
     height: 519
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -434,28 +434,28 @@ MonoBehaviour:
     height: 910
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: bcfbffff
-    m_LastClickedID: -1092
-    m_ExpandedIDs: c8dfffffb6e6ffff06edffff08eeffff06efffffe2fbffff00000000ce3100000c320000
+    m_SelectedIDs: 140a0000
+    m_LastClickedID: 0
+    m_ExpandedIDs: e2fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Meditator
-      m_OriginalName: Meditator
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -1060
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 7}
     m_SearchString: 
   m_ExpandedScenes:
-  - dataCreateScene
+  - LevelSelectScene
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -529,19 +529,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/script/stagescene
+    - Assets/script/Itemmaker
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/script/stagescene
+  - Assets/script/Itemmaker
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\appirits_1020520\Documents\myGameProject\myrootGameProject
+  m_LastProjectPath: C:\Users\appirits_1020520\Documents\UnityProject\SetMapItemGame
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5e300000
-    m_LastClickedID: 12382
-    m_ExpandedIDs: 00000000422900001a2a0000e82a0000582b00007a2b0000aa2b0000c42b0000282d00002c2d00009e2d0000be2d0000e82d0000ea2d0000ec2d0000162e0000cc2e0000182f0000ce2f0000da2f0000a0300000aa300000183700001a3700001c3700001e3700002037000000ca9a3bffffff7f
+    m_SelectedIDs: ea2b0000
+    m_LastClickedID: 11242
+    m_ExpandedIDs: 0000000048290000202a0000ee2a00005e2b0000802b0000b02b0000ca2b00002e2d0000322d0000a42d0000c42d0000ee2d0000f02d0000f22d00001c2e0000d22e00001e2f0000d42f0000e02f0000a6300000b0300000223600002436000026360000283600002a36000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -569,7 +569,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000422900001a2a0000e82a0000582b00007a2b0000aa2b0000c42b0000282d00002c2d00009e2d0000be2d0000e82d0000ea2d0000ec2d0000162e0000cc2e0000182f0000ce2f0000da2f0000a0300000aa300000183700001a3700001c3700001e37000020370000
+    m_ExpandedIDs: 0000000048290000202a0000ee2a00005e2b0000802b0000b02b0000ca2b00002e2d0000322d0000a42d0000c42d0000ee2d0000f02d0000f22d00001c2e0000d22e00001e2f0000d42f0000e02f0000a6300000b0300000223600002436000026360000283600002a360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -600,15 +600,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: dcf80000e06bffff76250000d0250000ec250000be250000ca250000d825000074abfbff00000000788cffff44260000aee5fcffe4250000502600007c260000e0fdfdff9a7afbffba2600005c32000046320000c8250000c4260000462700001c2900003c27000036680000022800005222f8ff802900009e2700006a2b0000f8330000c62b0000342a00004a2e0000a6c1f9ff642a0000082c0000ae5400002e2b00003a5bfdffce2d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: BaseGameScene
-      m_OriginalName: BaseGameScene
+      m_Name: script
+      m_OriginalName: script
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 14648
+      m_UserData: 11804
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0

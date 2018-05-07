@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/scene/dataCreateScene.unity
-  isLoaded: 1
-  isActive: 1
