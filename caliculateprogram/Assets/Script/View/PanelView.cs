@@ -19,15 +19,19 @@ public class PanelView : MonoBehaviour {
 	[SerializeField]
 	Text m_recentmovecountText;
 	[SerializeField]
-	Text m_EffectOfcountText;
+	GameObject m_EffectOfcountText;
 	[SerializeField]
-	Text m_EffectOfmovecountText;
+	GameObject m_EffectOfmovecountText;
 	[SerializeField]
-	Text canGoalText;
+	GameObject canGoalText;
 	[SerializeField]
-	Text notMatchGoalText;
+	GameObject notMatchGoalText;
+	[SerializeField]
+	GameObject setSpecialMassText;
 	IObservable<long> changeMC;
 	IObservable<long> changeCMC;
+	Vector3 oldSumCountPos;
+	Vector3 oldMoveCountPos;
 	long beforeCount;
 	long countDifference;
 
@@ -39,40 +43,52 @@ public class PanelView : MonoBehaviour {
 	}
 
 	public void Start () {
+		oldSumCountPos = m_EffectOfcountText.GetComponent<RectTransform> ().position; //現在のアンカーポジションを取得
+		oldMoveCountPos = m_EffectOfmovecountText.GetComponent<RectTransform> ().position; //現在のアンカーポジションを取得
+		m_EffectOfcountText.SetActive (false);
+		m_EffectOfmovecountText.SetActive (false);
 		canGoalText.gameObject.SetActive (false);
 		notMatchGoalText.gameObject.SetActive (false);
+		setSpecialMassText.gameObject.SetActive (false);
 	}
 	public void RenewMovecountText (long renewcount) {
-
 		m_recentmovecountText.text = renewcount.ToString ();
 	}
 
 	private void createEffectOfCountText () {
-		normalposSumEffectpos = m_EffectOfcountText.GetComponent<RectTransform> ().anchoredPosition;
+		m_EffectOfcountText.GetComponent<RectTransform> ().position = oldSumCountPos;
+		m_EffectOfcountText.SetActive (true);
+
 		if (countDifference > 0) {
-			m_EffectOfcountText.text = "+" + countDifference.ToString ();
+			m_EffectOfcountText.GetComponent<Text> ().text = "+" + countDifference.ToString ();
 		} else {
-			m_EffectOfcountText.text = countDifference.ToString ();
+			m_EffectOfcountText.GetComponent<Text> ().text = countDifference.ToString ();
 		}
-		RectTransform rect = m_EffectOfcountText.GetComponent<RectTransform> (); //rect.position = normalpos;//trial
-		rect.DOJumpAnchorPos (normalposSumEffectpos, 1.5f, 2, 3f).OnComplete (() => m_EffectOfcountText.text = "");
+		//countdeiffernceを取得し、+なら+とつける
+		Vector3 newPos = new Vector3 (oldSumCountPos.x, oldSumCountPos.y + 10f, oldSumCountPos.z);
+		m_EffectOfcountText.GetComponent<RectTransform> ().DOMove (newPos, 1f).OnComplete (() => m_EffectOfcountText.SetActive (false));
 	}
 
 	private void createEffectOfmovecountText () {
-		normalposMoveEffectpos = m_EffectOfmovecountText.GetComponent<RectTransform> ().anchoredPosition;
-		m_EffectOfmovecountText.text = "+1";
-		RectTransform rect = m_EffectOfmovecountText.GetComponent<RectTransform> ();
-		rect.DOJumpAnchorPos (normalposMoveEffectpos, 1.5f, 2, 3f).OnComplete (() => m_EffectOfmovecountText.text = "");
+		m_EffectOfmovecountText.GetComponent<RectTransform> ().position = oldMoveCountPos;
+		m_EffectOfmovecountText.SetActive (true);
+		m_EffectOfmovecountText.GetComponent<Text> ().text = "+1";
+		Vector3 newPos = new Vector3 (oldMoveCountPos.x, oldMoveCountPos.y + 10f, oldMoveCountPos.z);
+		m_EffectOfmovecountText.GetComponent<RectTransform> ().DOMove (newPos, 1f).OnComplete (() => m_EffectOfmovecountText.SetActive (false));
 	}
 
 	public void createEffectOfCanGoal () {
 		canGoalText.gameObject.SetActive (true);
-		DOVirtual.DelayedCall (1f, () => canGoalText.gameObject.SetActive (false));
+		DOVirtual.DelayedCall (1.5f, () => canGoalText.gameObject.SetActive (false));
 	}
 
 	public void createEffectOfnotMatchGoalValue () {
 		notMatchGoalText.gameObject.SetActive (true);
-		DOVirtual.DelayedCall (1f, () => notMatchGoalText.gameObject.SetActive (false));
+		DOVirtual.DelayedCall (1.5f, () => notMatchGoalText.gameObject.SetActive (false));
+	}
+	public void createSpecialMassMessage () {
+		setSpecialMassText.gameObject.SetActive (true);
+		DOVirtual.DelayedCall (1.5f, () => setSpecialMassText.gameObject.SetActive (false));
 	}
 
 	public void registRenewCountEvent () { //currentデータの値を見て、イベント実行をするよう指定するメソッド

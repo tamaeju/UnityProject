@@ -70,6 +70,7 @@ public class MassMoveDealer : MonoBehaviour {
 			//もしmathmasses[(int) checkPos.x, (int) checkPos.y]のマス種類がスペシャルマスの領域であれば、kindchangerに特殊メソッドの準備をONさせる。
 			if (checkMathMass.GetMyKind () > (int) MathMass.massstate.goal) {
 				kindChanger.setChangeMassMethod (checkMathMass.GetMyKind ());
+				effectcreator.createSpecialMassMessage ();
 			}
 			if (currentdata.GettargetSum () == currentdata.GetCurrentSum ()) {
 				effectcreator.createEffectOfCanGoal ();
