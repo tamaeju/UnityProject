@@ -24,6 +24,8 @@ public class canvasmaker : MonoBehaviour {//ゲームスタート時とクリア
 		canvas.changeMessagetext("conglatulation!");
 		canvas.changeScorelabel("防衛数");
 		canvas.changeScoreText(recenteatcount);
+		canvas.changeTimelabel("");
+		canvas.changeTimeText(0);
 		canvas.changebackcolor(Color.yellow);
 		canvas.setMethod(act);
 	}

@@ -45,7 +45,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement2label ("目標数"); //TargetCount
 		canvas.changeElement2Text (TargetCount);
 		canvas.ClearedDecolateImage ();
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelect"));
+		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
 	}
 	public void showGameovercanvas (long currentMoveCount, long TargetMoveCount) {
 		var parent = UIpos.transform;
@@ -57,7 +57,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement1Text (currentMoveCount);
 		canvas.changeElement2label ("移動回数上限"); //TargetMoveCount
 		canvas.changeElement2Text (TargetMoveCount);
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("LevelSelect"));
+		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
 	}
 
 	public void showLevelDisplaycanvas (int stageCount, DataStorage dataStorage, CurrentStageData currentData, Action<int> gamestartEvent, Action deletewindowEvent) {
