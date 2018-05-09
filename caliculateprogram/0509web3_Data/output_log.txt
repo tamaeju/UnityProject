@@ -1,0 +1,153 @@
+Initialize engine version: 5.6.0f3 (497a0f351392)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 530 (ID=0x1912)
+    Vendor:   Intel
+    VRAM:     2111 MB
+    Driver:   22.20.16.4836
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\FullSerializer.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\FullSerializer.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween43.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween43.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween46.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween46.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween50.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\DOTween50.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\TextMeshPro-5.6-1.0.56-Runtime.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\TextMeshPro-5.6-1.0.56-Runtime.dll into Unity Child Domain
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\HOTween.dll (this message is harmless)
+Loading C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\HOTween.dll into Unity Child Domain
+- Completed reload, in  0.052 seconds
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\appirits_1020520\Documents\UnityProject\caliculateprogram\0509web3_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.284767 ms
+初期化完了！
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+finished LoadAllData
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+10
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+12
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+13
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+14
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+15
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+16
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+17
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+18
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+19
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+20
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+21
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+22
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+23
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+24
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+25
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+26
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+27
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 1cc8 -> priority: 1 
+  Thread -> id: 1794 -> priority: 1 
+  Thread -> id: 3b98 -> priority: 1 
+  Thread -> id: 1690 -> priority: 1 
