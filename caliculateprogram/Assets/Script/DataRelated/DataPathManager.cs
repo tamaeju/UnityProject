@@ -16,32 +16,29 @@ public class DataPathManager : MonoBehaviour { //ゲームデータの保存パ�
 
 	void Start () {
 		filename = "mapData0";
-		//mapdatapath = Application.dataPath + "/Resources/data/" + filename + ".csv";
 		mapdatapath = "data/" + filename;
 		mapsavedatapath = Application.dataPath + "/Resources/data/" + filename + ".csv";
 	}
 
-	public string getmapdatapath () {
+	public string getmapdatapath (int stagevalue) {
+		ChangeStagePathNum (stagevalue);
 		return mapdatapath;
 	}
 
-	public string getmapsavedatapath () {
+	public string getmapsavedatapath (int stagevalue) {
+		ChangeStagePathNum (stagevalue);
 		return mapsavedatapath;
 	}
 
 	public string getclearConditionpath () {
-		//cleardatapath = Application.dataPath + "/Resources/data/" + "clearCondition" + ".csv";
 		cleardatapath = "data/" + "clearCondition";
 		return cleardatapath;
 	}
 
-	public void ChangeStagePathNum (int stagevalue) { //保存先かつ呼び出し元のファイルパスを変更する。
+	private void ChangeStagePathNum (int stagevalue) { //保存先かつ呼び出し元のファイルパスを変更する。
 		string newfilename = "mapData" + stagevalue.ToString ();
-		//mapdatapath = Application.dataPath + "/Resources/data/" + newfilename;
 		mapdatapath = "data/" + newfilename;
-		Debug.Log (String.Format ("datapath was changed to {0}", mapdatapath));
-
-		mapsavedatapath = Application.dataPath + "/Resources/data/" + newfilename;
+		mapsavedatapath = Application.dataPath + "/Resources/data/" + newfilename + ".csv";
 	}
 	//mapData01.csv,mapData02.csv,mapData03.csvという形で出力される、デフォルト値はtestmapData.csv
 

@@ -24,6 +24,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	}
 
 	public void UpdataStageData (MassStruct[, ] savedata) {
+		nullCheckMapDatas ();
 		m_fieldMapDatas[m_stageNum] = savedata;
 		Debug.Log ("finished UpdataStageData");
 	}
@@ -62,7 +63,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 
 	public void ChangeStagePathNum (Dropdown dropdown) { //ステージ番号を変更するメソッド。
 		m_stageNum = dropdown.value;
-		csvmanager.ChangeStagePathNum (dropdown); //
+		ChangeStagePathNum (m_stageNum); //
 	}
 
 	public void ChangeStagePathNum (int stageNum) { //ステージ番号を変更するメソッド。
@@ -70,13 +71,16 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	}
 
 	public MassStruct[, ] GetStageMapData (int stageCount) { //指定した1ステージのマップデータをゲットするメソッド
+		nullCheckMapDatas ();
 		return m_fieldMapDatas[stageCount];
 	}
 
 	public bool isStageClear () {
+		nullCheckMapDatas ();
 		return m_isStageCleared[m_stageNum]; //取得するのはステージ変更前なので
 	}
 	public bool isStageClear (int stageNum) {
+		nullCheckMapDatas ();
 		return m_isStageCleared[stageNum]; //取得するのはステージ変更前なので
 	}
 	public int getMaxStageScore () {
@@ -98,6 +102,12 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		m_MinClearMoveCount = new int[Config.stageCount];
 	}
 
+	private void nullCheckMapDatas () {
+		if (m_fieldMapDatas[m_stageNum] == null) {
+			Debug.Log ("m_fieldMapDatas[stageCount]==null");
+		}
+	}
+
 	//		public bool[] isStageCleared;
 	//public int[] MinClearMoveCount;
 
@@ -108,7 +118,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	public void LoadAllMapDatasfromCSV () { //m_fieldMapDatasを初期化し、選択中ステージのデータをロードし上書きするメソッド。
 		m_fieldMapDatas = new MassStruct[Config.stageCount][, ];
 		for (int j = 0; j < Config.stageCount; j++) {
-			m_fieldMapDatas[j] = csvmanager.getStageMapDataElements (j);
+			m_fieldMapDatas[j] = csvmanager.getMapDataElements (j);
 		}
 	}
 
@@ -122,80 +132,24 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		}
 	}
 	private void LoadfromCsvMapDataElements () {
-		m_fieldMapDatas[m_stageNum] = csvmanager.getMapDataElements ();
+		nullCheckMapDatas ();
+		m_fieldMapDatas[m_stageNum] = csvmanager.getMapDataElements (m_stageNum);
+	}
+
+	public void saveALLMapDatatoCSV () { //全てのマップデータをcsvにセーブするメソッド
+		for (int i = 0; i < Config.stageCount; i++) {
+			csvmanager.MapCsvSave (GetStageMapData (i), i);
+		}
 	}
 
 	public bool isExitSavedData () {
+		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
 		return SaveGame.Exists ("datastrage");
 	}
 
 	public void LoadFromCSV () { //csvから今のステージのクリア必要データと、フィールドデータをとってくる、データの初期化ができてない場合はこのメソッドを先に呼んではいけない。
 		LoadfromCsvMapDataElements ();
 		LoadfromCsvClearConditionElements ();
-	}
-
-	//必要な工程は2面とかのデータをcsvmanagerからとってくる
-	//そのデータをストレージに上書き。（全マップ分）
-	//上書きしたストレージの状態でEASYSAVEにセーブする。
-	//EASYSAVEからデータをロードする。
-
-	private class InnerData { //内部クラス。セーブ用にデータを代替保持する。
-		public MassStruct[][][] i_allfieldmapdatas;
-		public ClearConditionStruct[] i_clearConditionData;
-		//ステージをクリアしたか否か
-		public bool[] i_isStageCleared;
-		public int[] i_MinClearMoveCount;
-
-		public void UpdataMapandClearconditionData (MassStruct[][, ] mapdatas, ClearConditionStruct[] clearCondition) {
-			//m_isStageCleared, m_MinClearMoveCount
-			i_clearConditionData = clearCondition;
-			i_allfieldmapdatas = Convert3DimentionAllayElement (mapdatas);
-		}
-		public void UpdateClearedData (bool[] stagecleared, int[] minClearMoveCount) {
-			i_isStageCleared = stagecleared;
-			i_MinClearMoveCount = minClearMoveCount;
-		}
-		public InnerData () {
-			i_allfieldmapdatas = new MassStruct[Config.stageCount][][];
-			for (int i = 0; i < Config.stageCount; i++) {
-				i_allfieldmapdatas[i] = new MassStruct[Config.maxGridNum][];
-				for (int j = 0; j < Config.maxGridNum; j++) {
-					i_allfieldmapdatas[i][j] = new MassStruct[Config.maxGridNum];
-				}
-			}
-			Debug.Log ("初期化完了！");
-			i_isStageCleared = new bool[Config.stageCount];
-			i_MinClearMoveCount = new int[Config.stageCount];
-		}
-
-		public MassStruct[][][] Convert3DimentionAllayElement (MassStruct[][, ] mapdatas) {
-
-			for (int i = 0; i < Config.stageCount; i++) {
-				for (int j = 0; j < Config.maxGridNum; j++) {
-					for (int k = 0; k < Config.maxGridNum; k++) {
-						i_allfieldmapdatas[i][j][k] = mapdatas[i][j, k];
-					}
-				}
-			}
-			return i_allfieldmapdatas;
-		}
-
-		public MassStruct[][, ] Convert1and2DimentionAllayElement (MassStruct[][][] mapdatas) {
-			MassStruct[][, ] get12mapdatas = new MassStruct[Config.stageCount][, ];
-			for (int i = 0; i < Config.stageCount; i++) {
-				get12mapdatas[i] = new MassStruct[Config.maxGridNum, Config.maxGridNum];
-			}
-
-			for (int i = 0; i < Config.stageCount; i++) {
-				for (int j = 0; j < Config.maxGridNum; j++) {
-					for (int k = 0; k < Config.maxGridNum; k++) {
-						get12mapdatas[i][j, k] = mapdatas[i][j][k];
-					}
-				}
-			}
-			return get12mapdatas;
-		}
-
 	}
 
 }

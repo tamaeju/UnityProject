@@ -15,13 +15,12 @@ public class DataChangerFromJaG : MonoBehaviour { //csvから読み込んだデ�
 	int clearnumberColoumnNum = Config.clearnumberColoumnNum;
 
 	public MassStruct[, ] ParseUsableaMapdatas (int[][] jagdata) {
-		MassStruct[, ] getdata = new MassStruct[Config.maxGridNum, Config.maxGridNum];
+		MassStruct[, ] getdata = new MassStruct[Config.maxGridNum, Config.maxGridNum]; //グリッド×グリッドのマスを初期化
 		for (int j = 0; j < Config.maxGridNum * Config.maxGridNum; j++) {
-			//for (int j = 0; j < jagdata.Length; j++) {
+			//jagdata[csvデータの上からの順番（j番目のデータは[j / Config.maxGridNum, j % Config.maxGridNum]に対応している）][ほしいデータの種類に対応したカラム]
 			//Debug.Log (j);
 			getdata[j / Config.maxGridNum, j % Config.maxGridNum].massnumber = jagdata[j][massCountColoumnNum];
 			getdata[j / Config.maxGridNum, j % Config.maxGridNum].masskind = jagdata[j][massKindColoumnNum];
-
 		}
 		return getdata;
 	}
@@ -30,7 +29,7 @@ public class DataChangerFromJaG : MonoBehaviour { //csvから読み込んだデ�
 
 		ClearConditionStruct[] getdata = new ClearConditionStruct[jagdata.Length];
 		for (int j = 0; j < jagdata.Length; j++) {
-			try { //debug用trycatch
+			try {
 				getdata[j].clearcount = jagdata[j][clearcountColoumnNum];
 				getdata[j].clearnumber = jagdata[j][clearnumberColoumnNum];
 			} catch {

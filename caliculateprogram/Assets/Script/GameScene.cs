@@ -148,6 +148,9 @@ public class GameScene : MonoBehaviour {
 		MassStruct[, ] savedata = editUIcreator.getCurrentFieldDatas ();
 		csvmanager.DebugsaveAllMapCsvData (savedata);
 	}
+	public void saveALLMapDatatoCSV () { //デバッグ用。現在のエディットボタンのステータスで100ステージ分上書きする。
+		dataholder.saveALLMapDatatoCSV ();
+	}
 	private void testTutorialAction () {
 		Debug.Log ("tutorialAction"); //tutorialウインドウを作成し、gameobjectをonにするような形で多分問題ない。
 	}
