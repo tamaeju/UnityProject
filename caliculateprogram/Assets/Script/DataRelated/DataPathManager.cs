@@ -31,7 +31,7 @@ public class DataPathManager : MonoBehaviour { //ゲームデータの保存パ�
 	}
 
 	public string getclearConditionpath () {
-		cleardatapath = "data/" + "clearCondition";
+		cleardatapath = "data/" + "clearCondition"; //ここがリソースからちゃんと読み込めていないかリソースフォルダに入っていない？
 		return cleardatapath;
 	}
 

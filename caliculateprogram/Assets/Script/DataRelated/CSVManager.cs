@@ -29,11 +29,11 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		for (int i = 0; i < lines.Length; i++) {
 			dataElements[i] = new int[RowStrings.Length]; //RowStringsの要素数分データエレメントを作成
 		}
+
 		for (int j = 0; j < Config.maxGridNum * Config.maxGridNum; ++j) {
 			RowStrings = lines[j].Split (','); //j番目のrowstringsを作成
 			for (int i = 0; i < dataElements[i].Length; ++i) {
 				dataElements[j][i] = Int32.Parse (RowStrings[i]);
-				//Debug.LogFormat ("i, j、dataElements[j][i],datapassANDnameは、{0}、{1}、{2},{3}", i, j, dataElements[j][i], datapassANDname);
 			}
 		}
 		return dataElements;

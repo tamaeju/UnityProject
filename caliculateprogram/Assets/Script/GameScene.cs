@@ -35,7 +35,9 @@ public class GameScene : MonoBehaviour {
 		//もし既にセーブデータが存在しないならば、easysaveのストレージからデータを読み込む。
 		//存在すればcsvマネージャーがデータを読み込んできて、それをeasysaveに書き込む処理を挟む。
 		if (!(dataholder.isExitSavedData ())) {
-			dataholder.LoadAllMapDatasfromCSV ();
+			dataholder.LoadAllMapDatasfromCSV (); //mapデータの初期化とcsvからのロード
+			dataholder.LoadfromCsvClearConditionElements (); //クリア条件データの初期化とcsvからのロード
+			dataholder.initializaClearStatusDataofStrage (); //クリアログデータの初期化
 			StrageSaveALLMapandClearConditionDatatoEasySave ();
 		}
 		StorageLoadAllDatafromEasySave ();

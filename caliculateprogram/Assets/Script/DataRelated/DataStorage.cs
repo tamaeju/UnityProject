@@ -24,7 +24,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	}
 
 	public void UpdataStageData (MassStruct[, ] savedata) {
-		nullCheckMapDatas ();
+		DebugnullCheckMapDatas ();
 		m_fieldMapDatas[m_stageNum] = savedata;
 		Debug.Log ("finished UpdataStageData");
 	}
@@ -71,16 +71,16 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	}
 
 	public MassStruct[, ] GetStageMapData (int stageCount) { //指定した1ステージのマップデータをゲットするメソッド
-		nullCheckMapDatas ();
+		DebugnullCheckMapDatas ();
 		return m_fieldMapDatas[stageCount];
 	}
 
 	public bool isStageClear () {
-		nullCheckMapDatas ();
+		if (m_isStageCleared == null) { Debug.LogWarning ("found　null!"); }
 		return m_isStageCleared[m_stageNum]; //取得するのはステージ変更前なので
 	}
 	public bool isStageClear (int stageNum) {
-		nullCheckMapDatas ();
+		if (m_isStageCleared == null) { Debug.LogWarning ("found　null!"); }
 		return m_isStageCleared[stageNum]; //取得するのはステージ変更前なので
 	}
 	public int getMaxStageScore () {
@@ -102,15 +102,6 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		m_MinClearMoveCount = new int[Config.stageCount];
 	}
 
-	private void nullCheckMapDatas () {
-		if (m_fieldMapDatas[m_stageNum] == null) {
-			Debug.Log ("m_fieldMapDatas[stageCount]==null");
-		}
-	}
-
-	//		public bool[] isStageCleared;
-	//public int[] MinClearMoveCount;
-
 	public void LoadfromCsvClearConditionElements () { //m_clearConditionDataを初期化し、洗濯中ステージのデータをロードし上書きするメソッド。
 		m_clearConditionData = csvmanager.getClearConditionElements ();
 	}
@@ -122,7 +113,24 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		}
 	}
 
-	private void showDebugWindow (MassStruct[][, ] mapdatas) {
+	public void saveALLMapDatatoCSV () { //全てのマップデータをcsvへセーブするメソッド
+		for (int i = 0; i < Config.stageCount; i++) {
+			csvmanager.MapCsvSave (GetStageMapData (i), i);
+		}
+	}
+
+	public bool isExitSavedData () { //savedataが存在しているか否かをチェックする
+		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
+		return SaveGame.Exists ("datastrage");
+	}
+
+	private void DebugnullCheckMapDatas () {
+		if (m_fieldMapDatas[m_stageNum] == null) {
+			Debug.Log ("m_fieldMapDatas[stageCount]==null");
+		}
+	}
+
+	private void DebugshowMapdataWindow (MassStruct[][, ] mapdatas) { //MassStruct[][, ]の中身をデバッグする
 		for (int i = 0; i < Config.stageCount; i++) {
 			for (int j = 0; j < Config.maxGridNum; j++) {
 				for (int k = 0; k < Config.maxGridNum; k++) {
@@ -131,27 +139,6 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 			}
 		}
 	}
-	private void LoadfromCsvMapDataElements () {
-		nullCheckMapDatas ();
-		m_fieldMapDatas[m_stageNum] = csvmanager.getMapDataElements (m_stageNum);
-	}
-
-	public void saveALLMapDatatoCSV () { //全てのマップデータをcsvにセーブするメソッド
-		for (int i = 0; i < Config.stageCount; i++) {
-			csvmanager.MapCsvSave (GetStageMapData (i), i);
-		}
-	}
-
-	public bool isExitSavedData () {
-		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
-		return SaveGame.Exists ("datastrage");
-	}
-
-	public void LoadFromCSV () { //csvから今のステージのクリア必要データと、フィールドデータをとってくる、データの初期化ができてない場合はこのメソッドを先に呼んではいけない。
-		LoadfromCsvMapDataElements ();
-		LoadfromCsvClearConditionElements ();
-	}
-
 }
 
 //Debug.LogFormat("allfieldmapdatas, mapdatasは{0},{1}", allfieldmapdatas, mapdatas);
