@@ -35,6 +35,7 @@ public class MathMass : MonoBehaviour {
 		movingobject,
 		goal,
 		SAddtoSub,
+		SSubtoAdd,
 		SSubtoDiv,
 		SMultodive,
 		SdivetoMul,

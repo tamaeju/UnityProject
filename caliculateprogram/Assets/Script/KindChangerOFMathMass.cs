@@ -17,6 +17,8 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 
 	[SerializeField]
 	Text buttontext;
+	[SerializeField]
+	SoundPlayer semaker;
 	public void Start () {
 		buttonObject.SetActive (false); //不可視にするためだけの処理
 	}
@@ -39,9 +41,11 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 	}
 	public void setChangeMassMethod (int massstate) { //自身の所持するボタンオブジェクトにメソッドの登録を行う処理
 		methodDealButton.onClick.RemoveAllListeners ();
-
+		methodDealButton.onClick.AddListener (() => semaker.playSEs (4));
 		if (massstate == (int) MathMass.massstate.SAddtoSub) {
 			methodDealButton.onClick.AddListener (() => ChangeMassKind (MathMass.massstate.add, MathMass.massstate.substract));
+		} else if (massstate == (int) MathMass.massstate.SSubtoAdd) {
+			methodDealButton.onClick.AddListener (() => ChangeMassKind (MathMass.massstate.substract, MathMass.massstate.add));
 		} else if (massstate == (int) MathMass.massstate.SdivetoMul) {
 			methodDealButton.onClick.AddListener (() => ChangeMassKind (MathMass.massstate.divide, MathMass.massstate.multiplicate));
 		} else if (massstate == (int) MathMass.massstate.SIncreasetoDecrease) {
@@ -67,6 +71,8 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 	private string GetButtonName (MathMass.massstate kind) {
 		if (kind == MathMass.massstate.SAddtoSub) {
 			return "+を−にチェンジ";
+		} else if (kind == MathMass.massstate.SSubtoAdd) {
+			return "−を+にチェンジ";
 		} else if (kind == MathMass.massstate.SdivetoMul) {
 			return "÷を×にチェンジ";
 		} else if (kind == MathMass.massstate.SMultodive) {
@@ -76,7 +82,6 @@ public class KindChangerOFMathMass : MonoBehaviour { //スペシャルマスを�
 		} else {
 			return "異常値がセットされています";
 		}
-
 	}
 	//この後必要となるのは、表示されたオブジェクト
 }

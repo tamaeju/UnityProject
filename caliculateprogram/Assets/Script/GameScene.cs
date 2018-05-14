@@ -156,6 +156,25 @@ public class GameScene : MonoBehaviour {
 	private void testTutorialAction () {
 		Debug.Log ("tutorialAction"); //tutorialウインドウを作成し、gameobjectをonにするような形で多分問題ない。
 	}
+	public void testMakeRandmoStage () {
+		deleteDebugUIEditor ();
+		ChangeStagePathNum (99);
+		//このタイミングでランダムでステージを作成するメソッドを作る。
+		//（最初にランダムでステージを作成し、ランダムな位置のオブジェクトをプレイヤーマスにした後、ゴールマスもそれ以外のマスにランダム生成する形にする）
+		objectmaker.LoadMapDatas (); //オブジェクトメイカーがマップデータを読み込む
+		objectmaker.instanciateAllMapObject (); //データからオブジェクトを生成する
+		currentdataholder.GetClearConditionData (); //現在データホルダークラスが全ステージ分のクリア条件を読み込む
+		movedealer.LoadFieldObject (); //オブジェクトの移動を扱うクラスがブジェクトメイカーが作成したデータを取得する。
+		SetGameEndEvent (); //movedealerにゲーム終了時のイベントハンドラを設定する。
+		Action tutorialAction = null;
+		if (!dataholder.isStageClear (1)) { //ステージ1をクリアしていなかったらチュートリアルを表示する。
+			tutorialAction = testTutorialAction;
+		}
+		canvasmaker.showstartcanvas (currentdataholder.GettargetSum (), currentdataholder.GetTargetMoveCount (), tutorialAction); //LevelDisplayCanvasを生成する。
+		panelview.registRenewCountEvent (); //パネルビュークラスとカレントデータのイベント紐づけ
+		panelview.RenewMovecountText (currentdataholder.GetMoveCount ()); //パネルビューの値を初期化
+		panelview.RenewCountText (currentdataholder.GetCurrentSum ()); //パネルビューの値を初期化
+	}
 }
 
 //EditorUISetRandamKind
