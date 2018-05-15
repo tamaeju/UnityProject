@@ -102,7 +102,7 @@ public class MassMoveDealer : MonoBehaviour {
 		Debug.Log ("Goaled!!!");
 	}
 	private bool isInRange (Vector2 checknextmass) {
-		if (0 < checknextmass.x & 0 < checknextmass.y & checknextmass.x < Config.maxGridNum & checknextmass.y < Config.maxGridNum) {
+		if (0 <= checknextmass.x & 0 <= checknextmass.y & checknextmass.x < Config.maxGridNum & checknextmass.y < Config.maxGridNum) {
 			return true;
 		} else {
 			Debug.LogWarning ("NextMass is Out of Range");

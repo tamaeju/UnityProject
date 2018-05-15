@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using UniRx;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,19 +17,19 @@ public class ButtonControllerMethodSetter : MonoBehaviour {
 	MoveController m_backbutton;
 	[SerializeField]
 	MassMoveDealer massmovedealer;
+	[SerializeField]
+	TestLoadSceneAsync testscenemanager;
 
-	void Start() {
-		setControllerMethod();
+	void Start () {
+		setControllerMethod ();
 	}
 
-	public void setControllerMethod() {//ゲームオブジェクトをシリアライズフィールドで入れて、処理を実装
-		m_upbutton.OnClicked.Subscribe(x => { massmovedealer.pushUpButton() ; });
-		m_downbutton.OnClicked.Subscribe(x => { massmovedealer.pushDownButton(); });
-		m_rightbutton.OnClicked.Subscribe(x => { massmovedealer.pushRightButton(); });
-		m_leftbutton.OnClicked.Subscribe(x => { massmovedealer.pushLeftButton(); });
-		m_backbutton.OnClicked.Subscribe(x => { SceneManager.LoadScene("LevelSelect"); ; });
+	public void setControllerMethod () { //ゲームオブジェクトをシリアライズフィールドで入れて、処理を実装
+		m_upbutton.OnClicked.Subscribe (x => { massmovedealer.pushUpButton (); });
+		m_downbutton.OnClicked.Subscribe (x => { massmovedealer.pushDownButton (); });
+		m_rightbutton.OnClicked.Subscribe (x => { massmovedealer.pushRightButton (); });
+		m_leftbutton.OnClicked.Subscribe (x => { massmovedealer.pushLeftButton (); });
+		m_backbutton.OnClicked.Subscribe (_ => testscenemanager.sceneTransitionTest ());
 	}
-
-
 
 }

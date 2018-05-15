@@ -25,6 +25,8 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 	GameObject tutorialcanvasprefab;
 	[SerializeField]
 	SoundPlayer SEmaker;
+	[SerializeField]
+	TestLoadSceneAsync testSceneManager;
 
 	//クリアキャンバスをタップした時はレベル選択画面へ移動する処理を行う。
 	//そのためキャンバスの作成、そのキャンバスにイベントの設定を行う必要がある。
@@ -51,7 +53,8 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement2Text (TargetCount);
 		canvas.ClearedDecolateImage ();
 		canvas.CanvasTouched.Subscribe (_ => SEmaker.playMenuSE ());
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
+		//canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
+		canvas.CanvasTouched.Subscribe (_ => testSceneManager.sceneTransitionTest ());
 
 	}
 	public void showGameovercanvas (long currentMoveCount, long TargetMoveCount) {
@@ -66,7 +69,8 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 		canvas.changeElement2label ("移動回数上限"); //TargetMoveCount
 		canvas.changeElement2Text (TargetMoveCount);
 		canvas.CanvasTouched.Subscribe (_ => SEmaker.playMenuSE ());
-		canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
+		//canvas.CanvasTouched.Subscribe (_ => SceneManager.LoadScene ("afterClearScene"));
+		canvas.CanvasTouched.Subscribe (_ => testSceneManager.sceneTransitionTest ());
 
 	}
 
@@ -95,6 +99,7 @@ public class canvasmaker : MonoBehaviour { //ゲームスタート時とクリ�
 
 	}
 	public void showstartcanvas (long TargetCount, long TargetMoveCount, Action tutorialAction = null) {
+		StartCoroutine (testSceneManager.LoadScene ("afterClearScene"));;
 		SEmaker.playMenuSE ();
 		var parent = UIpos.transform;
 		GameObject clearcanvasobject = Instantiate (startcanvasprefab, this.transform.position, Quaternion.identity, parent) as GameObject;
