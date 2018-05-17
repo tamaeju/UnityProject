@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{593F30D6-1C27-5ACD-1B01-79C0C08C6283}</ProjectGuid>
+    <ProjectGuid>{BDBCB506-C964-B9ED-7B5B-F5A6B23B1906}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -413,37 +413,37 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="FullSerializer">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/downloadedAsset/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
  </Reference>
  <Reference Include="ChannelPurchase">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
  </Reference>
  <Reference Include="UnityStore">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityChannel/UnityStore.dll</HintPath>
  </Reference>
  <Reference Include="Editor">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>
  </Reference>
  <Reference Include="Purchasing.Common">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Purchasing.Common.dll</HintPath>
  </Reference>
  <Reference Include="Stores">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Stores.dll</HintPath>
  </Reference>
  <Reference Include="Apple">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Apple/Apple.dll</HintPath>
  </Reference>
  <Reference Include="FacebookStore">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Facebook/FacebookStore.dll</HintPath>
  </Reference>
  <Reference Include="Security">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Security/live/Security.dll</HintPath>
  </Reference>
  <Reference Include="Tizen">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/Bin/Tizen/Tizen.dll</HintPath>
  </Reference>
  <Reference Include="winrt">
- <HintPath>C:/Users/appirits_1020520/Documents/myGameProject/myrootGameProject/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
