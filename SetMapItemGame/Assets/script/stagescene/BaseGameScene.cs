@@ -19,10 +19,12 @@ public class BaseGameScene : MonoBehaviour {
 	protected ButtonEventManager buttoneventmanager;
 
 	protected canvasmaker canvasMaker;
+
+	[SerializeField]
+	GameObject debugCanvas;
 	int usecolomn_of_mapdata = 3;
 
 	void Start () { //メディエイターからの参照の取得と、デバッグボタンクラスにメソッドの譲渡
-
 		csvmanager = meditator.getcsvmanager ();
 		mapdatamanager = meditator.getmapdatamanager ();
 
@@ -62,6 +64,7 @@ public class BaseGameScene : MonoBehaviour {
 		makeItemMaker (mapdatamanager.getStageNum ());
 		ClearConditionManager clearmanager = meditator.getclearmanager ();
 		clearmanager.clearConditionSet ();
+		clearmanager.makeClearConditionDisplay ();
 
 		makegamestartcanvas ();
 
@@ -89,6 +92,12 @@ public class BaseGameScene : MonoBehaviour {
 			mapeditorUImanager.deleteEditorUIbuttons ();
 		}
 		makeMapObjectANDupdateLeveldesignDataAndCansetData ();
+		OffdebugCanvas ();
+	}
+
+	public void OffdebugCanvas () {
+		debugCanvas.SetActive (false);
+
 	}
 
 }

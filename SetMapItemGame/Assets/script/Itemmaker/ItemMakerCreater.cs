@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemMakerCreater : MonoBehaviour { //Itemmakerとレフトカウントを作成するクラス
 	[SerializeField]
 	Meditator meditator;
+	[SerializeField]
+	StageUIMaker UImaker;
+	[SerializeField]
+	GameObject[] instancepos;
 
 	public void makeItemMaker () //この処理に関してはUIマネージャーに移譲したほうがベターかもしれない
 	{
@@ -19,31 +24,15 @@ public class ItemMakerCreater : MonoBehaviour { //Itemmakerとレフトカウン
 
 		GameObject leftcountprefab = prefabcontainer.getobjectleftCount ();
 		GameObject dragobjectmakerprefab = prefabcontainer.getdragobjectmaker ();
+		//アイテムの残数を表示する部分
 
 		for (int i = 0; i < Config.dragbuttonNum; i++) {
-			float itemmakerpositiondifference = i * 3;
-			float leftcountpositiondifference = i * 150;
-			Transform canvastrans = prefabcontainer.getcanvasposition ().transform; //キャンバスオブジェクトの値を入れて、見かけの値を入れる事で調整している。
-			Vector2 leftcountpos = new Vector2 (414, 115);
-			Vector2 itemlabelpos = new Vector2 (414, 128);
-
-			//アイテムの残数を表示する部分
-			GameObject itemleftCount = uimanager.MakeGetUIobject (leftcountprefab, leftcountpos);
-			GameObject itemlabelname = uimanager.MakeGetUIobject (leftcountprefab, itemlabelpos);
-
-			itemleftCount.transform.position = new Vector3 (canvastrans.position.x + leftcountpos.x, canvastrans.position.y + leftcountpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);
-			itemlabelname.transform.position = new Vector3 (canvastrans.position.x + itemlabelpos.x, canvastrans.position.y + itemlabelpos.y - leftcountpositiondifference, itemleftCount.transform.position.z);
-
-			GameObject dragobjectmaker = Instantiate (dragobjectmakerprefab, dragobjectmakerprefab.GetComponent<Transform> ().position, Quaternion.identity) as GameObject;
-			ItemMaker draggedobject = dragobjectmaker.GetComponent<ItemMaker> ();
-			Transform draggerTrans = draggedobject.transform;
-			draggerTrans.position = new Vector3 (draggerTrans.position.x, draggerTrans.position.y, draggerTrans.position.z - itemmakerpositiondifference);
-
-			draggedobject.setREFofLeftCount (itemleftCount.GetComponent<Text> ());
-			draggedobject.setREFofItemlabel (itemlabelname.GetComponent<Text> ());
-			draggedobject.setMyObjectKind (itemdatamanager.getDragitemkind (i));
-			draggedobject.setObjectLeftCount (itemdatamanager.getDragitemleft (i));
-
+			GameObject instanceOB = Instantiate (dragobjectmakerprefab, instancepos[i].transform.position, Quaternion.identity, instancepos[i].transform) as GameObject;
+			ItemMaker MakerObject = instanceOB.GetComponent<ItemMaker> ();
+			MakerObject.setMyObjectKind (itemdatamanager.getDragitemkind (i));
+			MakerObject.setObjectLeftCount (itemdatamanager.getDragitemleft (i));
+			MakerObject.changeMyTexture (i);
+			UImaker.makestageUI (MakerObject.getMyKind (), MakerObject.ObjectLeftCount, (int) StageUIMaker.displayposition.rightupper + i);
 		}
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,80 +14,59 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	ClearDataManager cleardatamanager;
 	[SerializeField]
 	Meditator meditator;
-
 	[SerializeField]
 	GameObject gameoverprefab;
-
 	[SerializeField]
 	GameObject instancecanvas;
 	canvasmaker canvasMaker;
-
-	//キャンバスメイカーを初期化時に宣言し取得しておく。
-
-	[Watch] int recenteatcount; //現在食事数
-	[Watch] int recenttime; //現在時間
-
-	Vector2 eatconditionaltextpos = new Vector2 (-300, 160); //表示位置
+	[Watch] ReactiveProperty<int> recenteatcount; //現在食事数
+	[Watch] ReactiveProperty<int> recenttime; //現在時間
+	//UIメイカーに命令してUIを作成するよう指定する。
 	Text eatconditiontext;
 	[SerializeField]
 	GameObject eatconditiontexttprefab;
 
-	Vector2 timelimittextpos = new Vector2 (-300, 120); //表示位置
 	Text timelimitconditiontext;
 	[SerializeField]
 	GameObject timelimittextprefab;
 
 	clearconditiondata[] conditionaldatas;
+	[SerializeField]
+	StageUIMaker stageUImaker;
 
 	void Start () { //cleardatamanagerとconditionaldatasをとってくるための初期化
 		datamanager = meditator.getmapdatamanager ();
 		cleardatamanager = meditator.getcleardatamanager ();
 	}
-
+	public void makeClearConditionDisplay () {
+		stageUImaker.makestageUI ("食事数", recenteatcount, 0);
+		stageUImaker.makestageUI ("残り時間", recenttime, 1);
+	}
 	public void clearConditionSet () { //クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
 		conditionaldatas = cleardatamanager.getclearconditondata ();
-		getTextinstance ();
-		recenttime = conditionaldatas[datamanager.getStageNum ()].timelimit;
-		reflectTexttoDisplay ();
-	}
-
-	public void reflectTexttoDisplay () { //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
-		eatconditiontext.text = recenteatcount.ToString ();
-		timelimitconditiontext.text = recenttime.ToString ();
+		recenttime = new ReactiveProperty<int> (conditionaldatas[datamanager.getStageNum ()].timelimit);
+		recenteatcount = new ReactiveProperty<int> (0);
 	}
 	public bool isClear () { //クリアしているかをbooleanで返すメソッド
 		int stagenum = datamanager.getStageNum ();
-		return conditionaldatas[stagenum].RequiredDeffenceCount >= recenteatcount; //ステージが0から始まっている点に要注意
+		return conditionaldatas[stagenum].RequiredDeffenceCount >= recenteatcount.Value; //ステージが0から始まっている点に要注意
 	}
-
-	public void getTextinstance () { //UImakerにテキストを作成してもらい参照を受け取るメソッド
- if (eatconditiontext == null && timelimitconditiontext == null) {
- MapEditorUIManager UImaker = meditator.getUImanager ();
- eatconditiontext = UImaker.MakeGetUIobject (eatconditiontexttprefab, eatconditionaltextpos).GetComponent<Text> ();
- timelimitconditiontext = UImaker.MakeGetUIobject (timelimittextprefab, timelimittextpos).GetComponent<Text> ();
-		}
-	}
-
 	public void decreaseEatCount () {
-		if (recenteatcount > 0) {
-			recenteatcount--;
+		if (recenteatcount.Value > 0) {
+		recenteatcount.Value--;
 		}
 	}
 	public void decreaseTime () {
-		if (recenttime > 0) {
-			recenttime--;
+		if (recenttime.Value > 0) {
+			recenttime.Value--;
 		}
 	}
-
-	//1秒に1回タイムリミットをディクリーズする
 	public IEnumerator timedecreasePerSecond () {
 		int timelimit = conditionaldatas[datamanager.getStageNum ()].timelimit;
 		for (int i = 0; i < timelimit; i++) {
 			decreaseTime ();
-			reflectTexttoDisplay ();
 			yield return new WaitForSeconds (1.0f);
 			if (i == timelimit - 1) {
-				reflectTexttoDisplay ();
 				gameOverEvent ();
 				yield break; //ゲームオーバー処理
 			}
@@ -94,18 +74,17 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	}
 
 	private void gameOverEvent () {
-		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount); } else {
-			canvasMaker.showGameovercanvas (recenteatcount);
+		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount.Value); } else {
+			canvasMaker.showGameovercanvas (recenteatcount.Value);
 		}
 	}
 
 	public void addRecentEatcount () {
-		recenteatcount++;
-		reflectTexttoDisplay (); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
+		recenteatcount.Value++;
+
 	}
 	public void decleaseRecentEatcount () {
-		recenteatcount--;
-		reflectTexttoDisplay (); //コンディションデータを画面内のテキストに反映する,表示を変えたいオブジェクトの生成と参照もしておく
+		recenteatcount.Value--;
 	}
 
 	public void setcanvasMaker (canvasmaker maker) {
