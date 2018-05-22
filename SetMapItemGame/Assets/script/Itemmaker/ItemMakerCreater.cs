@@ -27,12 +27,12 @@ public class ItemMakerCreater : MonoBehaviour { //Itemmakerとレフトカウン
 		//アイテムの残数を表示する部分
 
 		for (int i = 0; i < Config.dragbuttonNum; i++) {
-			GameObject instanceOB = Instantiate (dragobjectmakerprefab, instancepos[i].transform.position, Quaternion.identity, instancepos[i].transform) as GameObject;
+			GameObject instanceOB = Instantiate (dragobjectmakerprefab, instancepos[i].transform.position, Quaternion.Euler (0, 0, 180), instancepos[i].transform) as GameObject;
 			ItemMaker MakerObject = instanceOB.GetComponent<ItemMaker> ();
 			MakerObject.setMyObjectKind (itemdatamanager.getDragitemkind (i));
 			MakerObject.setObjectLeftCount (itemdatamanager.getDragitemleft (i));
 			MakerObject.changeMyTexture (i);
-			UImaker.makestageUI (MakerObject.getMyKind (), MakerObject.ObjectLeftCount, (int) StageUIMaker.displayposition.rightupper + i);
+			UImaker.makeItemUI (MakerObject.getMyKind (), MakerObject.ObjectLeftCount, (int) StageUIMaker.displayposition.rightupper + i);
 		}
 	}
 }

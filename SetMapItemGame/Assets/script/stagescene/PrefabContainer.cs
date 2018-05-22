@@ -20,8 +20,6 @@ public class PrefabContainer : MonoBehaviour {
 	[SerializeField] GameObject dragobjectleftcount;
 	[SerializeField]
 	GameObject word3Dprefab;
-	[SerializeField]
-	GameObject instancecanvas;
 
 	public GameObject getobjectleftCount () {
 		return dragobjectleftcount;
@@ -46,7 +44,4 @@ public class PrefabContainer : MonoBehaviour {
 		return canvasposition;
 	}
 
-	public GameObject getinstancecanvas () {
-		return instancecanvas;
-	}
 }

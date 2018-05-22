@@ -13,6 +13,8 @@ public class UIobject : MonoBehaviour {
 	Text m_label;
 	[SerializeField]
 	Text m_count;
+	[SerializeField]
+	Image m_image;
 	private void changeLabel1 (string newtext) {
 		m_label.text = newtext;
 	}
@@ -29,5 +31,8 @@ public class UIobject : MonoBehaviour {
 		changeLabel1 (textlabel);
 		changecount1 (count.Value);
 		setUIReactiveProperties (count);
+	}
+	public void changeBackgroundSprite (Sprite newSprite) { //初期化時実行メソッド
+		m_image.sprite = newSprite;
 	}
 }

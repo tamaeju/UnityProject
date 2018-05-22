@@ -43,6 +43,7 @@ public class ItemMaker : MonoBehaviour { //ドラッグ＆ドロップで、ア�
 	}
 	public void changeMyTexture (int textureNum) {
 		GetComponent<Renderer> ().material.mainTexture = textures[textureNum];
+
 	}
 
 }

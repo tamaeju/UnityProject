@@ -39,8 +39,8 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 		cleardatamanager = meditator.getcleardatamanager ();
 	}
 	public void makeClearConditionDisplay () {
-		stageUImaker.makestageUI ("食事数", recenteatcount, 0);
-		stageUImaker.makestageUI ("残り時間", recenttime, 1);
+		stageUImaker.makeStageConditionUI ("被ダメージ数", recenteatcount, 0);
+		stageUImaker.makeStageConditionUI ("残り防衛時間", recenttime, 1);
 	}
 	public void clearConditionSet () { //クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
 		conditionaldatas = cleardatamanager.getclearconditondata ();
@@ -74,7 +74,7 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	}
 
 	private void gameOverEvent () {
-		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount.Value); } else {
+		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount.Value, conditionaldatas[datamanager.getStageNum ()].timelimit); } else {
 			canvasMaker.showGameovercanvas (recenteatcount.Value);
 		}
 	}

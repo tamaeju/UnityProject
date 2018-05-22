@@ -17,7 +17,7 @@ public class BaseGameScene : MonoBehaviour {
 	protected ItemmakeEditorCreater itemmakeeditorcreater;
 	protected ItemMakerCreater itemmakermanager;
 	protected ButtonEventManager buttoneventmanager;
-
+	[SerializeField]
 	protected canvasmaker canvasMaker;
 
 	[SerializeField]
@@ -75,8 +75,6 @@ public class BaseGameScene : MonoBehaviour {
 		//その後クリアコンディションマネージャーにゲームオーバー時のキャンバスの登録
 
 		PrefabContainer prefabcontainar = meditator.getprefabcontainer (); //作成するキャンバスのプレハブを取得する
-		canvasMaker = gameObject.AddComponent<canvasmaker> ();
-		canvasMaker.getscenecanvas (prefabcontainar.getinstancecanvas ());
 
 		ClearDataManager cleardatamanager = meditator.getcleardatamanager (); //ステージ開始時のキャンバス作成と、キャンバスタップ時の実行メソッドを渡している。
 		canvasMaker.showstartcanvas (cleardatamanager.getStageClearCondition (), startStagePlay);

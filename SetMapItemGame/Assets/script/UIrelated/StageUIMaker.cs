@@ -13,9 +13,20 @@ public class StageUIMaker : MonoBehaviour {
 	GameObject[] UIpos;
 	[SerializeField]
 	GameObject UIprefab;
-	public void makestageUI (string labelName, ReactiveProperty<int> RXcount, int pos) {
+	[SerializeField]
+	Sprite[] backgroundsprites;
+	private GameObject makeChangebleUI (string labelName, ReactiveProperty<int> RXcount, int pos) {
 		GameObject instanceObject = Instantiate (UIprefab, UIpos[pos].transform.position, Quaternion.identity, UIpos[pos].transform) as GameObject; //ゲームオブジェクトの作成を行う。
 		instanceObject.GetComponent<UIobject> ().instanceUIobject (labelName, RXcount);
+		return instanceObject;
+	}
+	public void makeItemUI (string labelName, ReactiveProperty<int> RXcount, int pos) {
+		GameObject instanceObject = makeChangebleUI (labelName, RXcount, pos);
+		instanceObject.GetComponent<UIobject> ().changeBackgroundSprite (backgroundsprites[1]);
+	}
+	public void makeStageConditionUI (string labelName, ReactiveProperty<int> RXcount, int pos) {
+		GameObject instanceObject = makeChangebleUI (labelName, RXcount, pos);
+		instanceObject.GetComponent<UIobject> ().changeBackgroundSprite (backgroundsprites[0]);
 	}
 	public enum displayposition {
 		leftupper,
