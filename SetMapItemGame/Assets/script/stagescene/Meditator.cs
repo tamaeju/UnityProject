@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meditator : MonoBehaviour {//オブジェクトの参照を代替わりするクラス
+public class Meditator : MonoBehaviour { //オブジェクトの参照を代替わりするクラス
 
 	[SerializeField]
 	CSVManager csvmanager;
@@ -31,68 +31,62 @@ public class Meditator : MonoBehaviour {//オブジェクトの参照を代替�
 	ItemMakerCreater itemmakermanager;
 	[SerializeField]
 	ClearConditionManager clearmanager;
-	[SerializeField]
-	MapDataManager mapdatamanager;
-	[SerializeField]
-	ItemDataManager itemdatamanager;
-	[SerializeField]
-	ClearDataManager cleardatamanager;
+
 	[SerializeField]
 	DataCreateScene datascene;
+	[SerializeField]
+	DataStorage dataholder;
+	[SerializeField]
+	MapDataManager mapdatamanager;
 
-
-	public CSVManager getcsvmanager() {
+	public CSVManager getcsvmanager () {
 		return csvmanager;
 	}
-	public MapDataManager getmapdatamanager() {
-		return mapdatamanager;
-	}
-	public DataPathManager getdatapathmanager() {
+
+	public DataPathManager getdatapathmanager () {
 		return datapathmanager;
 	}
-	public ItemmakeEditorCreater getUIdraghmanager() {
+	public ItemmakeEditorCreater getUIdraghmanager () {
 		return UIdraghmanager;
 	}
-	public MakeManager getmakemanager() {
+	public MakeManager getmakemanager () {
 		return makemanager;
 	}
-	public TouchEventManager gettouchmanager() {
+	public TouchEventManager gettouchmanager () {
 		return touchmanager;
 	}
-	public MapEditorUIManager getUImanager() {
+	public MapEditorUIManager getUImanager () {
 		return UImanager;
 	}
-	public PrefabContainer getprefabcontainer() {
+	public PrefabContainer getprefabcontainer () {
 		return prefabcontainer;
 	}
-	public DataCheck getdatachecker()
-	{
+	public DataCheck getdatachecker () {
 		return datachecker;
 	}
-	public MassDealer getmassdealer()
-	{
+	public MassDealer getmassdealer () {
 		return massdealer;
 	}
-	public DataChangerFromJaG getjagchanger()
-	{
+	public DataChangerFromJaG getjagchanger () {
 		return jagchanger;
 	}
-	public ButtonEventManager getbuttonmanager() {
+	public ButtonEventManager getbuttonmanager () {
 		return buttonmanager;
 	}
-	public ItemMakerCreater getitemmakermanager() {
+	public ItemMakerCreater getitemmakermanager () {
 		return itemmakermanager;
 	}
-	public ClearConditionManager getclearmanager() {
+	public ClearConditionManager getclearmanager () {
 		return clearmanager;
 	}
-	public ItemDataManager getitemdatamanager() {
-		return itemdatamanager;
-	}
-	public ClearDataManager getcleardatamanager() {
-		return cleardatamanager;
-	}
-	public DataCreateScene getdatascene() {
+
+	public DataCreateScene getdatascene () {
 		return datascene;
+	}
+	public DataStorage getdataholder () {
+		return dataholder;
+	}
+	public MapDataManager getmapdatamanager () {
+		return mapdatamanager;
 	}
 }

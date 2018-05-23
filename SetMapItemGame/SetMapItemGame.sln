@@ -1,3 +1,4 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetMapItemGame", "Assembly-CSharp-firstpass.csproj", "{BDBCB506-C964-B9ED-7B5B-F5A6B23B1906}"
@@ -30,6 +31,9 @@ Global
 		{DF1DBDE2-7EC7-0630-AD2E-D50AB8C67745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF1DBDE2-7EC7-0630-AD2E-D50AB8C67745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF1DBDE2-7EC7-0630-AD2E-D50AB8C67745}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj

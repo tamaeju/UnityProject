@@ -12,6 +12,8 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 	int[][] stagedata; //何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）
 	[SerializeField]
 	Meditator meditator;
+	[SerializeField]
+	DataChangerFromJaG datachangerfromJag;
 
 	private int[, ] getDataElement (string aDatapassANDname, int usingcolumnNum) { //データパスと使用するカラムを入力して使用する。
 		int[][] dataElements;
@@ -50,14 +52,16 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		return dataElements;
 	}
 
-	public int[][] getCCDataElement_needtoprocess () {
+	public clearconditiondata[] getCCDataElement () {
 		DataPathManager datapathmanager = meditator.getdatapathmanager ();
-		return getJagDataElement (datapathmanager.getconditiondatapath ());
+		clearconditiondata[] instancedData = datachangerfromJag.parsejagtodobleClearconditiondatas (getJagDataElement (datapathmanager.getconditiondatapath ()));
+		return instancedData;
 	}
 
-	public int[][] getitemDataElement_needtoprocess () {
+	public dragitemdata[][] getitemDataElement () {
 		DataPathManager datapathmanager = meditator.getdatapathmanager ();
-		return getJagDataElement (datapathmanager.getitemdatapath ());
+		dragitemdata[][] instancedData = datachangerfromJag.parsejagtodobledragitemdatadatas (getJagDataElement (datapathmanager.getitemdatapath ()));;
+		return instancedData;
 	}
 
 	private int[, ] parsePracticalDataElements (int[][] oldData, int usingcolumnNum) { //ジャグ配列からグリッド座標毎に1要素となるアイテムに対応した2次元配列への変換メソッド
@@ -87,9 +91,9 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		CSVSave (datapathmanager.getmapdatapath (), writtendata, actaug);
 	}
 
-	public void itemCsvSave (dragitemdata[, ] writtendata) { //CSVSaveのジェネリック使用対応メソッド
+	public void itemCsvSave (dragitemdata[][] writtendata) { //CSVSaveのジェネリック使用対応メソッド
 		DataPathManager datapathmanager = meditator.getdatapathmanager ();
-		Action<dragitemdata[, ]> actaug = writeData;
+		Action<dragitemdata[][]> actaug = writeData;
 		CSVSave (datapathmanager.getitemdatapath (), writtendata, actaug);
 	}
 
@@ -108,10 +112,10 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		Debug.Log ("MapData was written");
 	}
 
-	private void writeData (dragitemdata[, ] writtenData) { //オーバーライドメソッド
-		for (int j = 0; j < writtenData.GetLength (0); j++) {
-			for (int i = 0; i < writtenData.GetLength (1); i++) {
-				m_sw.WriteLine ("{0},{1},{2},{3}", j, i, writtenData[j, i].itemkind, writtenData[j, i].itemcount);
+	private void writeData (dragitemdata[][] writtenData) { //オーバーライドメソッド
+		for (int j = 0; j < writtenData.Length; j++) {
+			for (int i = 0; i < writtenData[0].Length; i++) {
+				m_sw.WriteLine ("{0},{1},{2},{3}", j, i, writtenData[j][i].itemkind, writtenData[j][i].itemcount);
 			}
 		}
 		Debug.Log ("itemdata was written");

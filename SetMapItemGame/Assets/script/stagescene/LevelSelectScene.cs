@@ -10,7 +10,6 @@ using UnityEngine.UI;
 
 public class LevelSelectScene : BaseGameScene { //ゲームシーンクラスとの違いは
 
-
 	[SerializeField]
 	LevelSelectCanvasManager canvasmanager;
 	int usecolomn_of_mapdata = 3;
@@ -24,9 +23,8 @@ public class LevelSelectScene : BaseGameScene { //ゲームシーンクラスと
 
 	public void stageCall (int myStageCount) { //ステージを呼び出す処理
 		MapDataManager mapdatamanager = meditator.getmapdatamanager ();
-		mapdatamanager.changeStageNum (myStageCount);
+		//mapdatamanager.changeStageNum (myStageCount);
 		makeObjectFromMapCsvButton ();
-		canvasmanager.canvasdisplayOff ();
 
 	}
 }

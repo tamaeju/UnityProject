@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class ClearConditionManager : MonoBehaviour { //クリア条件を管理するクラス
 
 	MapDataManager datamanager;
-	ClearDataManager cleardatamanager;
 	[SerializeField]
 	Meditator meditator;
 	[SerializeField]
@@ -31,29 +30,31 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	GameObject timelimittextprefab;
 
 	clearconditiondata[] conditionaldatas;
+	clearconditiondata conditionaldata;
 	[SerializeField]
 	StageUIMaker stageUImaker;
+	[SerializeField]
+	DataStorage dataholder;
 
 	void Start () { //cleardatamanagerとconditionaldatasをとってくるための初期化
 		datamanager = meditator.getmapdatamanager ();
-		cleardatamanager = meditator.getcleardatamanager ();
 	}
 	public void makeClearConditionDisplay () {
 		stageUImaker.makeStageConditionUI ("被ダメージ数", recenteatcount, 0);
 		stageUImaker.makeStageConditionUI ("残り防衛時間", recenttime, 1);
 	}
 	public void clearConditionSet () { //クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
-		conditionaldatas = cleardatamanager.getclearconditondata ();
-		recenttime = new ReactiveProperty<int> (conditionaldatas[datamanager.getStageNum ()].timelimit);
+		conditionaldata = dataholder.GetClearConditionElement ();
+		recenttime = new ReactiveProperty<int> (conditionaldatas[dataholder.getStageNum ()].timelimit);
 		recenteatcount = new ReactiveProperty<int> (0);
 	}
 	public bool isClear () { //クリアしているかをbooleanで返すメソッド
-		int stagenum = datamanager.getStageNum ();
-		return conditionaldatas[stagenum].RequiredDeffenceCount >= recenteatcount.Value; //ステージが0から始まっている点に要注意
+
+		return dataholder.GetClearConditionElement ().RequiredDeffenceCount >= recenteatcount.Value; //ステージが0から始まっている点に要注意
 	}
 	public void decreaseEatCount () {
 		if (recenteatcount.Value > 0) {
-		recenteatcount.Value--;
+			recenteatcount.Value--;
 		}
 	}
 	public void decreaseTime () {
@@ -62,7 +63,7 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 		}
 	}
 	public IEnumerator timedecreasePerSecond () {
-		int timelimit = conditionaldatas[datamanager.getStageNum ()].timelimit;
+		int timelimit = dataholder.GetClearConditionElement ().timelimit;
 		for (int i = 0; i < timelimit; i++) {
 			decreaseTime ();
 			yield return new WaitForSeconds (1.0f);
@@ -74,7 +75,7 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	}
 
 	private void gameOverEvent () {
-		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount.Value, conditionaldatas[datamanager.getStageNum ()].timelimit); } else {
+		if (isClear ()) { canvasMaker.showclearcanvas (recenteatcount.Value, dataholder.GetClearConditionElement ().timelimit); } else {
 			canvasMaker.showGameovercanvas (recenteatcount.Value);
 		}
 	}

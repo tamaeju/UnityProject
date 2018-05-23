@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -24,8 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
@@ -33,8 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-	<LangVersion>default</LangVersion>
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.XML" />
@@ -270,6 +267,12 @@
  <Reference Include="FullSerializer">
  <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/BayatGames/SaveGameFree/Plugins/FullSerializer.dll</HintPath>
  </Reference>
+ <Reference Include="HOTween">
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/Ultimate GUI Kit/HOTweenMicro/HOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="HOTweenV1_Editor">
+ <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/Ultimate GUI Kit/HOTweenMicro/Editor/HOTweenV1_Editor.dll</HintPath>
+ </Reference>
  <Reference Include="ChannelPurchase">
  <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityChannel/ChannelPurchase.dll</HintPath>
  </Reference>
@@ -300,12 +303,6 @@
  <Reference Include="winrt">
  <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/Plugins/UnityPurchasing/winrt/winrt.dll</HintPath>
  </Reference>
- <Reference Include="HOTween">
- <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/Ultimate GUI Kit/HOTweenMicro/HOTween.dll</HintPath>
- </Reference>
- <Reference Include="HOTweenV1_Editor">
- <HintPath>C:/Users/appirits_1020520/Documents/UnityProject/SetMapItemGame/Assets/downloadedAsset/Ultimate GUI Kit/HOTweenMicro/Editor/HOTweenV1_Editor.dll</HintPath>
- </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
@@ -319,4 +316,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

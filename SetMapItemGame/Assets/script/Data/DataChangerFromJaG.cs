@@ -33,13 +33,16 @@ public class DataChangerFromJaG : MonoBehaviour { //csvから読み込んだデ�
 		return getdata;
 	}
 
-	public dragitemdata[, ] parsejagtodobledragitemdatadatas (int[][] jagdata) {
+	public dragitemdata[][] parsejagtodobledragitemdatadatas (int[][] jagdata) {
 		int xlength = jagdata[0].Length;
 		Debug.LogFormat ("jagdata.Length, jagdata[0].Lengthはそれぞれ{0},{1}", jagdata.Length, jagdata[0].Length);
-		dragitemdata[, ] getdata = new dragitemdata[jagdata.Length / xlength, jagdata[0].Length];
+		dragitemdata[][] getdata = new dragitemdata[jagdata.Length][];
+		for (int i = 0; i < getdata.Length; i++) {
+			getdata[i] = new dragitemdata[jagdata[0].Length];
+		}
 		for (int j = 0; j < jagdata.Length; j++) {
-			getdata[j / xlength, j % xlength].itemkind = jagdata[j][itemkindElementNum];
-			getdata[j / xlength, j % xlength].itemcount = jagdata[j][itemcountElementNum];
+			getdata[j / xlength][j % xlength].itemkind = jagdata[j][itemkindElementNum];
+			getdata[j / xlength][j % xlength].itemcount = jagdata[j][itemcountElementNum];
 
 		}
 		return getdata;

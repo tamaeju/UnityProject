@@ -19,6 +19,8 @@ public class BaseGameScene : MonoBehaviour {
 	protected ButtonEventManager buttoneventmanager;
 	[SerializeField]
 	protected canvasmaker canvasMaker;
+	[SerializeField]
+	protected DataStorage dataholder;
 
 	[SerializeField]
 	GameObject debugCanvas;
@@ -40,17 +42,16 @@ public class BaseGameScene : MonoBehaviour {
 	}
 
 	public void makeItemMaker (int stageNum) { //アイテムメイカークラスの作成
-		ItemDataManager itemdatamanager;
-		itemmakermanager = meditator.getitemmakermanager ();
-		itemdatamanager = meditator.getitemdatamanager ();
 
-		itemdatamanager.LoadALLdragitemdata ();
-		mapdatamanager.changeStageNum (stageNum);
+		itemmakermanager = meditator.getitemmakermanager ();
+
+		dataholder.GetDragItemElements ();
+		dataholder.ChangeStagePathNum (stageNum);
 		itemmakermanager.makeItemMaker ();
 	}
 
 	public void ChangeCSVNum (Dropdown dropdown) { //保存かつ読み込み元のcsvを変更するメソッド
-		mapdatamanager.changeStageNum (dropdown.value);
+		dataholder.ChangeStagePathNum (dropdown.value);
 	}
 	public void makeMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
 	{
@@ -61,7 +62,7 @@ public class BaseGameScene : MonoBehaviour {
 		if (itemmakeeditorcreater != null) {
 			itemmakeeditorcreater.deletebutton ();
 		}
-		makeItemMaker (mapdatamanager.getStageNum ());
+		makeItemMaker (dataholder.getStageNum ());
 		ClearConditionManager clearmanager = meditator.getclearmanager ();
 		clearmanager.clearConditionSet ();
 		clearmanager.makeClearConditionDisplay ();
@@ -76,8 +77,8 @@ public class BaseGameScene : MonoBehaviour {
 
 		PrefabContainer prefabcontainar = meditator.getprefabcontainer (); //作成するキャンバスのプレハブを取得する
 
-		ClearDataManager cleardatamanager = meditator.getcleardatamanager (); //ステージ開始時のキャンバス作成と、キャンバスタップ時の実行メソッドを渡している。
-		canvasMaker.showstartcanvas (cleardatamanager.getStageClearCondition (), startStagePlay);
+		//ステージ開始時のキャンバス作成と、キャンバスタップ時の実行メソッドを渡している。
+		canvasMaker.showstartcanvas (dataholder.GetClearConditionElement (), startStagePlay);
 
 		ClearConditionManager clearmanager = meditator.getclearmanager (); //ゲームオーバー時にクリアコンディションマネージャーがキャンバスメイカーを使用するためセット
 		clearmanager.setcanvasMaker (canvasMaker);

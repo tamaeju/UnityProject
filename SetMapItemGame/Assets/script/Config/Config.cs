@@ -8,7 +8,7 @@ public class Config : MonoBehaviour {//ゲームのシステムや不変の設�
 	public readonly static int maxGridNum  = 10;
 	public Transform groundtransform;
 	public Vector3 firstblocklocalposition;
-	public readonly static int stageCount = 100;
+	public readonly static int stageCount = 45;
 	public readonly static int dragbuttonNum = 3;
 	public readonly static int itemkindlength = 8;
 	public readonly static int blockkindlength = 12;

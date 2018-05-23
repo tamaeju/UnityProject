@@ -19,7 +19,7 @@ public class ItemMakerCreater : MonoBehaviour { //Itemmakerとレフトカウン
 	public void makeItemMaker () //この処理に関してはUIマネージャーに移譲したほうがベターかもしれない
 	{
 		PrefabContainer prefabcontainer = meditator.getprefabcontainer ();
-		ItemDataManager itemdatamanager = meditator.getitemdatamanager ();
+		DataStorage dataholder = meditator.getdataholder ();
 		MapEditorUIManager uimanager = meditator.getUImanager ();
 
 		GameObject leftcountprefab = prefabcontainer.getobjectleftCount ();
@@ -29,8 +29,8 @@ public class ItemMakerCreater : MonoBehaviour { //Itemmakerとレフトカウン
 		for (int i = 0; i < Config.dragbuttonNum; i++) {
 			GameObject instanceOB = Instantiate (dragobjectmakerprefab, instancepos[i].transform.position, Quaternion.Euler (0, 0, 180), instancepos[i].transform) as GameObject;
 			ItemMaker MakerObject = instanceOB.GetComponent<ItemMaker> ();
-			MakerObject.setMyObjectKind (itemdatamanager.getDragitemkind (i));
-			MakerObject.setObjectLeftCount (itemdatamanager.getDragitemleft (i));
+			MakerObject.setMyObjectKind (dataholder.GetDragItemElement () [i].itemkind);
+			MakerObject.setObjectLeftCount (dataholder.GetDragItemElement () [i].itemcount);
 			MakerObject.changeMyTexture (i);
 			UImaker.makeItemUI (MakerObject.getMyKind (), MakerObject.ObjectLeftCount, (int) StageUIMaker.displayposition.rightupper + i);
 		}

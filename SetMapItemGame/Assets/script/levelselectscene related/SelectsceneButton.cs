@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Collections;
+using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using UniRx;
 
-public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタンクラス
+public class SelectsceneButton : MonoBehaviour { //レベル選択画面のボタンクラス
 	Text mytext;
 	[SerializeField]
 	GameObject effectprefab;
@@ -16,46 +17,45 @@ public class SelectsceneButton : MonoBehaviour {//レベル選択画面のボタ
 	int myStageCount;
 	[SerializeField]
 	Button btn;
-
-
-
-
-	private Subject<int> subject = new Subject<int>();
-
-	private void Start() {
-
-		btn.onClick.AddListener(delegate { subject.OnNext(myStageCount); });
-	}
+	[SerializeField]
+	GameObject m_clearedIconprefab;
+	[SerializeField]
+	GameObject m_Unplayblelaconprefab;
+	private Subject<int> subject = new Subject<int> ();
 
 	public IObservable<int> OnClickedStageButton {
 		get { return subject; }
 	}
 
+	private void Start () {
+		btn.onClick.AddListener (() => { changeScale (subject.OnNext); });
+		//btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });
 
-
-	public  void changeThisText(string textname) {
-		mytext = this.gameObject.GetComponentInChildren<Text>();
-		mytext.text = textname;
 	}
-	//ボタンをクリックした時に自身のmyStageCountを引数としてイベントを発行する。
-	//イベント登録については生成時にゲームクリエイトシーンに登録してもらう。
 
-	public void changeMystageCount(int stagecount) {//ボタンクリックで動作する処理。自分の値をステージレベルの引数として渡す。
+	public void RemoveButtonEvent () {
+		Destroy (this);
+	}
+
+	public void changeThisText (int stage) {
+		mytext = this.gameObject.GetComponentInChildren<Text> ();
+		mytext.text = (stage).ToString ();
+	}
+
+	public void changeMystageCount (int stagecount) {
 		myStageCount = stagecount;
 	}
-
-
-	public void parentActiveOff() {//キャンバスを不可視にするための処理
-		GameObject parent = this.transform.parent.parent.parent.gameObject;
-		parent.SetActive(false); 
+	public void ActiveClearedIcon () {
+		m_clearedIconprefab.SetActive (true);
+	}
+	public void ActiveUnplaybleIcon () {
+		m_Unplayblelaconprefab.SetActive (true);
+	}
+	private void changeScale (Action<int> act) {
+		RectTransform recttrans = GetComponent<RectTransform> ();
+		Sequence sequence = DOTween.Sequence ().OnStart (() => {
+			recttrans.DOScale (new Vector3 (0.9f, 0.9f, 0.9f), 0.1f);
+		}).Append (recttrans.DOScale (new Vector3 (1f, 1f, 1f), 0.2f)).OnComplete (() => act (myStageCount));
 	}
 
-	public void makeEffectPrefab() {
-		Vector3 instancepos;
-		instancepos = this.transform.position;
-		instancepos.z = -10;
-		Instantiate(effectprefab, this.transform.position, Quaternion.identity);
-	}
-	//最高スコアを所持しているクラスを作りたい。
-	//ステージ開始時とステージ終了時にスコアが表示されるよう修正を行いたい
 }

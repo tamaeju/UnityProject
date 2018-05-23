@@ -13,6 +13,7 @@ public class DataPathManager : MonoBehaviour { //ゲームデータの保存パ�
 	private string[] csvdatapath;
 	private string[] originfilename;
 	private int filekindlength = Config.filekindlength;
+	private int m_stage;
 
 	void Start () {
 		filename = new string[filekindlength];
@@ -20,29 +21,32 @@ public class DataPathManager : MonoBehaviour { //ゲームデータの保存パ�
 		originfilename = new string[filekindlength];
 
 		originfilename[0] = "mapData";
-		originfilename[1] = "ditemData0";
-		originfilename[2] = "clearconditionalData0";
+		originfilename[1] = "ditemData";
+		originfilename[2] = "clearconditionalData";
 
-		for (int i = 0; i < filekindlength; i++) {
-			filename[i] = originfilename[i];
-			csvdatapath[i] = "data/" + filename[i];
-		}
+		ChangeMapCSVNum (0);
 	}
 
 	public string getmapdatapath () {
+		Debug.LogFormat ("今のm_stageは{0}です", m_stage);
 		return csvdatapath[0];
 	}
 	public string getitemdatapath () {
+		Debug.LogFormat ("今のm_stageは{0}です", m_stage);
 		return csvdatapath[1];
 	}
 	public string getconditiondatapath () {
+		Debug.LogFormat ("今のm_stageは{0}です", m_stage);
 		return csvdatapath[2];
 	}
 
 	public void ChangeMapCSVNum (int stagevalue) { //保存先かつ呼び出し元のファイルパスを変更する。
-		filename[0] = originfilename[0] + stagevalue.ToString ();
-		csvdatapath[0] = "data/" + filename[0];
-		Debug.Log (String.Format ("{0}file was changed ", csvdatapath[0]));
+		m_stage = stagevalue;
+		for (int i = 0; i < filename.Length; i++) {
+			filename[i] = originfilename[i] + stagevalue.ToString ();
+			csvdatapath[i] = "data/" + filename[i];
+			Debug.Log (String.Format ("{0}file was changed ", csvdatapath[i]));
+		}
 	}
 	public enum datakind {
 		map,
