@@ -45,7 +45,7 @@ public class ClearConditionManager : MonoBehaviour { //クリア条件を管理�
 	}
 	public void clearConditionSet () { //クリア条件の更新、クリア条件を表示するテキスト表示、ステージタイムの更新開始、今のところステージ開始時のみ呼び出し
 		conditionaldata = dataholder.GetClearConditionElement ();
-		recenttime = new ReactiveProperty<int> (conditionaldatas[dataholder.getStageNum ()].timelimit);
+		recenttime = new ReactiveProperty<int> (dataholder.GetClearConditionElement().timelimit);
 		recenteatcount = new ReactiveProperty<int> (0);
 	}
 	public bool isClear () { //クリアしているかをbooleanで返すメソッド

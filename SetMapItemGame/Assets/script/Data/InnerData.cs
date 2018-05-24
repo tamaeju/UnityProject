@@ -34,6 +34,12 @@ public class InnerData { //内部クラス。セーブ用にデータを代替�
 				i_allfieldmapdatas[i][j] = new int[Config.maxGridNum];
 			}
 		}
+		i_clearConditionData = new clearconditiondata[Config.stageCount];
+		i_dragitemData = new dragitemdata[Config.stageCount][];
+		for (int i = 0; i < Config.stageCount; i++) {
+			i_dragitemData[i] = new dragitemdata[Config.dragbuttonNum];
+		}
+
 		Debug.Log ("初期化完了！");
 		i_isStageCleared = new bool[Config.stageCount];
 		i_MinClearMoveCount = new int[Config.stageCount];

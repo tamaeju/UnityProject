@@ -46,11 +46,13 @@ public class TouchEventManager : MonoBehaviour { //画面をtouchした際の挙
 	}
 
 	void checkandSetTouchObjectKind () { //レイキャストを飛ばしたオブジェクトで参照を設定
-		if (rayemitter.getObject ().GetComponent<ItemMaker> () != null) {
+		if (rayemitter.getObject ().GetComponent<ItemMaker> ()) {
+			//if (rayemitter.getObject ().GetComponent<ItemMaker> () != null) {
 			draggeeditem = rayemitter.getObject ().GetComponent<ItemMaker> ();
 			DisplayMoveagent = null;
 		}
-		if (rayemitter.getObject ().GetComponent<DisplayMoveAgent> () != null) {
+		if (rayemitter.getObject ().GetComponent<DisplayMoveAgent> ()) {
+			//if (rayemitter.getObject ().GetComponent<DisplayMoveAgent> () != null) {
 			DisplayMoveagent = rayemitter.getObject ().GetComponent<DisplayMoveAgent> ();
 			draggeeditem = null;
 		}

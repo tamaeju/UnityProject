@@ -15,39 +15,41 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	[SerializeField]
 	DataPathManager datapathmanager;
 	int[][, ] m_fieldMapDatas;
-	clearconditiondata[] m_clearConditionData;
-	dragitemdata[][] i_dragitemData;
+	clearconditiondata[] m_clearConditionDatas;
+	dragitemdata[][] m_dragitemDatas;
 	bool[] m_isStageCleared;
 	int[] m_MinClearMoveCount;
 	int m_stageNum;
 	InnerData data;
 
 	public clearconditiondata[] GetClearConditionElements () { //自身の所有するクリア条件データを取得する
-		return m_clearConditionData;
+		if (m_clearConditionDatas == null) { Debug.LogWarning ("m_clearConditionDatas is null"); }
+		return m_clearConditionDatas;
 	}
 	public dragitemdata[][] GetDragItemElements () { //自身の所有するクリア条件データを取得する
-		return i_dragitemData;
+		if (m_dragitemDatas == null) { Debug.LogWarning ("i_dragitemData is null"); }
+		return m_dragitemDatas;
 	}
 	public int[][, ] GetfieldMapElements () { //自身の所有するクリア条件データを取得する
+		if (m_fieldMapDatas == null) { Debug.LogWarning ("m_fieldMapDatas is null"); }
 		return m_fieldMapDatas;
 	}
 	public clearconditiondata GetClearConditionElement () { //自身の所有するクリア条件データを取得する
-		clearconditiondata StageData = m_clearConditionData[m_stageNum];
-		return StageData;
+		if (m_clearConditionDatas == null) { Debug.LogWarning ("m_clearConditionDatas is null"); }
+		return m_clearConditionDatas[m_stageNum];
 	}
 	public dragitemdata[] GetDragItemElement () { //自身の所有するクリア条件データを取得する
-		dragitemdata[] StageData = i_dragitemData[m_stageNum];
-		return StageData;
+		if (m_dragitemDatas == null) { Debug.LogWarning ("i_dragitemData is null"); }
+		return m_dragitemDatas[m_stageNum];
 	}
 	public int[, ] GetfieldMapElement () { //自身の所有するクリア条件データを取得する
-		int[, ] StageData = m_fieldMapDatas[m_stageNum];
-		return StageData;
+		if (m_fieldMapDatas == null) { Debug.LogWarning ("m_fieldMapDatas is null"); }
+		return m_fieldMapDatas[m_stageNum];
 	}
 	public void UpdateDragitemData (int UIbuttonNum, int itemkind, int leftcount) { //dragitem更新用処理
-
-		Debug.Log (String.Format ("dragitemdatas, UIbuttonNum, stage   {0},{1},{2}   ", i_dragitemData, UIbuttonNum, m_stageNum));
-		i_dragitemData[m_stageNum][UIbuttonNum].itemkind = itemkind;
-		i_dragitemData[m_stageNum][UIbuttonNum].itemcount = leftcount;
+		Debug.Log (String.Format ("dragitemdatas, UIbuttonNum, stage   {0},{1},{2}   ", m_dragitemDatas, UIbuttonNum, m_stageNum));
+		m_dragitemDatas[m_stageNum][UIbuttonNum].itemkind = itemkind;
+		m_dragitemDatas[m_stageNum][UIbuttonNum].itemcount = leftcount;
 	}
 
 	public void UpdataStageData (int[, ] savedata) {
@@ -67,25 +69,21 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		if (data == null) {
 			data = new InnerData ();
 		}
-		data.UpdataMapandClearconditionData (m_fieldMapDatas, m_clearConditionData, i_dragitemData);
+		data.UpdataMapandClearconditionData (m_fieldMapDatas, m_clearConditionDatas, m_dragitemDatas);
 		data.UpdateClearedData (m_isStageCleared, m_MinClearMoveCount);
 		SaveGame.Save ("datastrage", data);
 		Debug.Log ("finished StorageSaveEasySave");
 	}
 
-	public void LoadAllData () { //自身の内部クラスをロードし、内部クラスの所有するデータで自身のデータを上書きする
+	public void LoadData () { //自身の内部クラスをロードし、内部クラスの所有するデータで自身のデータを上書きする
 		var newstragedata = SaveGame.Load<InnerData> ("datastrage");
 		data = newstragedata;
 
 		m_fieldMapDatas = newstragedata.Convert1and2DimentionAllayElement (newstragedata.i_allfieldmapdatas);
-		m_clearConditionData = newstragedata.i_clearConditionData;
+		m_clearConditionDatas = newstragedata.i_clearConditionData;
 		m_isStageCleared = newstragedata.i_isStageCleared;
 		m_MinClearMoveCount = newstragedata.i_MinClearMoveCount;
 		Debug.Log ("finished LoadAllData");
-	}
-
-	public int getStageNum () { //ステージ番号を返すメソッド
-		return m_stageNum;
 	}
 
 	public void ChangeStagePathNum (Dropdown dropdown) { //ステージ番号を変更するメソッド。
@@ -98,9 +96,52 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		m_stageNum = stageNum;
 	}
 
-	public int[, ] GetStageMapData (int stageCount) { //指定した1ステージのマップデータをゲットするメソッド
-		DebugnullCheckMapDatas ();
-		return m_fieldMapDatas[stageCount];
+	public void initializaClearStatusDataofStrage () {
+		m_isStageCleared = new bool[Config.stageCount];
+		m_MinClearMoveCount = new int[Config.stageCount];
+	}
+	private void getAllCsvDatatoStrage () {
+		LoadfromCsvClearConditionElements ();
+		LoadfromCsvDragItemElements ();
+		LoadAllMapDatasfromCSV ();
+	}
+	public void getALLDatas () {
+		if (isExitSavedData ()) {
+			LoadData ();
+		} else {
+			initializaClearStatusDataofStrage ();
+			getAllCsvDatatoStrage ();
+			StorageSaveEasySave ();
+		}
+
+	}
+
+	public bool isDatasNull () {
+		return m_fieldMapDatas == null | m_clearConditionDatas == null | m_dragitemDatas == null;
+	}
+	private void LoadfromCsvClearConditionElements () { //m_clearConditionDataを初期化し、洗濯中ステージのデータをロードし上書きするメソッド。
+		m_clearConditionDatas = csvmanager.getCCDataElements ();
+	}
+
+	private void LoadAllMapDatasfromCSV () { //m_fieldMapDatasを初期化し、選択中ステージのデータをロードし上書きするメソッド。
+		m_fieldMapDatas = csvmanager.getMapDataElements ();
+
+	}
+
+	private void LoadfromCsvDragItemElements () { //m_clearConditionDataを初期化し、洗濯中ステージのデータをロードし上書きするメソッド。
+		m_dragitemDatas = csvmanager.getitemDataElements ();
+	}
+	public void saveALLMapDatatoCSV () { //全てのマップデータをcsvへセーブするメソッド
+		for (int i = 0; i < Config.stageCount; i++) {
+			ChangeStagePathNum (i);
+			csvmanager.MapCsvSave (GetfieldMapElement ());
+		}
+		csvmanager.itemCsvSave (GetDragItemElements ());
+	}
+
+	public bool isExitSavedData () { //savedataが存在しているか否かをチェックする
+		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
+		return SaveGame.Exists ("datastrage");
 	}
 
 	public bool isStageClear () {
@@ -123,34 +164,6 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	}
 	public void setMaxStageScore (int newScore) {
 		m_MinClearMoveCount[m_stageNum] = newScore;
-	}
-
-	public void initializaClearStatusDataofStrage () {
-		m_isStageCleared = new bool[Config.stageCount];
-		m_MinClearMoveCount = new int[Config.stageCount];
-	}
-
-	public void LoadfromCsvClearConditionElements () { //m_clearConditionDataを初期化し、洗濯中ステージのデータをロードし上書きするメソッド。
-		m_clearConditionData = csvmanager.getCCDataElement ();
-	}
-
-	public void LoadAllMapDatasfromCSV () { //m_fieldMapDatasを初期化し、選択中ステージのデータをロードし上書きするメソッド。
-		m_fieldMapDatas = new int[Config.stageCount][, ];
-		for (int j = 0; j < Config.stageCount; j++) {
-			datapathmanager.ChangeMapCSVNum (j);
-			m_fieldMapDatas[j] = csvmanager.getMapDataElement ();
-		}
-	}
-
-	public void saveALLMapDatatoCSV () { //全てのマップデータをcsvへセーブするメソッド
-		for (int i = 0; i < Config.stageCount; i++) {
-			csvmanager.MapCsvSave (GetStageMapData (i));
-		}
-	}
-
-	public bool isExitSavedData () { //savedataが存在しているか否かをチェックする
-		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
-		return SaveGame.Exists ("datastrage");
 	}
 
 	private void DebugnullCheckMapDatas () {

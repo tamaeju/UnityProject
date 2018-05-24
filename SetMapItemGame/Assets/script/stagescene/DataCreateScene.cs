@@ -28,13 +28,4 @@ public class DataCreateScene : BaseGameScene {
 		buttoneventmanager.setmakeMapCsvButton (makeMapCsv);
 	}
 
-	private void makeMapObjectANDupdateLeveldesignDataAndCansetData () {
-		int[, ] _leveldesigndata = csvmanager.getMapDataElement (); //生成するための現在ステージのマップデータを読み込み
-		makemanager = meditator.getmakemanager ();
-		makemanager.instanciateAllMapObject (_leveldesigndata); //オブジェクトの作成命令
-		makemanager.gameObject.GetComponent<distinationSetter> ().setditination (); //ターゲットムーブのスクリプトを保持するオブジェクトにターゲット指定を行う
-		makemanager.gameObject.GetComponent<distinationSetter> ().setAidditination (); //aidターゲットのスクリプトを保持するオブジェクトにターゲット指定を行う
-		mapdatamanager.updateCansetDatas (_leveldesigndata); //レベルデザインデータを元にアイテムを置けるかの判定用データを更新。
-	}
-
 }

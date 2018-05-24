@@ -11,7 +11,7 @@ public class ButtonEventManager : MonoBehaviour {//ボタンを押した時の�
 	[SerializeField]
 	Meditator meditator;
 	Action makemethod;
-	Action<int> makeMakermethod;
+	Action  makeMakermethod;
 	Action<Dropdown> changecsvmethod;
 	Action makecsvmethod;
 	Action makeobjectmakeitemmakerdeleteUImethod;
@@ -48,11 +48,11 @@ public class ButtonEventManager : MonoBehaviour {//ボタンを押した時の�
 
 
 
-	public void makeItemMaker(int stageNum) {
-		makeMakermethod(stageNum);
+	public void makeItemMaker() {
+		makeMakermethod();
 	}
 
-	public void setmakeItemMaker(Action<int> anact) {
+	public void setmakeItemMaker(Action  anact) {
 		makeMakermethod = anact;
 	}
 

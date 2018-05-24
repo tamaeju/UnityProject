@@ -9,25 +9,18 @@ using UnityEngine.UI;
 
 public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き込みを行うクラス
 	StreamWriter m_sw;
-	int[][] stagedata; //何秒以内クリアか、必要捕食数のデータのデータ。（ゲームで実際に使用するのはstruct型の2次元配列）
 	[SerializeField]
 	Meditator meditator;
 	[SerializeField]
 	DataChangerFromJaG datachangerfromJag;
-
+	[SerializeField]
+	DataPathManager datapathmanager;
 	private int[, ] getDataElement (string aDatapassANDname, int usingcolumnNum) { //データパスと使用するカラムを入力して使用する。
 		int[][] dataElements;
 		int[, ] practicalDataElements;
 		dataElements = getJagDataElement (aDatapassANDname);
 		practicalDataElements = parsePracticalDataElements (dataElements, usingcolumnNum);
 		return practicalDataElements;
-	}
-
-	public int[, ] getMapDataElement () { //データパスと使用するカラムを入力して使用する。
-		int usecolomnnum = Config.usecolomn_of_mapdata - 1;
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
-		string mapdatapass = datapathmanager.getmapdatapath ();
-		return getDataElement (mapdatapass, usecolomnnum);
 	}
 
 	private int[][] getJagDataElement (string datapassANDname) { //ジャグデータをもらってから、それを2次元配列に入れる事が重要。その場合はint[][]からs
@@ -51,15 +44,22 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		}
 		return dataElements;
 	}
-
-	public clearconditiondata[] getCCDataElement () {
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
+	public int[][, ] getMapDataElements () { //データパスと使用するカラムを入力して使用する。
+		int[][, ] instancedData = new int[Config.stageCount][, ];
+		int usecolomnnum = Config.usecolomn_of_mapdata - 1;
+		string mapdatapass = datapathmanager.getmapdatapath ();
+		for (int i = 0; i < Config.stageCount; i++) {
+			instancedData[i] = getDataElement (mapdatapass, usecolomnnum);
+			Debug.LogFormat ("instancedData[i]は{0}", instancedData[i]);
+		}
+		return instancedData;
+	}
+	public clearconditiondata[] getCCDataElements () {
 		clearconditiondata[] instancedData = datachangerfromJag.parsejagtodobleClearconditiondatas (getJagDataElement (datapathmanager.getconditiondatapath ()));
 		return instancedData;
 	}
 
-	public dragitemdata[][] getitemDataElement () {
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
+	public dragitemdata[][] getitemDataElements () {
 		dragitemdata[][] instancedData = datachangerfromJag.parsejagtodobledragitemdatadatas (getJagDataElement (datapathmanager.getitemdatapath ()));;
 		return instancedData;
 	}
@@ -86,21 +86,18 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 	}
 
 	public void MapCsvSave (int[, ] writtendata) { //CSVSaveのジェネリック使用対応メソッド
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
 		Action<int[, ]> actaug = writeData;
-		CSVSave (datapathmanager.getmapdatapath (), writtendata, actaug);
+		CSVSave (datapathmanager.getmapdatasavepath (), writtendata, actaug);
 	}
 
 	public void itemCsvSave (dragitemdata[][] writtendata) { //CSVSaveのジェネリック使用対応メソッド
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
 		Action<dragitemdata[][]> actaug = writeData;
-		CSVSave (datapathmanager.getitemdatapath (), writtendata, actaug);
+		CSVSave (datapathmanager.getitemdatasavepath (), writtendata, actaug);
 	}
 
 	public void cleardataCsvSave (clearconditiondata[] writtendata) { //CSVSaveのジェネリック使用対応メソッド
-		DataPathManager datapathmanager = meditator.getdatapathmanager ();
 		Action<clearconditiondata[]> actaug = writeData;
-		CSVSave (datapathmanager.getconditiondatapath (), writtendata, actaug);
+		CSVSave (datapathmanager.getconditiondatasavepath (), writtendata, actaug);
 	}
 
 	private void writeData (int[, ] writtenData) { //オーバーライドメソッド

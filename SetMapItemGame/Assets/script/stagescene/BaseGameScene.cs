@@ -11,8 +11,10 @@ using UnityEngine.UI;
 public class BaseGameScene : MonoBehaviour {
 	[SerializeField]
 	protected Meditator meditator;
+	[SerializeField]
 	protected MakeManager makemanager;
 	protected CSVManager csvmanager;
+	[SerializeField]
 	protected MapDataManager mapdatamanager;
 	protected ItemmakeEditorCreater itemmakeeditorcreater;
 	protected ItemMakerCreater itemmakermanager;
@@ -24,66 +26,43 @@ public class BaseGameScene : MonoBehaviour {
 
 	[SerializeField]
 	GameObject debugCanvas;
+	[SerializeField]
+	LevelSelectCanvasManager levelselectViewMaker;
+
 	int usecolomn_of_mapdata = 3;
 
-	void Start () { //メディエイターからの参照の取得と、デバッグボタンクラスにメソッドの譲渡
-		csvmanager = meditator.getcsvmanager ();
-		mapdatamanager = meditator.getmapdatamanager ();
-
-	}
-
-	private void makeMapObjectANDupdateLeveldesignDataAndCansetData () {
-		int[, ] _leveldesigndata = csvmanager.getMapDataElement (); //生成するための現在ステージのマップデータを読み込み
-		makemanager = meditator.getmakemanager ();
-		makemanager.instanciateAllMapObject (_leveldesigndata); //オブジェクトの作成命令
-		makemanager.gameObject.GetComponent<distinationSetter> ().setditination ();
-		makemanager.gameObject.GetComponent<distinationSetter> ().setAidditination ();
-		mapdatamanager.updateCansetDatas (_leveldesigndata); //レベルデザインデータを元にアイテムを置けるかの判定用データを更新。
-	}
-
-	public void makeItemMaker (int stageNum) { //アイテムメイカークラスの作成
-
-		itemmakermanager = meditator.getitemmakermanager ();
-
-		dataholder.GetDragItemElements ();
+	public void startStageButton (int stageNum) { //実際にゲームをスタートするボタン、レベル選択画面のボタンもこれを呼び出す。（１）
 		dataholder.ChangeStagePathNum (stageNum);
-		itemmakermanager.makeItemMaker ();
+		makeObjectFromMapCsvButton ();
 	}
-
-	public void ChangeCSVNum (Dropdown dropdown) { //保存かつ読み込み元のcsvを変更するメソッド
-		dataholder.ChangeStagePathNum (dropdown.value);
-	}
-	public void makeMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
-	{
-		mapdatamanager.makeLevelDesignData ();
-		csvmanager.MapCsvSave (mapdatamanager.getLevelDesignData ());
-	}
-	public void makeObjectFromMapCsvButton () { //アイテムメイカーエディターがあれば削除し、クリア条件を設定する。
+	public void makeObjectFromMapCsvButton () { //デバッグ画面でのステージ開始処理。（２）
+		if (dataholder.isDatasNull () == true) {
+			Debug.LogAssertionFormat ("dataholder.isDatasNull() がnull　{0}", dataholder.isDatasNull ());
+			dataholder.getALLDatas ();
+			Debug.LogAssertionFormat ("dataholderのデータがなかったのでロードをしました。必要な場合は初期化も行っています");
+		}
 		if (itemmakeeditorcreater != null) {
 			itemmakeeditorcreater.deletebutton ();
 		}
-		makeItemMaker (dataholder.getStageNum ());
+		makeItemMaker (); //itemを作成するクラス（３）
 		ClearConditionManager clearmanager = meditator.getclearmanager ();
 		clearmanager.clearConditionSet ();
 		clearmanager.makeClearConditionDisplay ();
-
 		makegamestartcanvas ();
-
 	}
-	public void makegamestartcanvas () {
-		//プレハブコンテナから作成するキャンバスのプレハブの取得、
-		//その後スタート開始時のキャンバスの作成、
-		//その後クリアコンディションマネージャーにゲームオーバー時のキャンバスの登録
+	public void makeItemMaker () { //アイテムメイカークラスの作成（４）
+		itemmakermanager = meditator.getitemmakermanager ();
+		dataholder.GetDragItemElements ();
+		itemmakermanager.makeItemMaker ();
+	}
 
+	public void makegamestartcanvas () { //ゲームスタート時のキャンバスオブジェクトを作成するためのメソッド、ゲーム終了時のメソッド登録もこのタイミングで実行（5）
 		PrefabContainer prefabcontainar = meditator.getprefabcontainer (); //作成するキャンバスのプレハブを取得する
-
-		//ステージ開始時のキャンバス作成と、キャンバスタップ時の実行メソッドを渡している。
 		canvasMaker.showstartcanvas (dataholder.GetClearConditionElement (), startStagePlay);
-
 		ClearConditionManager clearmanager = meditator.getclearmanager (); //ゲームオーバー時にクリアコンディションマネージャーがキャンバスメイカーを使用するためセット
 		clearmanager.setcanvasMaker (canvasMaker);
 	}
-	public void startStagePlay () { //clearconditionmanagerに時間を減少させるコルーチンを実行させた後にメソッド実行。
+	public void startStagePlay () { //ゲームスタートしてからの時間経過処理を行わせるためのメソッド（ゲームスタートウインドウをタップ後に処理開始）。（6）
 		ClearConditionManager clearmanager = meditator.getclearmanager ();
 		StartCoroutine (clearmanager.timedecreasePerSecond ());
 		MapEditorUIManager mapeditorUImanager = meditator.getUImanager ();
@@ -93,10 +72,31 @@ public class BaseGameScene : MonoBehaviour {
 		makeMapObjectANDupdateLeveldesignDataAndCansetData ();
 		OffdebugCanvas ();
 	}
-
+	private void makeMapObjectANDupdateLeveldesignDataAndCansetData () { //フィールド上のオブジェクトを生成するメソッド。（7）
+		int[, ] _leveldesigndata = dataholder.GetfieldMapElement (); //生成するための現在ステージのマップデータを読み込み
+		makemanager.instanciateAllMapObject (_leveldesigndata); //オブジェクトの作成命令
+		makemanager.gameObject.GetComponent<distinationSetter> ().setditination ();
+		makemanager.gameObject.GetComponent<distinationSetter> ().setAidditination ();
+		mapdatamanager.updateCansetDatas (_leveldesigndata); //レベルデザインデータを元にアイテムを置けるかの判定用データを更新。
+	}
 	public void OffdebugCanvas () {
 		debugCanvas.SetActive (false);
+	}
 
+	public void makeMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
+	{
+		mapdatamanager.makeLevelDesignData ();
+		csvmanager.MapCsvSave (mapdatamanager.getLevelDesignData ());
+	}
+
+	public void ChangeCSVNum (Dropdown dropdown) { //保存かつ読み込み元のcsvを変更するメソッド
+		dataholder.ChangeStagePathNum (dropdown.value);
+	}
+	public void makelevelselectButtons () { //レベル選択画面を作るメソッド
+		if (levelselectViewMaker != null) {
+			levelselectViewMaker.instanceButtonPrefab (startStageButton);
+
+		}
 	}
 
 }
