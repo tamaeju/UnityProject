@@ -27,7 +27,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		return m_clearConditionDatas;
 	}
 	public dragitemdata[][] GetDragItemElements () { //自身の所有するクリア条件データを取得する
-		if (m_dragitemDatas == null) { Debug.LogWarning ("i_dragitemData is null"); }
+		if (m_dragitemDatas == null) { Debug.LogWarning ("m_dragitemDatas is null"); }
 		return m_dragitemDatas;
 	}
 	public int[][, ] GetfieldMapElements () { //自身の所有するクリア条件データを取得する
@@ -39,7 +39,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		return m_clearConditionDatas[m_stageNum];
 	}
 	public dragitemdata[] GetDragItemElement () { //自身の所有するクリア条件データを取得する
-		if (m_dragitemDatas == null) { Debug.LogWarning ("i_dragitemData is null"); }
+		if (m_dragitemDatas == null) { Debug.LogWarning ("m_dragitemDatas is null"); }
 		return m_dragitemDatas[m_stageNum];
 	}
 	public int[, ] GetfieldMapElement () { //自身の所有するクリア条件データを取得する
@@ -80,6 +80,7 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		data = newstragedata;
 
 		m_fieldMapDatas = newstragedata.Convert1and2DimentionAllayElement (newstragedata.i_allfieldmapdatas);
+		m_dragitemDatas = newstragedata.i_dragitemData;
 		m_clearConditionDatas = newstragedata.i_clearConditionData;
 		m_isStageCleared = newstragedata.i_isStageCleared;
 		m_MinClearMoveCount = newstragedata.i_MinClearMoveCount;
@@ -95,25 +96,29 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 		datapathmanager.ChangeMapCSVNum (stageNum);
 		m_stageNum = stageNum;
 	}
+	public int getM_stage () { //ステージ番号を変更するメソッド。
+		return m_stageNum;
+	}
 
 	public void initializaClearStatusDataofStrage () {
 		m_isStageCleared = new bool[Config.stageCount];
 		m_MinClearMoveCount = new int[Config.stageCount];
 	}
-	private void getAllCsvDatatoStrage () {
+	public void getAllCsvDatatoStrage () {
 		LoadfromCsvClearConditionElements ();
 		LoadfromCsvDragItemElements ();
 		LoadAllMapDatasfromCSV ();
 	}
-	public void getALLDatas () {
+	public void getALLDatas () { //データが存在すればロード、データが存在しなければcsvからデータをロード
 		if (isExitSavedData ()) {
 			LoadData ();
+			Debug.Log ("データが存在するのでeasysaveからデータをロードしました");
 		} else {
 			initializaClearStatusDataofStrage ();
 			getAllCsvDatatoStrage ();
 			StorageSaveEasySave ();
+			Debug.Log ("データが存在しなかったのでリソースのcsvからデータをロードしeasysaveへデータをセーブしました");
 		}
-
 	}
 
 	public bool isDatasNull () {
@@ -142,6 +147,11 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	public bool isExitSavedData () { //savedataが存在しているか否かをチェックする
 		Debug.LogWarningFormat ("SaveGame.Existsは{0}", SaveGame.Exists ("datastrage"));
 		return SaveGame.Exists ("datastrage");
+	}
+
+	public void makeNewEasySave () {
+		getAllCsvDatatoStrage ();
+		StorageSaveEasySave ();
 	}
 
 	public bool isStageClear () {
@@ -181,4 +191,5 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 			}
 		}
 	}
+
 }

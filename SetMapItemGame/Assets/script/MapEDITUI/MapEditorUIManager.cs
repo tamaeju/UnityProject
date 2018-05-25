@@ -40,25 +40,19 @@ public class MapEditorUIManager : MonoBehaviour { //マップに何を配置す�
 	public GameObject[] getUIobjects () {
 		return MapEditorButtons;
 	}
-	public void loadMapCSV () { //指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
+	public void ChangeMapEditCSV () { //指定のcsvからデータを読み込み、UIオブジェクトのstateを変える。
 		DataStorage dataholder = meditator.getdataholder ();
 		GameObject[] UIobjects = getUIobjects ();
-		int usecolomn = Config.usecolomn_of_mapdata;
-
+		Debug.LogFormat ("dataholder.getM_stage()は{0}です", dataholder.getM_stage ());
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
 				int objectkind = dataholder.GetfieldMapElement () [i, j];
+				Debug.LogFormat ("i,j,は{0}{1}、そしてそのときのobjectkindは{2}です", i,j,objectkind);
 				UIobjects[j * 10 + i].GetComponent<MapEditorbutton> ().changeState (objectkind);
 			}
 		}
 	}
-	public GameObject MakeGetUIobject (GameObject instanceprefab, Vector2 objectpos) { //UI上にオブジェクトを生成し、vector2の位置にオブジェクトを生成する処理
-		PrefabContainer objectcontainer = meditator.getprefabcontainer ();
-		Transform canvastrans = objectcontainer.getcanvasposition ().transform;
-		GameObject getobject = Instantiate (instanceprefab, this.transform.position, Quaternion.identity, canvastrans) as GameObject;
-		getobject.transform.position = new Vector3 (canvastrans.position.x + objectpos.x, canvastrans.position.y + objectpos.y, this.transform.position.z);
-		return getobject;
-	}
+
 	public void deleteEditorUIbuttons () {
 		foreach (var item in MapEditorButtons)
 			Destroy (item);

@@ -13,6 +13,7 @@ public class BaseGameScene : MonoBehaviour {
 	protected Meditator meditator;
 	[SerializeField]
 	protected MakeManager makemanager;
+	[SerializeField]
 	protected CSVManager csvmanager;
 	[SerializeField]
 	protected MapDataManager mapdatamanager;
@@ -27,19 +28,24 @@ public class BaseGameScene : MonoBehaviour {
 	[SerializeField]
 	GameObject debugCanvas;
 	[SerializeField]
-	LevelSelectCanvasManager levelselectViewMaker;
+	LevelSelectCanvasManager levelselectcanvasmanager;
+	[SerializeField]
+	MapEditorUIManager EditUImanager;
 
 	int usecolomn_of_mapdata = 3;
 
 	public void startStageButton (int stageNum) { //実際にゲームをスタートするボタン、レベル選択画面のボタンもこれを呼び出す。（１）
 		dataholder.ChangeStagePathNum (stageNum);
+		Debug.LogFormat ("stage{0}スタート！", stageNum);
+		levelselectcanvasmanager.DisplayOffLevelSelectCanvas ();
 		makeObjectFromMapCsvButton ();
 	}
 	public void makeObjectFromMapCsvButton () { //デバッグ画面でのステージ開始処理。（２）
 		if (dataholder.isDatasNull () == true) {
-			Debug.LogAssertionFormat ("dataholder.isDatasNull() がnull　{0}", dataholder.isDatasNull ());
+			Debug.LogAssertionFormat ("dataholder.isDatasNull ()は{0}", dataholder.isDatasNull ());
 			dataholder.getALLDatas ();
-			Debug.LogAssertionFormat ("dataholderのデータがなかったのでロードをしました。必要な場合は初期化も行っています");
+			Debug.LogAssertionFormat ("dataholder.isDatasNull ()は{0}", dataholder.isDatasNull ());
+			Debug.LogAssertionFormat ("dataholderのデータがなかったのでロードをしました");
 		}
 		if (itemmakeeditorcreater != null) {
 			itemmakeeditorcreater.deletebutton ();
@@ -79,9 +85,6 @@ public class BaseGameScene : MonoBehaviour {
 		makemanager.gameObject.GetComponent<distinationSetter> ().setAidditination ();
 		mapdatamanager.updateCansetDatas (_leveldesigndata); //レベルデザインデータを元にアイテムを置けるかの判定用データを更新。
 	}
-	public void OffdebugCanvas () {
-		debugCanvas.SetActive (false);
-	}
 
 	public void makeMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
 	{
@@ -93,10 +96,26 @@ public class BaseGameScene : MonoBehaviour {
 		dataholder.ChangeStagePathNum (dropdown.value);
 	}
 	public void makelevelselectButtons () { //レベル選択画面を作るメソッド
-		if (levelselectViewMaker != null) {
-			levelselectViewMaker.instanceButtonPrefab (startStageButton);
-
+		if (levelselectcanvasmanager != null) {
+			levelselectcanvasmanager.instanceButtonPrefab (startStageButton);
+		} else {
+			Debug.Log ("levelselectcanvasmanager==null");
 		}
+	}
+	public void makeNewEasySave () { //csvからデータをとってきて、それをeasysaveに上書きするメソッド
+		dataholder.makeNewEasySave ();
+	}
+
+	public void OffdebugCanvas () {
+		debugCanvas.SetActive (false);
+	}
+	void Start () {
+		makelevelselectButtons ();
+	}
+	//必要な機能loadcsvデータをとってきて、UIに切り替える処理EditUImanager.loadMapCSV();
+	//
+	public void loadMapCSV () {
+		EditUImanager.ChangeMapEditCSV ();
 	}
 
 }

@@ -29,7 +29,6 @@ public class SelectsceneButton : MonoBehaviour { //レベル選択画面のボ�
 
 	private void Start () {
 		btn.onClick.AddListener (() => { changeScale (subject.OnNext); });
-		//btn.onClick.AddListener(() => { subject.OnNext(myStageCount); });
 
 	}
 
@@ -52,10 +51,12 @@ public class SelectsceneButton : MonoBehaviour { //レベル選択画面のボ�
 		m_Unplayblelaconprefab.SetActive (true);
 	}
 	private void changeScale (Action<int> act) {
-		RectTransform recttrans = GetComponent<RectTransform> ();
-		Sequence sequence = DOTween.Sequence ().OnStart (() => {
-			recttrans.DOScale (new Vector3 (0.9f, 0.9f, 0.9f), 0.1f);
-		}).Append (recttrans.DOScale (new Vector3 (1f, 1f, 1f), 0.2f)).OnComplete (() => act (myStageCount));
+		Debug.Log ("changescaleを呼び出します。");
+		act (myStageCount);
+		// RectTransform recttrans = GetComponent<RectTransform> ();
+		// Sequence sequence = DOTween.Sequence ().OnStart (() => {
+		// 	recttrans.DOScale (new Vector3 (0.9f, 0.9f, 0.9f), 0.1f);
+		// }).Append (recttrans.DOScale (new Vector3 (1f, 1f, 1f), 0.2f)).OnComplete (() => act (myStageCount));
 	}
 
 }

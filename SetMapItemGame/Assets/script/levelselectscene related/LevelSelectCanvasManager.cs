@@ -11,12 +11,12 @@ public class LevelSelectCanvasManager : MonoBehaviour { //レベルセレクト�
 	GameObject[] objectSetPoint;
 	[SerializeField]
 	GameObject buttonprefab;
+	[SerializeField]
+	GameObject levelselectcanvas;
 	SelectsceneButton[] setbutton;
 
 	//ボタンをプレハブ
-	public void Start () {
-		instanceButtonPrefab ();
-	}
+
 	public void instanceButtonPrefab (Action<int> buttonmethod = null) { //ボタンを作成し、ゲームシーンクラスから受け取ったメソッドを渡している。
 		setbutton = new SelectsceneButton[objectSetPoint.Length + 1]; //stageとsetbuttonの0番目のインデックスを使用しないため、objectSetPoint.Length+1個生成する
 		for (int i = 1; i < setbutton.Length; i++) { //setbuttonとステージ数を一致させるために1からスタート
@@ -49,6 +49,9 @@ public class LevelSelectCanvasManager : MonoBehaviour { //レベルセレクト�
 		Debug.Log (stageNum);
 		setbutton[stageNum].ActiveUnplaybleIcon ();
 		setbutton[stageNum].RemoveButtonEvent ();
+	}
+	public void DisplayOffLevelSelectCanvas () {
+		levelselectcanvas.SetActive(false);
 	}
 
 	// public void setUnplaybleIcons(DataStorage dataholder) {

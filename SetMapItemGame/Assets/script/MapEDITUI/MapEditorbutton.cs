@@ -25,7 +25,7 @@ public class MapEditorbutton : MonoBehaviour { //レベルデザインデータ�
 	}
 	public void changeState (int astateNum) {
 		if (stateNum < Enum.GetNames (typeof (blockkind)).Length) {
-			stateNum = astateNum++;
+			stateNum = astateNum;
 			changemychar ();
 		} else { stateNum = 0; }
 		changemychar ();
