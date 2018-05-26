@@ -44,8 +44,9 @@ public class BaseGameScene : MonoBehaviour {
 		if (dataholder.isDatasNull () == true) {
 			Debug.LogAssertionFormat ("dataholder.isDatasNull ()は{0}", dataholder.isDatasNull ());
 			dataholder.getALLDatas ();
+			Debug.LogAssertionFormat ("dataholder内のデータがなかったのでロードをしました");
 			Debug.LogAssertionFormat ("dataholder.isDatasNull ()は{0}", dataholder.isDatasNull ());
-			Debug.LogAssertionFormat ("dataholderのデータがなかったのでロードをしました");
+
 		}
 		if (itemmakeeditorcreater != null) {
 			itemmakeeditorcreater.deletebutton ();
@@ -86,12 +87,6 @@ public class BaseGameScene : MonoBehaviour {
 		mapdatamanager.updateCansetDatas (_leveldesigndata); //レベルデザインデータを元にアイテムを置けるかの判定用データを更新。
 	}
 
-	public void makeMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
-	{
-		mapdatamanager.makeLevelDesignData ();
-		csvmanager.MapCsvSave (mapdatamanager.getLevelDesignData ());
-	}
-
 	public void ChangeCSVNum (Dropdown dropdown) { //保存かつ読み込み元のcsvを変更するメソッド
 		dataholder.ChangeStagePathNum (dropdown.value);
 	}
@@ -114,6 +109,12 @@ public class BaseGameScene : MonoBehaviour {
 	}
 	//必要な機能loadcsvデータをとってきて、UIに切り替える処理EditUImanager.loadMapCSV();
 	//
+	public void saveMapCsv () //UImanagerのデータを取得し、レベルデザインデータへ反映した後、csvmanagerにセーブ要求
+	{
+		mapdatamanager.makeLevelDesignData ();
+		csvmanager.MapCsvSave (mapdatamanager.getLevelDesignData ());
+		dataholder.UpdataStageData (mapdatamanager.getLevelDesignData ());
+	}
 	public void loadMapCSV () {
 		EditUImanager.ChangeMapEditCSV ();
 	}

@@ -23,27 +23,27 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 	InnerData data;
 
 	public clearconditiondata[] GetClearConditionElements () { //自身の所有するクリア条件データを取得する
-		if (m_clearConditionDatas == null) { Debug.LogWarning ("m_clearConditionDatas is null"); }
+		if (m_clearConditionDatas == null) { Debug.LogErrorFormat ("m_clearConditionDatas is null"); }
 		return m_clearConditionDatas;
 	}
 	public dragitemdata[][] GetDragItemElements () { //自身の所有するクリア条件データを取得する
-		if (m_dragitemDatas == null) { Debug.LogWarning ("m_dragitemDatas is null"); }
+		if (m_dragitemDatas == null) { Debug.LogErrorFormat ("m_dragitemDatas is null"); }
 		return m_dragitemDatas;
 	}
 	public int[][, ] GetfieldMapElements () { //自身の所有するクリア条件データを取得する
-		if (m_fieldMapDatas == null) { Debug.LogWarning ("m_fieldMapDatas is null"); }
+		if (m_fieldMapDatas == null) { Debug.LogErrorFormat ("m_fieldMapDatas is null"); }
 		return m_fieldMapDatas;
 	}
 	public clearconditiondata GetClearConditionElement () { //自身の所有するクリア条件データを取得する
-		if (m_clearConditionDatas == null) { Debug.LogWarning ("m_clearConditionDatas is null"); }
+		if (m_clearConditionDatas == null) { Debug.LogErrorFormat ("m_clearConditionData is nullです。初期化もしくはロードをしてください"); }
 		return m_clearConditionDatas[m_stageNum];
 	}
 	public dragitemdata[] GetDragItemElement () { //自身の所有するクリア条件データを取得する
-		if (m_dragitemDatas == null) { Debug.LogWarning ("m_dragitemDatas is null"); }
+		if (m_dragitemDatas == null) { Debug.LogErrorFormat ("m_dragitemData is nullです。初期化もしくはロードをしてください"); }
 		return m_dragitemDatas[m_stageNum];
 	}
 	public int[, ] GetfieldMapElement () { //自身の所有するクリア条件データを取得する
-		if (m_fieldMapDatas == null) { Debug.LogWarning ("m_fieldMapDatas is null"); }
+		if (m_fieldMapDatas == null) { Debug.LogErrorFormat ("m_fieldMapData is nullです。初期化もしくはロードをしてください"); }
 		return m_fieldMapDatas[m_stageNum];
 	}
 	public void UpdateDragitemData (int UIbuttonNum, int itemkind, int leftcount) { //dragitem更新用処理
@@ -141,7 +141,15 @@ public class DataStorage : MonoBehaviour { //最終的にこのクラスがス�
 			ChangeStagePathNum (i);
 			csvmanager.MapCsvSave (GetfieldMapElement ());
 		}
-		csvmanager.itemCsvSave (GetDragItemElements ());
+		//csvmanager.itemCsvSave (GetDragItemElements ());
+	}
+
+	public void DebugSave100MapDatatoCSV () { //現在のステージのデータを100マップ分複製する。
+		int debugstage_num = m_stageNum;
+		for (int i = 0; i < Config.stageCount; i++) {
+			ChangeStagePathNum (i);
+			csvmanager.MapCsvSave (m_fieldMapDatas[debugstage_num]);
+		}
 	}
 
 	public bool isExitSavedData () { //savedataが存在しているか否かをチェックする

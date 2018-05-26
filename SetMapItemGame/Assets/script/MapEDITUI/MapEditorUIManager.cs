@@ -25,7 +25,7 @@ public class MapEditorUIManager : MonoBehaviour { //マップに何を配置す�
 	}
 
 	Vector3 setUIPos (int x, int y, int z) {
-		Vector3 returnPos = new Vector3 ((x + 12f) * 28, (y + 4f) * 28, z);
+		Vector3 returnPos = new Vector3 ((x - 5f) * 28, (y - 4f) * 28, z);
 		return returnPos;
 	}
 
@@ -33,7 +33,7 @@ public class MapEditorUIManager : MonoBehaviour { //マップに何を配置す�
 		var parent = MapEditoruiButtonpos.transform;
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
-				MapEditorButtons[j * Config.maxGridNum + i] = Instantiate (_levelbutton, setUIPos (i, j, 0), Quaternion.identity, parent) as GameObject;
+				MapEditorButtons[j * Config.maxGridNum + i] = Instantiate (_levelbutton, parent.position + setUIPos (i, j, 0), Quaternion.identity, parent) as GameObject;
 			}
 		}
 	}
@@ -47,7 +47,7 @@ public class MapEditorUIManager : MonoBehaviour { //マップに何を配置す�
 		for (int j = 0; j < Config.maxGridNum; ++j) {
 			for (int i = 0; i < Config.maxGridNum; ++i) {
 				int objectkind = dataholder.GetfieldMapElement () [i, j];
-				Debug.LogFormat ("i,j,は{0}{1}、そしてそのときのobjectkindは{2}です", i,j,objectkind);
+				Debug.LogFormat ("i,j,は{0}{1}、そしてそのときのobjectkindは{2}です", i, j, objectkind);
 				UIobjects[j * 10 + i].GetComponent<MapEditorbutton> ().changeState (objectkind);
 			}
 		}

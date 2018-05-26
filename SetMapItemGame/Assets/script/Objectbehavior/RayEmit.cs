@@ -38,6 +38,6 @@ public class RayEmit{//
 			else { Debug.Log("null"); return null;  }
 			
 		}
-		else { Debug.Log("null"); return null; }
+		else { Debug.Log("raycasttarget is null"); return null; }
 	}
 }

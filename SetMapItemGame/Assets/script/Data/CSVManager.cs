@@ -50,7 +50,8 @@ public class CSVManager : MonoBehaviour { //CSVデータの読み込みと書き
 		for (int i = 0; i < Config.stageCount; i++) {
 			datapathmanager.ChangeMapCSVNum (i);
 			string mapdatapass = datapathmanager.getmapdatapath ();
-			instancedData[i] = getDataElement (mapdatapass, usecolomnnum);
+
+			instancedData[i] = getDataElement (mapdatapass, usecolomnnum); 
 			Debug.LogFormat ("instancedData[i]は{0}", instancedData[i]);
 		}
 		return instancedData;

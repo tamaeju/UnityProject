@@ -12,10 +12,6 @@ public class ItemmakeEditorCreater : MonoBehaviour { //Itemmakerをエディッ�
 	[SerializeField]
 	private GameObject[] Itemmaker;
 
-	public GameObject ItemmakeEdiorcanvaspos;
-	[SerializeField]
-	Meditator meditator;
-
 	[SerializeField]
 	GameObject UIButtonPrefab;
 	int buttonNum = 3;
@@ -23,20 +19,18 @@ public class ItemmakeEditorCreater : MonoBehaviour { //Itemmakerをエディッ�
 	int yposition = 131;
 	[SerializeField]
 	DataStorage dataholder;
+	[SerializeField]
+	CSVManager csvmanager;
+
+	[SerializeField]
+	GameObject[] instancePOSes;
 
 	void Start () { //ItemmakerEditorの生成と、何番目のitemmakerEditorかという指定と、自身への参照を渡している。
-		var parent = ItemmakeEdiorcanvaspos.transform;
-		Vector3 instancepos = new Vector3 ();
-		instancepos = ItemmakeEdiorcanvaspos.transform.position;
-		instancepos.x = instancepos.x + xposition;
-		instancepos.y = instancepos.y + yposition;
-		Itemmaker = new GameObject[buttonNum];
 
-		Itemmaker[0] = Instantiate (UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
-		instancepos.y = instancepos.y - 120;
-		Itemmaker[1] = Instantiate (UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
-		instancepos.y = instancepos.y - 120;
-		Itemmaker[2] = Instantiate (UIButtonPrefab, instancepos, Quaternion.identity, parent) as GameObject;
+		Itemmaker = new GameObject[buttonNum];
+		Itemmaker[0] = Instantiate (UIButtonPrefab, instancePOSes[0].transform.position, Quaternion.identity, instancePOSes[0].transform) as GameObject;
+		Itemmaker[1] = Instantiate (UIButtonPrefab, instancePOSes[1].transform.position, Quaternion.identity, instancePOSes[1].transform) as GameObject;
+		Itemmaker[2] = Instantiate (UIButtonPrefab, instancePOSes[2].transform.position, Quaternion.identity, instancePOSes[2].transform) as GameObject;
 
 		setUIdragbuttonNum ();
 		setmyreference ();
@@ -44,7 +38,7 @@ public class ItemmakeEditorCreater : MonoBehaviour { //Itemmakerをエディッ�
 	}
 
 	public　 void onclickSaveButton (ItemMakeEditor dragbutton) { //saveボタンクリックで、アイテムデータマネージャーの値の更新と、引数に応じたeditorの値をcsvにセーブ
-		CSVManager csvmanager = meditator.getcsvmanager ();
+
 		dataholder.GetDragItemElements ();
 		dataholder.UpdateDragitemData (dragbutton.getUIbuttonNum (), dragbutton.getObjectKind (), dragbutton.getLeftCount ());
 		csvmanager.itemCsvSave (dataholder.GetDragItemElements ());
